@@ -1,0 +1,870 @@
+/* ========================================
+   BrahmTatva – Digital Mandir
+   Divine Temple-like UI Design
+   ======================================== */
+
+/* Root Variables */
+:root {
+    --primary-saffron: #FF9933;
+    --primary-white: #FFFFFF;
+    --primary-gold: #FFD700;
+    --light-gold: #FFF8DC;
+    --soft-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --deep-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s ease;
+    --font-sanskrit: 'Georgia', 'Garamond', serif;
+    --font-hindi: 'Noto Sans Devanagari', 'Arial', sans-serif;
+}
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-hindi);
+    background: linear-gradient(135deg, #FFF8DC 0%, #FFFACD 50%, #FFF8DC 100%);
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* ========================================
+   Navigation Bar
+   ======================================== */
+.navbar {
+    background: linear-gradient(135deg, #FF9933 0%, #FFB347 100%);
+    box-shadow: var(--soft-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 3px solid var(--primary-gold);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-white);
+    text-decoration: none;
+}
+
+.om-symbol {
+    font-size: 2rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.logo-text {
+    font-family: var(--font-sanskrit);
+    letter-spacing: 2px;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--primary-white);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: var(--transition);
+    font-family: var(--font-hindi);
+    font-size: 0.95rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--primary-white);
+    margin: 5px 0;
+    border-radius: 3px;
+    transition: var(--transition);
+}
+
+/* ========================================
+   Mantra Background Animation
+   ======================================== */
+.mantra-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.mantra-text {
+    position: absolute;
+    font-family: var(--font-sanskrit);
+    font-size: 3rem;
+    color: rgba(255, 153, 51, 0.05);
+    white-space: nowrap;
+    animation: drift 20s linear infinite;
+}
+
+.mantra-text:nth-child(1) {
+    top: 10%;
+    left: -50%;
+    animation-delay: 0s;
+}
+
+.mantra-text:nth-child(2) {
+    top: 30%;
+    right: -50%;
+    animation-delay: 5s;
+}
+
+.mantra-text:nth-child(3) {
+    top: 50%;
+    left: -50%;
+    animation-delay: 10s;
+}
+
+.mantra-text:nth-child(4) {
+    top: 70%;
+    right: -50%;
+    animation-delay: 15s;
+}
+
+@keyframes drift {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100vw);
+    }
+}
+
+/* ========================================
+   Hero Section
+   ======================================== */
+.hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, rgba(255, 153, 51, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
+    border-radius: 15px;
+    margin: 2rem auto;
+    max-width: 900px;
+    box-shadow: var(--soft-shadow);
+    position: relative;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-family: var(--font-sanskrit);
+    font-size: 3.5rem;
+    color: var(--primary-saffron);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeInDown 0.8s ease;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: #666;
+    margin-bottom: 1rem;
+    font-family: var(--font-hindi);
+    animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.lotus-decoration {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px;
+    height: 150px;
+    opacity: 0.3;
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to { transform: translateY(-50%) rotate(360deg); }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   Container & Main Content
+   ======================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ========================================
+   About Intro Section
+   ======================================== */
+.about-intro {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 250, 220, 0.9) 100%);
+    padding: 3rem 2rem;
+    border-radius: 15px;
+    margin-bottom: 3rem;
+    box-shadow: var(--soft-shadow);
+    border-left: 5px solid var(--primary-saffron);
+}
+
+.about-intro h2 {
+    font-family: var(--font-sanskrit);
+    font-size: 2rem;
+    color: var(--primary-saffron);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.about-intro p {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.9;
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+/* ========================================
+   Cards Grid
+   ======================================== */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 220, 0.95) 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--soft-shadow);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    border-top: 3px solid var(--primary-saffron);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--deep-shadow);
+    border-color: var(--primary-gold);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.card:nth-child(2) .card-icon {
+    animation-delay: 0.2s;
+}
+
+.card:nth-child(3) .card-icon {
+    animation-delay: 0.4s;
+}
+
+.card:nth-child(4) .card-icon {
+    animation-delay: 0.6s;
+}
+
+.card:nth-child(5) .card-icon {
+    animation-delay: 0.8s;
+}
+
+.card:nth-child(6) .card-icon {
+    animation-delay: 1s;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.card h3 {
+    font-family: var(--font-hindi);
+    font-size: 1.3rem;
+    color: var(--primary-saffron);
+    margin-bottom: 0.5rem;
+}
+
+.card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ========================================
+   Page Sections
+   ======================================== */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+    border-bottom: 3px solid var(--primary-saffron);
+}
+
+.page-header h1 {
+    font-family: var(--font-sanskrit);
+    font-size: 2.5rem;
+    color: var(--primary-saffron);
+    margin-bottom: 0.5rem;
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* ========================================
+   Panchang Section
+   ======================================== */
+.panchang-container {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 220, 0.95) 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--soft-shadow);
+    margin-bottom: 2rem;
+}
+
+.panchang-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.panchang-item {
+    background: linear-gradient(135deg, var(--light-gold) 0%, var(--primary-white) 100%);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-saffron);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.panchang-item h3 {
+    font-family: var(--font-hindi);
+    color: var(--primary-saffron);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.panchang-item p {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+}
+
+/* ========================================
+   Pooja Vidhi Section
+   ======================================== */
+.pooja-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.pooja-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 220, 0.95) 100%);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--soft-shadow);
+    cursor: pointer;
+    transition: var(--transition);
+    border-top: 4px solid var(--primary-saffron);
+}
+
+.pooja-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--deep-shadow);
+}
+
+.pooja-card-header {
+    background: linear-gradient(135deg, var(--primary-saffron) 0%, #FFB347 100%);
+    color: var(--primary-white);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.pooja-card-header h3 {
+    font-family: var(--font-hindi);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.pooja-card-body {
+    padding: 1.5rem;
+}
+
+.pooja-card-body p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.btn-read {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-saffron) 0%, #FFB347 100%);
+    color: var(--primary-white);
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.btn-read:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 153, 51, 0.3);
+}
+
+/* ========================================
+   Mantra Section
+   ======================================== */
+.mantra-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mantra-tab {
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid var(--primary-saffron);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font-hindi);
+    font-weight: 500;
+    color: var(--primary-saffron);
+}
+
+.mantra-tab:hover,
+.mantra-tab.active {
+    background: linear-gradient(135deg, var(--primary-saffron) 0%, #FFB347 100%);
+    color: var(--primary-white);
+    transform: scale(1.05);
+}
+
+.mantra-list {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.mantra-item {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 220, 0.95) 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--soft-shadow);
+    border-left: 4px solid var(--primary-gold);
+    transition: var(--transition);
+}
+
+.mantra-item:hover {
+    box-shadow: var(--deep-shadow);
+    transform: translateX(5px);
+}
+
+.mantra-sanskrit {
+    font-family: var(--font-sanskrit);
+    font-size: 1.5rem;
+    color: var(--primary-saffron);
+    margin-bottom: 1rem;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+.mantra-hindi {
+    font-family: var(--font-hindi);
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+}
+
+.mantra-meaning {
+    font-size: 0.95rem;
+    color: #666;
+    font-style: italic;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 153, 51, 0.2);
+}
+
+/* ========================================
+   Aarti Section
+   ======================================== */
+.aarti-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.aarti-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 220, 0.95) 100%);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--soft-shadow);
+    border-top: 4px solid var(--primary-saffron);
+    transition: var(--transition);
+}
+
+.aarti-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--deep-shadow);
+}
+
+.aarti-header {
+    background: linear-gradient(135deg, var(--primary-saffron) 0%, #FFB347 100%);
+    color: var(--primary-white);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.aarti-header h3 {
+    font-family: var(--font-hindi);
+    font-size: 1.3rem;
+}
+
+.aarti-content {
+    padding: 1.5rem;
+}
+
+.aarti-lyrics {
+    font-family: var(--font-hindi);
+    font-size: 1rem;
+    color: #555;
+    line-height: 2;
+    margin-bottom: 1rem;
+}
+
+/* ========================================
+   Granth (PDF Library) Section
+   ======================================== */
+.granth-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.granth-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 220, 0.95) 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--soft-shadow);
+    border-top: 4px solid var(--primary-saffron);
+    transition: var(--transition);
+}
+
+.granth-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--deep-shadow);
+}
+
+.granth-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.granth-card h3 {
+    font-family: var(--font-hindi);
+    font-size: 1.2rem;
+    color: var(--primary-saffron);
+    margin-bottom: 0.5rem;
+}
+
+.granth-card p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-view {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-saffron) 0%, #FFB347 100%);
+    color: var(--primary-white);
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    margin-right: 0.5rem;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-view:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 153, 51, 0.3);
+}
+
+.btn-download {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-gold) 0%, #FFD700 100%);
+    color: #333;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-download:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+/* ========================================
+   PDF Viewer Modal
+   ======================================== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: var(--primary-white);
+    margin: 2% auto;
+    padding: 0;
+    width: 95%;
+    max-width: 900px;
+    border-radius: 15px;
+    box-shadow: var(--deep-shadow);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--primary-saffron) 0%, #FFB347 100%);
+    color: var(--primary-white);
+    padding: 1.5rem;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-family: var(--font-hindi);
+}
+
+.close {
+    color: var(--primary-white);
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close:hover {
+    transform: scale(1.2);
+}
+
+.modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.pdf-viewer {
+    width: 100%;
+    height: 500px;
+    border: 2px solid var(--primary-saffron);
+    border-radius: 10px;
+}
+
+/* ========================================
+   About Page
+   ======================================== */
+.about-content {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 220, 0.95) 100%);
+    padding: 3rem 2rem;
+    border-radius: 15px;
+    box-shadow: var(--soft-shadow);
+    margin-bottom: 2rem;
+}
+
+.about-content h2 {
+    font-family: var(--font-sanskrit);
+    font-size: 1.8rem;
+    color: var(--primary-saffron);
+    margin-bottom: 1.5rem;
+    border-bottom: 3px solid var(--primary-gold);
+    padding-bottom: 1rem;
+}
+
+.about-content p {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+.about-content ul {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.about-content li {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+    line-height: 1.8;
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+.footer {
+    background: linear-gradient(135deg, #FF9933 0%, #FFB347 100%);
+    color: var(--primary-white);
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+    border-top: 3px solid var(--primary-gold);
+}
+
+.footer p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.footer-mantra {
+    font-family: var(--font-sanskrit);
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+/* ========================================
+   Utility Classes
+   ======================================== */
+.hidden {
+    display: none !important;
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.1rem;
+    color: var(--primary-saffron);
+}
+
+.error {
+    background: #FFE4E1;
+    color: #C41E3A;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    border-left: 4px solid #C41E3A;
+}
+
+.success {
+    background: #E8F5E9;
+    color: #2E7D32;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    border-left: 4px solid #2E7D32;
+}

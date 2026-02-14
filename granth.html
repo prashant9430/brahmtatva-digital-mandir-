@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ग्रंथ पुस्तकालय - पवित्र ग्रंथों का डिजिटल संग्रह">
+    <title>ग्रंथ पुस्तकालय | BrahmTatva – Digital Mandir</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90' fill='%23FF9933'>ॐ</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="om-symbol">ॐ</span>
+                <span class="logo-text">BrahmTatva</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">गृह</a>
+                <a href="panchang.html" class="nav-link">पंचांग</a>
+                <a href="pooja.html" class="nav-link">पूजा विधि</a>
+                <a href="mantra.html" class="nav-link">मंत्र संग्रह</a>
+                <a href="aarti.html" class="nav-link">आरती</a>
+                <a href="granth.html" class="nav-link active">ग्रंथ</a>
+                <a href="about.html" class="nav-link">परिचय</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mantra Background Animation -->
+    <div class="mantra-bg">
+        <div class="mantra-text">ॐ नमः शिवाय</div>
+        <div class="mantra-text">ॐ नमो भगवते वासुदेवाय</div>
+        <div class="mantra-text">ॐ ऐं ह्रीं श्रीं</div>
+        <div class="mantra-text">ॐ गं गणपतये नमः</div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>📖 ग्रंथ पुस्तकालय</h1>
+            <p>पवित्र ग्रंथों का डिजिटल संग्रह</p>
+        </div>
+
+        <!-- Granth Cards -->
+        <div class="granth-grid" id="granthGrid">
+            <div class="loading">ग्रंथ लोड हो रहे हैं...</div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="about-intro" style="margin-top: 3rem;">
+            <h2>पवित्र ग्रंथों का महत्व</h2>
+            <p>
+                सनातन धर्म के पवित्र ग्रंथ हमारे आध्यात्मिक ज्ञान के स्रोत हैं। 
+                ये ग्रंथ हजारों वर्षों से हमारी संस्कृति और परंपरा को संरक्षित रखते हैं।
+            </p>
+            <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                <li><strong>वेद:</strong> सनातन धर्म के सबसे प्राचीन और पवित्र ग्रंथ</li>
+                <li><strong>उपनिषद:</strong> वेदों का दार्शनिक भाग, आत्मज्ञान का स्रोत</li>
+                <li><strong>महाभारत:</strong> विश्व का सबसे बड़ा महाकाव्य, धर्म और न्याय की शिक्षा</li>
+                <li><strong>रामायण:</strong> भगवान राम की गाथा, आदर्श जीवन का उदाहरण</li>
+                <li><strong>भगवद् गीता:</strong> कर्म और भक्ति का सार, जीवन का दिशानिर्देश</li>
+                <li><strong>पुराण:</strong> देवताओं और ऋषियों की कथाएं, धार्मिक ज्ञान का भंडार</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- PDF Viewer Modal -->
+    <div id="pdfModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="pdfTitle">ग्रंथ</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfViewer" class="pdf-viewer" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>🙏 BrahmTatva – Digital Mandir 🙏</p>
+        <p>सनातन धर्म का ज्ञान, भक्ति का मार्ग</p>
+        <p class="footer-mantra">ॐ शान्तिः शान्तिः शान्तिः</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/granth.js"></script>
+</body>
+</html>

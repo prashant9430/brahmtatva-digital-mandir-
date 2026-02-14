@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Daily Panchang - तिथि, वार, नक्षत्र, योग, करण">
+    <title>दैनिक पंचांग | BrahmTatva – Digital Mandir</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90' fill='%23FF9933'>ॐ</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="om-symbol">ॐ</span>
+                <span class="logo-text">BrahmTatva</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">गृह</a>
+                <a href="panchang.html" class="nav-link active">पंचांग</a>
+                <a href="pooja.html" class="nav-link">पूजा विधि</a>
+                <a href="mantra.html" class="nav-link">मंत्र संग्रह</a>
+                <a href="aarti.html" class="nav-link">आरती</a>
+                <a href="granth.html" class="nav-link">ग्रंथ</a>
+                <a href="about.html" class="nav-link">परिचय</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mantra Background Animation -->
+    <div class="mantra-bg">
+        <div class="mantra-text">ॐ नमः शिवाय</div>
+        <div class="mantra-text">ॐ नमो भगवते वासुदेवाय</div>
+        <div class="mantra-text">ॐ ऐं ह्रीं श्रीं</div>
+        <div class="mantra-text">ॐ गं गणपतये नमः</div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>📅 दैनिक पंचांग</h1>
+            <p>आज का तिथि, वार, नक्षत्र, योग, और करण</p>
+        </div>
+
+        <!-- Panchang Container -->
+        <div class="panchang-container">
+            <div id="panchangContent">
+                <div class="loading">पंचांग लोड हो रहा है...</div>
+            </div>
+        </div>
+
+        <!-- Sun & Moon Times -->
+        <div class="panchang-container">
+            <h2 style="font-family: var(--font-hindi); color: var(--primary-saffron); margin-bottom: 1.5rem; text-align: center;">☀️ सूर्य और चंद्र समय</h2>
+            <div class="panchang-grid" id="sunMoonContent">
+                <div class="loading">लोड हो रहा है...</div>
+            </div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="about-intro" style="margin-top: 2rem;">
+            <h2>पंचांग क्या है?</h2>
+            <p>
+                पंचांग (पञ्चाङ्ग) का शाब्दिक अर्थ है "पाँच अंग"। यह हिंदू पंचांग का मूल आधार है जो निम्नलिखित पाँच तत्वों से बना है:
+            </p>
+            <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                <li><strong>तिथि:</strong> चंद्रमा की स्थिति के आधार पर दिन का विभाजन</li>
+                <li><strong>वार:</strong> सप्ताह का दिन (सोमवार, मंगलवार, आदि)</li>
+                <li><strong>नक्षत्र:</strong> चंद्रमा की तारकीय स्थिति</li>
+                <li><strong>योग:</strong> सूर्य और चंद्रमा की संयुक्त स्थिति</li>
+                <li><strong>करण:</strong> तिथि का आधा भाग</li>
+            </ul>
+            <p>
+                सनातन धर्म में, शुभ कार्यों के लिए सही पंचांग का चयन अत्यंत महत्वपूर्ण है। 
+                यह डिजिटल पंचांग आपको प्रतिदिन के लिए सही समय और शुभ मुहूर्त जानने में मदद करता है।
+            </p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>🙏 BrahmTatva – Digital Mandir 🙏</p>
+        <p>सनातन धर्म का ज्ञान, भक्ति का मार्ग</p>
+        <p class="footer-mantra">ॐ शान्तिः शान्तिः शान्तिः</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/panchang.js"></script>
+</body>
+</html>

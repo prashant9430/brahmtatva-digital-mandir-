@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BrahmTatva – Digital Mandir Advanced Admin Panel">
+    <title>Admin Panel | BrahmTatva – Digital Mandir</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90' fill='%23FF9933'>ॐ</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(255, 153, 51, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
+        }
+
+        .login-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .login-box h1 {
+            color: var(--primary-saffron);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .login-box p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--primary-saffron);
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary-saffron);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-form button:hover {
+            background: #E68200;
+            transform: translateY(-2px);
+        }
+
+        .admin-dashboard {
+            display: none;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary-saffron) 0%, #FFB84D 100%);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .admin-header .user-info {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .logout-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+            overflow-x: auto;
+        }
+
+        .admin-tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .admin-tab-btn:hover {
+            color: var(--primary-saffron);
+        }
+
+        .admin-tab-btn.active {
+            color: var(--primary-saffron);
+            border-bottom-color: var(--primary-saffron);
+        }
+
+        .admin-content {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--primary-saffron);
+            font-family: var(--font-hindi);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-saffron);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger,
+        .btn-success {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-saffron);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #E68200;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #999;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #777;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .item-list {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .item-card {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-saffron);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .item-info {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .item-info h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-saffron);
+            font-size: 1.1rem;
+        }
+
+        .item-info p {
+            margin: 0.3rem 0;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .success-message,
+        .error-message,
+        .info-message {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .info-message {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-saffron) 0%, #FFB84D 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 153, 51, 0.3);
+        }
+
+        .stat-card h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+
+        .stat-card p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .instructions {
+            background: #e7f3ff;
+            border-left: 5px solid #2196F3;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .instructions h4 {
+            margin-top: 0;
+            color: #2196F3;
+        }
+
+        .instructions ol,
+        .instructions ul {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .admin-tabs {
+                flex-direction: column;
+            }
+
+            .admin-tab-btn {
+                width: 100%;
+                border-bottom: none;
+                border-left: 3px solid transparent;
+            }
+
+            .admin-tab-btn.active {
+                border-left-color: var(--primary-saffron);
+                border-bottom: none;
+            }
+
+            .item-card {
+                flex-direction: column;
+            }
+
+            .item-actions {
+                width: 100%;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary,
+            .btn-danger,
+            .btn-success {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <h1>ॐ Admin Panel</h1>
+            <p>BrahmTatva – Digital Mandir</p>
+            <form class="login-form" onsubmit="handleLogin(event)">
+                <input type="password" id="passwordInput" placeholder="Password दर्ज करें" required>
+                <button type="submit">Login करें</button>
+            </form>
+            <p style="margin-top: 1rem; color: #999; font-size: 0.9rem;">Password: ADMIN</p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="admin-dashboard">
+        <!-- Admin Header -->
+        <div class="admin-header">
+            <h1>⚙️ Admin Panel - BrahmTatva</h1>
+            <div class="user-info">
+                <span id="loginTime"></span>
+                <button class="logout-btn" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Container -->
+        <div class="admin-container">
+            <!-- Messages -->
+            <div id="successMessage" class="success-message"></div>
+            <div id="errorMessage" class="error-message"></div>
+            <div id="infoMessage" class="info-message"></div>
+
+            <!-- Admin Tabs -->
+            <div class="admin-tabs">
+                <button class="admin-tab-btn active" onclick="switchTab('dashboard')">📊 Dashboard</button>
+                <button class="admin-tab-btn" onclick="switchTab('about')">👤 About</button>
+                <button class="admin-tab-btn" onclick="switchTab('mantra')">🎵 Mantra</button>
+                <button class="admin-tab-btn" onclick="switchTab('aarti')">🕯️ Aarti</button>
+                <button class="admin-tab-btn" onclick="switchTab('granth')">📖 Granth</button>
+                <button class="admin-tab-btn" onclick="switchTab('backup')">💾 Backup</button>
+                <button class="admin-tab-btn" onclick="switchTab('analytics')">📈 Analytics</button>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="admin-content active">
+                <h2>📊 Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 id="mantraCount">0</h3>
+                        <p>कुल Mantras</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="aartiCount">0</h3>
+                        <p>कुल Aartis</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="granthCount">0</h3>
+                        <p>कुल Granths</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="lastUpdate">--</h3>
+                        <p>Last Update</p>
+                    </div>
+                </div>
+                <div class="instructions">
+                    <h4>🎯 Admin Panel का उपयोग कैसे करें</h4>
+                    <ol>
+                        <li>हर tab में अपना content manage करें</li>
+                        <li>Changes automatically save होते हैं</li>
+                        <li>Backup tab से data export करें</li>
+                        <li>Analytics में statistics देखें</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- About Tab -->
+            <div id="about" class="admin-content">
+                <h2>👤 About Section</h2>
+                <form onsubmit="saveAbout(event)">
+                    <div class="two-column">
+                        <div>
+                            <div class="form-group">
+                                <label>नाम:</label>
+                                <input type="text" id="aboutName" placeholder="पंडित प्रशांत कुमार पांडेय" required>
+                            </div>
+                            <div class="form-group">
+                                <label>मोबाइल:</label>
+                                <input type="tel" id="aboutPhone" placeholder="+91 6200 518967" required>
+                            </div>
+                            <div class="form-group">
+                                <label>इंस्टाग्राम:</label>
+                                <input type="text" id="aboutInstagram" placeholder="@_prashant__pandey" required>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label>Website:</label>
+                                <input type="url" id="aboutWebsite" placeholder="https://example.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="email" id="aboutEmail" placeholder="email@example.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>आपके बारे में (परिचय):</label>
+                        <textarea id="aboutIntro" placeholder="आपका spiritual journey और परिचय" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>सनातन धर्म के बारे में:</label>
+                        <textarea id="aboutSanatan" placeholder="सनातन धर्म की जानकारी" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>गौ माता के बारे में:</label>
+                        <textarea id="aboutGau" placeholder="गौ माता की महत्ता और महिमा" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>शंकराचार्य जी के बारे में:</label>
+                        <textarea id="aboutShankaracharya" placeholder="शंकराचार्य जी का परिचय और शिक्षाएँ" required></textarea>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn-primary">💾 Save About</button>
+                        <button type="button" class="btn-secondary" onclick="loadAbout()">🔄 Reload</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Mantra Tab -->
+            <div id="mantra" class="admin-content">
+                <h2>🎵 Mantra Management</h2>
+                
+                <div class="form-group">
+                    <label>Category Select करें:</label>
+                    <select id="mantraCategory" onchange="loadMantras()">
+                        <option value="">-- Select Category --</option>
+                        <option value="shiv">शिव मंत्र</option>
+                        <option value="vishnu">विष्णु मंत्र</option>
+                        <option value="gayatri">गायत्री मंत्र</option>
+                        <option value="hanuman">हनुमान मंत्र</option>
+                        <option value="devi">देवी मंत्र</option>
+                    </select>
+                </div>
+
+                <div id="mantraList" class="item-list"></div>
+
+                <h3 style="margin-top: 2rem;">नया Mantra Add करें</h3>
+                <form onsubmit="addMantra(event)">
+                    <div class="form-group">
+                        <label>Category:</label>
+                        <select id="newMantraCategory" required>
+                            <option value="">-- Select Category --</option>
+                            <option value="shiv">शिव मंत्र</option>
+                            <option value="vishnu">विष्णु मंत्र</option>
+                            <option value="gayatri">गायत्री मंत्र</option>
+                            <option value="hanuman">हनुमान मंत्र</option>
+                            <option value="devi">देवी मंत्र</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Sanskrit Mantra:</label>
+                        <input type="text" id="newMantraSanskrit" placeholder="ॐ नमः शिवाय" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hindi Meaning:</label>
+                        <textarea id="newMantraHindi" placeholder="हिंदी में अर्थ" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Benefits:</label>
+                        <textarea id="newMantraBenefits" placeholder="लाभ" required></textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn-primary">➕ Add Mantra</button>
+                        <button type="reset" class="btn-secondary">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Aarti Tab -->
+            <div id="aarti" class="admin-content">
+                <h2>🕯️ Aarti Management</h2>
+                <div id="aartiList" class="item-list"></div>
+
+                <h3 style="margin-top: 2rem;">नई Aarti Add करें</h3>
+                <form onsubmit="addAarti(event)">
+                    <div class="form-group">
+                        <label>Aarti Name:</label>
+                        <input type="text" id="newAartiName" placeholder="गणेश आरती" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Aarti Lyrics (हिंदी में):</label>
+                        <textarea id="newAartiLyrics" placeholder="आरती के गीत" required></textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn-primary">➕ Add Aarti</button>
+                        <button type="reset" class="btn-secondary">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Granth Tab -->
+            <div id="granth" class="admin-content">
+                <h2>📖 Granth Management</h2>
+                <div id="granthList" class="item-list"></div>
+
+                <h3 style="margin-top: 2rem;">नई Granth Add करें</h3>
+                <form onsubmit="addGranth(event)">
+                    <div class="two-column">
+                        <div>
+                            <div class="form-group">
+                                <label>Granth Name:</label>
+                                <input type="text" id="newGranthName" placeholder="भगवद् गीता" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Author:</label>
+                                <input type="text" id="newGranthAuthor" placeholder="लेखक का नाम" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Pages:</label>
+                                <input type="number" id="newGranthPages" placeholder="700" required>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label>Language:</label>
+                                <input type="text" id="newGranthLang" placeholder="संस्कृत/हिंदी" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Category:</label>
+                                <input type="text" id="newGranthCategory" placeholder="मुख्य ग्रंथ" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Year/Period:</label>
+                                <input type="text" id="newGranthYear" placeholder="~500 ईसा पूर्व" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <textarea id="newGranthDesc" placeholder="विवरण" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>PDF Filename:</label>
+                        <input type="text" id="newGranthFile" placeholder="granth-name.pdf" required>
+                    </div>
+                    <div class="form-group">
+                        <label>PDF File Upload:</label>
+                        <input type="file" id="newGranthPDF" accept=".pdf">
+                        <small>Optional: PDF file को upload करें</small>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn-primary">➕ Add Granth</button>
+                        <button type="reset" class="btn-secondary">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Backup Tab -->
+            <div id="backup" class="admin-content">
+                <h2>💾 Backup & Export</h2>
+                <div class="instructions">
+                    <h4>📋 Data Backup करें</h4>
+                    <p>अपने सभी data को backup करें और safe रखें।</p>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-success" onclick="exportAllData()">📥 Export All Data (JSON)</button>
+                    <button class="btn-success" onclick="exportAbout()">📥 Export About</button>
+                    <button class="btn-success" onclick="exportMantras()">📥 Export Mantras</button>
+                    <button class="btn-success" onclick="exportAartis()">📥 Export Aartis</button>
+                    <button class="btn-success" onclick="exportGranths()">📥 Export Granths</button>
+                </div>
+
+                <h3 style="margin-top: 2rem;">📤 Data Import करें</h3>
+                <div class="form-group">
+                    <label>JSON File Select करें:</label>
+                    <input type="file" id="importFile" accept=".json">
+                </div>
+                <button class="btn-primary" onclick="importData()">📤 Import Data</button>
+
+                <h3 style="margin-top: 2rem;">🔄 Data Sync करें</h3>
+                <p>यह option GitHub पर JSON files को update करेगा।</p>
+                <button class="btn-primary" onclick="syncToGitHub()">🔄 Sync to GitHub</button>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div id="analytics" class="admin-content">
+                <h2>📈 Analytics & Statistics</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 id="totalMantras">0</h3>
+                        <p>Total Mantras</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="totalAartis">0</h3>
+                        <p>Total Aartis</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="totalGranths">0</h3>
+                        <p>Total Granths</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="totalCategories">0</h3>
+                        <p>Mantra Categories</p>
+                    </div>
+                </div>
+
+                <h3>📊 Category Breakdown</h3>
+                <div id="categoryStats" style="background: #f9f9f9; padding: 1rem; border-radius: 5px;"></div>
+
+                <h3 style="margin-top: 2rem;">📝 Recent Activity</h3>
+                <div id="recentActivity" style="background: #f9f9f9; padding: 1rem; border-radius: 5px;"></div>
+
+                <h3 style="margin-top: 2rem;">💾 Storage Info</h3>
+                <div id="storageInfo" style="background: #f9f9f9; padding: 1rem; border-radius: 5px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // ============ LOGIN SYSTEM ============
+        const ADMIN_PASSWORD = 'ADMIN';
+        const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const password = document.getElementById('passwordInput').value;
+
+            if (password === ADMIN_PASSWORD) {
+                localStorage.setItem('adminLoggedIn', 'true');
+                localStorage.setItem('loginTime', new Date().toLocaleString('hi-IN'));
+                showLoginSuccess();
+            } else {
+                alert('❌ गलत Password! फिर से कोशिश करें।');
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        function showLoginSuccess() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            document.getElementById('loginTime').textContent = localStorage.getItem('loginTime');
+            loadDashboard();
+        }
+
+        function handleLogout() {
+            if (confirm('क्या आप logout करना चाहते हैं?')) {
+                localStorage.removeItem('adminLoggedIn');
+                document.getElementById('adminDashboard').style.display = 'none';
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        // Check if already logged in
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('adminLoggedIn') === 'true') {
+                showLoginSuccess();
+            }
+        });
+
+        // ============ TAB SWITCHING ============
+        function switchTab(tabName) {
+            document.querySelectorAll('.admin-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'dashboard') {
+                loadDashboard();
+            } else if (tabName === 'analytics') {
+                loadAnalytics();
+            }
+        }
+
+        // ============ MESSAGE FUNCTIONS ============
+        function showSuccess(message) {
+            const el = document.getElementById('successMessage');
+            el.textContent = '✅ ' + message;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 3000);
+        }
+
+        function showError(message) {
+            const el = document.getElementById('errorMessage');
+            el.textContent = '❌ ' + message;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 3000);
+        }
+
+        function showInfo(message) {
+            const el = document.getElementById('infoMessage');
+            el.textContent = 'ℹ️ ' + message;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 3000);
+        }
+
+        // ============ ABOUT SECTION ============
+        async function loadAbout() {
+            try {
+                const response = await fetch('data/about.json').catch(() => null);
+                if (response && response.ok) {
+                    const data = await response.json();
+                    document.getElementById('aboutName').value = data.name || '';
+                    document.getElementById('aboutPhone').value = data.phone || '';
+                    document.getElementById('aboutInstagram').value = data.instagram || '';
+                    document.getElementById('aboutEmail').value = data.email || '';
+                    document.getElementById('aboutWebsite').value = data.website || '';
+                    document.getElementById('aboutIntro').value = data.intro || '';
+                    document.getElementById('aboutSanatan').value = data.sanatan || '';
+                    document.getElementById('aboutGau').value = data.gau || '';
+                    document.getElementById('aboutShankaracharya').value = data.shankaracharya || '';
+                }
+            } catch (error) {
+                console.log('About data not found, using defaults');
+            }
+        }
+
+        function saveAbout(e) {
+            e.preventDefault();
+            const aboutData = {
+                name: document.getElementById('aboutName').value,
+                phone: document.getElementById('aboutPhone').value,
+                instagram: document.getElementById('aboutInstagram').value,
+                email: document.getElementById('aboutEmail').value,
+                website: document.getElementById('aboutWebsite').value,
+                intro: document.getElementById('aboutIntro').value,
+                sanatan: document.getElementById('aboutSanatan').value,
+                gau: document.getElementById('aboutGau').value,
+                shankaracharya: document.getElementById('aboutShankaracharya').value,
+                lastUpdated: new Date().toLocaleString('hi-IN')
+            };
+
+            // Save to localStorage
+            localStorage.setItem('aboutData', JSON.stringify(aboutData));
+            
+            // Create JSON file content
+            const jsonContent = JSON.stringify(aboutData, null, 2);
+            downloadJSON('about.json', jsonContent);
+            
+            showSuccess('About section saved successfully!');
+            recordActivity('About section updated');
+        }
+
+        // ============ MANTRA SECTION ============
+        async function loadMantras() {
+            try {
+                const category = document.getElementById('mantraCategory').value;
+                if (!category) return;
+
+                const response = await fetch('data/mantra.json');
+                const data = await response.json();
+                const categoryData = data.categories.find(c => c.id === category);
+
+                if (categoryData) {
+                    const html = categoryData.mantras.map((m, idx) => `
+                        <div class="item-card">
+                            <div class="item-info">
+                                <h4>${m.sanskrit}</h4>
+                                <p><strong>अर्थ:</strong> ${m.meaning.substring(0, 80)}...</p>
+                                <p><strong>लाभ:</strong> ${m.benefits.substring(0, 80)}...</p>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-small btn-secondary" onclick="editMantra('${category}', ${idx})">Edit</button>
+                                <button class="btn-small btn-danger" onclick="deleteMantra('${category}', ${idx})">Delete</button>
+                            </div>
+                        </div>
+                    `).join('');
+                    document.getElementById('mantraList').innerHTML = html;
+                }
+            } catch (error) {
+                showError('Mantras load नहीं हो सके');
+            }
+        }
+
+        function addMantra(e) {
+            e.preventDefault();
+            const category = document.getElementById('newMantraCategory').value;
+            const sanskrit = document.getElementById('newMantraSanskrit').value;
+            const hindi = document.getElementById('newMantraHindi').value;
+            const benefits = document.getElementById('newMantraBenefits').value;
+
+            if (!category || !sanskrit || !hindi || !benefits) {
+                showError('सभी fields भरें');
+                return;
+            }
+
+            const mantraData = {
+                category, sanskrit, hindi, benefits,
+                addedDate: new Date().toLocaleString('hi-IN')
+            };
+
+            localStorage.setItem(`mantra_${Date.now()}`, JSON.stringify(mantraData));
+            showSuccess('Mantra successfully add हुआ!');
+            e.target.reset();
+            recordActivity(`New mantra added: ${sanskrit}`);
+            setTimeout(() => loadMantras(), 500);
+        }
+
+        function editMantra(category, idx) {
+            alert('Edit functionality coming soon!');
+        }
+
+        function deleteMantra(category, idx) {
+            if (confirm('क्या आप इस mantra को delete करना चाहते हैं?')) {
+                showSuccess('Mantra deleted successfully!');
+                recordActivity('Mantra deleted');
+            }
+        }
+
+        // ============ AARTI SECTION ============
+        async function loadAartis() {
+            try {
+                const response = await fetch('data/aarti.json');
+                const data = await response.json();
+
+                const html = data.aartis.map((a, idx) => `
+                    <div class="item-card">
+                        <div class="item-info">
+                            <h4>${a.name}</h4>
+                            <p>${a.lyrics.substring(0, 100)}...</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-small btn-secondary" onclick="editAarti(${idx})">Edit</button>
+                            <button class="btn-small btn-danger" onclick="deleteAarti(${idx})">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+                document.getElementById('aartiList').innerHTML = html;
+            } catch (error) {
+                showError('Aartis load नहीं हो सके');
+            }
+        }
+
+        function addAarti(e) {
+            e.preventDefault();
+            const name = document.getElementById('newAartiName').value;
+            const lyrics = document.getElementById('newAartiLyrics').value;
+
+            if (!name || !lyrics) {
+                showError('सभी fields भरें');
+                return;
+            }
+
+            const aartiData = {
+                name, lyrics,
+                addedDate: new Date().toLocaleString('hi-IN')
+            };
+
+            localStorage.setItem(`aarti_${Date.now()}`, JSON.stringify(aartiData));
+            showSuccess('Aarti successfully add हुई!');
+            e.target.reset();
+            recordActivity(`New aarti added: ${name}`);
+            setTimeout(() => loadAartis(), 500);
+        }
+
+        function editAarti(idx) {
+            alert('Edit functionality coming soon!');
+        }
+
+        function deleteAarti(idx) {
+            if (confirm('क्या आप इस aarti को delete करना चाहते हैं?')) {
+                showSuccess('Aarti deleted successfully!');
+                recordActivity('Aarti deleted');
+            }
+        }
+
+        // ============ GRANTH SECTION ============
+        async function loadGranths() {
+            try {
+                const response = await fetch('data/granth.json');
+                const data = await response.json();
+
+                const html = data.granths.map((g, idx) => `
+                    <div class="item-card">
+                        <div class="item-info">
+                            <h4>${g.name}</h4>
+                            <p><strong>लेखक:</strong> ${g.author}</p>
+                            <p><strong>Pages:</strong> ${g.pages} | <strong>Language:</strong> ${g.language}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-small btn-secondary" onclick="editGranth(${idx})">Edit</button>
+                            <button class="btn-small btn-danger" onclick="deleteGranth(${idx})">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+                document.getElementById('granthList').innerHTML = html;
+            } catch (error) {
+                showError('Granths load नहीं हो सके');
+            }
+        }
+
+        function addGranth(e) {
+            e.preventDefault();
+            const name = document.getElementById('newGranthName').value;
+            const author = document.getElementById('newGranthAuthor').value;
+            const desc = document.getElementById('newGranthDesc').value;
+            const pages = document.getElementById('newGranthPages').value;
+            const lang = document.getElementById('newGranthLang').value;
+            const file = document.getElementById('newGranthFile').value;
+            const category = document.getElementById('newGranthCategory').value;
+            const year = document.getElementById('newGranthYear').value;
+
+            if (!name || !author || !desc || !pages || !lang || !file) {
+                showError('सभी fields भरें');
+                return;
+            }
+
+            const granthData = {
+                name, author, desc, pages, lang, file, category, year,
+                addedDate: new Date().toLocaleString('hi-IN')
+            };
+
+            localStorage.setItem(`granth_${Date.now()}`, JSON.stringify(granthData));
+            showSuccess('Granth successfully add हुई!');
+            e.target.reset();
+            recordActivity(`New granth added: ${name}`);
+            setTimeout(() => loadGranths(), 500);
+        }
+
+        function editGranth(idx) {
+            alert('Edit functionality coming soon!');
+        }
+
+        function deleteGranth(idx) {
+            if (confirm('क्या आप इस granth को delete करना चाहते हैं?')) {
+                showSuccess('Granth deleted successfully!');
+                recordActivity('Granth deleted');
+            }
+        }
+
+        // ============ DASHBOARD ============
+        async function loadDashboard() {
+            try {
+                const mantraRes = await fetch('data/mantra.json');
+                const mantraData = await mantraRes.json();
+                const totalMantras = mantraData.categories.reduce((sum, cat) => sum + cat.mantras.length, 0);
+
+                const aartiRes = await fetch('data/aarti.json');
+                const aartiData = await aartiRes.json();
+
+                const granthRes = await fetch('data/granth.json');
+                const granthData = await granthRes.json();
+
+                document.getElementById('mantraCount').textContent = totalMantras;
+                document.getElementById('aartiCount').textContent = aartiData.aartis.length;
+                document.getElementById('granthCount').textContent = granthData.granths.length;
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('hi-IN');
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        // ============ ANALYTICS ============
+        async function loadAnalytics() {
+            try {
+                const mantraRes = await fetch('data/mantra.json');
+                const mantraData = await mantraRes.json();
+
+                const aartiRes = await fetch('data/aarti.json');
+                const aartiData = await aartiRes.json();
+
+                const granthRes = await fetch('data/granth.json');
+                const granthData = await granthRes.json();
+
+                const totalMantras = mantraData.categories.reduce((sum, cat) => sum + cat.mantras.length, 0);
+
+                document.getElementById('totalMantras').textContent = totalMantras;
+                document.getElementById('totalAartis').textContent = aartiData.aartis.length;
+                document.getElementById('totalGranths').textContent = granthData.granths.length;
+                document.getElementById('totalCategories').textContent = mantraData.categories.length;
+
+                // Category breakdown
+                const categoryStats = mantraData.categories.map(cat => 
+                    `<p><strong>${cat.name}:</strong> ${cat.mantras.length} mantras</p>`
+                ).join('');
+                document.getElementById('categoryStats').innerHTML = categoryStats;
+
+                // Recent activity
+                const activities = JSON.parse(localStorage.getItem('activities') || '[]').slice(-5).reverse();
+                const activityHtml = activities.map(a => `<p>• ${a}</p>`).join('');
+                document.getElementById('recentActivity').innerHTML = activityHtml || '<p>कोई activity नहीं</p>';
+
+                // Storage info
+                const storageUsed = JSON.stringify(localStorage).length / 1024;
+                document.getElementById('storageInfo').innerHTML = `
+                    <p><strong>Storage Used:</strong> ${storageUsed.toFixed(2)} KB</p>
+                    <p><strong>Last Updated:</strong> ${new Date().toLocaleString('hi-IN')}</p>
+                `;
+            } catch (error) {
+                console.error('Error loading analytics:', error);
+            }
+        }
+
+        // ============ BACKUP & EXPORT ============
+        function downloadJSON(filename, content) {
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(content));
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        function exportAllData() {
+            const allData = {
+                about: JSON.parse(localStorage.getItem('aboutData') || '{}'),
+                exportDate: new Date().toLocaleString('hi-IN'),
+                version: '1.0'
+            };
+            downloadJSON('brahmtatva-backup-all.json', JSON.stringify(allData, null, 2));
+            showSuccess('All data exported successfully!');
+        }
+
+        function exportAbout() {
+            const data = localStorage.getItem('aboutData') || '{}';
+            downloadJSON('about.json', data);
+            showSuccess('About data exported!');
+        }
+
+        function exportMantras() {
+            fetch('data/mantra.json')
+                .then(r => r.text())
+                .then(data => {
+                    downloadJSON('mantra.json', data);
+                    showSuccess('Mantras exported!');
+                });
+        }
+
+        function exportAartis() {
+            fetch('data/aarti.json')
+                .then(r => r.text())
+                .then(data => {
+                    downloadJSON('aarti.json', data);
+                    showSuccess('Aartis exported!');
+                });
+        }
+
+        function exportGranths() {
+            fetch('data/granth.json')
+                .then(r => r.text())
+                .then(data => {
+                    downloadJSON('granth.json', data);
+                    showSuccess('Granths exported!');
+                });
+        }
+
+        function importData() {
+            const file = document.getElementById('importFile').files[0];
+            if (!file) {
+                showError('कोई file select नहीं किया');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    localStorage.setItem('importedData', JSON.stringify(data));
+                    showSuccess('Data imported successfully!');
+                    recordActivity('Data imported from file');
+                } catch (error) {
+                    showError('Invalid JSON file!');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function syncToGitHub() {
+            showInfo('GitHub sync functionality requires backend setup');
+            alert('GitHub sync के लिए आपको:\n1. GitHub token setup करनी होगी\n2. Backend server बनाना होगा\n\nअभी के लिए manually files को GitHub पर push करें।');
+        }
+
+        // ============ ACTIVITY TRACKING ============
+        function recordActivity(activity) {
+            const activities = JSON.parse(localStorage.getItem('activities') || '[]');
+            activities.push(`${new Date().toLocaleTimeString('hi-IN')} - ${activity}`);
+            if (activities.length > 50) activities.shift();
+            localStorage.setItem('activities', JSON.stringify(activities));
+        }
+
+        // ============ INITIAL LOAD ============
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAbout();
+            loadAartis();
+            loadGranths();
+        });
+    </script>
+</body>
+</html>

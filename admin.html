@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BrahmTatva – Digital Mandir Admin Panel">
+    <title>Admin Panel | BrahmTatva – Digital Mandir</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90' fill='%23FF9933'>ॐ</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .admin-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .admin-tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-saffron);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-tab-btn:hover,
+        .admin-tab-btn.active {
+            background: #E68200;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 153, 51, 0.3);
+        }
+        
+        .admin-content {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--primary-saffron);
+            font-family: var(--font-hindi);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-saffron);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: var(--primary-saffron);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #E68200;
+        }
+        
+        .btn-secondary {
+            background: #999;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #777;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .item-list {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .item-card {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 5px solid var(--primary-saffron);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .item-info h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-saffron);
+        }
+        
+        .item-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .instructions {
+            background: #e7f3ff;
+            border-left: 5px solid #2196F3;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .instructions h4 {
+            margin-top: 0;
+            color: #2196F3;
+        }
+        
+        .instructions ol {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-tabs {
+                flex-direction: column;
+            }
+            
+            .admin-tab-btn {
+                width: 100%;
+            }
+            
+            .item-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .item-actions {
+                width: 100%;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="om-symbol">ॐ</span>
+                <span class="logo-text">BrahmTatva Admin</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">गृह</a>
+                <a href="admin.html" class="nav-link active">Admin Panel</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mantra Background Animation -->
+    <div class="mantra-bg">
+        <div class="mantra-text">ॐ नमः शिवाय</div>
+        <div class="mantra-text">ॐ नमो भगवते वासुदेवाय</div>
+        <div class="mantra-text">ॐ ऐं ह्रीं श्रीं</div>
+        <div class="mantra-text">ॐ गं गणपतये नमः</div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>⚙️ Admin Panel</h1>
+            <p>Content को आसानी से manage करें</p>
+        </div>
+
+        <div class="admin-container">
+            <!-- Admin Tabs -->
+            <div class="admin-tabs">
+                <button class="admin-tab-btn active" onclick="switchTab('about')">👤 About</button>
+                <button class="admin-tab-btn" onclick="switchTab('mantra')">🎵 Mantra</button>
+                <button class="admin-tab-btn" onclick="switchTab('aarti')">🕯️ Aarti</button>
+                <button class="admin-tab-btn" onclick="switchTab('granth')">📖 Granth</button>
+                <button class="admin-tab-btn" onclick="switchTab('instructions')">📋 Instructions</button>
+            </div>
+
+            <!-- About Tab -->
+            <div id="about" class="admin-content active">
+                <h2>👤 About Section Management</h2>
+                <div class="success-message" id="aboutSuccess"></div>
+                <div class="error-message" id="aboutError"></div>
+
+                <div class="instructions">
+                    <h4>📝 About Section को Edit करें</h4>
+                    <p>यहाँ आप अपने बारे में, सनातन धर्म, गौ माता और शंकराचार्य जी के बारे में जानकारी add कर सकते हैं।</p>
+                </div>
+
+                <form onsubmit="saveAbout(event)">
+                    <div class="form-group">
+                        <label>आपका नाम:</label>
+                        <input type="text" id="aboutName" placeholder="पंडित प्रशांत कुमार पांडेय" required>
+                    </div>
+                    <div class="form-group">
+                        <label>मोबाइल नंबर:</label>
+                        <input type="tel" id="aboutPhone" placeholder="+91 6200 518967" required>
+                    </div>
+                    <div class="form-group">
+                        <label>इंस्टाग्राम:</label>
+                        <input type="text" id="aboutInstagram" placeholder="@_prashant__pandey" required>
+                    </div>
+                    <div class="form-group">
+                        <label>आपके बारे में (परिचय):</label>
+                        <textarea id="aboutIntro" placeholder="आपका spiritual journey और परिचय" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>सनातन धर्म के बारे में:</label>
+                        <textarea id="aboutSanatan" placeholder="सनातन धर्म की जानकारी" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>गौ माता के बारे में:</label>
+                        <textarea id="aboutGau" placeholder="गौ माता की महत्ता और महिमा" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>शंकराचार्य जी के बारे में:</label>
+                        <textarea id="aboutShankaracharya" placeholder="शंकराचार्य जी का परिचय और शिक्षाएँ" required></textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn-primary">Save About Section</button>
+                        <button type="button" class="btn-secondary" onclick="loadAbout()">Reload</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Mantra Tab -->
+            <div id="mantra" class="admin-content">
+                <h2>🎵 Mantra Management</h2>
+                <div class="success-message" id="mantraSuccess"></div>
+                <div class="error-message" id="mantraError"></div>
+
+                <div class="form-group">
+                    <label>Category Select करें:</label>
+                    <select id="mantraCategory" onchange="loadMantras()">
+                        <option value="">-- Select Category --</option>
+                        <option value="shiv">शिव मंत्र</option>
+                        <option value="vishnu">विष्णु मंत्र</option>
+                        <option value="gayatri">गायत्री मंत्र</option>
+                        <option value="hanuman">हनुमान मंत्र</option>
+                        <option value="devi">देवी मंत्र</option>
+                    </select>
+                </div>
+
+                <div id="mantraList" class="item-list"></div>
+
+                <h3 style="margin-top: 2rem;">नया Mantra Add करें</h3>
+                <form onsubmit="addMantra(event)">
+                    <div class="form-group">
+                        <label>Category:</label>
+                        <select id="newMantraCategory" required>
+                            <option value="">-- Select Category --</option>
+                            <option value="shiv">शिव मंत्र</option>
+                            <option value="vishnu">विष्णु मंत्र</option>
+                            <option value="gayatri">गायत्री मंत्र</option>
+                            <option value="hanuman">हनुमान मंत्र</option>
+                            <option value="devi">देवी मंत्र</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Sanskrit Mantra:</label>
+                        <input type="text" id="newMantraSanskrit" placeholder="ॐ नमः शिवाय" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hindi Meaning:</label>
+                        <textarea id="newMantraHindi" placeholder="हिंदी में अर्थ" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Benefits:</label>
+                        <textarea id="newMantraBenefits" placeholder="लाभ" required></textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn-primary">Add Mantra</button>
+                        <button type="reset" class="btn-secondary">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Aarti Tab -->
+            <div id="aarti" class="admin-content">
+                <h2>🕯️ Aarti Management</h2>
+                <div class="success-message" id="aartiSuccess"></div>
+                <div class="error-message" id="aartiError"></div>
+
+                <div id="aartiList" class="item-list"></div>
+
+                <h3 style="margin-top: 2rem;">नई Aarti Add करें</h3>
+                <form onsubmit="addAarti(event)">
+                    <div class="form-group">
+                        <label>Aarti Name:</label>
+                        <input type="text" id="newAartiName" placeholder="गणेश आरती" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Aarti Lyrics (हिंदी में):</label>
+                        <textarea id="newAartiLyrics" placeholder="आरती के गीत (हर line के बाद Enter दबाएँ)" required></textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn-primary">Add Aarti</button>
+                        <button type="reset" class="btn-secondary">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Granth Tab -->
+            <div id="granth" class="admin-content">
+                <h2>📖 Granth Management</h2>
+                <div class="success-message" id="granthSuccess"></div>
+                <div class="error-message" id="granthError"></div>
+
+                <div id="granthList" class="item-list"></div>
+
+                <h3 style="margin-top: 2rem;">नई Granth Add करें</h3>
+                <form onsubmit="addGranth(event)">
+                    <div class="form-group">
+                        <label>Granth Name:</label>
+                        <input type="text" id="newGranthName" placeholder="भगवद् गीता" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Author:</label>
+                        <input type="text" id="newGranthAuthor" placeholder="लेखक का नाम" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <textarea id="newGranthDesc" placeholder="विवरण" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Pages:</label>
+                        <input type="number" id="newGranthPages" placeholder="700" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Language:</label>
+                        <input type="text" id="newGranthLang" placeholder="संस्कृत/हिंदी" required>
+                    </div>
+                    <div class="form-group">
+                        <label>PDF Filename:</label>
+                        <input type="text" id="newGranthFile" placeholder="granth-name.pdf" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category:</label>
+                        <input type="text" id="newGranthCategory" placeholder="मुख्य ग्रंथ" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Year/Period:</label>
+                        <input type="text" id="newGranthYear" placeholder="~500 ईसा पूर्व" required>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn-primary">Add Granth</button>
+                        <button type="reset" class="btn-secondary">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Instructions Tab -->
+            <div id="instructions" class="admin-content">
+                <h2>📋 Admin Panel Instructions</h2>
+                
+                <div class="instructions">
+                    <h4>🎵 Mantra Management</h4>
+                    <ol>
+                        <li>Category select करें</li>
+                        <li>सभी mantras की list दिखेगी</li>
+                        <li>नया mantra add करने के लिए form भरें</li>
+                        <li>Sanskrit, Hindi meaning, और benefits add करें</li>
+                        <li>"Add Mantra" button दबाएँ</li>
+                        <li>Data automatically save हो जाएगा (Local Storage में)</li>
+                    </ol>
+                </div>
+
+                <div class="instructions">
+                    <h4>🕯️ Aarti Management</h4>
+                    <ol>
+                        <li>सभी aartis की list दिखेगी</li>
+                        <li>नई aarti add करने के लिए form भरें</li>
+                        <li>Aarti के गीत को हिंदी में लिखें</li>
+                        <li>हर line के बाद Enter दबाएँ</li>
+                        <li>"Add Aarti" button दबाएँ</li>
+                    </ol>
+                </div>
+
+                <div class="instructions">
+                    <h4>📖 Granth Management</h4>
+                    <ol>
+                        <li>सभी granths की list दिखेगी</li>
+                        <li>नई granth add करने के लिए सभी details भरें</li>
+                        <li>PDF filename को सही format में दें (granth-name.pdf)</li>
+                        <li>PDF file को /pdfs/ folder में रखें</li>
+                        <li>"Add Granth" button दबाएँ</li>
+                        <li>Website को refresh करें</li>
+                    </ol>
+                </div>
+
+                <div class="instructions">
+                    <h4>💾 Data को Export/Backup करें</h4>
+                    <ol>
+                        <li>Browser का DevTools खोलें (F12)</li>
+                        <li>Console tab पर जाएँ</li>
+                        <li>यह command चलाएँ: <code>console.log(JSON.stringify(localStorage, null, 2))</code></li>
+                        <li>Output को copy करके safe रखें</li>
+                    </ol>
+                </div>
+
+                <div class="instructions">
+                    <h4>⚠️ Important Notes</h4>
+                    <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                        <li>Data Local Storage में save होता है (browser में)</li>
+                        <li>Different browser में data नहीं दिखेगा</li>
+                        <li>Browser cache clear करने से data delete हो सकता है</li>
+                        <li>Backup के लिए regularly export करें</li>
+                        <li>JSON files को directly edit भी कर सकते हैं</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>🙏 BrahmTatva – Digital Mandir Admin 🙏</p>
+        <p>सनातन धर्म का ज्ञान, भक्ति का मार्ग</p>
+        <p class="footer-mantra">ॐ शान्तिः शान्तिः शान्तिः</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Load About Section on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAbout();
+            loadAartis();
+            loadGranths();
+        });
+
+        // Load About Data
+        function loadAbout() {
+            const aboutData = localStorage.getItem('aboutData');
+            if (aboutData) {
+                const data = JSON.parse(aboutData);
+                document.getElementById('aboutName').value = data.name || '';
+                document.getElementById('aboutPhone').value = data.phone || '';
+                document.getElementById('aboutInstagram').value = data.instagram || '';
+                document.getElementById('aboutIntro').value = data.intro || '';
+                document.getElementById('aboutSanatan').value = data.sanatan || '';
+                document.getElementById('aboutGau').value = data.gau || '';
+                document.getElementById('aboutShankaracharya').value = data.shankaracharya || '';
+            }
+        }
+
+        // Save About Data
+        function saveAbout(e) {
+            e.preventDefault();
+            const aboutData = {
+                name: document.getElementById('aboutName').value,
+                phone: document.getElementById('aboutPhone').value,
+                instagram: document.getElementById('aboutInstagram').value,
+                intro: document.getElementById('aboutIntro').value,
+                sanatan: document.getElementById('aboutSanatan').value,
+                gau: document.getElementById('aboutGau').value,
+                shankaracharya: document.getElementById('aboutShankaracharya').value
+            };
+
+            localStorage.setItem('aboutData', JSON.stringify(aboutData));
+            showSuccess('aboutSuccess', '✅ About Section successfully save हुआ!');
+            
+            // Also update the about.html page
+            updateAboutPage(aboutData);
+        }
+
+        // Update About Page
+        function updateAboutPage(data) {
+            // This will be called when user saves
+            console.log('About data saved:', data);
+            alert('✅ About section update हो गया! Website को refresh करके देखें।');
+        }
+
+        // Admin Panel Functions
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.admin-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            // Load data for the tab
+            if (tabName === 'mantra') {
+                loadMantras();
+            } else if (tabName === 'aarti') {
+                loadAartis();
+            } else if (tabName === 'granth') {
+                loadGranths();
+            }
+        }
+
+        // Load Mantras
+        async function loadMantras() {
+            try {
+                const category = document.getElementById('mantraCategory').value;
+                if (!category) return;
+
+                const response = await fetch('data/mantra.json');
+                const data = await response.json();
+                const categoryData = data.categories.find(c => c.id === category);
+
+                if (categoryData) {
+                    const html = categoryData.mantras.map(m => `
+                        <div class="item-card">
+                            <div class="item-info">
+                                <h4>${m.sanskrit}</h4>
+                                <p><strong>अर्थ:</strong> ${m.meaning.substring(0, 100)}...</p>
+                                <p><strong>लाभ:</strong> ${m.benefits}</p>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-small btn-secondary" onclick="editMantra('${category}', ${m.id})">Edit</button>
+                                <button class="btn-small btn-danger" onclick="deleteMantra('${category}', ${m.id})">Delete</button>
+                            </div>
+                        </div>
+                    `).join('');
+                    document.getElementById('mantraList').innerHTML = html;
+                }
+            } catch (error) {
+                console.error('Error loading mantras:', error);
+                showError('mantraError', 'Mantras load नहीं हो सके');
+            }
+        }
+
+        // Add Mantra
+        function addMantra(e) {
+            e.preventDefault();
+            const category = document.getElementById('newMantraCategory').value;
+            const sanskrit = document.getElementById('newMantraSanskrit').value;
+            const hindi = document.getElementById('newMantraHindi').value;
+            const benefits = document.getElementById('newMantraBenefits').value;
+
+            if (!category || !sanskrit || !hindi || !benefits) {
+                showError('mantraError', 'सभी fields भरें');
+                return;
+            }
+
+            // Save to localStorage
+            const key = `mantra_${category}_${Date.now()}`;
+            localStorage.setItem(key, JSON.stringify({
+                category, sanskrit, hindi, benefits
+            }));
+
+            showSuccess('mantraSuccess', 'Mantra successfully add हुआ!');
+            e.target.reset();
+            setTimeout(() => loadMantras(), 1000);
+        }
+
+        // Load Aartis
+        async function loadAartis() {
+            try {
+                const response = await fetch('data/aarti.json');
+                const data = await response.json();
+
+                const html = data.aartis.map(a => `
+                    <div class="item-card">
+                        <div class="item-info">
+                            <h4>${a.name}</h4>
+                            <p>${a.lyrics.substring(0, 100)}...</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-small btn-secondary" onclick="editAarti('${a.id}')">Edit</button>
+                            <button class="btn-small btn-danger" onclick="deleteAarti('${a.id}')">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+                document.getElementById('aartiList').innerHTML = html;
+            } catch (error) {
+                console.error('Error loading aartis:', error);
+                showError('aartiError', 'Aartis load नहीं हो सके');
+            }
+        }
+
+        // Add Aarti
+        function addAarti(e) {
+            e.preventDefault();
+            const name = document.getElementById('newAartiName').value;
+            const lyrics = document.getElementById('newAartiLyrics').value;
+
+            if (!name || !lyrics) {
+                showError('aartiError', 'सभी fields भरें');
+                return;
+            }
+
+            const key = `aarti_${Date.now()}`;
+            localStorage.setItem(key, JSON.stringify({
+                name, lyrics
+            }));
+
+            showSuccess('aartiSuccess', 'Aarti successfully add हुई!');
+            e.target.reset();
+            setTimeout(() => loadAartis(), 1000);
+        }
+
+        // Load Granths
+        async function loadGranths() {
+            try {
+                const response = await fetch('data/granth.json');
+                const data = await response.json();
+
+                const html = data.granths.map(g => `
+                    <div class="item-card">
+                        <div class="item-info">
+                            <h4>${g.name}</h4>
+                            <p><strong>लेखक:</strong> ${g.author}</p>
+                            <p><strong>Pages:</strong> ${g.pages} | <strong>Language:</strong> ${g.language}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-small btn-secondary" onclick="editGranth('${g.id}')">Edit</button>
+                            <button class="btn-small btn-danger" onclick="deleteGranth('${g.id}')">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+                document.getElementById('granthList').innerHTML = html;
+            } catch (error) {
+                console.error('Error loading granths:', error);
+                showError('granthError', 'Granths load नहीं हो सके');
+            }
+        }
+
+        // Add Granth
+        function addGranth(e) {
+            e.preventDefault();
+            const name = document.getElementById('newGranthName').value;
+            const author = document.getElementById('newGranthAuthor').value;
+            const desc = document.getElementById('newGranthDesc').value;
+            const pages = document.getElementById('newGranthPages').value;
+            const lang = document.getElementById('newGranthLang').value;
+            const file = document.getElementById('newGranthFile').value;
+            const category = document.getElementById('newGranthCategory').value;
+            const year = document.getElementById('newGranthYear').value;
+
+            if (!name || !author || !desc || !pages || !lang || !file) {
+                showError('granthError', 'सभी fields भरें');
+                return;
+            }
+
+            const key = `granth_${Date.now()}`;
+            localStorage.setItem(key, JSON.stringify({
+                name, author, desc, pages, lang, file, category, year
+            }));
+
+            showSuccess('granthSuccess', 'Granth successfully add हुई!');
+            e.target.reset();
+            setTimeout(() => loadGranths(), 1000);
+        }
+
+        // Helper functions
+        function showSuccess(elementId, message) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 3000);
+        }
+
+        function showError(elementId, message) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 3000);
+        }
+
+        function editMantra(category, id) {
+            alert('Edit functionality coming soon!');
+        }
+
+        function deleteMantra(category, id) {
+            if (confirm('क्या आप इस mantra को delete करना चाहते हैं?')) {
+                alert('Delete functionality coming soon!');
+            }
+        }
+
+        function editAarti(id) {
+            alert('Edit functionality coming soon!');
+        }
+
+        function deleteAarti(id) {
+            if (confirm('क्या आप इस aarti को delete करना चाहते हैं?')) {
+                alert('Delete functionality coming soon!');
+            }
+        }
+
+        function editGranth(id) {
+            alert('Edit functionality coming soon!');
+        }
+
+        function deleteGranth(id) {
+            if (confirm('क्या आप इस granth को delete करना चाहते हैं?')) {
+                alert('Delete functionality coming soon!');
+            }
+        }
+
+
+    </script>
+</body>
+</html>
