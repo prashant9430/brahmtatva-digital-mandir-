@@ -1,0 +1,477 @@
+/* ========================================
+   Responsive Design for Mobile & Tablets
+   ======================================== */
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+    .nav-menu {
+        gap: 1rem;
+    }
+
+    .nav-link {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .lotus-decoration {
+        width: 100px;
+        height: 100px;
+        right: 1rem;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .card-icon {
+        font-size: 2.5rem;
+    }
+
+    .card h3 {
+        font-size: 1.1rem;
+    }
+
+    .pooja-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mantra-tabs {
+        gap: 0.5rem;
+    }
+
+    .mantra-tab {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .mantra-item {
+        padding: 1.5rem;
+    }
+
+    .mantra-sanskrit {
+        font-size: 1.3rem;
+    }
+
+    .aarti-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .granth-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .modal-content {
+        width: 98%;
+        margin: 5% auto;
+    }
+
+    .pdf-viewer {
+        height: 400px;
+    }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+    .nav-container {
+        padding: 1rem;
+    }
+
+    .nav-logo {
+        font-size: 1.2rem;
+    }
+
+    .om-symbol {
+        font-size: 1.5rem;
+    }
+
+    .logo-text {
+        font-size: 1rem;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(135deg, #FF9933 0%, #FFB347 100%);
+        flex-direction: column;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .nav-menu.active {
+        max-height: 400px;
+    }
+
+    .nav-link {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
+        text-align: left;
+    }
+
+    .hero {
+        padding: 2rem 1rem;
+        margin: 1rem;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .hero-description {
+        font-size: 0.95rem;
+    }
+
+    .lotus-decoration {
+        display: none;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .about-intro {
+        padding: 1.5rem 1rem;
+    }
+
+    .about-intro h2 {
+        font-size: 1.5rem;
+    }
+
+    .about-intro p {
+        font-size: 0.95rem;
+        text-align: left;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .card {
+        padding: 1.2rem;
+    }
+
+    .card-icon {
+        font-size: 2rem;
+    }
+
+    .card h3 {
+        font-size: 1rem;
+    }
+
+    .card p {
+        font-size: 0.9rem;
+    }
+
+    .page-header {
+        margin-bottom: 2rem;
+        padding: 1.5rem 0;
+    }
+
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .page-header p {
+        font-size: 1rem;
+    }
+
+    .panchang-container {
+        padding: 1.5rem;
+    }
+
+    .panchang-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .panchang-item {
+        padding: 1rem;
+    }
+
+    .panchang-item h3 {
+        font-size: 0.85rem;
+    }
+
+    .panchang-item p {
+        font-size: 1rem;
+    }
+
+    .pooja-card {
+        border-radius: 10px;
+    }
+
+    .pooja-card-header {
+        padding: 1rem;
+    }
+
+    .pooja-card-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .pooja-card-body {
+        padding: 1rem;
+    }
+
+    .btn-read {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .mantra-tabs {
+        gap: 0.3rem;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+
+    .mantra-tab {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+    .mantra-item {
+        padding: 1.2rem;
+    }
+
+    .mantra-sanskrit {
+        font-size: 1.1rem;
+    }
+
+    .mantra-hindi {
+        font-size: 0.9rem;
+    }
+
+    .mantra-meaning {
+        font-size: 0.85rem;
+    }
+
+    .aarti-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .aarti-lyrics {
+        font-size: 0.95rem;
+    }
+
+    .granth-card {
+        padding: 1.5rem;
+    }
+
+    .granth-icon {
+        font-size: 2.5rem;
+    }
+
+    .granth-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .granth-card p {
+        font-size: 0.85rem;
+    }
+
+    .btn-view,
+    .btn-download {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        margin-right: 0.3rem;
+    }
+
+    .modal-content {
+        width: 99%;
+        margin: 10% auto;
+    }
+
+    .modal-header {
+        padding: 1rem;
+    }
+
+    .modal-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .close {
+        font-size: 1.5rem;
+    }
+
+    .modal-body {
+        padding: 1rem;
+    }
+
+    .pdf-viewer {
+        height: 300px;
+    }
+
+    .about-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .about-content p {
+        font-size: 0.95rem;
+    }
+
+    .about-content ul {
+        margin-left: 1.5rem;
+    }
+
+    .about-content li {
+        font-size: 0.95rem;
+    }
+
+    .footer {
+        padding: 1.5rem;
+    }
+
+    .footer p {
+        font-size: 0.9rem;
+    }
+
+    .footer-mantra {
+        font-size: 1rem;
+    }
+
+    .mantra-text {
+        font-size: 1.5rem;
+    }
+}
+
+/* Extra Small Devices (320px and below) */
+@media (max-width: 320px) {
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .hero-description {
+        font-size: 0.85rem;
+    }
+
+    .cards-grid {
+        gap: 0.8rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .card-icon {
+        font-size: 1.8rem;
+    }
+
+    .card h3 {
+        font-size: 0.95rem;
+    }
+
+    .card p {
+        font-size: 0.85rem;
+    }
+
+    .mantra-tabs {
+        gap: 0.2rem;
+    }
+
+    .mantra-tab {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+    }
+
+    .mantra-item {
+        padding: 1rem;
+    }
+
+    .mantra-sanskrit {
+        font-size: 1rem;
+    }
+
+    .btn-read,
+    .btn-view,
+    .btn-download {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Landscape Orientation */
+@media (max-height: 600px) and (orientation: landscape) {
+    .hero {
+        padding: 2rem 1rem;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .hero-description {
+        font-size: 0.9rem;
+    }
+
+    .cards-grid {
+        gap: 1rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .modal-body {
+        max-height: 400px;
+    }
+
+    .pdf-viewer {
+        height: 350px;
+    }
+      }
