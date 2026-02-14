@@ -814,6 +814,49 @@ body {
     line-height: 1.8;
 }
 
+.gau-section {
+    background: linear-gradient(135deg, #fff5e6, #ffe0b3);
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.gau-section h2 {
+    font-size: 2.5rem;
+    color: #8B0000;
+    margin-bottom: 40px;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px #ffcc00; }
+    to { text-shadow: 0 0 25px #ff6600; }
+}
+
+.gau-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.gau-text {
+    max-width: 500px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4d2600;
+}
+
+.gau-image img {
+    width: 280px;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
 /* ========================================
    Footer
    ======================================== */
