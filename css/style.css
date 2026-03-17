@@ -911,3 +911,344 @@ body {
     margin-bottom: 1rem;
     border-left: 4px solid #2E7D32;
       }
+/* ========================================
+   Shankaracharya Sections
+   css/style.css ke END mein add karo
+   ======================================== */
+
+.acharya-section {
+    background: linear-gradient(135deg, rgba(255, 153, 51, 0.06) 0%, rgba(255, 215, 0, 0.08) 100%);
+    padding: 60px 20px;
+    border-top: 3px solid var(--primary-saffron);
+}
+
+.acharya-section--saffron {
+    background: linear-gradient(135deg, rgba(255, 250, 220, 0.8) 0%, rgba(255, 240, 180, 0.8) 100%);
+    border-top: 3px solid var(--primary-gold);
+}
+
+.acharya-container {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+/* Header */
+.acharya-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.acharya-eyebrow {
+    display: inline-block;
+    font-family: var(--font-hindi);
+    font-size: 0.82rem;
+    color: var(--primary-saffron);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    background: rgba(255, 153, 51, 0.08);
+    border: 1px solid rgba(255, 153, 51, 0.25);
+    padding: 4px 16px;
+    border-radius: 20px;
+}
+
+.acharya-title {
+    font-family: var(--font-sanskrit);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--primary-saffron);
+    font-weight: bold;
+    margin: 8px 0 6px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.08);
+}
+
+.acharya-subtitle {
+    font-family: var(--font-hindi);
+    font-size: 1rem;
+    color: #777;
+    font-style: italic;
+}
+
+.acharya-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.acharya-divider span {
+    display: block;
+    height: 1px;
+    width: 80px;
+    background: linear-gradient(90deg, transparent, var(--primary-saffron));
+}
+
+.acharya-divider span:last-child {
+    background: linear-gradient(90deg, var(--primary-saffron), transparent);
+}
+
+.acharya-divider em {
+    font-style: normal;
+    font-size: 1.1rem;
+}
+
+/* Tabs Nav */
+.acharya-tabs-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-bottom: 28px;
+    border-bottom: 2px solid rgba(255, 153, 51, 0.25);
+}
+
+.acharya-tab-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px 20px;
+    font-family: var(--font-hindi);
+    font-size: 0.95rem;
+    color: #888;
+    position: relative;
+    transition: var(--transition);
+    outline: none;
+    white-space: nowrap;
+}
+
+.acharya-tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--primary-saffron);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.acharya-tab-btn:hover {
+    color: var(--primary-saffron);
+}
+
+.acharya-tab-btn.active {
+    color: var(--primary-saffron);
+    font-weight: 600;
+}
+
+.acharya-tab-btn.active::after {
+    transform: scaleX(1);
+}
+
+.acharya-tab-icon {
+    display: block;
+    font-size: 1.2rem;
+    margin: 0 auto 4px;
+}
+
+/* Tab Panels */
+.acharya-panel {
+    display: none;
+    animation: acharyaFadeIn 0.4s ease;
+}
+
+.acharya-panel.active {
+    display: block;
+}
+
+@keyframes acharyaFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Card */
+.acharya-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(255,250,220,0.97) 100%);
+    border-radius: 15px;
+    padding: 36px 40px;
+    box-shadow: var(--deep-shadow);
+    border-top: 4px solid var(--primary-saffron);
+}
+
+.acharya-card-title {
+    font-family: var(--font-sanskrit);
+    font-size: 1.05rem;
+    color: var(--primary-saffron);
+    text-align: center;
+    margin: 0 0 22px;
+    letter-spacing: 0.04em;
+}
+
+.acharya-card p {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.9;
+    margin-bottom: 14px;
+    text-align: justify;
+}
+
+.acharya-card p:last-child { margin-bottom: 0; }
+
+.acharya-card strong { color: var(--primary-saffron); }
+.acharya-card em     { color: #8B4513; }
+
+/* Quote Block */
+.acharya-quote {
+    border-left: 4px solid var(--primary-gold);
+    padding: 14px 18px;
+    margin: 20px 0;
+    background: rgba(255, 215, 0, 0.08);
+    border-radius: 0 10px 10px 0;
+}
+
+.acharya-quote p {
+    font-family: var(--font-sanskrit);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #8B4513;
+    margin: 0 0 5px !important;
+    text-align: left !important;
+}
+
+.acharya-quote small {
+    color: #999;
+    font-size: 0.86rem;
+}
+
+/* Info Grid (Parichay tab) */
+.acharya-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.acharya-info-item {
+    background: rgba(255, 153, 51, 0.06);
+    border: 1px solid rgba(255, 153, 51, 0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+.acharya-info-item .info-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--primary-saffron);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--font-hindi);
+    margin-bottom: 3px;
+    font-weight: 600;
+}
+
+.acharya-info-item .info-val {
+    font-size: 0.95rem;
+    color: #444;
+    font-family: var(--font-hindi);
+}
+
+/* Tags */
+.acharya-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.acharya-tag {
+    background: rgba(255, 153, 51, 0.1);
+    border: 1px solid rgba(255, 153, 51, 0.3);
+    color: #8B4513;
+    font-size: 0.82rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: var(--font-hindi);
+}
+
+/* Timeline */
+.acharya-timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.acharya-timeline li {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 153, 51, 0.15);
+    align-items: start;
+}
+
+.acharya-timeline li:last-child { border-bottom: none; }
+
+.acharya-timeline .tl-year {
+    font-family: var(--font-sanskrit);
+    font-size: 0.8rem;
+    color: var(--primary-saffron);
+    font-weight: bold;
+    text-align: center;
+    padding-top: 3px;
+    line-height: 1.5;
+    background: rgba(255,153,51,0.08);
+    border-radius: 8px;
+    padding: 6px 4px;
+}
+
+.acharya-timeline .tl-body {
+    color: #555;
+    font-size: 1.02rem;
+    line-height: 1.85;
+}
+
+.acharya-timeline .tl-body strong {
+    color: var(--primary-saffron);
+    display: block;
+    margin-bottom: 3px;
+    font-size: 0.93rem;
+}
+
+/* Andolan List */
+.acharya-andolan {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+}
+
+.acharya-andolan li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 153, 51, 0.15);
+}
+
+.acharya-andolan li:last-child { border-bottom: none; }
+
+.acharya-andolan .al-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.acharya-andolan .al-body {
+    color: #555;
+    font-size: 1.02rem;
+    line-height: 1.85;
+}
+
+.acharya-andolan .al-body strong {
+    color: var(--primary-saffron);
+    display: block;
+    margin-bottom: 3px;
+    font-size: 0.93rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .acharya-card { padding: 24px 18px; }
+    .acharya-info-grid { grid-template-columns: 1fr; }
+    .acharya-tab-btn { padding: 10px 12px; font-size: 0.85rem; }
+    .acharya-timeline li { grid-template-columns: 68px 1fr; }
+   }
