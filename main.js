@@ -295,3 +295,18 @@ if ('serviceWorker' in navigator) {
 }
 
 console.log('BrahmTatva – Digital Mandir loaded successfully! 🙏');
+
+// ================================================
+// Shankaracharya Tabs Function
+// main.js ke bilkul END mein add karo
+// (console.log line ke BAAD)
+// ================================================
+
+function acharyaTab(prefix, tabId, btn) {
+    const section = btn.closest('.acharya-section');
+    section.querySelectorAll('.acharya-panel').forEach(p => p.classList.remove('active'));
+    section.querySelectorAll('.acharya-tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(prefix + '-' + tabId).classList.add('active');
+    btn.classList.add('active');
+}
+
