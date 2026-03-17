@@ -475,3 +475,11 @@
         height: 350px;
     }
 }
+/* Responsive */
+@media (max-width: 600px) {
+    .acharya-card { padding: 24px 18px; }
+    .acharya-info-grid { grid-template-columns: 1fr; }
+    .acharya-tab-btn { padding: 10px 12px; font-size: 0.85rem; }
+    .acharya-timeline li { grid-template-columns: 68px 1fr; }
+}
+
