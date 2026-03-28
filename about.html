@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <style>
-        /* ── PROFILE CARD ── */
+        /* ══ PROFILE CARD ══ */
         .pandit-profile-card {
             background: linear-gradient(145deg, #fff9f0, #fff3e0);
             border: 2px solid rgba(255,153,51,0.3);
@@ -24,8 +24,7 @@
         .pandit-profile-card::before {
             content: 'ॐ';
             position: absolute;
-            top: -20px;
-            right: -10px;
+            top: -20px; right: -10px;
             font-size: 8rem;
             color: rgba(255,153,51,0.07);
             font-family: serif;
@@ -34,67 +33,85 @@
 
         .profile-top {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
+            gap: 1.5rem;
         }
 
+        /* ── CIRCLE ── */
         .profile-photo-wrap {
             position: relative;
             flex-shrink: 0;
         }
 
-        .profile-photo-ring {
-            width: 170px;
-            height: 170px;
+        .profile-circle-outer {
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             background: linear-gradient(135deg, #FF9933, #FFD700, #FF9933);
-            padding: 4px;
-            box-shadow: 0 0 30px rgba(255,153,51,0.5);
+            padding: 5px;
+            box-shadow: 0 0 0 4px rgba(255,153,51,0.2),
+                        0 0 30px rgba(255,153,51,0.5);
             animation: glowRing 3s ease-in-out infinite;
         }
 
         @keyframes glowRing {
-            0%, 100% { box-shadow: 0 0 20px rgba(255,153,51,0.4); }
-            50% { box-shadow: 0 0 40px rgba(255,153,51,0.8), 0 0 60px rgba(255,215,0,0.3); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(255,153,51,0.2), 0 0 20px rgba(255,153,51,0.4); }
+            50%       { box-shadow: 0 0 0 6px rgba(255,153,51,0.3), 0 0 45px rgba(255,215,0,0.6); }
         }
 
-        .profile-photo-ring img {
+        /* Inner circle — clips the image */
+        .profile-circle-inner {
             width: 100%;
             height: 100%;
             border-radius: 50%;
+            overflow: hidden;
+            background: linear-gradient(160deg, #ffe8cc, #fff3e0);
+            position: relative;
+        }
+
+        /* 
+           KEY FIX:
+           - width > 100% to zoom in (removes extra transparent padding)
+           - margin-left negative to re-center
+           - object-position focuses on face+body area
+        */
+        .profile-circle-inner img {
+            width: 140%;
+            height: 140%;
             object-fit: contain;
-            object-position: center center;
-            background: linear-gradient(135deg, #fff9f0, #ffe0b2);
+            object-position: center 15%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -42%);
             display: block;
         }
 
         .profile-om-badge {
             position: absolute;
-            bottom: 4px;
-            right: 4px;
-            width: 36px;
-            height: 36px;
+            bottom: 6px; right: 6px;
+            width: 40px; height: 40px;
             background: linear-gradient(135deg, #FF9933, #FFD700);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            border: 2px solid white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            border: 3px solid white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 3;
         }
 
+        /* ── INFO ── */
         .profile-info {
-            flex: 1;
-            min-width: 200px;
+            text-align: center;
+            width: 100%;
         }
 
         .profile-name {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: #b5451b;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.4rem;
             font-family: var(--font-hindi, 'Noto Sans Devanagari', serif);
             line-height: 1.3;
         }
@@ -103,95 +120,57 @@
             display: inline-block;
             background: linear-gradient(135deg, #FF9933, #FFD700);
             color: white;
-            padding: 0.3rem 1rem;
+            padding: 0.35rem 1.2rem;
             border-radius: 20px;
             font-size: 0.82rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
             margin-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(255,153,51,0.3);
+            box-shadow: 0 2px 8px rgba(255,153,51,0.35);
         }
 
         .profile-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            display: flex; flex-wrap: wrap; gap: 0.45rem;
+            justify-content: center; margin-bottom: 1rem;
         }
 
         .profile-tag {
             background: rgba(255,153,51,0.12);
             border: 1px solid rgba(255,153,51,0.3);
             color: #b5451b;
-            padding: 0.25rem 0.75rem;
+            padding: 0.22rem 0.7rem;
             border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 600;
+            font-size: 0.77rem; font-weight: 600;
         }
+
+        .profile-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255,153,51,0.4), transparent);
+            margin: 1.2rem 0;
+        }
+
+        .profile-description {
+            font-size: 1rem; line-height: 1.85;
+            color: #444; text-align: left;
+        }
+        .profile-description strong { color: #b5451b; }
 
         .profile-contact {
             background: white;
             border-radius: 12px;
             padding: 1rem 1.2rem;
-            margin-top: 1.5rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
+            margin-top: 1.2rem;
+            display: flex; flex-wrap: wrap; gap: 1rem;
+            justify-content: center;
         }
-
         .profile-contact a {
-            color: #FF9933;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            transition: color 0.2s;
+            color: #FF9933; text-decoration: none;
+            font-weight: 700; font-size: 0.95rem;
+            display: flex; align-items: center; gap: 0.4rem;
         }
-
-        .profile-contact a:hover {
-            color: #b5451b;
-        }
-
-        .profile-divider {
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(255,153,51,0.4), transparent);
-            margin: 1.5rem 0;
-        }
-
-        .profile-description {
-            font-size: 1.05rem;
-            line-height: 1.85;
-            color: #444;
-        }
-
-        .profile-description strong {
-            color: #b5451b;
-        }
-
-        /* Mobile */
-        @media (max-width: 600px) {
-            .profile-top {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .profile-tags {
-                justify-content: center;
-            }
-            .profile-contact {
-                justify-content: center;
-            }
-            .profile-name {
-                font-size: 1.3rem;
-            }
-        }
+        .profile-contact a:hover { color: #b5451b; }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -208,14 +187,11 @@
                 <a href="about.html" class="nav-link active">परिचय</a>
             </div>
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
 
-    <!-- Mantra Background Animation -->
     <div class="mantra-bg">
         <div class="mantra-text">ॐ नमः शिवाय</div>
         <div class="mantra-text">ॐ नमो भगवते वासुदेवाय</div>
@@ -223,29 +199,27 @@
         <div class="mantra-text">ॐ गं गणपतये नमः</div>
     </div>
 
-    <!-- Main Content -->
     <main class="container">
-        <!-- Page Header -->
         <div class="page-header">
             <h1>ℹ️ परिचय</h1>
             <p>BrahmTatva – Digital Mandir के बारे में जानें</p>
         </div>
 
-        <!-- About Content -->
         <div class="about-content">
             <h2>🙏 परिचय</h2>
 
-            <!-- ══ PROFILE CARD ══ -->
             <div class="pandit-profile-card">
                 <div class="profile-top">
-                    <!-- Photo -->
+
+                    <!-- Circle Photo -->
                     <div class="profile-photo-wrap">
-                        <div class="profile-photo-ring">
-                            <img
-                                src="https://comprehensive-harlequin-8y8lpacmja.edgeone.app/1000138969-removebg-preview.png"
-                                alt="पंडित प्रशांत कुमार पांडेय"
-                                onerror="this.style.display='none'"
-                            />
+                        <div class="profile-circle-outer">
+                            <div class="profile-circle-inner">
+                                <img
+                                    src="https://comprehensive-harlequin-8y8lpacmja.edgeone.app/1000138969-removebg-preview.png"
+                                    alt="पंडित प्रशांत कुमार पांडेय"
+                                />
+                            </div>
                         </div>
                         <div class="profile-om-badge">ॐ</div>
                     </div>
@@ -253,7 +227,7 @@
                     <!-- Info -->
                     <div class="profile-info">
                         <div class="profile-name">पंडित प्रशांत कुमार पांडेय</div>
-                        <div class="profile-title-badge">🔱 जyotish Pandit • Digital Mandir Founder</div>
+                        <div class="profile-title-badge">🔱 Jyotish Pandit • Digital Mandir Founder</div>
                         <div class="profile-tags">
                             <span class="profile-tag">🕉️ सनातन धर्म</span>
                             <span class="profile-tag">⭐ ज्योतिष</span>
@@ -268,13 +242,12 @@
 
                 <p class="profile-description">
                     <strong>BrahmTatva – Digital Mandir</strong> एक आध्यात्मिक पोर्टल है जो सनातन धर्म के ज्ञान, भक्ति और आध्यात्मिक विकास को
-                    डिजिटल माध्यम से सभी तक पहुँचाने के लिए समर्पित है। इस पवित्र पोर्टल का निर्माण इसी उद्देश्य से किया गया है कि प्रत्येक व्यक्ति,
-                    चाहे वह किसी भी स्थान पर हो, अपने घर से ही आध्यात्मिक ज्ञान प्राप्त कर सके, पूजा-पाठ की विधि सीख सके, पवित्र मंत्रों का जाप कर सके,
-                    और अपनी आत्मा का विकास कर सके।
+                    डिजिटल माध्यम से सभी तक पहुँचाने के लिए समर्पित है। प्रत्येक व्यक्ति — चाहे वह कहीं भी हो — अपने घर से ही
+                    आध्यात्मिक ज्ञान प्राप्त कर सके, यही इस मंदिर का संकल्प है।
                 </p>
-                <p class="profile-description" style="margin-top:1rem;">
-                    हमारा विश्वास है कि <strong>सनातन धर्म</strong> केवल एक धर्म नहीं है, बल्कि एक जीवन दर्शन है जो हमें सत्य, न्याय, करुणा और आध्यात्मिकता की ओर ले जाता है।
-                    <strong>भक्ति</strong> का मार्ग सभी के लिए खुला है, और <strong>ज्ञान</strong> ही वह शक्ति है जो हमें अंधकार से प्रकाश की ओर ले जाती है।
+                <p class="profile-description" style="margin-top:0.8rem;">
+                    हमारा विश्वास है कि <strong>सनातन धर्म</strong> केवल एक धर्म नहीं, बल्कि एक जीवन दर्शन है।
+                    <strong>भक्ति</strong> का मार्ग सभी के लिए खुला है, और <strong>ज्ञान</strong> ही वह शक्ति है जो हमें प्रकाश की ओर ले जाती है।
                 </p>
 
                 <div class="profile-contact">
@@ -286,33 +259,28 @@
 
         <div class="about-content">
             <h2>हमारा मिशन</h2>
-            <p>
-                BrahmTatva – Digital Mandir का मुख्य उद्देश्य है सनातन धर्म के अमूल्य ज्ञान को डिजिटल माध्यम से सभी तक सुलभ कराना।
-                हम विश्वास करते हैं कि आध्यात्मिक ज्ञान सभी की अधिकार है, और इसे सरल, सुंदर और सुलभ तरीके से प्रस्तुत किया जाना चाहिए।
-            </p>
+            <p>BrahmTatva – Digital Mandir का मुख्य उद्देश्य है सनातन धर्म के अमूल्य ज्ञान को डिजिटल माध्यम से सभी तक सुलभ कराना।
+            हम विश्वास करते हैं कि आध्यात्मिक ज्ञान सभी का अधिकार है, और इसे सरल, सुंदर तरीके से प्रस्तुत किया जाना चाहिए।</p>
         </div>
 
         <div class="about-content">
             <h2>हमारी विशेषताएं</h2>
             <ul>
-                <li><strong>दैनिक पंचांग:</strong> हर दिन अपडेट होने वाला पंचांग जो आपको शुभ समय और तिथि बताता है।</li>
-                <li><strong>पूजा विधि:</strong> विभिन्न देवताओं की पूजा की विस्तृत विधि और नियम।</li>
-                <li><strong>मंत्र संग्रह:</strong> शिव, विष्णु, गायत्री, हनुमान और देवी मंत्रों का विशाल संग्रह।</li>
-                <li><strong>आरती संग्रह:</strong> विभिन्न देवताओं की आरती के गीत और मंत्र।</li>
-                <li><strong>ग्रंथ पुस्तकालय:</strong> पवित्र ग्रंथों का डिजिटल संग्रह जिन्हें आप ऑनलाइन देख सकते हैं।</li>
-                <li><strong>मोबाइल-फर्स्ट डिज़ाइन:</strong> सभी डिवाइसों पर सुंदर और आसान इंटरफेस।</li>
+                <li><strong>दैनिक पंचांग:</strong> हर दिन अपडेट होने वाला पंचांग।</li>
+                <li><strong>पूजा विधि:</strong> विभिन्न देवताओं की पूजा की विस्तृत विधि।</li>
+                <li><strong>मंत्र संग्रह:</strong> शिव, विष्णु, गायत्री, हनुमान और देवी मंत्र।</li>
+                <li><strong>आरती संग्रह:</strong> विभिन्न देवताओं की आरती।</li>
+                <li><strong>ग्रंथ पुस्तकालय:</strong> पवित्र ग्रंथों का डिजिटल संग्रह।</li>
+                <li><strong>मोबाइल-फर्स्ट डिज़ाइन:</strong> सभी डिवाइसों पर सुंदर इंटरफेस।</li>
             </ul>
         </div>
 
         <div class="about-content">
             <h2>सनातन धर्म क्या है?</h2>
-            <p>
-                सनातन धर्म (हिंदू धर्म) विश्व का सबसे प्राचीन धर्म है। इसका शाब्दिक अर्थ है "शाश्वत धर्म"।
-                यह धर्म वेदों पर आधारित है और इसमें विभिन्न देवताओं, दर्शनों और आध्यात्मिक मार्गों का समावेश है।
-            </p>
+            <p>सनातन धर्म विश्व का सबसे प्राचीन धर्म है — "शाश्वत धर्म"। वेदों पर आधारित यह जीवन दर्शन कर्म, धर्म, भक्ति, ज्ञान और मोक्ष के सिद्धांतों पर टिका है।</p>
             <ul>
                 <li><strong>कर्म:</strong> हर कार्य का फल निश्चित है।</li>
-                <li><strong>धर्म:</strong> सत्य, न्याय और नैतिकता का पालन करना।</li>
+                <li><strong>धर्म:</strong> सत्य, न्याय और नैतिकता का पालन।</li>
                 <li><strong>भक्ति:</strong> भगवान के प्रति प्रेम और समर्पण।</li>
                 <li><strong>ज्ञान:</strong> आत्मज्ञान और ब्रह्मज्ञान की प्राप्ति।</li>
                 <li><strong>मोक्ष:</strong> जन्म-मृत्यु के चक्र से मुक्ति।</li>
@@ -321,55 +289,25 @@
 
         <div class="about-content">
             <h2>भक्ति का मार्ग</h2>
-            <p>
-                भक्ति का अर्थ है भगवान के प्रति प्रेम और समर्पण। सनातन धर्म में भक्ति को मोक्ष प्राप्ति का सबसे सरल मार्ग माना गया है।
-            </p>
+            <p>भक्ति के माध्यम से कोई भी व्यक्ति भगवान को प्राप्त कर सकता है।</p>
             <ul>
                 <li><strong>श्रवण भक्ति:</strong> भगवान की कथाओं को सुनना।</li>
-                <li><strong>कीर्तन भक्ति:</strong> भगवान के नाम का गान करना।</li>
-                <li><strong>पूजन भक्ति:</strong> भगवान की पूजा करना।</li>
-                <li><strong>स्मरण भक्ति:</strong> भगवान का ध्यान करना।</li>
-                <li><strong>दास्य भक्ति:</strong> भगवान की सेवा करना।</li>
-            </ul>
-        </div>
-
-        <div class="about-content">
-            <h2>ज्ञान का महत्व</h2>
-            <p>
-                सनातन धर्म में ज्ञान को सर्वोच्च मूल्य दिया गया है। वेदों में कहा गया है कि ज्ञान ही सबसे बड़ा धन है और ज्ञान से ही मोक्ष की प्राप्ति होती है।
-            </p>
-            <ul>
-                <li><strong>वेद:</strong> सनातन धर्म का सबसे प्राचीन और पवित्र ग्रंथ।</li>
-                <li><strong>उपनिषद:</strong> वेदों का दार्शनिक भाग।</li>
-                <li><strong>गुरु:</strong> एक सच्चे गुरु से प्राप्त ज्ञान।</li>
-            </ul>
-        </div>
-
-        <div class="about-content">
-            <h2>इस पोर्टल का उपयोग कैसे करें</h2>
-            <ul>
-                <li>प्रतिदिन का पंचांग देखें और शुभ समय जानें।</li>
-                <li>विभिन्न देवताओं की पूजा की विधि सीखें।</li>
-                <li>पवित्र मंत्रों का जाप करें।</li>
-                <li>आरती के गीतों को गाएं।</li>
-                <li>पवित्र ग्रंथों को पढ़ें।</li>
-                <li>अपनी आध्यात्मिक यात्रा को जारी रखें।</li>
+                <li><strong>कीर्तन भक्ति:</strong> भगवान के नाम का गान।</li>
+                <li><strong>पूजन भक्ति:</strong> भगवान की पूजा।</li>
+                <li><strong>स्मरण भक्ति:</strong> भगवान का ध्यान।</li>
+                <li><strong>दास्य भक्ति:</strong> भगवान की सेवा।</li>
             </ul>
         </div>
 
         <div class="about-content">
             <h2>संपर्क और प्रतिक्रिया</h2>
-            <p>
-                यदि आपको इस पोर्टल में कोई सुझाव या सुधार की आवश्यकता है, तो कृपया हमसे संपर्क करें।
-                हम आपकी प्रतिक्रिया का स्वागत करते हैं और इसे अधिक बेहतर बनाने के लिए प्रतिबद्ध हैं।
-            </p>
-            <p style="text-align: center; margin-top: 2rem; font-family: var(--font-sanskrit); font-size: 1.3rem; color: var(--primary-saffron);">
+            <p>यदि कोई सुझाव या सुधार हो, तो कृपया हमसे संपर्क करें। हम आपकी प्रतिक्रिया का स्वागत करते हैं।</p>
+            <p style="text-align:center; margin-top:2rem; font-family:var(--font-sanskrit); font-size:1.3rem; color:var(--primary-saffron);">
                 ॐ शान्तिः शान्तिः शान्तिः
             </p>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <p>🙏 BrahmTatva – Digital Mandir 🙏</p>
         <p>सनातन धर्म का ज्ञान, भक्ति का मार्ग</p>
