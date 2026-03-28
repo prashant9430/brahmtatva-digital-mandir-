@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>आज का संदेश | BrahmTatva</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90' fill='%23FF9933'>ॐ</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Noto+Sans+Devanagari:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --gold: #FFD700;
+            --deep-red: #8B1A1A;
+            --cream: #FFF8EE;
+            --dark-brown: #3d1c02;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--cream);
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* ══ HERO SECTION ══ */
+        .sandesh-hero {
+            background: linear-gradient(160deg, #1a0800 0%, #3d1500 40%, #7a2d00 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 3rem 1.5rem 4rem;
+            text-align: center;
+        }
+
+        /* Mandala background */
+        .sandesh-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 50% 50%, rgba(255,153,51,0.08) 0%, transparent 70%),
+                radial-gradient(circle at 20% 20%, rgba(255,215,0,0.05) 0%, transparent 50%);
+        }
+
+        .hero-om {
+            font-size: 3.5rem;
+            color: var(--gold);
+            opacity: 0.9;
+            display: block;
+            margin-bottom: 0.5rem;
+            animation: omPulse 4s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255,215,0,0.5);
+        }
+
+        @keyframes omPulse {
+            0%,100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.08); opacity: 1; }
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 0.3rem;
+            font-family: 'Tiro Devanagari Sanskrit', serif;
+        }
+
+        .hero-subtitle {
+            color: rgba(255,200,100,0.8);
+            font-size: 0.95rem;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            font-size: 1rem;
+            opacity: 0;
+            animation: floatUp 6s ease-in infinite;
+            color: rgba(255,215,0,0.4);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100%) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.3; }
+            100% { transform: translateY(-20px) rotate(360deg); opacity: 0; }
+        }
+
+        /* ══ DATE STRIP ══ */
+        .date-strip {
+            background: linear-gradient(90deg, var(--saffron), var(--gold), var(--saffron));
+            padding: 0.6rem 1.5rem;
+            text-align: center;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #3d1c02;
+            letter-spacing: 0.3px;
+        }
+
+        /* ══ MAIN CONTAINER ══ */
+        .sandesh-container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 4rem;
+        }
+
+        /* ══ SHLOK CARD ══ */
+        .shlok-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(139,26,26,0.12), 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,153,51,0.15);
+            animation: cardIn 0.6s ease both;
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card top — chapter badge */
+        .card-top {
+            background: linear-gradient(135deg, var(--deep-red), #c0392b);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chapter-badge {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .geeta-icon {
+            font-size: 1.8rem;
+            opacity: 0.9;
+        }
+
+        /* Sanskrit shlok */
+        .shlok-sanskrit {
+            padding: 1.8rem 1.5rem 1rem;
+            text-align: center;
+            border-bottom: 1px dashed rgba(255,153,51,0.25);
+        }
+
+        .shlok-text {
+            font-family: 'Tiro Devanagari Sanskrit', serif;
+            font-size: 1.15rem;
+            line-height: 2;
+            color: var(--dark-brown);
+            font-style: italic;
+        }
+
+        .shlok-ref {
+            margin-top: 0.8rem;
+            font-size: 0.82rem;
+            color: var(--saffron);
+            font-weight: 700;
+        }
+
+        /* Hindi meaning */
+        .shlok-hindi {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px dashed rgba(255,153,51,0.25);
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--saffron);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .shlok-meaning {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        /* Daily message */
+        .shlok-sandesh {
+            padding: 1.2rem 1.5rem;
+            background: linear-gradient(135deg, rgba(255,153,51,0.06), rgba(255,215,0,0.06));
+        }
+
+        .sandesh-text {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: #555;
+            font-style: italic;
+        }
+
+        /* ══ ACTION BUTTONS ══ */
+        .action-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            padding: 1.2rem 1.5rem;
+            border-top: 1px solid rgba(255,153,51,0.15);
+        }
+
+        .btn-share {
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: transform 0.15s, box-shadow 0.15s;
+            font-family: 'Noto Sans Devanagari', sans-serif;
+        }
+
+        .btn-share:active { transform: scale(0.96); }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            box-shadow: 0 4px 12px rgba(37,211,102,0.3);
+        }
+
+        .btn-whatsapp:hover { box-shadow: 0 6px 18px rgba(37,211,102,0.4); }
+
+        .btn-copy {
+            background: linear-gradient(135deg, var(--saffron), var(--gold));
+            color: white;
+            box-shadow: 0 4px 12px rgba(255,153,51,0.3);
+        }
+
+        .btn-copy:hover { box-shadow: 0 6px 18px rgba(255,153,51,0.4); }
+
+        .btn-next {
+            grid-column: 1 / -1;
+            background: white;
+            color: var(--deep-red);
+            border: 2px solid rgba(139,26,26,0.2);
+            box-shadow: none;
+        }
+
+        .btn-next:hover {
+            background: var(--cream);
+            border-color: var(--deep-red);
+        }
+
+        /* ══ TOAST ══ */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: #222;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 999;
+            transition: transform 0.3s ease;
+            white-space: nowrap;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* ══ STREAK SECTION ══ */
+        .streak-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid rgba(255,153,51,0.15);
+        }
+
+        .streak-fire {
+            font-size: 2.5rem;
+            animation: fireFlicker 1.5s ease-in-out infinite;
+        }
+
+        @keyframes fireFlicker {
+            0%,100% { transform: scale(1) rotate(-3deg); }
+            50% { transform: scale(1.1) rotate(3deg); }
+        }
+
+        .streak-info { flex: 1; }
+        .streak-count {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--saffron);
+            line-height: 1;
+        }
+        .streak-label {
+            font-size: 0.82rem;
+            color: #888;
+            margin-top: 0.2rem;
+        }
+
+        .streak-days {
+            display: flex;
+            gap: 0.3rem;
+        }
+        .streak-dot {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            background: rgba(255,153,51,0.15);
+            border: 2px solid rgba(255,153,51,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.65rem;
+            color: #aaa;
+            font-weight: 700;
+        }
+        .streak-dot.done {
+            background: var(--saffron);
+            border-color: var(--saffron);
+            color: white;
+        }
+        .streak-dot.today {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--dark-brown);
+            box-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+
+        /* ══ PREVIOUS SHLOKAS ══ */
+        .prev-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--dark-brown);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .prev-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--saffron);
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+        .prev-card:hover { transform: translateX(4px); }
+
+        .prev-ref {
+            font-size: 0.75rem;
+            color: var(--saffron);
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .prev-text {
+            font-size: 0.88rem;
+            color: #555;
+            line-height: 1.6;
+            font-style: italic;
+            font-family: 'Tiro Devanagari Sanskrit', serif;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="om-symbol">ॐ</span>
+                <span class="logo-text">BrahmTatva</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">गृह</a>
+                <a href="panchang.html" class="nav-link">पंचांग</a>
+                <a href="pooja.html" class="nav-link">पूजा विधि</a>
+                <a href="mantra.html" class="nav-link">मंत्र संग्रह</a>
+                <a href="aarti.html" class="nav-link">आरती</a>
+                <a href="sandesh.html" class="nav-link active">आज का संदेश</a>
+                <a href="about.html" class="nav-link">परिचय</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="sandesh-hero">
+        <div class="particles" id="particles"></div>
+        <span class="hero-om">ॐ</span>
+        <h1 class="hero-title">आज का संदेश</h1>
+        <p class="hero-subtitle">श्रीमद् भगवद्गीता का दिव्य ज्ञान — प्रतिदिन</p>
+    </div>
+
+    <!-- Date strip -->
+    <div class="date-strip" id="dateStrip">🗓️ आज का संदेश लोड हो रहा है...</div>
+
+    <div class="sandesh-container">
+
+        <!-- Streak -->
+        <div class="streak-card">
+            <div class="streak-fire">🔥</div>
+            <div class="streak-info">
+                <div class="streak-count" id="streakCount">1</div>
+                <div class="streak-label">दिन की streak — रोज़ पढ़ते रहो!</div>
+            </div>
+            <div class="streak-days" id="streakDays"></div>
+        </div>
+
+        <!-- Main Shlok Card -->
+        <div class="shlok-card" id="shlokCard">
+            <div class="card-top">
+                <span class="chapter-badge" id="chapterBadge">अध्याय २, श्लोक ४७</span>
+                <span class="geeta-icon">📖</span>
+            </div>
+
+            <div class="shlok-sanskrit">
+                <div class="shlok-text" id="shlokSanskrit">
+                    कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br>
+                    मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥
+                </div>
+                <div class="shlok-ref" id="shlokRef">— भगवद्गीता २.४७</div>
+            </div>
+
+            <div class="shlok-hindi">
+                <div class="section-label">📜 हिंदी अर्थ</div>
+                <div class="shlok-meaning" id="shlokMeaning">
+                    तुम्हारा अधिकार केवल कर्म करने में है, उसके फलों में कभी नहीं। इसलिए न तो कर्म के फल की कामना करो और न ही कर्म न करने में आसक्त हो।
+                </div>
+            </div>
+
+            <div class="shlok-sandesh">
+                <div class="section-label">💡 आज का संदेश</div>
+                <div class="sandesh-text" id="shlokSandesh">
+                    आज का दिन बिना किसी अपेक्षा के अपना सर्वश्रेष्ठ कार्य करने का दिन है। जब हम परिणाम की चिंता छोड़ देते हैं, तो हमारा कार्य और भी श्रेष्ठ हो जाता है। भगवान श्रीकृष्ण का यही संदेश है — कर्म करो, फल की चिंता ईश्वर पर छोड़ दो। 🙏
+                </div>
+            </div>
+
+            <div class="action-row">
+                <button class="btn-share btn-whatsapp" onclick="shareWhatsApp()">
+                    💬 WhatsApp
+                </button>
+                <button class="btn-share btn-copy" onclick="copyText()">
+                    📋 Copy करें
+                </button>
+                <button class="btn-share btn-next" onclick="nextShlok()">
+                    🔄 अगला श्लोक देखें
+                </button>
+            </div>
+        </div>
+
+        <!-- Previous Shlokas -->
+        <div class="prev-title">📚 पिछले संदेश</div>
+        <div id="prevShlokas"></div>
+
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">✅ कॉपी हो गया!</div>
+
+    <footer class="footer">
+        <p>🙏 BrahmTatva – Digital Mandir 🙏</p>
+        <p>सनातन धर्म का ज्ञान, भक्ति का मार्ग</p>
+        <p class="footer-mantra">ॐ शान्तिः शान्तिः शान्तिः</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+    // ══ GEETA SHLOKAS DATABASE ══
+    const shlokas = [
+        {
+            chapter: "अध्याय २, श्लोक ४७",
+            ref: "भगवद्गीता २.४७",
+            sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br>मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+            meaning: "तुम्हारा अधिकार केवल कर्म करने में है, उसके फलों में कभी नहीं। इसलिए न तो कर्म के फल की कामना करो और न ही कर्म न करने में आसक्त हो।",
+            sandesh: "आज का दिन बिना किसी अपेक्षा के अपना सर्वश्रेष्ठ कार्य करने का दिन है। परिणाम की चिंता ईश्वर पर छोड़ दो — कर्म करो, फल मिलेगा। 🙏"
+        },
+        {
+            chapter: "अध्याय ४, श्लोक ७-८",
+            ref: "भगवद्गीता ४.७-८",
+            sanskrit: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।<br>अभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥",
+            meaning: "हे भारत! जब-जब धर्म की हानि होती है और अधर्म बढ़ता है, तब-तब मैं स्वयं को प्रकट करता हूँ।",
+            sandesh: "जब जीवन में अन्धकार बढ़े, विश्वास रखो — भगवान हमेशा धर्म की रक्षा के लिए आते हैं। अपना धर्म मत छोड़ो। 🔱"
+        },
+        {
+            chapter: "अध्याय ९, श्लोक २२",
+            ref: "भगवद्गीता ९.२२",
+            sanskrit: "अनन्याश्चिन्तयन्तो मां ये जनाः पर्युपासते।<br>तेषां नित्याभियुक्तानां योगक्षेमं वहाम्यहम्॥",
+            meaning: "जो भक्त केवल मेरा ही चिंतन करते हुए मेरी उपासना करते हैं, उन नित्य-युक्त भक्तों का योगक्षेम — जो नहीं मिला उसे दिलाना और जो मिला है उसकी रक्षा — मैं स्वयं करता हूँ।",
+            sandesh: "भगवान का यह वादा है — जो सच्चे मन से उनकी शरण में जाता है, उसकी हर जरूरत भगवान स्वयं पूरी करते हैं। निश्चिंत रहो! 🌟"
+        },
+        {
+            chapter: "अध्याय १२, श्लोक १३-१४",
+            ref: "भगवद्गीता १२.१३",
+            sanskrit: "अद्वेष्टा सर्वभूतानां मैत्रः करुण एव च।<br>निर्ममो निरहङ्कारः समदुःखसुखः क्षमी॥",
+            meaning: "जो किसी से द्वेष नहीं करता, सबका मित्र और करुणामय है, ममता और अहंकार से रहित है, सुख-दुःख में समान रहता है और क्षमाशील है — ऐसा भक्त मुझे प्रिय है।",
+            sandesh: "आज एक संकल्प लो — किसी से द्वेष नहीं, सबसे प्रेम। यही भगवान को सबसे प्रिय है। क्षमा करना शक्तिशाली लोगों का गुण है। 💛"
+        },
+        {
+            chapter: "अध्याय १८, श्लोक ६६",
+            ref: "भगवद्गीता १८.६६",
+            sanskrit: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।<br>अहं त्वा सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः॥",
+            meaning: "सब धर्मों को छोड़कर केवल मेरी शरण में आ जाओ। मैं तुम्हें सभी पापों से मुक्त कर दूँगा — शोक मत करो।",
+            sandesh: "यह गीता का सबसे बड़ा वादा है — ईश्वर की शरण में जाओ, वो सब संभाल लेंगे। आज कोई चिंता है? भगवान को सौंप दो। 🙏"
+        },
+        {
+            chapter: "अध्याय ६, श्लोक ५",
+            ref: "भगवद्गीता ६.५",
+            sanskrit: "उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।<br>आत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः॥",
+            meaning: "अपने मन से अपना उद्धार करो, अपने को नीचे मत गिराओ। क्योंकि यह मन ही अपना मित्र है और यही मन अपना शत्रु भी है।",
+            sandesh: "तुम्हारी सबसे बड़ी शक्ति तुम्हारे अंदर ही है। आज अपने मन को सकारात्मक रखो — तुम ही अपने सबसे बड़े मित्र हो! 💪"
+        },
+        {
+            chapter: "अध्याय ३, श्लोक १९",
+            ref: "भगवद्गीता ३.१९",
+            sanskrit: "तस्मादसक्तः सततं कार्यं कर्म समाचर।<br>असक्तो ह्याचरन्कर्म परमाप्नोति पूरुषः॥",
+            meaning: "इसलिए आसक्ति रहित होकर सदा अपना कर्तव्य-कर्म करते रहो, क्योंकि आसक्ति रहित होकर कर्म करने वाला मनुष्य परमात्मा को प्राप्त करता है।",
+            sandesh: "फल की चिंता किए बिना, निष्काम भाव से कार्य करो। यही मोक्ष का मार्ग है और यही जीवन का सबसे बड़ा रहस्य है। 🌺"
+        }
+    ];
+
+    // ══ DETERMINE TODAY'S SHLOK ══
+    // Use date to pick consistent shlok for the day
+    function getTodayShlokIndex() {
+        const now = new Date();
+        const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+        return dayOfYear % shlokas.length;
+    }
+
+    let currentIndex = getTodayShlokIndex();
+
+    // ══ SET DATE ══
+    function setDate() {
+        const now = new Date();
+        const days = ['रविवार','सोमवार','मंगलवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'];
+        const months = ['जनवरी','फरवरी','मार्च','अप्रैल','मई','जून','जुलाई','अगस्त','सितंबर','अक्टूबर','नवंबर','दिसंबर'];
+        document.getElementById('dateStrip').textContent =
+            `🗓️ ${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+    }
+
+    // ══ RENDER SHLOK ══
+    function renderShlok(index) {
+        const s = shlokas[index];
+        document.getElementById('chapterBadge').textContent = s.chapter;
+        document.getElementById('shlokSanskrit').innerHTML = s.sanskrit;
+        document.getElementById('shlokRef').textContent = `— ${s.ref}`;
+        document.getElementById('shlokMeaning').textContent = s.meaning;
+        document.getElementById('shlokSandesh').textContent = s.sandesh;
+
+        // Animate card
+        const card = document.getElementById('shlokCard');
+        card.style.animation = 'none';
+        card.offsetHeight; // reflow
+        card.style.animation = 'cardIn 0.5s ease both';
+    }
+
+    // ══ NEXT SHLOK ══
+    function nextShlok() {
+        currentIndex = (currentIndex + 1) % shlokas.length;
+        renderShlok(currentIndex);
+    }
+
+    // ══ SHARE WHATSAPP ══
+    function shareWhatsApp() {
+        const s = shlokas[currentIndex];
+        const text = `🙏 *आज का संदेश* — BrahmTatva\n\n` +
+            `📖 *${s.ref}*\n\n` +
+            `_${s.sanskrit.replace(/<br>/g, '\n')}_\n\n` +
+            `📜 *अर्थ:* ${s.meaning}\n\n` +
+            `💡 ${s.sandesh}\n\n` +
+            `— brahmtatva.netlify.app`;
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    // ══ COPY TEXT ══
+    function copyText() {
+        const s = shlokas[currentIndex];
+        const text = `🙏 आज का संदेश — BrahmTatva\n\n` +
+            `📖 ${s.ref}\n` +
+            `${s.sanskrit.replace(/<br>/g, '\n')}\n\n` +
+            `📜 अर्थ: ${s.meaning}\n\n` +
+            `💡 ${s.sandesh}\n\n` +
+            `— brahmtatva.netlify.app`;
+        navigator.clipboard.writeText(text).then(() => showToast('✅ कॉपी हो गया!'));
+    }
+
+    // ══ TOAST ══
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // ══ STREAK ══
+    function renderStreak() {
+        const today = new Date().toDateString();
+        let streak = JSON.parse(localStorage.getItem('bt_streak') || '{"count":0,"last":"","days":[]}');
+
+        if (streak.last !== today) {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            if (streak.last === yesterday.toDateString()) {
+                streak.count++;
+            } else {
+                streak.count = 1;
+                streak.days = [];
+            }
+            streak.last = today;
+            streak.days.push(new Date().getDay());
+            if (streak.days.length > 7) streak.days = streak.days.slice(-7);
+            localStorage.setItem('bt_streak', JSON.stringify(streak));
+        }
+
+        document.getElementById('streakCount').textContent = streak.count;
+
+        // Render dots
+        const dayNames = ['र','स','म','ब','ग','श','श'];
+        const container = document.getElementById('streakDays');
+        container.innerHTML = '';
+        for (let i = 0; i < 7; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'streak-dot';
+            const dayIdx = (new Date().getDay() - 6 + i + 7) % 7;
+            dot.textContent = dayNames[dayIdx];
+            if (i === 6) dot.classList.add('today');
+            else if (streak.days.includes(dayIdx)) dot.classList.add('done');
+            container.appendChild(dot);
+        }
+    }
+
+    // ══ PREVIOUS SHLOKAS ══
+    function renderPrevious() {
+        const container = document.getElementById('prevShlokas');
+        container.innerHTML = '';
+        // Show last 3 shlokas (excluding today)
+        for (let i = 1; i <= 3; i++) {
+            const idx = (currentIndex - i + shlokas.length) % shlokas.length;
+            const s = shlokas[idx];
+            const card = document.createElement('div');
+            card.className = 'prev-card';
+            card.innerHTML = `
+                <div class="prev-ref">📖 ${s.ref}</div>
+                <div class="prev-text">${s.sanskrit.replace(/<br>/g, ' ')}</div>
+            `;
+            card.onclick = () => { currentIndex = idx; renderShlok(idx); window.scrollTo({top:0,behavior:'smooth'}); };
+            container.appendChild(card);
+        }
+    }
+
+    // ══ PARTICLES ══
+    function createParticles() {
+        const container = document.getElementById('particles');
+        const symbols = ['ॐ', '🌸', '✨', '🪷', '🔱'];
+        for (let i = 0; i < 12; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.textContent = symbols[i % symbols.length];
+            p.style.left = `${Math.random() * 100}%`;
+            p.style.animationDelay = `${Math.random() * 6}s`;
+            p.style.animationDuration = `${5 + Math.random() * 5}s`;
+            p.style.fontSize = `${0.7 + Math.random() * 0.8}rem`;
+            container.appendChild(p);
+        }
+    }
+
+    // ══ INIT ══
+    setDate();
+    renderShlok(currentIndex);
+    renderStreak();
+    renderPrevious();
+    createParticles();
+    </script>
+</body>
+</html>
