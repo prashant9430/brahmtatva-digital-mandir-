@@ -8,6 +8,187 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90' fill='%23FF9933'>ॐ</text></svg>">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        /* ── PROFILE CARD ── */
+        .pandit-profile-card {
+            background: linear-gradient(145deg, #fff9f0, #fff3e0);
+            border: 2px solid rgba(255,153,51,0.3);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(255,153,51,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pandit-profile-card::before {
+            content: 'ॐ';
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            font-size: 8rem;
+            color: rgba(255,153,51,0.07);
+            font-family: serif;
+            pointer-events: none;
+        }
+
+        .profile-top {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-photo-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .profile-photo-ring {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FF9933, #FFD700, #FF9933);
+            padding: 4px;
+            box-shadow: 0 0 30px rgba(255,153,51,0.5);
+            animation: glowRing 3s ease-in-out infinite;
+        }
+
+        @keyframes glowRing {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,153,51,0.4); }
+            50% { box-shadow: 0 0 40px rgba(255,153,51,0.8), 0 0 60px rgba(255,215,0,0.3); }
+        }
+
+        .profile-photo-ring img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top center;
+            background: linear-gradient(135deg, #fff9f0, #ffe0b2);
+            display: block;
+        }
+
+        .profile-om-badge {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #FF9933, #FFD700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .profile-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #b5451b;
+            margin-bottom: 0.3rem;
+            font-family: var(--font-hindi, 'Noto Sans Devanagari', serif);
+            line-height: 1.3;
+        }
+
+        .profile-title-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF9933, #FFD700);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(255,153,51,0.3);
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-tag {
+            background: rgba(255,153,51,0.12);
+            border: 1px solid rgba(255,153,51,0.3);
+            color: #b5451b;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .profile-contact {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .profile-contact a {
+            color: #FF9933;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.2s;
+        }
+
+        .profile-contact a:hover {
+            color: #b5451b;
+        }
+
+        .profile-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255,153,51,0.4), transparent);
+            margin: 1.5rem 0;
+        }
+
+        .profile-description {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #444;
+        }
+
+        .profile-description strong {
+            color: #b5451b;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .profile-top {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .profile-tags {
+                justify-content: center;
+            }
+            .profile-contact {
+                justify-content: center;
+            }
+            .profile-name {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -53,25 +234,52 @@
         <!-- About Content -->
         <div class="about-content">
             <h2>🙏 परिचय</h2>
-            <div style="background: linear-gradient(135deg, rgba(255, 153, 51, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%); border-left: 5px solid var(--primary-saffron); padding: 2rem; border-radius: 10px; margin: 1.5rem 0;">
-                <h3 style="color: var(--primary-saffron); font-family: var(--font-hindi); margin-bottom: 1rem; font-size: 1.4rem;">पंडित प्रशांत कुमार पांडेय</h3>
-                <p style="font-size: 1.1rem; line-height: 1.8; color: #333; margin-bottom: 1rem;">
-                    <strong>BrahmTatva – Digital Mandir</strong> एक आध्यात्मिक पोर्टल है जो सनातन धर्म के ज्ञान, भक्ति और आध्यात्मिक विकास को 
-                    डिजिटल माध्यम से सभी तक पहुँचाने के लिए समर्पित है। इस पवित्र पोर्टल का निर्माण इसी उद्देश्य से किया गया है कि प्रत्येक व्यक्ति, 
-                    चाहे वह किसी भी स्थान पर हो, अपने घर से ही आध्यात्मिक ज्ञान प्राप्त कर सके, पूजा-पाठ की विधि सीख सके, पवित्र मंत्रों का जाप कर सके, 
+
+            <!-- ══ PROFILE CARD ══ -->
+            <div class="pandit-profile-card">
+                <div class="profile-top">
+                    <!-- Photo -->
+                    <div class="profile-photo-wrap">
+                        <div class="profile-photo-ring">
+                            <img
+                                src="https://comprehensive-harlequin-8y8lpacmja.edgeone.app/1000138969-removebg-preview.png"
+                                alt="पंडित प्रशांत कुमार पांडेय"
+                                onerror="this.style.display='none'"
+                            />
+                        </div>
+                        <div class="profile-om-badge">ॐ</div>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="profile-info">
+                        <div class="profile-name">पंडित प्रशांत कुमार पांडेय</div>
+                        <div class="profile-title-badge">🔱 जyotish Pandit • Digital Mandir Founder</div>
+                        <div class="profile-tags">
+                            <span class="profile-tag">🕉️ सनातन धर्म</span>
+                            <span class="profile-tag">⭐ ज्योतिष</span>
+                            <span class="profile-tag">📿 वैदिक पुरोहित</span>
+                            <span class="profile-tag">💻 Web Developer</span>
+                            <span class="profile-tag">📍 बिहार</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-divider"></div>
+
+                <p class="profile-description">
+                    <strong>BrahmTatva – Digital Mandir</strong> एक आध्यात्मिक पोर्टल है जो सनातन धर्म के ज्ञान, भक्ति और आध्यात्मिक विकास को
+                    डिजिटल माध्यम से सभी तक पहुँचाने के लिए समर्पित है। इस पवित्र पोर्टल का निर्माण इसी उद्देश्य से किया गया है कि प्रत्येक व्यक्ति,
+                    चाहे वह किसी भी स्थान पर हो, अपने घर से ही आध्यात्मिक ज्ञान प्राप्त कर सके, पूजा-पाठ की विधि सीख सके, पवित्र मंत्रों का जाप कर सके,
                     और अपनी आत्मा का विकास कर सके।
                 </p>
-                <p style="font-size: 1.1rem; line-height: 1.8; color: #333; margin-bottom: 1rem;">
-                    हमारा विश्वास है कि <strong>सनातन धर्म</strong> केवल एक धर्म नहीं है, बल्कि एक जीवन दर्शन है जो हमें सत्य, न्याय, करुणा और आध्यात्मिकता की ओर ले जाता है। 
+                <p class="profile-description" style="margin-top:1rem;">
+                    हमारा विश्वास है कि <strong>सनातन धर्म</strong> केवल एक धर्म नहीं है, बल्कि एक जीवन दर्शन है जो हमें सत्य, न्याय, करुणा और आध्यात्मिकता की ओर ले जाता है।
                     <strong>भक्ति</strong> का मार्ग सभी के लिए खुला है, और <strong>ज्ञान</strong> ही वह शक्ति है जो हमें अंधकार से प्रकाश की ओर ले जाती है।
                 </p>
-                <div style="background: white; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem;">
-                    <p style="margin: 0.5rem 0; font-size: 1rem;">
-                        <strong>📱 मोबाइल:</strong> <a href="tel:+916200518967" style="color: var(--primary-saffron); text-decoration: none; font-weight: bold;">+91 6200 518967</a>
-                    </p>
-                    <p style="margin: 0.5rem 0; font-size: 1rem;">
-                        <strong>📲 इंस्टाग्राम:</strong> <a href="https://instagram.com/_prashant__pandey" target="_blank" style="color: var(--primary-saffron); text-decoration: none; font-weight: bold;">@_prashant__pandey</a>
-                    </p>
+
+                <div class="profile-contact">
+                    <a href="tel:+916200518967">📱 +91 6200 518967</a>
+                    <a href="https://instagram.com/_prashant__pandey" target="_blank">📲 @_prashant__pandey</a>
                 </div>
             </div>
         </div>
@@ -79,7 +287,7 @@
         <div class="about-content">
             <h2>हमारा मिशन</h2>
             <p>
-                BrahmTatva – Digital Mandir का मुख्य उद्देश्य है सनातन धर्म के अमूल्य ज्ञान को डिजिटल माध्यम से सभी तक सुलभ कराना। 
+                BrahmTatva – Digital Mandir का मुख्य उद्देश्य है सनातन धर्म के अमूल्य ज्ञान को डिजिटल माध्यम से सभी तक सुलभ कराना।
                 हम विश्वास करते हैं कि आध्यात्मिक ज्ञान सभी की अधिकार है, और इसे सरल, सुंदर और सुलभ तरीके से प्रस्तुत किया जाना चाहिए।
             </p>
         </div>
@@ -99,11 +307,8 @@
         <div class="about-content">
             <h2>सनातन धर्म क्या है?</h2>
             <p>
-                सनातन धर्म (हिंदू धर्म) विश्व का सबसे प्राचीन धर्म है। इसका शाब्दिक अर्थ है "शाश्वत धर्म"। 
+                सनातन धर्म (हिंदू धर्म) विश्व का सबसे प्राचीन धर्म है। इसका शाब्दिक अर्थ है "शाश्वत धर्म"।
                 यह धर्म वेदों पर आधारित है और इसमें विभिन्न देवताओं, दर्शनों और आध्यात्मिक मार्गों का समावेश है।
-            </p>
-            <p>
-                सनातन धर्म में मुख्य सिद्धांत हैं:
             </p>
             <ul>
                 <li><strong>कर्म:</strong> हर कार्य का फल निश्चित है।</li>
@@ -117,11 +322,7 @@
         <div class="about-content">
             <h2>भक्ति का मार्ग</h2>
             <p>
-                भक्ति का अर्थ है भगवान के प्रति प्रेम और समर्पण। सनातन धर्म में भक्ति को मोक्ष प्राप्ति का सबसे सरल मार्ग माना गया है। 
-                भक्ति के माध्यम से कोई भी व्यक्ति, चाहे वह किसी भी जाति, वर्ण या परिस्थिति का हो, भगवान को प्राप्त कर सकता है।
-            </p>
-            <p>
-                भक्ति के प्रमुख प्रकार हैं:
+                भक्ति का अर्थ है भगवान के प्रति प्रेम और समर्पण। सनातन धर्म में भक्ति को मोक्ष प्राप्ति का सबसे सरल मार्ग माना गया है।
             </p>
             <ul>
                 <li><strong>श्रवण भक्ति:</strong> भगवान की कथाओं को सुनना।</li>
@@ -135,11 +336,7 @@
         <div class="about-content">
             <h2>ज्ञान का महत्व</h2>
             <p>
-                सनातन धर्म में ज्ञान को सर्वोच्च मूल्य दिया गया है। ज्ञान के माध्यम से ही व्यक्ति अपने असली स्वरूप को समझ सकता है। 
-                वेदों में कहा गया है कि ज्ञान ही सबसे बड़ा धन है और ज्ञान से ही मोक्ष की प्राप्ति होती है।
-            </p>
-            <p>
-                ज्ञान के तीन प्रमुख स्रोत हैं:
+                सनातन धर्म में ज्ञान को सर्वोच्च मूल्य दिया गया है। वेदों में कहा गया है कि ज्ञान ही सबसे बड़ा धन है और ज्ञान से ही मोक्ष की प्राप्ति होती है।
             </p>
             <ul>
                 <li><strong>वेद:</strong> सनातन धर्म का सबसे प्राचीन और पवित्र ग्रंथ।</li>
@@ -150,9 +347,6 @@
 
         <div class="about-content">
             <h2>इस पोर्टल का उपयोग कैसे करें</h2>
-            <p>
-                BrahmTatva – Digital Mandir का उपयोग करना बहुत आसान है। यहाँ आप निम्नलिखित कर सकते हैं:
-            </p>
             <ul>
                 <li>प्रतिदिन का पंचांग देखें और शुभ समय जानें।</li>
                 <li>विभिन्न देवताओं की पूजा की विधि सीखें।</li>
@@ -166,7 +360,7 @@
         <div class="about-content">
             <h2>संपर्क और प्रतिक्रिया</h2>
             <p>
-                यदि आपको इस पोर्टल में कोई सुझाव या सुधार की आवश्यकता है, तो कृपया हमसे संपर्क करें। 
+                यदि आपको इस पोर्टल में कोई सुझाव या सुधार की आवश्यकता है, तो कृपया हमसे संपर्क करें।
                 हम आपकी प्रतिक्रिया का स्वागत करते हैं और इसे अधिक बेहतर बनाने के लिए प्रतिबद्ध हैं।
             </p>
             <p style="text-align: center; margin-top: 2rem; font-family: var(--font-sanskrit); font-size: 1.3rem; color: var(--primary-saffron);">
