@@ -3,14 +3,769 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ग्रंथ पुस्तकालय - पवित्र ग्रंथों का डिजिटल संग्रह">
-    <title>ग्रंथ पुस्तकालय | BrahmTatva – Digital Mandir</title>
+    <meta name="description" content="BrahmTatva – Digital Granthalay | पवित्र ग्रंथों का डिजिटल संग्रह">
+    <title>📚 ग्रंथालय | BrahmTatva – Digital Mandir</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90' fill='%23FF9933'>ॐ</text></svg>">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;800&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --deep-saffron: #e6820a;
+            --gold: #FFD700;
+            --crimson: #b5451b;
+            --dark-brown: #6b2d0e;
+            --cream: #fff9f0;
+            --light-cream: #fffdf8;
+            --text-dark: #2c1810;
+            --text-mid: #5a3020;
+            --shadow-warm: rgba(255,153,51,0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--light-cream);
+            font-family: 'Noto Sans Devanagari', serif;
+            color: var(--text-dark);
+        }
+
+        /* ══ HERO HEADER ══ */
+        .granth-hero {
+            background: linear-gradient(135deg, #1a0a00 0%, #3d1a00 40%, #6b2d0e 70%, #1a0a00 100%);
+            padding: 3rem 1.5rem 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .granth-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,153,51,0.25) 0%, transparent 65%);
+        }
+
+        .granth-hero::after {
+            content: '📚';
+            position: absolute;
+            bottom: -30px; right: -20px;
+            font-size: 12rem;
+            opacity: 0.05;
+            transform: rotate(-10deg);
+        }
+
+        .hero-om {
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255,215,0,0.6);
+            animation: pulse 3s ease-in-out infinite;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes pulse {
+            0%,100% { text-shadow: 0 0 20px rgba(255,215,0,0.6); }
+            50% { text-shadow: 0 0 40px rgba(255,215,0,0.9), 0 0 60px rgba(255,153,51,0.4); }
+        }
+
+        .hero-title {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            font-weight: 800;
+            color: white;
+            line-height: 1.2;
+            position: relative;
+        }
+
+        .hero-title span {
+            color: var(--gold);
+        }
+
+        .hero-sub {
+            color: rgba(255,215,0,0.75);
+            font-family: 'Crimson Pro', serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            margin-top: 0.5rem;
+            position: relative;
+        }
+
+        .hero-divider {
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 1.2rem auto 0;
+        }
+
+        /* ══ SEARCH + FILTER BAR ══ */
+        .search-section {
+            background: white;
+            border-bottom: 2px solid rgba(255,153,51,0.15);
+            padding: 1.2rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .search-wrap {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .search-input-wrap {
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+
+        .search-input-wrap input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 2px solid rgba(255,153,51,0.3);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: 'Noto Sans Devanagari', serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input-wrap input:focus {
+            border-color: var(--saffron);
+            box-shadow: 0 0 0 3px rgba(255,153,51,0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem; top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-tab {
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            border: 1.5px solid rgba(255,153,51,0.3);
+            background: transparent;
+            color: var(--crimson);
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: 'Noto Sans Devanagari', serif;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-tab:hover, .filter-tab.active {
+            background: linear-gradient(135deg, var(--saffron), var(--gold));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 2px 10px rgba(255,153,51,0.3);
+        }
+
+        /* ══ STATS BAR ══ */
+        .stats-bar {
+            background: linear-gradient(135deg, #fff5e6, #fffbf0);
+            border-bottom: 1px solid rgba(255,153,51,0.15);
+            padding: 0.7rem 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.82rem;
+            color: var(--crimson);
+            font-weight: 600;
+        }
+
+        .stat-item span:first-child { font-size: 1rem; }
+
+        /* ══ MAIN CONTENT ══ */
+        .granth-main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.2rem;
+        }
+
+        /* ══ ADMIN PANEL ══ */
+        .admin-toggle-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #1a0a00, #3d1a00);
+            color: var(--gold);
+            border: 1px solid rgba(255,215,0,0.3);
+            padding: 0.55rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            font-family: 'Noto Sans Devanagari', serif;
+            transition: all 0.2s;
+        }
+
+        .admin-toggle-btn:hover {
+            box-shadow: 0 4px 15px rgba(255,215,0,0.2);
+            transform: translateY(-1px);
+        }
+
+        .admin-panel {
+            background: linear-gradient(145deg, #1a0a00, #2d1200);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .admin-panel.open { display: block; }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .admin-panel h3 {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .admin-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            .admin-form { grid-template-columns: 1fr; }
+        }
+
+        .admin-form input,
+        .admin-form select,
+        .admin-form textarea {
+            width: 100%;
+            padding: 0.65rem 0.9rem;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Noto Sans Devanagari', serif;
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .admin-form input::placeholder,
+        .admin-form textarea::placeholder {
+            color: rgba(255,255,255,0.35);
+        }
+
+        .admin-form input:focus,
+        .admin-form select:focus,
+        .admin-form textarea:focus {
+            border-color: var(--gold);
+        }
+
+        .admin-form select option { background: #1a0a00; }
+
+        .admin-form textarea {
+            grid-column: 1 / -1;
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .admin-form .full-col { grid-column: 1 / -1; }
+
+        .admin-add-btn {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--saffron), var(--gold));
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Noto Sans Devanagari', serif;
+            transition: all 0.2s;
+        }
+
+        .admin-add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,153,51,0.4);
+        }
+
+        .admin-note {
+            color: rgba(255,215,0,0.5);
+            font-size: 0.75rem;
+            margin-top: 0.8rem;
+            line-height: 1.5;
+        }
+
+        /* ══ SECTION HEADING ══ */
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid rgba(255,153,51,0.15);
+        }
+
+        .section-heading h2 {
+            font-size: 1.2rem;
+            color: var(--crimson);
+            font-weight: 800;
+        }
+
+        .section-heading .count-badge {
+            background: linear-gradient(135deg, var(--saffron), var(--gold));
+            color: white;
+            padding: 0.15rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* ══ GRANTH GRID ══ */
+        .granth-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.2rem;
+        }
+
+        /* ══ GRANTH CARD ══ */
+        .granth-card {
+            background: white;
+            border-radius: 16px;
+            border: 1.5px solid rgba(255,153,51,0.15);
+            overflow: hidden;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .granth-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(255,153,51,0.2);
+            border-color: rgba(255,153,51,0.4);
+        }
+
+        .granth-card-top {
+            background: linear-gradient(135deg, #2d1200, #6b2d0e);
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .granth-card-top::after {
+            content: 'ॐ';
+            position: absolute;
+            right: -10px; top: -10px;
+            font-size: 4rem;
+            color: rgba(255,215,0,0.08);
+            pointer-events: none;
+        }
+
+        .granth-emoji {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+            filter: drop-shadow(0 2px 8px rgba(255,215,0,0.3));
+        }
+
+        .granth-card-meta {
+            flex: 1;
+        }
+
+        .granth-name {
+            font-size: 1rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.3;
+            margin-bottom: 0.2rem;
+        }
+
+        .granth-name-en {
+            font-size: 0.72rem;
+            color: rgba(255,215,0,0.6);
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .granth-category-pill {
+            display: inline-block;
+            background: rgba(255,215,0,0.15);
+            border: 1px solid rgba(255,215,0,0.3);
+            color: var(--gold);
+            padding: 0.12rem 0.55rem;
+            border-radius: 10px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            margin-top: 0.3rem;
+        }
+
+        .granth-card-body {
+            padding: 1rem 1.2rem;
+        }
+
+        .granth-desc {
+            font-size: 0.83rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .granth-info-row {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .granth-info-chip {
+            font-size: 0.72rem;
+            color: var(--text-mid);
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            background: var(--cream);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .granth-actions {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .btn-read {
+            flex: 1;
+            background: linear-gradient(135deg, var(--saffron), var(--deep-saffron));
+            color: white;
+            border: none;
+            padding: 0.6rem 0.8rem;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Noto Sans Devanagari', serif;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+        }
+
+        .btn-read:hover {
+            background: linear-gradient(135deg, var(--deep-saffron), var(--crimson));
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255,153,51,0.3);
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #1a7a1a, #2d9e2d);
+            color: white;
+            border: none;
+            padding: 0.6rem 0.9rem;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: none;
+            font-family: 'Noto Sans Devanagari', serif;
+        }
+
+        .btn-download:hover {
+            background: linear-gradient(135deg, #0f5c0f, #1a7a1a);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,120,0,0.3);
+        }
+
+        .btn-delete {
+            background: rgba(200,0,0,0.08);
+            color: #c00;
+            border: 1px solid rgba(200,0,0,0.2);
+            padding: 0.6rem 0.7rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: none;
+        }
+
+        .btn-delete:hover {
+            background: rgba(200,0,0,0.15);
+        }
+
+        .admin-open .btn-delete { display: flex; align-items: center; }
+
+        /* ══ EMPTY STATE ══ */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #999;
+            display: none;
+        }
+
+        .empty-state.show { display: block; }
+
+        .empty-state .empty-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .empty-state h3 { color: var(--crimson); margin-bottom: 0.5rem; }
+
+        /* ══ PDF VIEWER MODAL ══ */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.open { display: flex; }
+
+        .modal-box {
+            background: #1a0a00;
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-header {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #2d1200, #3d1a00);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255,215,0,0.15);
+            flex-shrink: 0;
+        }
+
+        .modal-title {
+            flex: 1;
+        }
+
+        .modal-title h3 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 800;
+        }
+
+        .modal-title p {
+            color: rgba(255,215,0,0.6);
+            font-size: 0.75rem;
+            font-family: 'Crimson Pro', serif;
+            font-style: italic;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .modal-dl-btn {
+            background: linear-gradient(135deg, #1a7a1a, #2d9e2d);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-family: 'Noto Sans Devanagari', serif;
+            transition: all 0.2s;
+        }
+
+        .modal-dl-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,150,0,0.3);
+        }
+
+        .modal-close-btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.15);
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .modal-close-btn:hover {
+            background: rgba(255,0,0,0.2);
+            border-color: rgba(255,0,0,0.3);
+        }
+
+        .modal-viewer {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal-viewer iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+            border: none;
+            background: white;
+        }
+
+        .modal-viewer-fallback {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 400px;
+            gap: 1rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .modal-viewer-fallback .big-icon { font-size: 4rem; }
+
+        .modal-viewer-fallback p {
+            font-size: 0.9rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .modal-viewer-fallback a {
+            color: var(--gold);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* ══ TOAST NOTIFICATION ══ */
+        .toast {
+            position: fixed;
+            bottom: 1.5rem; left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #1a0a00, #3d1a00);
+            color: var(--gold);
+            border: 1px solid rgba(255,215,0,0.3);
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            z-index: 9999;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ══ NO RESULTS ══ */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+            display: none;
+        }
+
+        .no-results.show { display: block; }
+
+        /* ══ GITHUB GUIDE ══ */
+        .github-guide {
+            background: linear-gradient(135deg, #0d1117, #161b22);
+            border: 1px solid rgba(255,215,0,0.15);
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .github-guide.show { display: block; }
+
+        .github-guide h4 {
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .github-guide ol {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.82rem;
+            padding-left: 1.2rem;
+            line-height: 2;
+        }
+
+        .github-guide code {
+            background: rgba(255,215,0,0.1);
+            color: var(--gold);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.78rem;
+        }
+
+        /* ══ RESPONSIVE ══ */
+        @media (max-width: 500px) {
+            .granth-grid {
+                grid-template-columns: 1fr;
+            }
+            .granth-hero { padding: 2rem 1rem 1.5rem; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
+
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -27,14 +782,11 @@
                 <a href="about.html" class="nav-link">परिचय</a>
             </div>
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
 
-    <!-- Mantra Background Animation -->
     <div class="mantra-bg">
         <div class="mantra-text">ॐ नमः शिवाय</div>
         <div class="mantra-text">ॐ नमो भगवते वासुदेवाय</div>
@@ -42,51 +794,142 @@
         <div class="mantra-text">ॐ गं गणपतये नमः</div>
     </div>
 
-    <!-- Main Content -->
-    <main class="container">
-        <!-- Page Header -->
-        <div class="page-header">
-            <h1>📖 ग्रंथ पुस्तकालय</h1>
-            <p>पवित्र ग्रंथों का डिजिटल संग्रह</p>
-        </div>
+    <!-- HERO -->
+    <div class="granth-hero">
+        <span class="hero-om">ॐ</span>
+        <h1 class="hero-title">📚 <span>डिजिटल</span> ग्रंथालय</h1>
+        <p class="hero-sub">पवित्र ग्रंथों का संपूर्ण डिजिटल संग्रह — पढ़ें, जानें, डाउनलोड करें</p>
+        <div class="hero-divider"></div>
+    </div>
 
-        <!-- Granth Cards -->
-        <div class="granth-grid" id="granthGrid">
-            <div class="loading">ग्रंथ लोड हो रहे हैं...</div>
-        </div>
+    <!-- STATS BAR -->
+    <div class="stats-bar" id="statsBar">
+        <div class="stat-item"><span>📚</span> <span id="totalCount">0</span> ग्रंथ</div>
+        <div class="stat-item"><span>🕉️</span> वेद</div>
+        <div class="stat-item"><span>📖</span> उपनिषद</div>
+        <div class="stat-item"><span>🔱</span> पुराण</div>
+        <div class="stat-item"><span>🌺</span> स्मृति</div>
+    </div>
 
-        <!-- Information Section -->
-        <div class="about-intro" style="margin-top: 3rem;">
-            <h2>पवित्र ग्रंथों का महत्व</h2>
-            <p>
-                सनातन धर्म के पवित्र ग्रंथ हमारे आध्यात्मिक ज्ञान के स्रोत हैं। 
-                ये ग्रंथ हजारों वर्षों से हमारी संस्कृति और परंपरा को संरक्षित रखते हैं।
-            </p>
-            <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-                <li><strong>वेद:</strong> सनातन धर्म के सबसे प्राचीन और पवित्र ग्रंथ</li>
-                <li><strong>उपनिषद:</strong> वेदों का दार्शनिक भाग, आत्मज्ञान का स्रोत</li>
-                <li><strong>महाभारत:</strong> विश्व का सबसे बड़ा महाकाव्य, धर्म और न्याय की शिक्षा</li>
-                <li><strong>रामायण:</strong> भगवान राम की गाथा, आदर्श जीवन का उदाहरण</li>
-                <li><strong>भगवद् गीता:</strong> कर्म और भक्ति का सार, जीवन का दिशानिर्देश</li>
-                <li><strong>पुराण:</strong> देवताओं और ऋषियों की कथाएं, धार्मिक ज्ञान का भंडार</li>
-            </ul>
-        </div>
-    </main>
-
-    <!-- PDF Viewer Modal -->
-    <div id="pdfModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="pdfTitle">ग्रंथ</h2>
-                <span class="close">&times;</span>
+    <!-- SEARCH + FILTER -->
+    <div class="search-section">
+        <div class="search-wrap">
+            <div class="search-input-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="ग्रंथ खोजें... जैसे गीता, रामायण, वेद">
             </div>
-            <div class="modal-body">
-                <iframe id="pdfViewer" class="pdf-viewer" src="" frameborder="0"></iframe>
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-cat="all">सभी</button>
+                <button class="filter-tab" data-cat="veda">वेद</button>
+                <button class="filter-tab" data-cat="upanishad">उपनिषद</button>
+                <button class="filter-tab" data-cat="gita">गीता</button>
+                <button class="filter-tab" data-cat="purana">पुराण</button>
+                <button class="filter-tab" data-cat="ramayana">रामायण</button>
+                <button class="filter-tab" data-cat="smriti">स्मृति</button>
+                <button class="filter-tab" data-cat="stotra">स्तोत्र</button>
+                <button class="filter-tab" data-cat="other">अन्य</button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- MAIN -->
+    <main class="granth-main">
+
+        <!-- ADMIN TOGGLE -->
+        <button class="admin-toggle-btn" id="adminToggleBtn" onclick="toggleAdmin()">
+            🔐 Admin Panel — ग्रंथ जोड़ें
+        </button>
+
+        <!-- ADMIN PANEL -->
+        <div class="admin-panel" id="adminPanel">
+            <h3>🔱 नया ग्रंथ जोड़ें</h3>
+            <div class="admin-form">
+                <input type="text" id="inp_name" placeholder="ग्रंथ का नाम (हिंदी) — जैसे श्रीमद्भगवद्गीता">
+                <input type="text" id="inp_name_en" placeholder="English Name (optional)">
+                <select id="inp_cat">
+                    <option value="">— श्रेणी चुनें —</option>
+                    <option value="veda">वेद</option>
+                    <option value="upanishad">उपनिषद</option>
+                    <option value="gita">गीता</option>
+                    <option value="purana">पुराण</option>
+                    <option value="ramayana">रामायण</option>
+                    <option value="smriti">स्मृति</option>
+                    <option value="stotra">स्तोत्र</option>
+                    <option value="other">अन्य</option>
+                </select>
+                <input type="text" id="inp_emoji" placeholder="Emoji (optional) — जैसे 📖">
+                <input type="text" id="inp_pdf" placeholder="PDF URL — GitHub raw link या Google Drive direct link" class="full-col">
+                <input type="text" id="inp_pages" placeholder="पृष्ठ संख्या (optional)">
+                <input type="text" id="inp_lang" placeholder="भाषा — जैसे संस्कृत, हिंदी">
+                <textarea id="inp_desc" placeholder="संक्षिप्त परिचय — ग्रंथ के बारे में 1-2 वाक्य..."></textarea>
+                <button class="admin-add-btn" onclick="addGranth()">✅ ग्रंथ जोड़ें ग्रंथालय में</button>
+            </div>
+            <div class="github-guide show">
+                <h4>📋 GitHub से PDF link कैसे लें:</h4>
+                <ol>
+                    <li>GitHub repo में PDF upload करो</li>
+                    <li>File open करो → <code>Raw</code> button click करो</li>
+                    <li>URL copy करो — यह <code>raw.githubusercontent.com/...</code> से शुरू होगा</li>
+                    <li>वही URL यहाँ paste करो</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- SECTION HEADING -->
+        <div class="section-heading">
+            <h2>📚 ग्रंथ संग्रह</h2>
+            <span class="count-badge" id="countBadge">0</span>
+        </div>
+
+        <!-- GRANTH GRID -->
+        <div class="granth-grid" id="granthGrid">
+            <!-- Cards render here -->
+        </div>
+
+        <!-- NO RESULTS -->
+        <div class="no-results" id="noResults">
+            <div style="font-size:3rem;">🔍</div>
+            <p style="color:var(--crimson); font-weight:700; margin-top:0.5rem;">कोई ग्रंथ नहीं मिला</p>
+            <p style="color:#999; font-size:0.85rem; margin-top:0.3rem;">दूसरे शब्द से खोजें</p>
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div class="empty-state" id="emptyState">
+            <div class="empty-icon">📚</div>
+            <h3>ग्रंथालय खाली है</h3>
+            <p style="margin-top:0.5rem; font-size:0.9rem;">Admin Panel से ग्रंथ जोड़ें या नीचे दिए sample ग्रंथ लोड करें।</p>
+            <button onclick="loadSamples()" style="margin-top:1rem; background:linear-gradient(135deg,#FF9933,#FFD700); color:white; border:none; padding:0.7rem 1.5rem; border-radius:20px; font-size:0.9rem; font-weight:700; cursor:pointer; font-family:inherit;">
+                🔱 Sample ग्रंथ लोड करें
+            </button>
+        </div>
+
+    </main>
+
+    <!-- PDF VIEWER MODAL -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span style="font-size:1.8rem;" id="modalEmoji">📖</span>
+                <div class="modal-title">
+                    <h3 id="modalTitle">ग्रंथ</h3>
+                    <p id="modalSub">BrahmTatva Digital Granthalay</p>
+                </div>
+                <div class="modal-actions">
+                    <a href="#" id="modalDlBtn" class="modal-dl-btn" download target="_blank">
+                        ⬇️ Download
+                    </a>
+                    <button class="modal-close-btn" onclick="closeModalDirect()">✕</button>
+                </div>
+            </div>
+            <div class="modal-viewer" id="modalViewer">
+                <!-- iframe loads here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
     <footer class="footer">
         <p>🙏 BrahmTatva – Digital Mandir 🙏</p>
         <p>सनातन धर्म का ज्ञान, भक्ति का मार्ग</p>
@@ -94,6 +937,284 @@
     </footer>
 
     <script src="js/main.js"></script>
-    <script src="js/granth.js"></script>
+    <script>
+    // ══════════════════════════════════════
+    //  BRAHMTATVA DIGITAL GRANTHALAY
+    //  Full JS Logic
+    // ══════════════════════════════════════
+
+    const STORAGE_KEY = 'brahmtatva_granthalay_v2';
+    let granthData = [];
+    let adminOpen = false;
+    let activeFilter = 'all';
+
+    // Category config
+    const CAT_CONFIG = {
+        veda:      { label: 'वेद',      emoji: '🕉️', color: '#c0392b' },
+        upanishad: { label: 'उपनिषद',  emoji: '📿', color: '#8e44ad' },
+        gita:      { label: 'गीता',     emoji: '🌺', color: '#e67e22' },
+        purana:    { label: 'पुराण',    emoji: '🔱', color: '#2980b9' },
+        ramayana:  { label: 'रामायण',  emoji: '🏹', color: '#27ae60' },
+        smriti:    { label: 'स्मृति',  emoji: '⚖️', color: '#d35400' },
+        stotra:    { label: 'स्तोत्र', emoji: '🎵', color: '#16a085' },
+        other:     { label: 'अन्य',    emoji: '📚', color: '#7f8c8d' },
+    };
+
+    // ── Load from localStorage ──
+    function loadData() {
+        try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            granthData = stored ? JSON.parse(stored) : [];
+        } catch(e) { granthData = []; }
+        render();
+    }
+
+    // ── Save to localStorage ──
+    function saveData() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(granthData));
+    }
+
+    // ── Toggle Admin ──
+    function toggleAdmin() {
+        adminOpen = !adminOpen;
+        const panel = document.getElementById('adminPanel');
+        const grid = document.getElementById('granthGrid');
+        panel.classList.toggle('open', adminOpen);
+        grid.classList.toggle('admin-open', adminOpen);
+        document.getElementById('adminToggleBtn').textContent = adminOpen
+            ? '🔒 Admin Panel बंद करें'
+            : '🔐 Admin Panel — ग्रंथ जोड़ें';
+    }
+
+    // ── Add Granth ──
+    function addGranth() {
+        const name = document.getElementById('inp_name').value.trim();
+        const pdf  = document.getElementById('inp_pdf').value.trim();
+        const cat  = document.getElementById('inp_cat').value;
+
+        if (!name) { showToast('⚠️ ग्रंथ का नाम लिखें'); return; }
+        if (!cat)  { showToast('⚠️ श्रेणी चुनें'); return; }
+        if (!pdf)  { showToast('⚠️ PDF URL डालें'); return; }
+
+        const granth = {
+            id: Date.now(),
+            name,
+            name_en: document.getElementById('inp_name_en').value.trim(),
+            category: cat,
+            emoji: document.getElementById('inp_emoji').value.trim() || CAT_CONFIG[cat]?.emoji || '📖',
+            pdf,
+            pages: document.getElementById('inp_pages').value.trim(),
+            lang: document.getElementById('inp_lang').value.trim() || 'संस्कृत',
+            desc: document.getElementById('inp_desc').value.trim(),
+            added: new Date().toLocaleDateString('hi-IN'),
+        };
+
+        granthData.unshift(granth);
+        saveData();
+        render();
+        clearForm();
+        showToast('✅ ' + name + ' जोड़ा गया!');
+    }
+
+    // ── Delete Granth ──
+    function deleteGranth(id) {
+        if (!confirm('क्या यह ग्रंथ हटाना है?')) return;
+        granthData = granthData.filter(g => g.id !== id);
+        saveData();
+        render();
+        showToast('🗑️ ग्रंथ हटाया गया');
+    }
+
+    // ── Clear Form ──
+    function clearForm() {
+        ['inp_name','inp_name_en','inp_cat','inp_emoji','inp_pdf','inp_pages','inp_lang','inp_desc']
+            .forEach(id => document.getElementById(id).value = '');
+    }
+
+    // ── Render ──
+    function render() {
+        const search = document.getElementById('searchInput').value.trim().toLowerCase();
+        const grid = document.getElementById('granthGrid');
+        const empty = document.getElementById('emptyState');
+        const noRes = document.getElementById('noResults');
+
+        let filtered = granthData.filter(g => {
+            const matchCat = activeFilter === 'all' || g.category === activeFilter;
+            const matchSearch = !search ||
+                g.name.toLowerCase().includes(search) ||
+                (g.name_en || '').toLowerCase().includes(search) ||
+                (g.desc || '').toLowerCase().includes(search);
+            return matchCat && matchSearch;
+        });
+
+        // Update counts
+        document.getElementById('totalCount').textContent = granthData.length;
+        document.getElementById('countBadge').textContent = filtered.length;
+
+        // Empty state
+        if (granthData.length === 0) {
+            empty.classList.add('show');
+            grid.innerHTML = '';
+            noRes.classList.remove('show');
+            return;
+        }
+        empty.classList.remove('show');
+
+        // No results
+        if (filtered.length === 0) {
+            grid.innerHTML = '';
+            noRes.classList.add('show');
+            return;
+        }
+        noRes.classList.remove('show');
+
+        grid.innerHTML = filtered.map(g => renderCard(g)).join('');
+    }
+
+    // ── Render Card ──
+    function renderCard(g) {
+        const cat = CAT_CONFIG[g.category] || CAT_CONFIG.other;
+        return `
+        <div class="granth-card ${adminOpen ? 'admin-open' : ''}">
+            <div class="granth-card-top">
+                <span class="granth-emoji">${g.emoji}</span>
+                <div class="granth-card-meta">
+                    <div class="granth-name">${g.name}</div>
+                    ${g.name_en ? `<div class="granth-name-en">${g.name_en}</div>` : ''}
+                    <span class="granth-category-pill">${cat.emoji} ${cat.label}</span>
+                </div>
+            </div>
+            <div class="granth-card-body">
+                ${g.desc ? `<p class="granth-desc">${g.desc}</p>` : ''}
+                <div class="granth-info-row">
+                    ${g.lang ? `<span class="granth-info-chip">🌐 ${g.lang}</span>` : ''}
+                    ${g.pages ? `<span class="granth-info-chip">📄 ${g.pages} पृष्ठ</span>` : ''}
+                    <span class="granth-info-chip">📅 ${g.added}</span>
+                </div>
+                <div class="granth-actions">
+                    <button class="btn-read" onclick='openViewer(${JSON.stringify(g).replace(/'/g,"&#39;")})'>
+                        👁️ पढ़ें
+                    </button>
+                    <a class="btn-download" href="${g.pdf}" download target="_blank">
+                        ⬇️ Save
+                    </a>
+                    <button class="btn-delete" onclick="deleteGranth(${g.id})">🗑️</button>
+                </div>
+            </div>
+        </div>`;
+    }
+
+    // ── Open PDF Viewer ──
+    function openViewer(g) {
+        document.getElementById('modalEmoji').textContent = g.emoji;
+        document.getElementById('modalTitle').textContent = g.name;
+        document.getElementById('modalSub').textContent = (g.name_en || '') + ' • BrahmTatva Granthalay';
+        document.getElementById('modalDlBtn').href = g.pdf;
+
+        // Try to embed PDF
+        const viewer = document.getElementById('modalViewer');
+        const isGithubRaw = g.pdf.includes('raw.githubusercontent.com');
+        const isDrive = g.pdf.includes('drive.google.com');
+
+        let viewerUrl = g.pdf;
+        if (isDrive) {
+            // Convert Google Drive to embed
+            const match = g.pdf.match(/\/d\/([^\/]+)/);
+            if (match) viewerUrl = `https://drive.google.com/file/d/${match[1]}/preview`;
+        }
+
+        if (isGithubRaw || isDrive) {
+            viewer.innerHTML = `<iframe src="${viewerUrl}" allowfullscreen></iframe>`;
+        } else {
+            // Use Google Docs Viewer as fallback
+            viewer.innerHTML = `<iframe src="https://docs.google.com/viewer?url=${encodeURIComponent(g.pdf)}&embedded=true" allowfullscreen></iframe>`;
+        }
+
+        document.getElementById('modalOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // ── Close Modal ──
+    function closeModal(e) {
+        if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+    }
+
+    function closeModalDirect() {
+        document.getElementById('modalOverlay').classList.remove('open');
+        document.getElementById('modalViewer').innerHTML = '';
+        document.body.style.overflow = '';
+    }
+
+    // ── Toast ──
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // ── Filter Tabs ──
+    document.querySelectorAll('.filter-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeFilter = btn.dataset.cat;
+            render();
+        });
+    });
+
+    // ── Search ──
+    document.getElementById('searchInput').addEventListener('input', render);
+
+    // ── Keyboard Close ──
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeModalDirect();
+    });
+
+    // ── Load Sample Data ──
+    function loadSamples() {
+        const samples = [
+            {
+                id: 1001, name: 'श्रीमद्भगवद्गीता', name_en: 'Bhagavad Gita',
+                category: 'gita', emoji: '🌺',
+                pdf: 'https://www.holybooks.com/wp-content/uploads/Bhagavad-Gita-As-It-Is.pdf',
+                pages: '700+', lang: 'संस्कृत/हिंदी',
+                desc: 'महाभारत के भीष्म पर्व का अंश — भगवान श्रीकृष्ण द्वारा अर्जुन को दिया गया दिव्य ज्ञान।',
+                added: '01/04/2026'
+            },
+            {
+                id: 1002, name: 'ऋग्वेद', name_en: 'Rigveda',
+                category: 'veda', emoji: '🕉️',
+                pdf: 'https://www.holybooks.com/wp-content/uploads/Rig-Veda.pdf',
+                pages: '1000+', lang: 'संस्कृत',
+                desc: 'मानव इतिहास का सबसे प्राचीन ग्रंथ — देवताओं की स्तुति के दस मंडल।',
+                added: '01/04/2026'
+            },
+            {
+                id: 1003, name: 'श्रीमद्भागवत पुराण', name_en: 'Srimad Bhagavatam',
+                category: 'purana', emoji: '🔱',
+                pdf: 'https://ia801600.us.archive.org/27/items/SrimadBhagavatamAllCantosWithSanskritText/SrimadBhagavatam_AllCantos.pdf',
+                pages: '2500+', lang: 'संस्कृत/हिंदी',
+                desc: 'भगवान श्रीकृष्ण की लीलाओं का वर्णन। बारह स्कंधों में विभाजित महान पुराण।',
+                added: '01/04/2026'
+            },
+            {
+                id: 1004, name: 'विवेकचूडामणि', name_en: 'Vivekachudamani',
+                category: 'stotra', emoji: '💎',
+                pdf: 'https://www.holybooks.com/wp-content/uploads/Vivekachudamani.pdf',
+                pages: '580', lang: 'संस्कृत',
+                desc: 'आदि शंकराचार्य रचित अद्वैत वेदान्त का अनमोल रत्न — आत्मबोध का मार्ग।',
+                added: '01/04/2026'
+            },
+        ];
+        granthData = samples;
+        saveData();
+        render();
+        showToast('🔱 Sample ग्रंथ लोड हो गए!');
+    }
+
+    // ── INIT ──
+    loadData();
+    </script>
 </body>
 </html>
