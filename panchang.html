@@ -46,7 +46,7 @@
     <main class="container">
         <!-- Page Header -->
         <div class="page-header">
-            <h1>📅 दैनिक पंचांग</h1>
+            <h1>दैनिक पंचांग</h1>
             <p>आज का तिथि, वार, नक्षत्र, योग, और करण</p>
         </div>
 
@@ -59,7 +59,7 @@
 
         <!-- Sun & Moon Times -->
         <div class="panchang-container">
-            <h2 style="font-family: var(--font-hindi); color: var(--primary-saffron); margin-bottom: 1.5rem; text-align: center;">☀️ सूर्य और चंद्र समय</h2>
+            <h2 style="font-family: var(--font-hindi); color: var(--primary-saffron); margin-bottom: 1.5rem; text-align: center;">सूर्य और चंद्र समय</h2>
             <div class="panchang-grid" id="sunMoonContent">
                 <div class="loading">लोड हो रहा है...</div>
             </div>
@@ -87,12 +87,17 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>🙏 BrahmTatva – Digital Mandir 🙏</p>
+        <p>ॐ BrahmTatva – Digital Mandir ॐ</p>
         <p>सनातन धर्म का ज्ञान, भक्ति का मार्ग</p>
         <p class="footer-mantra">ॐ शान्तिः शान्तिः शान्तिः</p>
     </footer>
 
     <script src="js/main.js"></script>
-    <script src="js/panchang.js"></script>
+    <script>// Verified astronomical data is not configured. Do not show invented times.
+document.addEventListener('DOMContentLoaded',()=>{
+ document.getElementById('panchangContent').innerHTML='<div class="error">पंचांग की प्रमाणित गणना अभी उपलब्ध नहीं है। तिथि, नक्षत्र और मुहूर्त के लिए अपने स्थान का विश्वसनीय पंचांग देखें।</div>';
+ document.getElementById('sunMoonContent').innerHTML='<p>सूर्य और चंद्र के समय अभी उपलब्ध नहीं हैं। स्थान और समयक्षेत्र के अनुसार जाँच के बाद ही दिखाए जाएंगे।</p>';
+});
+</script>
 </body>
 </html>
