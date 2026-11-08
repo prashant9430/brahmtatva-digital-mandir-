@@ -179,6 +179,29 @@
         }
         .profile-contact a:hover { color: #b5451b; }
 
+        /* ══ CONTACT ACTION BUTTONS ══ */
+        .contact-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            background: linear-gradient(135deg, #FF9933, #e67e00);
+            color: #fff !important;
+            padding: 0.7rem 1.4rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 14px rgba(255,153,51,0.35);
+            transition: var(--transition);
+            min-width: 150px;
+        }
+        .contact-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,153,51,0.45); }
+        .contact-btn .contact-sub {
+            font-size: 0.78rem;
+            font-weight: 500;
+            opacity: 0.92;
+        }
+
         /* ══ SECTION HEADINGS ══ */
         .section-ornament {
             display: flex; align-items: center; justify-content: center;
@@ -359,8 +382,8 @@
                 </p>
 
                 <div class="profile-contact">
-                    <a href="tel:+916200518967">📱 +91 6200 518967</a>
-                    <a href="https://instagram.com/_prashant__pandey" target="_blank" rel="noopener">📲 @_prashant__pandey</a>
+                    <a class="contact-btn" href="tel:+916200518967">कॉल करें<span class="contact-sub">+91 6200 518967</span></a>
+                    <a class="contact-btn" href="https://www.instagram.com/_prashant__pandey?srtk=enhqeWhiZDl6YjNj" target="_blank" rel="noopener">Instagram पर जुड़ें<span class="contact-sub">@_prashant__pandey • फॉलो / कनेक्ट</span></a>
                 </div>
             </div>
         </div>
