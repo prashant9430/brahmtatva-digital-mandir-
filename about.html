@@ -201,6 +201,72 @@
             font-weight: 500;
             opacity: 0.92;
         }
+        button.contact-btn { border: 0; cursor: pointer; font-family: inherit; }
+
+        /* ══ CONTACT CHOOSER SHEET ══ */
+        .contact-sheet {
+            position: fixed;
+            inset: 0;
+            background: rgba(40, 18, 0, 0.55);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+        .contact-sheet[hidden] { display: none; }
+        .contact-sheet-card {
+            background: linear-gradient(145deg, #fffdf7, #fff3df);
+            border: 2px solid rgba(255,153,51,0.35);
+            border-radius: 18px;
+            padding: 1.4rem 1.2rem;
+            width: 100%;
+            max-width: 340px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.3);
+            animation: sheetUp 0.25s ease;
+        }
+        @keyframes sheetUp {
+            from { transform: translateY(24px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .contact-sheet-title {
+            text-align: center;
+            font-weight: 700;
+            color: #b5451b;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .sheet-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.15rem;
+            background: linear-gradient(135deg, #FF9933, #e67e00);
+            color: #fff;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+            box-shadow: 0 4px 14px rgba(255,153,51,0.35);
+        }
+        .sheet-option span { font-size: 0.8rem; font-weight: 500; opacity: 0.92; }
+        .sheet-close {
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: 1.5px solid rgba(255,153,51,0.5);
+            color: #a44b0b;
+            border-radius: 12px;
+            padding: 0.6rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        @media (min-width: 601px) {
+            .contact-sheet { align-items: center; }
+        }
 
         /* ══ SECTION HEADINGS ══ */
         .section-ornament {
@@ -382,7 +448,7 @@
                 </p>
 
                 <div class="profile-contact">
-                    <a class="contact-btn" href="tel:+916200518967">कॉल करें<span class="contact-sub">+91 6200 518967</span></a>
+                    <button class="contact-btn" id="callMsgBtn" type="button" aria-haspopup="dialog">+91 6200 518967<span class="contact-sub">टैप करें • कॉल या मैसेज</span></button>
                     <a class="contact-btn" href="https://www.instagram.com/_prashant__pandey?srtk=enhqeWhiZDl6YjNj" target="_blank" rel="noopener">Instagram पर जुड़ें<span class="contact-sub">@_prashant__pandey • फॉलो / कनेक्ट</span></a>
                 </div>
             </div>
@@ -509,6 +575,24 @@
         <p class="footer-mantra">ॐ शान्तिः शान्तिः शान्तिः</p>
     </footer>
 
+    <div class="contact-sheet" id="contactSheet" hidden>
+        <div class="contact-sheet-card" role="dialog" aria-label="संपर्क करें">
+            <div class="contact-sheet-title">संपर्क करें</div>
+            <a class="sheet-option" href="tel:+916200518967">कॉल करें<span>+91 6200 518967</span></a>
+            <a class="sheet-option" href="https://wa.me/918252839625" target="_blank" rel="noopener">WhatsApp मैसेज<span>+91 82528 39625</span></a>
+            <button type="button" class="sheet-close" id="sheetClose">बंद करें</button>
+        </div>
+    </div>
+
     <script src="js/main.js"></script>
+    <script>
+        (function () {
+            var sheet = document.getElementById('contactSheet');
+            document.getElementById('callMsgBtn').addEventListener('click', function () { sheet.hidden = false; });
+            document.getElementById('sheetClose').addEventListener('click', function () { sheet.hidden = true; });
+            sheet.addEventListener('click', function (e) { if (e.target === sheet) sheet.hidden = true; });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') sheet.hidden = true; });
+        })();
+    </script>
 </body>
 </html>
