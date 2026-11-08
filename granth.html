@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="BrahmTatva – Digital Granthalay | पवित्र ग्रंथों का डिजिटल संग्रह">
-    <title>📚 ग्रंथालय | BrahmTatva – Digital Mandir</title>
+    <title>ग्रंथ ग्रंथालय | BrahmTatva – Digital Mandir</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90' fill='%23FF9933'>ॐ</text></svg>">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -48,7 +48,7 @@
         }
 
         .granth-hero::after {
-            content: '📚';
+            content: 'ग्रंथ';
             position: absolute;
             bottom: -30px; right: -20px;
             font-size: 12rem;
@@ -489,6 +489,28 @@
             box-shadow: 0 4px 12px rgba(255,153,51,0.3);
         }
 
+        .btn-view {
+            background: linear-gradient(135deg, #b34700, #e0701a);
+            color: white;
+            border: none;
+            padding: 0.6rem 0.9rem;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: none;
+            font-family: 'Noto Sans Devanagari', serif;
+        }
+
+        .btn-view:hover {
+            background: linear-gradient(135deg, #8f3900, #b34700);
+            transform: translateY(-1px);
+        }
+
         .btn-download {
             background: linear-gradient(135deg, #1a7a1a, #2d9e2d);
             color: white;
@@ -762,7 +784,7 @@
             .granth-hero { padding: 2rem 1rem 1.5rem; }
         }
     </style>
-</head>
+<style>.granth-hero .hero-title{opacity:1 !important;animation:none !important;filter:none !important;text-shadow:none !important}.library-hero h1,.library-hero h1 span,.granth-hero h1,.granth-hero h1 span{color:#fff6d5 !important;background:none !important;-webkit-text-fill-color:#fff6d5 !important}.repair-note{padding:12px 0;line-height:1.7}</style><style>.search-input-wrap input{padding-left:1rem}.filter-tab{color:#8a2c12!important;background:#fff8ed!important}.filter-tab.active{background:#ffcf66!important;color:#5c210b!important}</style></head>
 <body>
 
     <!-- NAVBAR -->
@@ -797,25 +819,25 @@
     <!-- HERO -->
     <div class="granth-hero">
         <span class="hero-om">ॐ</span>
-        <h1 class="hero-title">📚 <span>डिजिटल</span> ग्रंथालय</h1>
-        <p class="hero-sub">पवित्र ग्रंथों का संपूर्ण डिजिटल संग्रह — पढ़ें, जानें, डाउनलोड करें</p>
+        <h1 class="hero-title"><span>डिजिटल ग्रंथालय</span></h1>
+        <p class="hero-sub">प्रकाशित ग्रंथ सूची • 11 ग्रंथों के PDF उपलब्ध हैं</p>
         <div class="hero-divider"></div>
     </div>
 
     <!-- STATS BAR -->
     <div class="stats-bar" id="statsBar">
-        <div class="stat-item"><span>📚</span> <span id="totalCount">0</span> ग्रंथ</div>
-        <div class="stat-item"><span>🕉️</span> वेद</div>
-        <div class="stat-item"><span>📖</span> उपनिषद</div>
-        <div class="stat-item"><span>🔱</span> पुराण</div>
-        <div class="stat-item"><span>🌺</span> स्मृति</div>
+        <div class="stat-item"><span>ग्रंथ</span> <span id="totalCount">0</span> ग्रंथ</div>
+        <div class="stat-item"><span>ॐ</span> वेद</div>
+        <div class="stat-item"><span>वेद</span> उपनिषद</div>
+        <div class="stat-item"><span>ॐ</span> पुराण</div>
+        <div class="stat-item"><span>ॐ</span> स्मृति</div>
     </div>
 
     <!-- SEARCH + FILTER -->
     <div class="search-section">
         <div class="search-wrap">
             <div class="search-input-wrap">
-                <span class="search-icon">🔍</span>
+                
                 <input type="text" id="searchInput" placeholder="ग्रंथ खोजें... जैसे गीता, रामायण, वेद">
             </div>
             <div class="filter-tabs">
@@ -825,7 +847,7 @@
                 <button class="filter-tab" data-cat="gita">गीता</button>
                 <button class="filter-tab" data-cat="purana">पुराण</button>
                 <button class="filter-tab" data-cat="ramayana">रामायण</button>
-                <button class="filter-tab" data-cat="smriti">स्मृति</button>
+                <button class="filter-tab" data-cat="smriti">स्मृति</button> <button class="filter-tab" data-cat="karmkand">कर्मकांड</button>
                 <button class="filter-tab" data-cat="stotra">स्तोत्र</button>
                 <button class="filter-tab" data-cat="other">अन्य</button>
             </div>
@@ -842,7 +864,7 @@
 
         <!-- ADMIN PANEL -->
         <div class="admin-panel" id="adminPanel">
-            <h3>🔱 नया ग्रंथ जोड़ें</h3>
+            <h3>ॐ नया ग्रंथ जोड़ें</h3>
             <div class="admin-form">
                 <input type="text" id="inp_name" placeholder="ग्रंथ का नाम (हिंदी) — जैसे श्रीमद्भगवद्गीता">
                 <input type="text" id="inp_name_en" placeholder="English Name (optional)">
@@ -857,7 +879,7 @@
                     <option value="stotra">स्तोत्र</option>
                     <option value="other">अन्य</option>
                 </select>
-                <input type="text" id="inp_emoji" placeholder="Emoji (optional) — जैसे 📖">
+                <input type="text" id="inp_emoji" placeholder="Emoji (optional) — जैसे वेद">
                 <input type="text" id="inp_pdf" placeholder="PDF URL — GitHub raw link या Google Drive direct link" class="full-col">
                 <input type="text" id="inp_pages" placeholder="पृष्ठ संख्या (optional)">
                 <input type="text" id="inp_lang" placeholder="भाषा — जैसे संस्कृत, हिंदी">
@@ -877,7 +899,7 @@
 
         <!-- SECTION HEADING -->
         <div class="section-heading">
-            <h2>📚 ग्रंथ संग्रह</h2>
+            <h2>ग्रंथ संग्रह</h2>
             <span class="count-badge" id="countBadge">0</span>
         </div>
 
@@ -888,18 +910,18 @@
 
         <!-- NO RESULTS -->
         <div class="no-results" id="noResults">
-            <div style="font-size:3rem;">🔍</div>
+            <div style="font-size:3rem;">खोज</div>
             <p style="color:var(--crimson); font-weight:700; margin-top:0.5rem;">कोई ग्रंथ नहीं मिला</p>
             <p style="color:#999; font-size:0.85rem; margin-top:0.3rem;">दूसरे शब्द से खोजें</p>
         </div>
 
         <!-- EMPTY STATE -->
         <div class="empty-state" id="emptyState">
-            <div class="empty-icon">📚</div>
+            <div class="empty-icon">ग्रंथ</div>
             <h3>ग्रंथालय खाली है</h3>
             <p style="margin-top:0.5rem; font-size:0.9rem;">Admin Panel से ग्रंथ जोड़ें या नीचे दिए sample ग्रंथ लोड करें।</p>
             <button onclick="loadSamples()" style="margin-top:1rem; background:linear-gradient(135deg,#FF9933,#FFD700); color:white; border:none; padding:0.7rem 1.5rem; border-radius:20px; font-size:0.9rem; font-weight:700; cursor:pointer; font-family:inherit;">
-                🔱 Sample ग्रंथ लोड करें
+                ॐ Sample ग्रंथ लोड करें
             </button>
         </div>
 
@@ -909,14 +931,14 @@
     <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
         <div class="modal-box">
             <div class="modal-header">
-                <span style="font-size:1.8rem;" id="modalEmoji">📖</span>
+                <span style="font-size:1.8rem;" id="modalEmoji">वेद</span>
                 <div class="modal-title">
                     <h3 id="modalTitle">ग्रंथ</h3>
                     <p id="modalSub">BrahmTatva Digital Granthalay</p>
                 </div>
                 <div class="modal-actions">
                     <a href="#" id="modalDlBtn" class="modal-dl-btn" download target="_blank">
-                        ⬇️ Download
+                         Download
                     </a>
                     <button class="modal-close-btn" onclick="closeModalDirect()">✕</button>
                 </div>
@@ -931,7 +953,7 @@
     <div class="toast" id="toast"></div>
 
     <footer class="footer">
-        <p>🙏 BrahmTatva – Digital Mandir 🙏</p>
+        <p>ॐ BrahmTatva – Digital Mandir ॐ</p>
         <p>सनातन धर्म का ज्ञान, भक्ति का मार्ग</p>
         <p class="footer-mantra">ॐ शान्तिः शान्तिः शान्तिः</p>
     </footer>
@@ -950,23 +972,29 @@
 
     // Category config
     const CAT_CONFIG = {
-        veda:      { label: 'वेद',      emoji: '🕉️', color: '#c0392b' },
+        veda:      { label: 'वेद',      emoji: 'ॐ', color: '#c0392b' },
         upanishad: { label: 'उपनिषद',  emoji: '📿', color: '#8e44ad' },
-        gita:      { label: 'गीता',     emoji: '🌺', color: '#e67e22' },
-        purana:    { label: 'पुराण',    emoji: '🔱', color: '#2980b9' },
+        gita:      { label: 'गीता',     emoji: 'ॐ', color: '#e67e22' },
+        purana:    { label: 'पुराण',    emoji: 'ॐ', color: '#2980b9' },
         ramayana:  { label: 'रामायण',  emoji: '🏹', color: '#27ae60' },
         smriti:    { label: 'स्मृति',  emoji: '⚖️', color: '#d35400' },
+        karmkand:  { label: 'कर्मकांड',  emoji: '🪔', color: '#b34700' },
         stotra:    { label: 'स्तोत्र', emoji: '🎵', color: '#16a085' },
-        other:     { label: 'अन्य',    emoji: '📚', color: '#7f8c8d' },
+        other:     { label: 'अन्य',    emoji: 'ग्रंथ', color: '#7f8c8d' },
     };
 
-    // ── Load from localStorage ──
-    function loadData() {
+    // Published catalogue is shared; existing personal browser data is not published.
+    async function loadData() {
         try {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            granthData = stored ? JSON.parse(stored) : [];
-        } catch(e) { granthData = []; }
-        render();
+            const response = await fetch('json/granth.json');
+            if (!response.ok) throw new Error('Catalogue unavailable');
+            const data = await response.json();
+            granthData = data.granths.map(g => ({id:g.id,name:g.name,category:g.cat||({'भगवद् गीता':'gita','रामचरितमानस':'ramayana','शिव पुराण':'purana','विष्णु पुराण':'purana','दुर्गा सप्तशती':'stotra','ऋग्वेद':'veda','उपनिषद':'upanishad','महाभारत':'other','रामायण':'ramayana','हनुमान चालीसा':'stotra'}[g.name]||'other'),emoji:g.emoji||"ॐ",lang:g.language,desc:g.desc||'मूल सूची की प्रविष्टि। PDF अभी उपलब्ध नहीं है।',pdf:g.pdf||'',added:g.added||'प्रकाशित सूची'}));
+            render();
+            document.getElementById('adminToggleBtn').style.display = 'none';
+        } catch (e) {
+            document.getElementById('granthGrid').textContent = 'ग्रंथ सूची अभी लोड नहीं हो सकी। बाद में फिर कोशिश करें।';
+        }
     }
 
     // ── Save to localStorage ──
@@ -1001,7 +1029,7 @@
             name,
             name_en: document.getElementById('inp_name_en').value.trim(),
             category: cat,
-            emoji: document.getElementById('inp_emoji').value.trim() || CAT_CONFIG[cat]?.emoji || '📖',
+            emoji: document.getElementById('inp_emoji').value.trim() || CAT_CONFIG[cat]?.emoji || 'वेद',
             pdf,
             pages: document.getElementById('inp_pages').value.trim(),
             lang: document.getElementById('inp_lang').value.trim() || 'संस्कृत',
@@ -1087,21 +1115,19 @@
             <div class="granth-card-body">
                 ${g.desc ? `<p class="granth-desc">${g.desc}</p>` : ''}
                 <div class="granth-info-row">
-                    ${g.lang ? `<span class="granth-info-chip">🌐 ${g.lang}</span>` : ''}
-                    ${g.pages ? `<span class="granth-info-chip">📄 ${g.pages} पृष्ठ</span>` : ''}
-                    <span class="granth-info-chip">📅 ${g.added}</span>
+                    ${g.lang ? `<span class="granth-info-chip">भाषा ${g.lang}</span>` : ''}
+                    ${g.pages ? `<span class="granth-info-chip">पृष्ठ ${g.pages} पृष्ठ</span>` : ''}
+                    <span class="granth-info-chip">दिनांक ${g.added}</span>
                 </div>
-                <div class="granth-actions">
-                    <button class="btn-read" onclick='openViewer(${JSON.stringify(g).replace(/'/g,"&#39;")})'>
-                        👁️ पढ़ें
-                    </button>
-                    <a class="btn-download" href="${g.pdf}" download target="_blank">
-                        ⬇️ Save
-                    </a>
-                    <button class="btn-delete" onclick="deleteGranth(${g.id})">🗑️</button>
-                </div>
+                <div class="granth-actions">${g.pdf ? `<button class="btn-view" type="button" onclick="openViewerById(${g.id})">👁️ देखें</button><a class="btn-download" href="${g.pdf}" target="_blank" rel="noopener">Drive में खोलें ↗</a>` : `<p>PDF उपलब्ध नहीं है। पढ़ने या डाउनलोड का लिंक अभी नहीं जोड़ा गया है।</p>`}</div>
             </div>
         </div>`;
+    }
+
+    // ── Open viewer by catalogue id ──
+    function openViewerById(id) {
+        const g = granthData.find(x => x.id === id);
+        if (g) openViewer(g);
     }
 
     // ── Open PDF Viewer ──
@@ -1176,7 +1202,7 @@
         const samples = [
             {
                 id: 1001, name: 'श्रीमद्भगवद्गीता', name_en: 'Bhagavad Gita',
-                category: 'gita', emoji: '🌺',
+                category: 'gita', emoji: 'ॐ',
                 pdf: 'https://www.holybooks.com/wp-content/uploads/Bhagavad-Gita-As-It-Is.pdf',
                 pages: '700+', lang: 'संस्कृत/हिंदी',
                 desc: 'महाभारत के भीष्म पर्व का अंश — भगवान श्रीकृष्ण द्वारा अर्जुन को दिया गया दिव्य ज्ञान।',
@@ -1184,7 +1210,7 @@
             },
             {
                 id: 1002, name: 'ऋग्वेद', name_en: 'Rigveda',
-                category: 'veda', emoji: '🕉️',
+                category: 'veda', emoji: 'ॐ',
                 pdf: 'https://www.holybooks.com/wp-content/uploads/Rig-Veda.pdf',
                 pages: '1000+', lang: 'संस्कृत',
                 desc: 'मानव इतिहास का सबसे प्राचीन ग्रंथ — देवताओं की स्तुति के दस मंडल।',
@@ -1192,7 +1218,7 @@
             },
             {
                 id: 1003, name: 'श्रीमद्भागवत पुराण', name_en: 'Srimad Bhagavatam',
-                category: 'purana', emoji: '🔱',
+                category: 'purana', emoji: 'ॐ',
                 pdf: 'https://ia801600.us.archive.org/27/items/SrimadBhagavatamAllCantosWithSanskritText/SrimadBhagavatam_AllCantos.pdf',
                 pages: '2500+', lang: 'संस्कृत/हिंदी',
                 desc: 'भगवान श्रीकृष्ण की लीलाओं का वर्णन। बारह स्कंधों में विभाजित महान पुराण।',
@@ -1210,7 +1236,7 @@
         granthData = samples;
         saveData();
         render();
-        showToast('🔱 Sample ग्रंथ लोड हो गए!');
+        showToast('ॐ Sample ग्रंथ लोड हो गए!');
     }
 
     // ── INIT ──
