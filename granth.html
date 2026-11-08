@@ -489,6 +489,28 @@
             box-shadow: 0 4px 12px rgba(255,153,51,0.3);
         }
 
+        .btn-view {
+            background: linear-gradient(135deg, #b34700, #e0701a);
+            color: white;
+            border: none;
+            padding: 0.6rem 0.9rem;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: none;
+            font-family: 'Noto Sans Devanagari', serif;
+        }
+
+        .btn-view:hover {
+            background: linear-gradient(135deg, #8f3900, #b34700);
+            transform: translateY(-1px);
+        }
+
         .btn-download {
             background: linear-gradient(135deg, #1a7a1a, #2d9e2d);
             color: white;
@@ -825,7 +847,7 @@
                 <button class="filter-tab" data-cat="gita">गीता</button>
                 <button class="filter-tab" data-cat="purana">पुराण</button>
                 <button class="filter-tab" data-cat="ramayana">रामायण</button>
-                <button class="filter-tab" data-cat="smriti">स्मृति</button>
+                <button class="filter-tab" data-cat="smriti">स्मृति</button> <button class="filter-tab" data-cat="karmkand">कर्मकांड</button>
                 <button class="filter-tab" data-cat="stotra">स्तोत्र</button>
                 <button class="filter-tab" data-cat="other">अन्य</button>
             </div>
@@ -956,6 +978,7 @@
         purana:    { label: 'पुराण',    emoji: 'ॐ', color: '#2980b9' },
         ramayana:  { label: 'रामायण',  emoji: '🏹', color: '#27ae60' },
         smriti:    { label: 'स्मृति',  emoji: '⚖️', color: '#d35400' },
+        karmkand:  { label: 'कर्मकांड',  emoji: '🪔', color: '#b34700' },
         stotra:    { label: 'स्तोत्र', emoji: '🎵', color: '#16a085' },
         other:     { label: 'अन्य',    emoji: 'ग्रंथ', color: '#7f8c8d' },
     };
@@ -966,7 +989,7 @@
             const response = await fetch('json/granth.json');
             if (!response.ok) throw new Error('Catalogue unavailable');
             const data = await response.json();
-            granthData = data.granths.map(g => ({id:g.id,name:g.name,category:({'भगवद् गीता':'gita','रामचरितमानस':'ramayana','शिव पुराण':'purana','विष्णु पुराण':'purana','दुर्गा सप्तशती':'stotra','ऋग्वेद':'veda','उपनिषद':'upanishad','महाभारत':'other','रामायण':'ramayana','हनुमान चालीसा':'stotra'}[g.name]||'other'),emoji:"ॐ",lang:g.language,desc:'मूल सूची की प्रविष्टि। PDF अभी उपलब्ध नहीं है।',pdf:'',added:'प्रकाशित सूची'}));
+            granthData = data.granths.map(g => ({id:g.id,name:g.name,category:g.cat||({'भगवद् गीता':'gita','रामचरितमानस':'ramayana','शिव पुराण':'purana','विष्णु पुराण':'purana','दुर्गा सप्तशती':'stotra','ऋग्वेद':'veda','उपनिषद':'upanishad','महाभारत':'other','रामायण':'ramayana','हनुमान चालीसा':'stotra'}[g.name]||'other'),emoji:g.emoji||"ॐ",lang:g.language,desc:g.desc||'मूल सूची की प्रविष्टि। PDF अभी उपलब्ध नहीं है।',pdf:g.pdf||'',added:g.added||'प्रकाशित सूची'}));
             render();
             document.getElementById('adminToggleBtn').style.display = 'none';
         } catch (e) {
@@ -1096,9 +1119,15 @@
                     ${g.pages ? `<span class="granth-info-chip">पृष्ठ ${g.pages} पृष्ठ</span>` : ''}
                     <span class="granth-info-chip">दिनांक ${g.added}</span>
                 </div>
-                <div class="granth-actions"><p>PDF उपलब्ध नहीं है। पढ़ने या डाउनलोड का लिंक अभी नहीं जोड़ा गया है।</p></div>
+                <div class="granth-actions">${g.pdf ? `<button class="btn-view" type="button" onclick="openViewerById(${g.id})">👁️ देखें</button><a class="btn-download" href="${g.pdf}" target="_blank" rel="noopener">Drive में खोलें ↗</a>` : `<p>PDF उपलब्ध नहीं है। पढ़ने या डाउनलोड का लिंक अभी नहीं जोड़ा गया है।</p>`}</div>
             </div>
         </div>`;
+    }
+
+    // ── Open viewer by catalogue id ──
+    function openViewerById(id) {
+        const g = granthData.find(x => x.id === id);
+        if (g) openViewer(g);
     }
 
     // ── Open PDF Viewer ──
