@@ -1,28 +1,60 @@
 // Vaidik AI proxy - keeps the Gemini key server-side.
-// Env required:
-//   GEMINI_API_KEY - from Google AI Studio (free tier)
-//   GEMINI_MODEL   - optional, default below
+//
+// STRUCTURAL availability rule (not just instructions): this endpoint stays
+// unavailable until BOTH exist:
+//   1. GEMINI_API_KEY (free tier, server-side env)
+//   2. a vetted sources pack at json/vaidik-sources.json with at least one
+//      entry. That file is built only from material the site owner supplies
+//      and validates - without it there is nothing to answer from, so the
+//      endpoint refuses rather than risk inventing religious content.
+// The prompt is bounded to the pack's text and the model must cite the pack
+// entry it used, or answer with the fixed "content awaited" sentence.
 //
 // Free-tier note: inputs sent on the free tier may be reviewed by Google.
-// The widget tells visitors not to share personal information.
 // Rate limits are best-effort (per serverless instance) and sit UNDER the
 // free tier's own limits so a spike cannot push the account into paid usage.
 const MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
 const MAX_PER_MINUTE_PER_IP = 5;
 const MAX_PER_DAY_GLOBAL = 200;
+const MAX_PACK_CHARS = 8000;
 
-const hits = new Map(); // ip -> {minute: epochMin, count}
+const hits = new Map(); // ip -> {minute, count}
 let day = new Date().toISOString().slice(0, 10);
 let dayCount = 0;
 
-const SYSTEM = [
-  'आप ब्रह्मतत्त्व डिजिटल मंदिर की "वैदिक AI" सहायक हैं।',
-  'नियम:',
-  '1. केवल इस साइट पर मौजूद सामग्री के बारे में उत्तर दें - पंचांग, पूजा विधि, मंत्र संग्रह, आरती, ग्रंथ सूची, कुंडली सेवा, सूचनाएँ।',
-  '2. कोई भी पूजा विधि, मंत्र, आरती या धार्मिक विधि कभी अपने से न बनाएँ। जो सामग्री साइट पर नहीं है, उसके लिए कहें: "इसकी प्रमाणित सामग्री आचार्य जी से मिलने की प्रतीक्षा है।"',
-  '3. उत्तर संक्षिप्त, सम्मानजनक और हिन्दी में दें। साइट का संबंधित पेज बताएँ (जैसे पूजा विधि पेज)।',
-  '4. फलादेश, भविष्यवाणी या चिकित्सा/कानूनी सलाह न दें।',
-].join('\n');
+let pack = null;
+try {
+  pack = require('../json/vaidik-sources.json');
+} catch (e) {
+  pack = null;
+}
+
+const AWAITED = 'इस विषय की प्रमाणित सामग्री आचार्य जी से मिलने की प्रतीक्षा है।';
+
+function vettedMaterial() {
+  if (!pack || !Array.isArray(pack.sources) || !pack.sources.length) return null;
+  const entries = pack.sources
+    .filter(s => s && s.title && s.text && s.vetted === true)
+    .map(s => '### ' + s.title + '\n' + String(s.text))
+    .join('\n\n')
+    .slice(0, MAX_PACK_CHARS);
+  return entries || null;
+}
+
+function buildSystem(material) {
+  return [
+    'आप ब्रह्मतत्त्व डिजिटल मंदिर की "वैदिक AI" सहायक हैं।',
+    'कठोर नियम:',
+    '1. केवल नीचे दी गई प्रमाणित सामग्री से उत्तर दें। सामग्री से बाहर कुछ न कहें।',
+    '2. कोई भी पूजा विधि, मंत्र, आरती या धार्मिक विधि कभी अपने से न बनाएँ।',
+    '3. यदि प्रश्न का उत्तर सामग्री में नहीं है, बिल्कुल यही उत्तर दें: "' + AWAITED + '"',
+    '4. हर उत्तर के अंत में स्रोत का शीर्षक लिखें: "स्रोत: <शीर्षक>"।',
+    '5. उत्तर संक्षिप्त, सम्मानजनक और हिन्दी में दें। फलादेश, भविष्यवाणी, चिकित्सा या कानूनी सलाह न दें।',
+    '',
+    'प्रमाणित सामग्री:',
+    material,
+  ].join('\n');
+}
 
 function rateLimited(ip) {
   const today = new Date().toISOString().slice(0, 10);
@@ -42,7 +74,9 @@ module.exports = async (req, res) => {
     return;
   }
   const key = process.env.GEMINI_API_KEY;
-  if (!key) {
+  const material = vettedMaterial();
+  if (!key || !material) {
+    // Key missing OR no vetted material: the service stays unavailable.
     res.status(503).json({ ok: false, error: 'ai_not_configured' });
     return;
   }
@@ -63,9 +97,9 @@ module.exports = async (req, res) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          systemInstruction: { parts: [{ text: SYSTEM }] },
+          systemInstruction: { parts: [{ text: buildSystem(material) }] },
           contents: [{ role: 'user', parts: [{ text: question }] }],
-          generationConfig: { maxOutputTokens: 400, temperature: 0.3 },
+          generationConfig: { maxOutputTokens: 400, temperature: 0.2 },
         }),
       });
     if (!resp.ok) {
@@ -75,7 +109,7 @@ module.exports = async (req, res) => {
     const data = await resp.json();
     const text = (((data.candidates || [])[0] || {}).content || {}).parts || [];
     const answer = text.map(p => p.text || '').join('').trim();
-    res.status(200).json({ ok: true, answer: answer || 'उत्तर अभी उपलब्ध नहीं है।' });
+    res.status(200).json({ ok: true, answer: answer || AWAITED });
   } catch (e) {
     res.status(502).json({ ok: false, error: 'gemini_unreachable' });
   }
