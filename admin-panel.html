@@ -456,7 +456,6 @@
                 <input type="password" id="passwordInput" placeholder="Password दर्ज करें" required>
                 <button type="submit">Login करें</button>
             </form>
-            <p style="margin-top: 1rem; color: #999; font-size: 0.9rem;">Password: ADMIN</p>
         </div>
     </div>
 
@@ -485,6 +484,7 @@
                 <button class="admin-tab-btn" onclick="switchTab('mantra')">🎵 Mantra</button>
                 <button class="admin-tab-btn" onclick="switchTab('aarti')">🕯️ Aarti</button>
                 <button class="admin-tab-btn" onclick="switchTab('granth')">📖 Granth</button>
+                <button class="admin-tab-btn" onclick="switchTab('suchna')">📢 सूचनाएँ</button>
                 <button class="admin-tab-btn" onclick="switchTab('backup')">💾 Backup</button>
                 <button class="admin-tab-btn" onclick="switchTab('analytics')">📈 Analytics</button>
             </div>
@@ -706,6 +706,36 @@
             </div>
 
             <!-- Backup Tab -->
+            <div id="suchna" class="admin-content">
+                <h2>📢 सूचना प्रबंधन (पूजा / त्योहार / आवश्यक सूचना)</h2>
+                <p style="color:#6c553e;">यहाँ जोड़ी गई सूचना साइट के सभी पेजों पर सोनेरी पट्टी में दिखती है। यह केवल वेबसाइट-भीतर की सूचना है - किसी को संदेश नहीं भेजा जाता।</p>
+                <div id="suchnaList" class="item-list"></div>
+
+                <h3 style="margin-top: 2rem;">नई सूचना जोड़ें</h3>
+                <form onsubmit="addAnnouncement(event)">
+                    <div class="form-group">
+                        <label>प्रकार</label>
+                        <select id="newSuchnaType">
+                            <option value="puja">पूजा सूचना</option>
+                            <option value="tyohar">त्योहार</option>
+                            <option value="suchna">आवश्यक सूचना</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>सूचना पाठ *</label>
+                        <textarea id="newSuchnaText" rows="2" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>लिंक (वैकल्पिक)</label>
+                        <input type="text" id="newSuchnaLink" placeholder="जैसे suchna.html या पूरा URL">
+                    </div>
+                    <div class="form-group">
+                        <label><input type="checkbox" id="newSuchnaActive" checked> सक्रिय (तुरंत दिखाएँ)</label>
+                    </div>
+                    <button type="submit" class="btn-primary">सूचना जोड़ें</button>
+                </form>
+            </div>
+
             <div id="backup" class="admin-content">
                 <h2>💾 Backup & Export</h2>
                 <div class="instructions">
@@ -774,18 +804,39 @@
         const ADMIN_PASSWORD = 'ADMIN';
         const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
 
-        function handleLogin(e) {
+        async function handleLogin(e) {
             e.preventDefault();
             const password = document.getElementById('passwordInput').value;
 
+            try {
+                const resp = await fetch('api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                if (resp.status !== 503) {
+                    const j = await resp.json().catch(() => ({}));
+                    if (resp.ok && j.ok) {
+                        localStorage.setItem('loginTime', new Date().toLocaleString('hi-IN'));
+                        showLoginSuccess();
+                    } else {
+                        alert('❌ गलत Password! फिर से कोशिश करें।');
+                    }
+                    document.getElementById('passwordInput').value = '';
+                    return;
+                }
+            } catch (err) { /* API unavailable - fall through to preview mode */ }
+
+            // Preview mode: server auth env vars not configured yet.
             if (password === ADMIN_PASSWORD) {
                 localStorage.setItem('adminLoggedIn', 'true');
                 localStorage.setItem('loginTime', new Date().toLocaleString('hi-IN'));
                 showLoginSuccess();
+                showInfo('सर्वर प्रमाणीकरण अभी कॉन्फ़िगर नहीं है - यह केवल प्रीव्यू मोड है।');
             } else {
                 alert('❌ गलत Password! फिर से कोशिश करें।');
-                document.getElementById('passwordInput').value = '';
             }
+            document.getElementById('passwordInput').value = '';
         }
 
         function showLoginSuccess() {
@@ -797,6 +848,7 @@
 
         function handleLogout() {
             if (confirm('क्या आप logout करना चाहते हैं?')) {
+                fetch('api/auth/logout', { method: 'POST' }).catch(() => {});
                 localStorage.removeItem('adminLoggedIn');
                 document.getElementById('adminDashboard').style.display = 'none';
                 document.getElementById('loginScreen').style.display = 'flex';
@@ -805,7 +857,14 @@
         }
 
         // Check if already logged in
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const resp = await fetch('api/auth/check');
+                if (resp.ok) {
+                    const j = await resp.json();
+                    if (j.ok) { showLoginSuccess(); return; }
+                }
+            } catch (err) { /* server auth not configured */ }
             if (localStorage.getItem('adminLoggedIn') === 'true') {
                 showLoginSuccess();
             }
@@ -1237,11 +1296,110 @@
             localStorage.setItem('activities', JSON.stringify(activities));
         }
 
+        // ============ SUCHNA (ANNOUNCEMENTS) MANAGEMENT ============
+        let announcements = [];
+
+        async function serverSave(file, data) {
+            const resp = await fetch('api/content/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ file, data })
+            });
+            if (resp.status === 503) return 'not_configured';
+            if (resp.status === 401) { showError('सत्र समाप्त - फिर से login करें।'); return 'auth'; }
+            const j = await resp.json().catch(() => ({}));
+            return j.ok ? 'saved' : 'failed';
+        }
+
+        async function loadAnnouncements() {
+            try {
+                const resp = await fetch('json/announcements.json', { cache: 'no-store' });
+                if (resp.ok) {
+                    const data = await resp.json();
+                    announcements = Array.isArray(data.announcements) ? data.announcements : [];
+                }
+            } catch (e) { announcements = []; }
+            const local = localStorage.getItem('announcementsData');
+            if (local) {
+                try {
+                    const l = JSON.parse(local);
+                    if (Array.isArray(l.announcements) && l.announcements.length >= announcements.length) {
+                        announcements = l.announcements;
+                    }
+                } catch (e) { /* ignore */ }
+            }
+            renderAnnouncements();
+        }
+
+        function renderAnnouncements() {
+            const list = document.getElementById('suchnaList');
+            if (!list) return;
+            if (!announcements.length) {
+                list.innerHTML = '<p style="color:#888;">कोई सूचना नहीं।</p>';
+                return;
+            }
+            const labels = { puja: 'पूजा सूचना', tyohar: 'त्योहार', suchna: 'आवश्यक सूचना' };
+            list.innerHTML = announcements.map((a, i) => `
+                <div class="item-card">
+                    <div class="item-info">
+                        <h4>${a.active ? '🟢' : '⚪'} ${labels[a.type] || 'सूचना'}</h4>
+                        <p>${a.text}</p>
+                        ${a.link ? `<p><small>लिंक: ${a.link}</small></p>` : ''}
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-edit" onclick="toggleAnnouncement(${i})">${a.active ? 'बंद करें' : 'सक्रिय करें'}</button>
+                        <button class="btn-delete" onclick="deleteAnnouncement(${i})">हटाएँ</button>
+                    </div>
+                </div>`).join('');
+        }
+
+        async function persistAnnouncements() {
+            const data = { announcements };
+            localStorage.setItem('announcementsData', JSON.stringify(data));
+            const result = await serverSave('announcements', data);
+            if (result === 'saved') { showSuccess('✅ सूचना GitHub पर सहेजी गई - कुछ ही देर में साइट पर दिखेगी।'); }
+            else if (result === 'not_configured') { showInfo('सूचना इस ब्राउज़र में सहेजी गई। सर्वर सेवा कॉन्फ़िगर नहीं है - Backup टैब से JSON export कर GitHub पर डालें।'); }
+            else if (result !== 'auth') { showError('सर्वर पर सहेजा नहीं जा सका - स्थानीय प्रति सुरक्षित है।'); }
+            else { showSuccess('सूचना स्थानीय रूप से सहेजी गई।'); }
+        }
+
+        async function addAnnouncement(e) {
+            e.preventDefault();
+            const a = {
+                id: Date.now(),
+                type: document.getElementById('newSuchnaType').value,
+                text: document.getElementById('newSuchnaText').value.trim(),
+                link: document.getElementById('newSuchnaLink').value.trim(),
+                active: document.getElementById('newSuchnaActive').checked
+            };
+            if (!a.text) { showError('सूचना पाठ आवश्यक है।'); return; }
+            announcements.push(a);
+            document.getElementById('newSuchnaText').value = '';
+            document.getElementById('newSuchnaLink').value = '';
+            renderAnnouncements();
+            await persistAnnouncements();
+            recordActivity('सूचना जोड़ी गई');
+        }
+
+        async function toggleAnnouncement(i) {
+            announcements[i].active = !announcements[i].active;
+            renderAnnouncements();
+            await persistAnnouncements();
+        }
+
+        async function deleteAnnouncement(i) {
+            if (!confirm('यह सूचना हटाएँ?')) return;
+            announcements.splice(i, 1);
+            renderAnnouncements();
+            await persistAnnouncements();
+        }
+
         // ============ INITIAL LOAD ============
         document.addEventListener('DOMContentLoaded', () => {
             loadAbout();
             loadAartis();
             loadGranths();
+            loadAnnouncements();
         });
     </script>
 </body>
