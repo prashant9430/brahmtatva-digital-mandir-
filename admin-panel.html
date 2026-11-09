@@ -801,42 +801,39 @@
     <script src="js/main.js"></script>
     <script>
         // ============ LOGIN SYSTEM ============
-        const ADMIN_PASSWORD = 'ADMIN';
-        const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+        // No client-side password exists: auth is server-side only (fail closed).
 
         async function handleLogin(e) {
             e.preventDefault();
             const password = document.getElementById('passwordInput').value;
+            document.getElementById('passwordInput').value = '';
 
+            let resp;
             try {
-                const resp = await fetch('api/auth/login', {
+                resp = await fetch('api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password })
                 });
-                if (resp.status !== 503) {
-                    const j = await resp.json().catch(() => ({}));
-                    if (resp.ok && j.ok) {
-                        localStorage.setItem('loginTime', new Date().toLocaleString('hi-IN'));
-                        showLoginSuccess();
-                    } else {
-                        alert('❌ गलत Password! फिर से कोशिश करें।');
-                    }
-                    document.getElementById('passwordInput').value = '';
-                    return;
-                }
-            } catch (err) { /* API unavailable - fall through to preview mode */ }
-
-            // Preview mode: server auth env vars not configured yet.
-            if (password === ADMIN_PASSWORD) {
-                localStorage.setItem('adminLoggedIn', 'true');
+            } catch (err) {
+                showError('एडमिन बैकएंड उपलब्ध नहीं है - login संभव नहीं।');
+                return;
+            }
+            if (resp.status === 503) {
+                showError('एडमिन बैकएंड अभी कॉन्फ़िगर नहीं है - login संभव नहीं।');
+                return;
+            }
+            if (resp.status === 429) {
+                showError('बहुत अधिक प्रयास - कृपया एक मिनट बाद फिर कोशिश करें।');
+                return;
+            }
+            const j = await resp.json().catch(() => ({}));
+            if (resp.ok && j.ok) {
                 localStorage.setItem('loginTime', new Date().toLocaleString('hi-IN'));
                 showLoginSuccess();
-                showInfo('सर्वर प्रमाणीकरण अभी कॉन्फ़िगर नहीं है - यह केवल प्रीव्यू मोड है।');
             } else {
                 alert('❌ गलत Password! फिर से कोशिश करें।');
             }
-            document.getElementById('passwordInput').value = '';
         }
 
         function showLoginSuccess() {
@@ -856,18 +853,15 @@
             }
         }
 
-        // Check if already logged in
+        // Dashboard opens only with a valid server session - no local bypass.
         window.addEventListener('DOMContentLoaded', async () => {
             try {
                 const resp = await fetch('api/auth/check');
                 if (resp.ok) {
                     const j = await resp.json();
-                    if (j.ok) { showLoginSuccess(); return; }
+                    if (j.ok) { showLoginSuccess(); }
                 }
-            } catch (err) { /* server auth not configured */ }
-            if (localStorage.getItem('adminLoggedIn') === 'true') {
-                showLoginSuccess();
-            }
+            } catch (err) { /* no backend - login stays closed */ }
         });
 
         // ============ TAB SWITCHING ============
@@ -1355,12 +1349,11 @@
 
         async function persistAnnouncements() {
             const data = { announcements };
-            localStorage.setItem('announcementsData', JSON.stringify(data));
             const result = await serverSave('announcements', data);
             if (result === 'saved') { showSuccess('✅ सूचना GitHub पर सहेजी गई - कुछ ही देर में साइट पर दिखेगी।'); }
-            else if (result === 'not_configured') { showInfo('सूचना इस ब्राउज़र में सहेजी गई। सर्वर सेवा कॉन्फ़िगर नहीं है - Backup टैब से JSON export कर GitHub पर डालें।'); }
-            else if (result !== 'auth') { showError('सर्वर पर सहेजा नहीं जा सका - स्थानीय प्रति सुरक्षित है।'); }
-            else { showSuccess('सूचना स्थानीय रूप से सहेजी गई।'); }
+            else if (result === 'not_configured') { showError('सर्वर सेवा कॉन्फ़िगर नहीं है - सूचना प्रकाशित नहीं हुई।'); }
+            else if (result === 'auth') { showError('सत्र समाप्त - फिर से login करें।'); }
+            else { showError('सूचना सहेजी नहीं जा सकी - कुछ प्रकाशित नहीं हुआ।'); }
         }
 
         async function addAnnouncement(e) {
