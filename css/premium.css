@@ -538,3 +538,60 @@ main.container > .page-header { animation: btFadeUp .8s cubic-bezier(.2,.7,.3,1)
     main.container > .page-header, .hero-title { animation: none !important; }
     .card, .pooja-card, .aarti-card, .granth-card, .mantra-item, .panchang-item, .structure-section, .jyotish-sub { transition: none !important; }
 }
+
+/* ---------- Home: Kundli feature block + jyotish cards (feedback 2026-11-09) ---------- */
+#jyotish .jyotish-sub {
+    border-top: none;
+    background: linear-gradient(160deg, #fffdf6 0%, #fff7e0 100%);
+    border: 1px solid rgba(212, 175, 55, 0.40);
+    border-top: 3px solid var(--p-gold);
+    border-radius: 16px;
+    padding: 1.6rem 1.4rem;
+    margin: 1.2rem 0;
+    box-shadow: var(--p-shadow-soft);
+    transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s ease;
+}
+#jyotish .jyotish-sub:hover { transform: translateY(-4px); box-shadow: var(--p-shadow-lift); }
+#jyotish .jyotish-sub h2 { margin-bottom: .6rem; }
+#jyotish .jyotish-sub p { max-width: 640px; margin-left: auto; margin-right: auto; }
+
+/* Kundli: distinct feature card with a faint north-chart diamond motif */
+.kundli-feature {
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(420px 200px at 50% 0%, rgba(255, 215, 0, 0.14), transparent 65%),
+        linear-gradient(165deg, #fffdf4 0%, #ffefd0 58%, #ffe9bd 100%) !important;
+    border: 1px solid rgba(212, 175, 55, 0.55) !important;
+    border-top: 3px solid var(--p-gold) !important;
+}
+.kundli-feature::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cg fill='none' stroke='%23b8860b' stroke-opacity='0.13'%3E%3Crect x='30' y='30' width='240' height='240'/%3E%3Cpath d='M30 30 L270 270 M270 30 L30 270 M150 30 L270 150 L150 270 L30 150 Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+.kundli-feature-inner { position: relative; z-index: 1; }
+.kundli-feature h2 { font-size: 2rem; }
+.kundli-feature .kundli-latin {
+    font-family: var(--p-font-latin);
+    font-size: .62em; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--p-muted);
+}
+.kundli-feature h3 { color: var(--p-maroon); font-size: 1.5rem; margin: .9rem 0 .5rem; }
+.kundli-feature .status {
+    display: inline-block;
+    background: #fff3cf;
+    border: 1px solid rgba(212, 175, 55, 0.65);
+    color: #7a4a08;
+    border-radius: 999px;
+    padding: .35rem 1rem;
+    font-size: .85rem;
+    letter-spacing: .3px;
+}
+.kundli-feature .btn-read { margin-top: 1rem; }
+@media (prefers-reduced-motion: reduce) {
+    #jyotish .jyotish-sub { transition: none !important; }
+}
