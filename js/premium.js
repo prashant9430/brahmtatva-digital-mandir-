@@ -46,5 +46,12 @@
             }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
             targets.forEach(function (el) { io.observe(el); });
         }
+        /* Announcements banner + Vaidik AI widget (load on every public page) */
+        ['js/suchna-banner.js', 'js/vaidik-ai.js'].forEach(function (src) {
+            var s = document.createElement('script');
+            s.src = src;
+            s.defer = true;
+            document.body.appendChild(s);
+        });
     });
 })();
