@@ -23,6 +23,15 @@
     }else {enable.hidden=false;}
     return complete;
   }
+  async function diagnosticSummary(){
+    var p=sdk.User.PushSubscription,worker='missing',nativePush='unknown';
+    try{
+      var regs=await navigator.serviceWorker.getRegistrations();
+      var reg=regs.find(function(r){return [r.active,r.waiting,r.installing].some(function(w){return w&&new URL(w.scriptURL).pathname==='/OneSignalSDKWorker.js';});});
+      if(reg){worker=reg.active?'active':reg.waiting?'waiting':'installing';nativePush=(await reg.pushManager.getSubscription())?'present':'missing';}
+    }catch(e){worker='unavailable';}
+    say('जाँच मात्र, कोई अनुमति या message नहीं: permission='+Notification.permission+'; worker='+worker+'; native-push='+nativePush+'; provider-id='+(p.id?String(p.id).slice(-8):'pending')+'; provider-token='+(p.token?'present':'missing')+'.');
+  }
   async function initialize(){
     stage('config');
     var controller=new AbortController(),configTimer=setTimeout(function(){controller.abort();},15000);
@@ -64,11 +73,11 @@
         if(ready){say('पिछला setup प्रयास पूरा नहीं हुआ। अभी बार-बार न दबाएँ। जाँच code: '+(window.__btPushDiagnostic||{}).stage);return;}
         started=Date.now();say('सुरक्षित notification setup जुड़ रहा है। धीमे network पर एक मिनट लग सकता है। अभी Allow नहीं माँगा गया है।');
         ready=initialize();await ready;
-        if(diagnostic){say('Setup diagnostic: SDK ready. कोई permission या push send नहीं हुआ।');return;}
-        if(sdk.User.PushSubscription.optedIn||Notification.permission==='granted'){subscriptionState();return;}
+        if(diagnostic){await diagnosticSummary();return;}
+        if(sdk.User.PushSubscription.optedIn){subscriptionState();return;}
         enable.textContent='Browser की अनुमति दें';say('Setup तैयार है। अब अनुमति वाले बटन को दबाएँ। Browser आपसे पूछेगा।');return;
       }
-      if(diagnostic){say('Setup diagnostic: SDK ready. कोई permission या push send नहीं हुआ।');return;}
+      if(diagnostic){await diagnosticSummary();return;}
       stage('permission');if(Notification.permission!=='granted')await sdk.Notifications.requestPermission();
       if(Notification.permission==='granted')await sdk.User.PushSubscription.optIn();
       if(sdk.User.PushSubscription.optedIn||Notification.permission==='granted'){subscriptionState();}
