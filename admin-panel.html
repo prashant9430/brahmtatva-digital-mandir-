@@ -1306,21 +1306,34 @@
         }
 
         async function loadAnnouncements() {
+            /* Live server data is the truth; static file is the offline fallback,
+               localStorage only when neither could be reached. */
+            let fromServer = false;
             try {
-                const resp = await fetch('json/announcements.json', { cache: 'no-store' });
-                if (resp.ok) {
-                    const data = await resp.json();
-                    announcements = Array.isArray(data.announcements) ? data.announcements : [];
+                const live = await fetch('api/content/read?file=announcements', { cache: 'no-store' })
+                    .then(r => r.ok ? r.json() : null).catch(() => null);
+                if (live && live.ok && live.data && Array.isArray(live.data.announcements)) {
+                    announcements = live.data.announcements;
+                    fromServer = true;
+                } else {
+                    const resp = await fetch('json/announcements.json', { cache: 'no-store' });
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        announcements = Array.isArray(data.announcements) ? data.announcements : [];
+                        fromServer = true;
+                    }
                 }
             } catch (e) { announcements = []; }
-            const local = localStorage.getItem('announcementsData');
-            if (local) {
-                try {
-                    const l = JSON.parse(local);
-                    if (Array.isArray(l.announcements) && l.announcements.length >= announcements.length) {
-                        announcements = l.announcements;
-                    }
-                } catch (e) { /* ignore */ }
+            if (!fromServer) {
+                const local = localStorage.getItem('announcementsData');
+                if (local) {
+                    try {
+                        const l = JSON.parse(local);
+                        if (Array.isArray(l.announcements)) {
+                            announcements = l.announcements;
+                        }
+                    } catch (e) { /* ignore */ }
+                }
             }
             renderAnnouncements();
         }
