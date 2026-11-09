@@ -392,3 +392,76 @@ body > * { position: relative; z-index: 1; }
     .page-header { padding: 1.8rem 1.1rem; border-radius: 16px; }
     .card, .structure-section { border-radius: 15px; }
 }
+
+/* ============ Suchna banner (puja / tyohar / awashyak suchna) ============ */
+.suchna-banner {
+    display: flex; align-items: center; gap: .8rem; flex-wrap: wrap;
+    margin: 5.2rem auto 0; max-width: 1100px; padding: .75rem 1.2rem;
+    background: linear-gradient(120deg, #3d1206, #5a1e08 55%, #3d1206);
+    color: #ffe9b8; border: 1px solid rgba(255, 199, 64, .55);
+    border-radius: 14px; box-shadow: 0 10px 26px rgba(61, 18, 6, .28);
+    font-family: 'Noto Sans Devanagari', sans-serif;
+}
+.suchna-banner .suchna-om { color: #ffc740; font-size: 1.4rem; line-height: 1; }
+.suchna-banner .suchna-body { flex: 1 1 220px; display: flex; gap: .6rem; flex-wrap: wrap; align-items: baseline; }
+.suchna-banner strong { color: #ffd977; font-weight: 700; }
+.suchna-banner .suchna-text { line-height: 1.55; }
+.suchna-banner .suchna-link {
+    color: #3d1206; background: linear-gradient(135deg, #ffd977, #f0b429);
+    padding: .35rem .9rem; border-radius: 999px; font-weight: 600; text-decoration: none;
+}
+.suchna-banner .suchna-close {
+    background: none; border: 0; color: #ffe9b8; font-size: 1.4rem; line-height: 1;
+    cursor: pointer; padding: .2rem .45rem; min-height: 44px; min-width: 44px;
+}
+.suchna-banner .suchna-close:focus-visible,
+.suchna-banner .suchna-link:focus-visible { outline: 3px solid #ffd977; outline-offset: 2px; }
+
+/* ============ Vaidik AI widget ============ */
+.vaidik-fab {
+    position: fixed; right: 18px; bottom: 18px; z-index: 1200;
+    display: flex; align-items: center; gap: .45rem;
+    background: linear-gradient(135deg, #ffd977, #f0b429);
+    color: #3d1206; border: 1px solid #b8860b; border-radius: 999px;
+    padding: .7rem 1.1rem; font-family: 'Noto Sans Devanagari', sans-serif;
+    font-weight: 700; font-size: 1rem; cursor: pointer;
+    box-shadow: 0 12px 30px rgba(61, 18, 6, .35);
+}
+.vaidik-fab span[aria-hidden] { font-size: 1.25rem; line-height: 1; }
+.vaidik-fab:focus-visible { outline: 3px solid #5a1e08; outline-offset: 3px; }
+.vaidik-panel {
+    position: fixed; right: 18px; bottom: 84px; z-index: 1201;
+    width: min(360px, calc(100vw - 36px)); max-height: min(520px, 72vh);
+    display: flex; flex-direction: column;
+    background: #fffdf6; border: 1px solid rgba(240, 180, 41, .6); border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(40, 12, 2, .4); overflow: hidden;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+}
+.vaidik-head {
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(120deg, #3d1206, #5a1e08); color: #ffd977; padding: .7rem 1rem;
+}
+.vaidik-head h2 { font-family: 'Yatra One', 'Tiro Devanagari Hindi', serif; font-size: 1.15rem; margin: 0; }
+.vaidik-close { background: none; border: 0; color: #ffe9b8; font-size: 1.35rem; cursor: pointer; min-width: 44px; min-height: 44px; }
+.vaidik-note { margin: 0; padding: .55rem 1rem; font-size: .8rem; color: #6c553e; background: #fff6df; }
+.vaidik-log { flex: 1 1 auto; overflow-y: auto; padding: .8rem 1rem; display: flex; flex-direction: column; gap: .55rem; }
+.vaidik-msg { margin: 0; padding: .55rem .8rem; border-radius: 12px; line-height: 1.6; font-size: .95rem; max-width: 92%; }
+.vaidik-user { align-self: flex-end; background: #f0b429; color: #3d1206; }
+.vaidik-bot { align-self: flex-start; background: #f7ecd2; color: #3a2a17; border-left: 3px solid #f0b429; }
+.vaidik-form { display: flex; gap: .5rem; padding: .7rem .9rem; border-top: 1px solid #efd7b1; background: #fffaf0; }
+.vaidik-form input {
+    flex: 1; border: 1px solid #e2c07a; border-radius: 10px; padding: .6rem .8rem;
+    font: inherit; background: #fff;
+}
+.vaidik-form input:focus-visible { outline: 3px solid #a35b10; outline-offset: 1px; }
+.vaidik-form button {
+    background: linear-gradient(135deg, #5a1e08, #3d1206); color: #ffd977; border: 0;
+    border-radius: 10px; padding: .6rem 1rem; font: inherit; font-weight: 700; cursor: pointer;
+}
+.vaidik-form button:focus-visible { outline: 3px solid #a35b10; outline-offset: 2px; }
+@media (max-width: 600px) {
+    .suchna-banner { margin: 4.4rem .7rem 0; }
+    .vaidik-fab-label { display: none; }
+    .vaidik-fab { padding: .8rem; }
+}
+.vaidik-panel[hidden] { display: none; }
