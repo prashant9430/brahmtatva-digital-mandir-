@@ -12,7 +12,17 @@
   var sdk=null,ready=null,started=0;
   function say(s){status.textContent=s;}
   function stage(s){window.__btPushDiagnostic={stage:s,elapsedMs:started?Date.now()-started:0};}
-  function subscribed(){say('सूचनाएँ चालू हैं। Preview पर केवल नियंत्रित test होगा। परीक्षण पहचान: '+String(sdk.User.PushSubscription.id||'').slice(-8));disable.hidden=false;}
+  function subscriptionState(current){
+    var p=current||sdk.User.PushSubscription;
+    var complete=Boolean(p.optedIn&&p.id&&p.token);
+    disable.hidden=!p.optedIn;
+    if(complete){stage('subscribed');enable.hidden=true;say('Browser का पंजीकरण पूरा है। अभी कोई test message नहीं भेजा गया है। परीक्षण पहचान: '+String(p.id).slice(-8));}
+    else if(p.optedIn||Notification.permission==='granted'){
+      stage('registration-pending');enable.hidden=true;
+      say('Browser की अनुमति मिल गई है। OneSignal का पंजीकरण अभी पूरा नहीं हुआ है। कोई test message नहीं भेजा गया है। पहचान आने तक दोबारा अनुमति न दबाएँ।');
+    }else {enable.hidden=false;}
+    return complete;
+  }
   async function initialize(){
     stage('config');
     var controller=new AbortController(),configTimer=setTimeout(function(){controller.abort();},15000);
@@ -33,7 +43,7 @@
           stage('sdk-init');
           await OS.init({appId:c.appId,autoResubscribe:false,promptOptions:{slidedown:{prompts:[{type:'push',autoPrompt:false}]}},welcomeNotification:{disable:true},notifyButton:{enable:false}});
           sdk=OS;stage('ready');
-          sdk.User.PushSubscription.addEventListener('change',function(e){disable.hidden=!e.current.optedIn;if(e.current.optedIn)subscribed();});
+          sdk.User.PushSubscription.addEventListener('change',function(e){subscriptionState(e.current);});
           if(!settled){settled=true;clearTimeout(timer);resolve(OS);}
           else {enable.disabled=false;enable.textContent='Browser की अनुमति दें';say('Setup अब तैयार है। केवल इच्छा हो तो Browser की अनुमति दें दबाएँ।');}
         }catch(e){fail(e);}
@@ -55,13 +65,13 @@
         started=Date.now();say('सुरक्षित notification setup जुड़ रहा है। धीमे network पर एक मिनट लग सकता है। अभी Allow नहीं माँगा गया है।');
         ready=initialize();await ready;
         if(diagnostic){say('Setup diagnostic: SDK ready. कोई permission या push send नहीं हुआ।');return;}
-        if(sdk.User.PushSubscription.optedIn){subscribed();return;}
+        if(sdk.User.PushSubscription.optedIn||Notification.permission==='granted'){subscriptionState();return;}
         enable.textContent='Browser की अनुमति दें';say('Setup तैयार है। अब अनुमति वाले बटन को दबाएँ। Browser आपसे पूछेगा।');return;
       }
       if(diagnostic){say('Setup diagnostic: SDK ready. कोई permission या push send नहीं हुआ।');return;}
-      stage('permission');await sdk.Notifications.requestPermission();
+      stage('permission');if(Notification.permission!=='granted')await sdk.Notifications.requestPermission();
       if(Notification.permission==='granted')await sdk.User.PushSubscription.optIn();
-      if(sdk.User.PushSubscription.optedIn){stage('subscribed');subscribed();}
+      if(sdk.User.PushSubscription.optedIn||Notification.permission==='granted'){subscriptionState();}
       else say('अनुमति नहीं मिली। कोई बात नहीं, वेबसाइट बिना notifications के भी काम करेगी।');
     }catch(e){
       var s=(window.__btPushDiagnostic||{}).stage||'unknown';
@@ -70,5 +80,5 @@
       say('सूचनाओं का setup पूरा नहीं हुआ। जाँच code: '+code+'. अभी दोबारा Allow न दबाएँ।');
     }finally{enable.disabled=false;}
   });
-  disable.addEventListener('click',async function(){try{await sdk.User.PushSubscription.optOut();say('सूचनाएँ बंद हैं।');disable.hidden=true;}catch(e){say('बंद करने के लिए browser की site notification settings इस्तेमाल करें।');}});
+  disable.addEventListener('click',async function(){try{await sdk.User.PushSubscription.optOut();say('सूचनाएँ बंद हैं।');disable.hidden=true;enable.hidden=false;}catch(e){say('बंद करने के लिए browser की site notification settings इस्तेमाल करें।');}});
 })();
