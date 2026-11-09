@@ -42,6 +42,7 @@
             p.textContent = text;
             log.appendChild(p);
             log.scrollTop = log.scrollHeight;
+            requestAnimationFrame(function(){log.scrollTop=log.scrollHeight;});
             return p;
         }
 
@@ -82,7 +83,7 @@
                 })
                 .catch(function () {
                     thinking.textContent = 'सेवा अभी उपलब्ध नहीं है। कृपया बाद में प्रयास करें।';
-                }).finally(function () { send.disabled = false; });
+                }).finally(function () { send.disabled = false; requestAnimationFrame(function(){log.scrollTop=log.scrollHeight;}); });
         });
     }
 
