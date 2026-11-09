@@ -19,11 +19,11 @@
         window.OneSignalDeferred=window.OneSignalDeferred||[];
         var ready=new Promise(function(resolve,reject){
           var timer=setTimeout(function(){reject(new Error('timeout'));},15000);
-          window.OneSignalDeferred.push(async function(OS){try{await OS.init({appId:c.appId,promptOptions:{slidedown:{prompts:[{type:'push',autoPrompt:false}]}},welcomeNotification:{disable:true},notifyButton:{enable:false}});clearTimeout(timer);resolve(OS);}catch(e){clearTimeout(timer);reject(e);}});
+          window.OneSignalDeferred.push(async function(OS){try{await OS.init({appId:c.appId,autoResubscribe:false,promptOptions:{slidedown:{prompts:[{type:'push',autoPrompt:false}]}},welcomeNotification:{disable:true},notifyButton:{enable:false}});clearTimeout(timer);resolve(OS);}catch(e){clearTimeout(timer);reject(e);}});
         });
-        var script=document.createElement('script');script.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';script.defer=true;document.head.appendChild(script);sdk=await ready;enable.textContent='Browser की अनुमति दें';say('अब अनुमति वाले बटन को दबाएँ। Browser आपसे पूछेगा।');return;
+        var script=document.createElement('script');script.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';script.defer=true;document.head.appendChild(script);sdk=await ready;sdk.User.PushSubscription.addEventListener('change',function(e){disable.hidden=!e.current.optedIn;if(e.current.optedIn)say('सूचनाएँ चालू हैं। Preview पर केवल नियंत्रित test होगा।');});enable.textContent='Browser की अनुमति दें';say('अब अनुमति वाले बटन को दबाएँ। Browser आपसे पूछेगा।');return;
       }
-      await sdk.Notifications.requestPermission();
+      await sdk.Notifications.requestPermission();if(Notification.permission==='granted')await sdk.User.PushSubscription.optIn();
       if(sdk.User.PushSubscription.optedIn){say('सूचनाएँ चालू हैं। Preview पर केवल नियंत्रित test होगा।');disable.hidden=false;}
       else say('अनुमति नहीं मिली। कोई बात नहीं, वेबसाइट बिना notifications के भी काम करेगी।');
     } catch(e){say('सूचनाएँ अभी चालू नहीं हो सकीं। थोड़ी देर बाद दोबारा कोशिश कर सकते हैं।');}
