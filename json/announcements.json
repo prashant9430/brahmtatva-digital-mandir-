@@ -1,11 +1,3 @@
 {
-  "announcements": [
-    {
-      "id": 1794205824315,
-      "type": "puja",
-      "text": "परीक्षण सूचना - यह स्वतः जाँच के लिए है, शीघ्र हटाई जाएगी।",
-      "link": "",
-      "active": true
-    }
-  ]
+  "announcements": []
 }
