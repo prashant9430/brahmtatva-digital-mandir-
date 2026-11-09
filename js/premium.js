@@ -4,8 +4,11 @@
 
     var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    /* ---------- Shubh-prateek preloader (sacred symbols while the page loads) ---------- */
-    /* Injected at defer time (document parsed, assets still loading); styles live in premium.css. */
+    /* ---------- Shubh-prateek loader (page load + click-triggered) ---------- */
+    /* Injected at defer time (document parsed, assets still loading); styles live in premium.css.
+       The same overlay re-appears instantly on clicks that start real work:
+       internal navigation links and the kundli compute button. It never traps
+       the page: navigation unloads it, bfcache return removes it, failsafes hide it. */
     if (!/admin/i.test(window.location.pathname)) {
         var plSymbols = [
             '\u0950',                 /* ॐ */
@@ -15,45 +18,103 @@
             '\u0936\u0941\u092D',     /* शुभ */
             '\u0932\u093E\u092D'      /* लाभ */
         ];
-        var pl = document.createElement('div');
-        pl.id = 'bt-preloader';
-        pl.setAttribute('role', 'status');
-        pl.setAttribute('aria-label', 'पृष्ठ लोड हो रहा है');
-        pl.innerHTML =
-            '<div class="bt-loader-mandala" aria-hidden="true">' +
-                '<div class="bt-loader-ring"></div>' +
-                '<div class="bt-loader-ring2"></div>' +
-                '<div class="bt-loader-symbol">\u0950</div>' +
-            '</div>' +
-            '<div class="bt-loader-name">BrahmTatva</div>';
-        document.body.appendChild(pl);
-
-        var plStart = Date.now();
-        var symEl = pl.querySelector('.bt-loader-symbol');
-        var symIndex = 0;
+        var plOverlay = null;
         var plTimer = null;
-        if (!reduceMotion) {
-            plTimer = setInterval(function () {
-                symIndex = (symIndex + 1) % plSymbols.length;
-                symEl.textContent = plSymbols[symIndex];
-            }, 180);
-        }
-        var plDone = false;
-        var hidePreloader = function () {
-            if (plDone) { return; }
-            plDone = true;
-            var wait = Math.max(0, 650 - (Date.now() - plStart));
-            setTimeout(function () {
-                if (plTimer) { clearInterval(plTimer); }
-                pl.classList.add('bt-hide');
-                setTimeout(function () {
-                    if (pl.parentNode) { pl.parentNode.removeChild(pl); }
-                }, 700);
-            }, wait);
+        var plSymEl = null;
+        var plSymIndex = 0;
+
+        var ensureOverlay = function () {
+            if (plOverlay && plOverlay.parentNode) { return plOverlay; }
+            var pl = document.createElement('div');
+            pl.id = 'bt-preloader';
+            pl.setAttribute('role', 'status');
+            pl.setAttribute('aria-label', 'पृष्ठ लोड हो रहा है');
+            pl.innerHTML =
+                '<div class="bt-loader-mandala" aria-hidden="true">' +
+                    '<div class="bt-loader-ring"></div>' +
+                    '<div class="bt-loader-ring2"></div>' +
+                    '<div class="bt-loader-symbol">\u0950</div>' +
+                '</div>' +
+                '<div class="bt-loader-name">BrahmTatva</div>';
+            document.body.appendChild(pl);
+            plOverlay = pl;
+            plSymEl = pl.querySelector('.bt-loader-symbol');
+            plSymIndex = 0;
+            if (!reduceMotion) {
+                plTimer = setInterval(function () {
+                    plSymIndex = (plSymIndex + 1) % plSymbols.length;
+                    if (plSymEl) { plSymEl.textContent = plSymbols[plSymIndex]; }
+                }, 180);
+            }
+            return pl;
         };
-        if (document.readyState === 'complete') { hidePreloader(); }
-        else { window.addEventListener('load', hidePreloader); }
-        setTimeout(hidePreloader, 6000); /* failsafe: never trap the page */
+        var removeOverlay = function () {
+            if (plTimer) { clearInterval(plTimer); plTimer = null; }
+            if (plOverlay && plOverlay.parentNode) {
+                var el = plOverlay;
+                el.classList.add('bt-hide');
+                setTimeout(function () {
+                    if (el.parentNode) { el.parentNode.removeChild(el); }
+                }, 700);
+            }
+            plOverlay = null;
+            plSymEl = null;
+        };
+
+        /* Page-load instance: visible until the page finishes loading. */
+        var plStart = Date.now();
+        ensureOverlay();
+        var loadHidden = false;
+        var hideOnLoad = function () {
+            if (loadHidden) { return; }
+            loadHidden = true;
+            var wait = Math.max(0, 650 - (Date.now() - plStart));
+            setTimeout(removeOverlay, wait);
+        };
+        if (document.readyState === 'complete') { hideOnLoad(); }
+        else { window.addEventListener('load', hideOnLoad); }
+        setTimeout(hideOnLoad, 6000); /* failsafe: never trap the page */
+
+        /* Click-triggered instance: internal navigations and real async actions. */
+        document.addEventListener('click', function (ev) {
+            var t = ev.target;
+            if (!t || !t.closest) { return; }
+            /* 1) Internal navigation links: show instantly, the next page replaces it. */
+            var a = t.closest('a[href]');
+            if (a) {
+                var href = a.getAttribute('href') || '';
+                if (a.target === '_blank' || a.hasAttribute('download')) { return; }
+                if (!href || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) { return; }
+                if (/^(https?:)?\/\//i.test(href)) {
+                    try {
+                        if (new URL(href, window.location.href).host !== window.location.host) { return; }
+                    } catch (e) { return; }
+                }
+                ensureOverlay();
+                setTimeout(removeOverlay, 15000); /* failsafe if navigation is cancelled */
+                return;
+            }
+            /* 2) Kundli compute: hide when the result (or error) renders. */
+            if (t.closest('#astroForm .astro-button')) {
+                ensureOverlay();
+                var watched = [document.getElementById('astroResult'), document.getElementById('astroError')];
+                if ('MutationObserver' in window) {
+                    var mo = new MutationObserver(function () {
+                        var shown = watched.some(function (el) { return el && !el.hidden; });
+                        if (shown) { removeOverlay(); mo.disconnect(); }
+                    });
+                    watched.forEach(function (el) {
+                        if (el) { mo.observe(el, { attributes: true, attributeFilter: ['hidden'] }); }
+                    });
+                }
+                setTimeout(removeOverlay, 12000); /* failsafe */
+            }
+        }, true);
+
+        /* Back/forward cache: a restored page must never show a stuck loader. */
+        window.addEventListener('pageshow', function (ev) {
+            if (ev.persisted) { removeOverlay(); }
+        });
     }
 
     document.addEventListener('DOMContentLoaded', function () {
