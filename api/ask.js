@@ -108,8 +108,17 @@ module.exports = async (req, res) => {
     }
     const data = await resp.json();
     const text = (((data.candidates || [])[0] || {}).content || {}).parts || [];
-    const answer = text.map(p => p.text || '').join('').trim();
-    res.status(200).json({ ok: true, answer: answer || AWAITED });
+    let answer = text.map(p => p.text || '').join('').trim();
+    // Output enforcement (not just prompt instructions): an answer is only
+    // served if it is the fixed refusal OR carries a citation of a pack entry
+    // title. Anything else - uncited, off-pack, or invented content - is
+    // replaced by the refusal.
+    const titles = (pack.sources || []).filter(s => s && s.title && s.vetted === true).map(s => String(s.title));
+    const cited = titles.some(t => answer.includes('स्रोत:') && answer.includes(t));
+    if (!answer || (answer !== AWAITED && !cited)) {
+      answer = AWAITED;
+    }
+    res.status(200).json({ ok: true, answer });
   } catch (e) {
     res.status(502).json({ ok: false, error: 'gemini_unreachable' });
   }
