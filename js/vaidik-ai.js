@@ -1,7 +1,4 @@
-/* BrahmTatva – Digital Mandir | Vaidik AI widget (frontend only)
-   Talks to /api/ask - the Gemini key never reaches the browser.
-   Until the backend key is configured the widget says the service
-   is coming soon instead of failing. */
+/* Source-limited preview. Questions require clear provider-processing consent. */
 (function () {
     'use strict';
 
@@ -17,6 +14,7 @@
         var panel = document.createElement('section');
         panel.className = 'vaidik-panel';
         panel.setAttribute('hidden', '');
+        panel.style.maxHeight = 'min(640px, calc(100dvh - 110px))';
         panel.innerHTML =
             '<header class="vaidik-head"><h2>वैदिक AI</h2>' +
             '<button type="button" class="vaidik-close" aria-label="बंद करें">×</button></header>' +
@@ -34,6 +32,9 @@
         var form = panel.querySelector('.vaidik-form');
         var input = form.querySelector('input');
         var send = form.querySelector('button');
+        input.style.minWidth = '0';
+        log.style.minHeight = '80px';
+        log.style.whiteSpace = 'pre-wrap';
 
         function say(cls, text) {
             var p = document.createElement('p');
