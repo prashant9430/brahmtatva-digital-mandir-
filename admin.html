@@ -804,5 +804,12 @@
 
 
     </script>
+    <script>
+    // Cosmetic gate: send visitors to the real login panel. Actual security is
+    // server-side; this file holds no data or privileged actions.
+    fetch('api/auth/check').then(r => r.json()).then(j => {
+      if (!j.ok) location.replace('admin-panel.html');
+    }).catch(() => location.replace('admin-panel.html'));
+    </script>
 </body>
 </html>
