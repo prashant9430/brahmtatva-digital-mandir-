@@ -4,6 +4,58 @@
 
     var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    /* ---------- Shubh-prateek preloader (sacred symbols while the page loads) ---------- */
+    /* Injected at defer time (document parsed, assets still loading); styles live in premium.css. */
+    if (!/admin/i.test(window.location.pathname)) {
+        var plSymbols = [
+            '\u0950',                 /* ॐ */
+            '\u0936\u094D\u0930\u0940', /* श्री */
+            '\u5350\uFE0E',           /* 卐 (text presentation) */
+            '\u2638\uFE0E',           /* ☸ (text presentation) */
+            '\u0936\u0941\u092D',     /* शुभ */
+            '\u0932\u093E\u092D'      /* लाभ */
+        ];
+        var pl = document.createElement('div');
+        pl.id = 'bt-preloader';
+        pl.setAttribute('role', 'status');
+        pl.setAttribute('aria-label', 'पृष्ठ लोड हो रहा है');
+        pl.innerHTML =
+            '<div class="bt-loader-mandala" aria-hidden="true">' +
+                '<div class="bt-loader-ring"></div>' +
+                '<div class="bt-loader-ring2"></div>' +
+                '<div class="bt-loader-symbol">\u0950</div>' +
+            '</div>' +
+            '<div class="bt-loader-name">BrahmTatva</div>';
+        document.body.appendChild(pl);
+
+        var plStart = Date.now();
+        var symEl = pl.querySelector('.bt-loader-symbol');
+        var symIndex = 0;
+        var plTimer = null;
+        if (!reduceMotion) {
+            plTimer = setInterval(function () {
+                symIndex = (symIndex + 1) % plSymbols.length;
+                symEl.textContent = plSymbols[symIndex];
+            }, 180);
+        }
+        var plDone = false;
+        var hidePreloader = function () {
+            if (plDone) { return; }
+            plDone = true;
+            var wait = Math.max(0, 650 - (Date.now() - plStart));
+            setTimeout(function () {
+                if (plTimer) { clearInterval(plTimer); }
+                pl.classList.add('bt-hide');
+                setTimeout(function () {
+                    if (pl.parentNode) { pl.parentNode.removeChild(pl); }
+                }, 700);
+            }, wait);
+        };
+        if (document.readyState === 'complete') { hidePreloader(); }
+        else { window.addEventListener('load', hidePreloader); }
+        setTimeout(hidePreloader, 6000); /* failsafe: never trap the page */
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         /* Navbar shadow state */
         var navbar = document.querySelector('.navbar');
