@@ -287,12 +287,8 @@ async function fetchWithRetry(url, options = {}, retries = 3) {
     }
 }
 
-// Service Worker registration (for offline support)
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(err => {
-        console.log('Service Worker registration failed:', err);
-    });
-}
+// Push worker is registered only after voluntary consent in push-notifications.js.
+// No offline cache worker is shipped, so do not request a nonexistent sw.js.
 
 console.log('BrahmTatva – Digital Mandir loaded successfully! 🙏');
 
