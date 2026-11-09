@@ -1,5 +1,5 @@
 /* BrahmTatva – Digital Mandir | Visitor announcements (puja / tyohar / awashyak suchna)
-   Reads json/announcements.json and shows the newest active notice as a
+   Reads the newest active notice (live API first, static JSON fallback) and shows it as a
    dismissible premium banner. No visitors are contacted - website only. */
 (function () {
     'use strict';
@@ -9,8 +9,21 @@
     var TYPE_LABEL = { puja: 'पूजा सूचना', tyohar: 'त्योहार', suchna: 'आवश्यक सूचना' };
 
     function init() {
-        fetch('json/announcements.json', { cache: 'no-store' })
-            .then(function (r) { return r.ok ? r.json() : null; })
+        /* Live read first (reflects admin saves without a redeploy);
+           static build-time file as fallback. */
+        var fromStatic = function () {
+            return fetch('json/announcements.json', { cache: 'no-store' })
+                .then(function (r) { return r.ok ? r.json() : null; });
+        };
+        var fromApi = function () {
+            return fetch('api/content/read?file=announcements', { cache: 'no-store' })
+                .then(function (r) { return r.ok ? r.json() : null; })
+                .then(function (j) {
+                    if (j && j.ok && j.data && Array.isArray(j.data.announcements)) { return j.data; }
+                    return fromStatic();
+                });
+        };
+        fromApi()
             .then(function (data) {
                 var list = data && Array.isArray(data.announcements) ? data.announcements : [];
                 var active = list.filter(function (a) { return a && a.active && a.text; });
