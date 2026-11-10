@@ -1,5 +1,7 @@
-// Generated from the site's own public user-supplied library (mantra.json, pooja.json, granth.json, json/aarti.json).
-// Do not edit by hand; regenerate from those files.
+// Generated from the site's own public user-supplied library.
+// mantra.json, pooja.json: uploaded by site owner 2026-02-14. json/aarti.json: 2026-03-02.
+// granth.json: only the 10 entries from the owner's original 2026-02-14 upload (later catalogue
+// additions excluded pending owner verification).
 module.exports = [
 {
 "id": "mantra-shiv-1",
@@ -444,72 +446,6 @@ module.exports = [
 "section": "ग्रंथ संग्रह",
 "title": "हनुमान चालीसा",
 "text": "गोस्वामी तुलसीदास। भगवान हनुमान की महिमा का वर्णन। 40 दोहों में हनुमान की शक्ति और भक्ति का गुणगान"
-},
-{
-"id": "granth-11",
-"section": "ग्रंथ संग्रह",
-"title": "कर्मकांड भास्कर",
-"text": "दिया गया संग्रह। कर्मकांड विषयक दी गई PDF"
-},
-{
-"id": "granth-12",
-"section": "ग्रंथ संग्रह",
-"title": "नवग्रह एवं नक्षत्र शांति",
-"text": "दिया गया संग्रह। नवग्रह और नक्षत्र शांति संबंधी दी गई PDF"
-},
-{
-"id": "granth-13",
-"section": "ग्रंथ संग्रह",
-"title": "प्रतिष्ठा प्रकाश (श्रीधर शास्त्री)",
-"text": "दिया गया संग्रह। प्रतिष्ठा-विधि संबंधी दी गई PDF"
-},
-{
-"id": "granth-14",
-"section": "ग्रंथ संग्रह",
-"title": "पूजाकर्म प्रवेशिका",
-"text": "दिया गया संग्रह। पूजाकर्म संबंधी दी गई PDF"
-},
-{
-"id": "granth-15",
-"section": "ग्रंथ संग्रह",
-"title": "यज्ञ दीपिका",
-"text": "दिया गया संग्रह। यज्ञ-विधि संबंधी दी गई PDF"
-},
-{
-"id": "granth-16",
-"section": "ग्रंथ संग्रह",
-"title": "यज्ञ मार्तण्ड",
-"text": "दिया गया संग्रह। यज्ञ संबंधी दी गई PDF"
-},
-{
-"id": "granth-17",
-"section": "ग्रंथ संग्रह",
-"title": "शुक्ल यजुर्वेद",
-"text": "दिया गया संग्रह। शुक्ल यजुर्वेद की दी गई PDF"
-},
-{
-"id": "granth-18",
-"section": "ग्रंथ संग्रह",
-"title": "यजुर्वेद मंत्र संहिता (जटा-घनपाठ)",
-"text": "दिया गया संग्रह। यजुर्वेद मंत्र-संहिता जटा-घनपाठ की दी गई PDF"
-},
-{
-"id": "granth-19",
-"section": "ग्रंथ संग्रह",
-"title": "कालभैरवाष्टकम्",
-"text": "दिया गया संग्रह। कालभैरवाष्टकम् स्तोत्र की दी गई PDF"
-},
-{
-"id": "granth-20",
-"section": "ग्रंथ संग्रह",
-"title": "श्री कालभैरव अष्टक (स्वामी रूपेश्वरानन्द)",
-"text": "दिया गया संग्रह। स्वामी रूपेश्वरानन्द संस्करण की दी गई PDF"
-},
-{
-"id": "granth-21",
-"section": "ग्रंथ संग्रह",
-"title": "अनमोल भजन संग्रह",
-"text": "दिया गया संग्रह। भजन-संग्रह की दी गई PDF"
 },
 {
 "id": "aarti-ganesh",
