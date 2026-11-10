@@ -102,7 +102,11 @@ module.exports = async (req,res) => {
       const id = await callModel(SELECTOR_INSTRUCTION, JSON.stringify({question,passages:candidates.map(s=>({id:s.id,text:s.text}))}), 100);
       const selected = candidates.find(s=>s.id===id);
       if (selected) {
-        return res.status(200).json({ok:true,matched:true,answerType:'source',answer:'जाँचा हुआ छोटा अंश:\n"'+selected.text+'"\n\nस्रोत: '+selected.title+'; '+selected.edition+'; PDF पृष्ठ '+selected.pdfPage+(selected.printedPage?' (मुद्रित पृष्ठ '+selected.printedPage+')':' (मुद्रित पृष्ठ संख्या नहीं)')+'।',source:{title:selected.title,edition:selected.edition,pdfPage:selected.pdfPage},limitedPreview:true});
+        // Short citation stays inline (title, kand/kind, printed page). Full
+        // provenance travels in the structured source object for the UI to show
+        // as expandable detail; uncertainty fields (unresolved) are never dropped.
+        const shortCite = selected.title.replace(/ \(चुनिंदा पद्य\)$/,'')+(selected.kind?', '+selected.kind:'')+(selected.printedPage?', मुद्रित पृष्ठ '+selected.printedPage:'');
+        return res.status(200).json({ok:true,matched:true,answerType:'source',answer:'जाँचा हुआ छोटा अंश:\n"'+selected.text+'"\n\nस्रोत: '+shortCite+'।',source:{id:selected.id,title:selected.title,kind:selected.kind||null,edition:selected.edition,pdfPage:selected.pdfPage,printedPage:selected.printedPage||null,verified:true,verification:selected.verification||null,unresolved:selected.unresolved||null},limitedPreview:true});
       }
     }
     // Tier 2: retrieval over the site's own public library. The model may
