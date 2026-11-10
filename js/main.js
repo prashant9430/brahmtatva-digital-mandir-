@@ -305,3 +305,14 @@ function acharyaTab(prefix, tabId, btn) {
     document.getElementById(prefix + '-' + tabId).classList.add('active');
     btn.classList.add('active');
 }
+
+
+/* सिद्धांत-ज्ञान learning section (homepage only) */
+document.addEventListener('DOMContentLoaded', function () {
+  if (document.getElementById('sections')) {
+    var sg = document.createElement('script');
+    sg.src = 'js/siddhant-gyan.js';
+    sg.defer = true;
+    document.body.appendChild(sg);
+  }
+});
