@@ -1,0 +1,652 @@
+/* ============================================================
+   BrahmTatva – Digital Mandir | PREMIUM THEME LAYER
+   Loaded last on every page. Overrides only presentation;
+   no markup, id, class or JS contract changes.
+   ============================================================ */
+
+:root {
+    --p-maroon: #6d1b12;
+    --p-maroon-deep: #4a120c;
+    --p-maroon-dark: #2e0906;
+    --p-gold: #d4af37;
+    --p-gold-bright: #ffd700;
+    --p-gold-soft: #f3d98b;
+    --p-saffron: #ff9933;
+    --p-saffron-deep: #e07b00;
+    --p-ivory: #fffaf0;
+    --p-cream: #fff6e0;
+    --p-text: #3a2320;
+    --p-muted: #7a5c4f;
+    --p-gold-border: rgba(212, 175, 55, 0.45);
+    --p-shadow-soft: 0 10px 30px rgba(122, 60, 10, 0.12), 0 2px 6px rgba(122, 60, 10, 0.08);
+    --p-shadow-lift: 0 18px 44px rgba(122, 60, 10, 0.20), 0 4px 12px rgba(122, 60, 10, 0.10);
+    --p-font-display: 'Yatra One', 'Tiro Devanagari Hindi', Georgia, serif;
+    --p-font-serif: 'Tiro Devanagari Hindi', Georgia, serif;
+    --p-font-latin: 'Marcellus', Georgia, serif;
+    --p-font-ui: 'Noto Sans Devanagari', Arial, sans-serif;
+}
+
+/* ---------- Canvas ---------- */
+body {
+    background:
+        radial-gradient(1200px 600px at 50% -8%, rgba(255, 215, 0, 0.10), transparent 60%),
+        linear-gradient(135deg, #fdf3d8 0%, #fff8e6 45%, #fdf3d8 100%);
+    color: var(--p-text);
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Ctext x='75' y='125' font-size='64' fill='%23d4af37' fill-opacity='0.035' font-family='serif'%3E%E0%A5%90%3C/text%3E%3C/svg%3E");
+}
+body > * { position: relative; z-index: 1; }
+
+::selection { background: rgba(212, 175, 55, 0.4); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #f6ead0; }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #d4af37, #a8761f); border-radius: 8px; border: 2px solid #f6ead0; }
+
+/* ---------- Navbar : deep temple maroon + gold ---------- */
+.navbar {
+    background: linear-gradient(180deg, #5a1510 0%, #7c2413 62%, #8c2f0c 100%);
+    border-bottom: 3px solid var(--p-gold);
+    box-shadow: 0 8px 28px rgba(46, 9, 6, 0.38);
+}
+.navbar.nav-scrolled { box-shadow: 0 10px 34px rgba(46, 9, 6, 0.55); }
+.nav-logo { font-family: var(--p-font-display); letter-spacing: 1px; }
+.om-symbol {
+    color: var(--p-gold-bright);
+    text-shadow: 0 0 14px rgba(255, 215, 0, 0.65), 0 0 34px rgba(255, 215, 0, 0.30);
+}
+.logo-text { font-family: var(--p-font-display); color: #ffe9c0; text-shadow: 0 1px 2px rgba(0,0,0,0.35); }
+.nav-link {
+    color: #ffe9c0;
+    position: relative;
+    border-radius: 999px;
+    padding: 0.45rem 1.05rem;
+    transition: color .25s ease, background .25s ease, transform .25s ease;
+}
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 18%; right: 18%; bottom: 3px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--p-gold-bright), transparent);
+    transform: scaleX(0);
+    transition: transform .3s ease;
+}
+.nav-link:hover { color: var(--p-gold-bright); background: rgba(212, 175, 55, 0.14); transform: translateY(-1px); }
+.nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+.nav-link.active { color: var(--p-gold-bright); background: rgba(212, 175, 55, 0.18); }
+.hamburger span { background: var(--p-gold-bright); box-shadow: 0 0 6px rgba(255,215,0,.5); }
+@media (max-width: 768px) {
+    .nav-menu {
+        background: linear-gradient(180deg, #5a1510 0%, #6d1b12 100%);
+        border-top: 1px solid rgba(212, 175, 55, 0.35);
+        box-shadow: 0 18px 30px rgba(46, 9, 6, 0.45);
+    }
+}
+
+/* Floating mantras: warm gold, subtler */
+.mantra-text { color: rgba(212, 175, 55, 0.07) !important; font-family: var(--p-font-serif); }
+
+/* ---------- Hero : cinematic mandir ---------- */
+.hero {
+    background:
+        radial-gradient(900px 420px at 50% 0%, rgba(255, 215, 0, 0.16), transparent 62%),
+        radial-gradient(ellipse at 50% 118%, rgba(255, 153, 51, 0.22), transparent 55%),
+        linear-gradient(180deg, #6d1b12 0%, #4a120c 52%, #2e0906 100%);
+    border-bottom: 4px solid var(--p-gold);
+    box-shadow: inset 0 -30px 60px rgba(0, 0, 0, 0.35), 0 14px 40px rgba(46, 9, 6, 0.35);
+    position: relative;
+    overflow: hidden;
+    padding: 4.5rem 1.5rem 5.2rem;
+}
+/* mandala watermark */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340' viewBox='0 0 340 340'%3E%3Cg fill='none' stroke='%23ffd700' stroke-opacity='0.08'%3E%3Ccircle cx='170' cy='170' r='150'/%3E%3Ccircle cx='170' cy='170' r='118'/%3E%3Ccircle cx='170' cy='170' r='86'/%3E%3Cpath d='M170 20 L188 150 L320 170 L188 190 L170 320 L152 190 L20 170 L152 150 Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+.hero-content { position: relative; z-index: 2; }
+.hero-title {
+    font-family: var(--p-font-display);
+    font-weight: 400;
+    font-size: clamp(2.5rem, 7vw, 4.4rem);
+    letter-spacing: 1px;
+    background: linear-gradient(180deg, #fff6d8 0%, #ffd700 42%, #e9b72c 68%, #b8860b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 3px 14px rgba(255, 200, 40, 0.35)) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
+}
+.hero-subtitle {
+    font-family: var(--p-font-latin);
+    color: #f7e3b0;
+    font-size: clamp(1.05rem, 2.6vw, 1.45rem);
+    letter-spacing: 3px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+.hero-description {
+    color: #f0dfbc;
+    font-family: var(--p-font-serif);
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    max-width: 660px;
+    margin-left: auto; margin-right: auto;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+/* gold halo around the lotus mandala */
+.lotus-decoration svg { filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.45)); }
+.lotus-decoration { animation: lotusGlow 5s ease-in-out infinite; }
+@keyframes lotusGlow {
+    0%, 100% { opacity: .8; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.04); }
+}
+
+/* CSS diyas (injected by premium.js, home hero only) */
+.diya { position: absolute; bottom: 26px; z-index: 2; width: 64px; height: 40px; pointer-events: none; }
+.diya.diya-left { left: clamp(10px, 6vw, 90px); }
+.diya.diya-right { right: clamp(10px, 6vw, 90px); }
+.diya .diya-bowl {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 18px;
+    background: linear-gradient(180deg, #a8542a 0%, #7c3a17 70%, #5c2a10 100%);
+    border-radius: 0 0 60px 60px / 0 0 40px 40px;
+    box-shadow: inset 0 3px 4px rgba(255, 200, 120, 0.35), 0 6px 14px rgba(0, 0, 0, 0.45);
+}
+.diya .diya-flame {
+    position: absolute; bottom: 16px; left: 50%; width: 12px; height: 22px;
+    margin-left: -6px;
+    background: radial-gradient(ellipse at 50% 80%, #fff7c0 0%, #ffd34d 38%, #ff9a1f 70%, rgba(255, 110, 0, 0.0) 100%);
+    border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+    transform-origin: 50% 100%;
+    animation: diyaFlicker 1.6s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(255, 170, 40, 0.85)) drop-shadow(0 0 26px rgba(255, 150, 30, 0.45));
+}
+@keyframes diyaFlicker {
+    0%, 100% { transform: scaleY(1) scaleX(1) rotate(-1.5deg); }
+    30% { transform: scaleY(1.08) scaleX(0.94) rotate(1.6deg); }
+    60% { transform: scaleY(0.94) scaleX(1.05) rotate(-1deg); }
+}
+@media (max-width: 600px) { .diya { width: 48px; transform: scale(.85); } }
+
+/* ---------- Shared headings with gold ornament ---------- */
+.about-intro h2,
+.structure-section h2,
+.jyotish-sub h2,
+.gau-section h2,
+.acharya-title,
+.about-content h2,
+.page-header h1 {
+    font-family: var(--p-font-display);
+    font-weight: 400;
+    color: var(--p-maroon);
+    letter-spacing: .5px;
+}
+.about-intro h2::after,
+.structure-section h2::after,
+.jyotish-sub h2::after,
+.gau-section h2::after,
+.about-content h2::after {
+    content: "";
+    display: block;
+    width: 150px; height: 3px;
+    margin: .7rem auto 0;
+    border-radius: 3px;
+    background: linear-gradient(90deg, transparent, var(--p-gold) 25%, var(--p-gold-bright) 50%, var(--p-gold) 75%, transparent);
+    box-shadow: 0 1px 6px rgba(212, 175, 55, 0.55);
+}
+
+/* ---------- Cards : ivory + gold, kept box language ---------- */
+.card {
+    background: linear-gradient(160deg, #fffdf6 0%, #fff6df 100%);
+    border: 1px solid var(--p-gold-border);
+    border-top: 4px solid var(--p-saffron);
+    border-image: linear-gradient(90deg, #e07b00, #ffd700 50%, #e07b00) 1;
+    border-radius: 18px;
+    box-shadow: var(--p-shadow-soft);
+    transition: transform .35s cubic-bezier(.2,.7,.3,1.2), box-shadow .35s ease, border-color .35s ease;
+}
+.card:hover {
+    transform: translateY(-9px);
+    border-color: rgba(212, 175, 55, 0.75);
+    box-shadow: 0 20px 46px rgba(150, 84, 10, 0.24), 0 0 0 3px rgba(255, 215, 0, 0.18);
+}
+.card h3 { font-family: var(--p-font-serif); color: var(--p-maroon); letter-spacing: .4px; }
+.card p { color: var(--p-muted); }
+.card-icon img {
+    border-radius: 16px;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.55), 0 10px 22px rgba(122, 60, 10, 0.28);
+    transition: transform .35s ease, box-shadow .35s ease;
+}
+.card:hover .card-icon img { transform: scale(1.06) rotate(-1deg); box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.65), 0 14px 28px rgba(122, 60, 10, 0.34); }
+
+/* ---------- Structure / content panels ---------- */
+.structure-section {
+    background: linear-gradient(160deg, #fffdf7 0%, #fff7e2 100%);
+    border: 1px solid var(--p-gold-border);
+    border-top: 4px solid var(--p-saffron);
+    border-image: linear-gradient(90deg, #e07b00, #ffd700 50%, #e07b00) 1;
+    border-radius: 18px;
+    box-shadow: var(--p-shadow-soft);
+}
+.structure-section details { border-top: 1px dashed rgba(190, 140, 40, 0.45); }
+.structure-section summary { color: #8a390d; transition: color .25s ease; }
+.structure-section summary:hover { color: var(--p-maroon); }
+.structure-section details[open] { background: linear-gradient(160deg, #fffaf0, #fff3d4); border-radius: 10px; }
+.structure-section a { color: #8a390d; text-decoration-color: rgba(212,175,55,.6); }
+.jyotish-sub { border-top: 1px dashed rgba(190, 140, 40, 0.5); }
+
+/* ---------- Buttons : maroon + gold ---------- */
+.btn-read, .btn-view, .btn-download,
+.source-topic button, .reader-controls button {
+    background: linear-gradient(160deg, #7c2413 0%, #5a1510 100%);
+    color: var(--p-gold-bright);
+    border: 1px solid var(--p-gold);
+    border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(90, 21, 16, 0.32);
+    transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+    font-weight: 600;
+    letter-spacing: .3px;
+}
+.btn-read:hover, .btn-view:hover, .btn-download:hover,
+.source-topic button:hover, .reader-controls button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.14);
+    box-shadow: 0 10px 24px rgba(90, 21, 16, 0.42), 0 0 0 3px rgba(255, 215, 0, 0.22);
+    background: linear-gradient(160deg, #7c2413 0%, #5a1510 100%);
+    color: var(--p-gold-bright);
+}
+
+/* ---------- Page header banner (sub pages) ---------- */
+.page-header {
+    background:
+        radial-gradient(600px 200px at 50% 0%, rgba(255, 215, 0, 0.20), transparent 65%),
+        linear-gradient(160deg, #6d1b12 0%, #4a120c 100%);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    border-radius: 20px;
+    box-shadow: var(--p-shadow-lift);
+    padding: 2.4rem 1.6rem;
+}
+.page-header h1 { color: var(--p-gold-bright) !important; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45), 0 0 22px rgba(255, 215, 0, 0.35); }
+.page-header p { color: #f0dfbc; font-family: var(--p-font-serif); }
+
+/* ---------- Section cards on content pages ---------- */
+.pooja-card, .aarti-card, .granth-card, .mantra-item, .panchang-item {
+    background: linear-gradient(160deg, #fffdf6 0%, #fff6df 100%);
+    border: 1px solid var(--p-gold-border);
+    border-radius: 16px;
+    box-shadow: var(--p-shadow-soft);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+.pooja-card:hover, .aarti-card:hover, .granth-card:hover, .mantra-item:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--p-shadow-lift);
+    border-color: rgba(212, 175, 55, 0.7);
+}
+.pooja-card-header h3, .aarti-header h3, .granth-card h3 { font-family: var(--p-font-serif); color: var(--p-maroon); }
+.granth-icon { filter: drop-shadow(0 4px 10px rgba(122, 60, 10, 0.3)); }
+.mantra-sanskrit { font-family: var(--p-font-serif); color: var(--p-maroon); }
+.mantra-tab { border-radius: 999px; transition: all .25s ease; }
+.mantra-tab.active {
+    background: linear-gradient(160deg, #7c2413, #5a1510);
+    color: var(--p-gold-bright);
+    border-color: var(--p-gold);
+    box-shadow: 0 6px 16px rgba(90, 21, 16, 0.35);
+}
+
+/* ---------- Modal ---------- */
+.modal-content {
+    border: 2px solid var(--p-gold);
+    border-radius: 18px;
+    box-shadow: 0 30px 80px rgba(46, 9, 6, 0.5);
+    background: var(--p-ivory);
+}
+.modal-header {
+    background: linear-gradient(160deg, #6d1b12, #4a120c);
+    border-bottom: 2px solid var(--p-gold);
+    border-radius: 16px 16px 0 0;
+}
+.modal-header h2 { color: var(--p-gold-bright); font-family: var(--p-font-display); font-weight: 400; }
+.close { color: var(--p-gold-soft); }
+.close:hover { color: var(--p-gold-bright); }
+
+/* ---------- Gau Mata & acharya ---------- */
+.gau-section {
+    background: linear-gradient(160deg, #fff6e0 0%, #ffedca 100%);
+    border-top: 3px solid var(--p-gold);
+    border-bottom: 3px solid var(--p-gold);
+}
+.gau-text { font-family: var(--p-font-serif); color: #5a2c1a; }
+.gau-image img {
+    border: 5px solid var(--p-gold);
+    border-radius: 14px;
+    box-shadow: 0 18px 44px rgba(122, 60, 10, 0.35);
+}
+.acharya-section { background: linear-gradient(180deg, #fff8e6, #ffefc9); }
+.acharya-section--saffron {
+    background:
+        radial-gradient(700px 300px at 50% 0%, rgba(255, 215, 0, 0.14), transparent 60%),
+        linear-gradient(180deg, #6d1b12, #4a120c);
+}
+.acharya-section--saffron .acharya-title,
+.acharya-section--saffron .acharya-eyebrow { color: var(--p-gold-bright); }
+.acharya-section--saffron .acharya-subtitle { color: #f0dfbc; }
+.acharya-tab-btn.active {
+    background: linear-gradient(160deg, #7c2413, #5a1510);
+    color: var(--p-gold-bright);
+    border-color: var(--p-gold);
+}
+.acharya-photo img { border: 3px solid rgba(255, 215, 0, 0.85); box-shadow: 0 16px 40px rgba(46, 9, 6, 0.4); }
+
+/* ---------- Footer ---------- */
+.footer {
+    background:
+        radial-gradient(700px 220px at 50% 0%, rgba(255, 215, 0, 0.14), transparent 60%),
+        linear-gradient(180deg, #5a1510 0%, #2e0906 100%);
+    border-top: 3px solid var(--p-gold);
+    color: #f3e2c2;
+}
+.footer-mantra {
+    font-family: var(--p-font-display);
+    color: var(--p-gold-bright);
+    text-shadow: 0 0 16px rgba(255, 215, 0, 0.4);
+}
+
+/* ---------- Admin panels ---------- */
+.admin-tab-btn {
+    background: linear-gradient(160deg, #7c2413, #5a1510) !important;
+    color: var(--p-gold-bright) !important;
+    border: 1px solid var(--p-gold) !important;
+    border-radius: 999px !important;
+}
+.admin-tab-btn:hover, .admin-tab-btn.active {
+    background: linear-gradient(160deg, #8c2f0c, #6d1b12) !important;
+    box-shadow: 0 8px 20px rgba(90, 21, 16, 0.4) !important;
+}
+.admin-content {
+    border: 1px solid var(--p-gold-border) !important;
+    border-radius: 16px !important;
+    box-shadow: var(--p-shadow-soft) !important;
+}
+
+/* ---------- Reveal on scroll ---------- */
+.premium-reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1); }
+.premium-reveal.premium-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+    .premium-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .diya .diya-flame, .lotus-decoration { animation: none !important; }
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 768px) {
+    .hero { padding: 3.2rem 1.1rem 4rem; }
+    .page-header { padding: 1.8rem 1.1rem; border-radius: 16px; }
+    .card, .structure-section { border-radius: 15px; }
+}
+
+/* ============ Suchna banner (puja / tyohar / awashyak suchna) ============ */
+.suchna-banner {
+    display: flex; align-items: center; gap: .8rem; flex-wrap: wrap;
+    margin: 5.2rem auto 0; max-width: 1100px; padding: .75rem 1.2rem;
+    background: linear-gradient(120deg, #3d1206, #5a1e08 55%, #3d1206);
+    color: #ffe9b8; border: 1px solid rgba(255, 199, 64, .55);
+    border-radius: 14px; box-shadow: 0 10px 26px rgba(61, 18, 6, .28);
+    font-family: 'Noto Sans Devanagari', sans-serif;
+}
+.suchna-banner .suchna-om { color: #ffc740; font-size: 1.4rem; line-height: 1; }
+.suchna-banner .suchna-body { flex: 1 1 220px; display: flex; gap: .6rem; flex-wrap: wrap; align-items: baseline; }
+.suchna-banner strong { color: #ffd977; font-weight: 700; }
+.suchna-banner .suchna-text { line-height: 1.55; }
+.suchna-banner .suchna-link {
+    color: #3d1206; background: linear-gradient(135deg, #ffd977, #f0b429);
+    padding: .35rem .9rem; border-radius: 999px; font-weight: 600; text-decoration: none;
+}
+.suchna-banner .suchna-close {
+    background: none; border: 0; color: #ffe9b8; font-size: 1.4rem; line-height: 1;
+    cursor: pointer; padding: .2rem .45rem; min-height: 44px; min-width: 44px;
+}
+.suchna-banner .suchna-close:focus-visible,
+.suchna-banner .suchna-link:focus-visible { outline: 3px solid #ffd977; outline-offset: 2px; }
+
+/* ============ Vaidik AI widget ============ */
+.vaidik-fab {
+    position: fixed; right: 18px; bottom: 18px; z-index: 1200;
+    display: flex; align-items: center; gap: .45rem;
+    background: linear-gradient(135deg, #ffd977, #f0b429);
+    color: #3d1206; border: 1px solid #b8860b; border-radius: 999px;
+    padding: .7rem 1.1rem; font-family: 'Noto Sans Devanagari', sans-serif;
+    font-weight: 700; font-size: 1rem; cursor: pointer;
+    box-shadow: 0 12px 30px rgba(61, 18, 6, .35);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.vaidik-fab:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(61, 18, 6, .45); }
+.vaidik-fab span[aria-hidden] { font-size: 1.25rem; line-height: 1; }
+.vaidik-fab:focus-visible { outline: 3px solid #5a1e08; outline-offset: 3px; }
+.vaidik-panel {
+    position: fixed; right: 18px; bottom: 84px; z-index: 1201;
+    width: min(380px, calc(100vw - 36px)); max-height: min(560px, 74vh);
+    display: flex; flex-direction: column;
+    background: linear-gradient(170deg, #fffdf6, #fff8e6); border: 1px solid rgba(212, 175, 55, .55); border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(40, 12, 2, .4); overflow: hidden;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+}
+.vaidik-head {
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(120deg, #2e0906, #5a1e08 70%, #7c2413); color: #ffd977; padding: .7rem 1rem;
+    border-bottom: 2px solid rgba(212, 175, 55, .6);
+}
+.vaidik-title { display: flex; align-items: center; gap: .6rem; }
+.vaidik-om {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffe9ad, #f0b429);
+    color: #5a1e08; font-size: 1.15rem; font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .35);
+}
+.vaidik-head h2 { font-family: 'Yatra One', 'Tiro Devanagari Hindi', serif; font-size: 1.15rem; margin: 0; letter-spacing: .4px; }
+.vaidik-sub { margin: 0; font-size: .72rem; color: #f3d98b; letter-spacing: .6px; }
+.vaidik-close { background: none; border: 0; color: #ffe9b8; font-size: 1.35rem; cursor: pointer; min-width: 44px; min-height: 44px; }
+.vaidik-note { margin: 0; padding: .55rem 1rem; font-size: .8rem; color: #6c553e; background: #fff6df; border-bottom: 1px solid rgba(212, 175, 55, .3); }
+.vaidik-log { flex: 1 1 auto; overflow-y: auto; padding: .8rem 1rem; display: flex; flex-direction: column; gap: .55rem; min-height: 80px; }
+.vaidik-msg-wrap { display: flex; flex-direction: column; max-width: 92%; }
+.vaidik-msg-wrap.wrap-user { align-self: flex-end; align-items: flex-end; }
+.vaidik-msg-wrap.wrap-bot { align-self: flex-start; align-items: flex-start; }
+.vaidik-msg { margin: 0; padding: .55rem .8rem; border-radius: 12px; line-height: 1.6; font-size: .95rem; white-space: pre-wrap; }
+.vaidik-user { background: linear-gradient(135deg, #ffd977, #f0b429); color: #3d1206; }
+.vaidik-bot { background: #f7ecd2; color: #3a2a17; border-left: 3px solid #f0b429; }
+.vaidik-badge {
+    display: inline-block; margin: 0 0 .25rem; padding: .15rem .6rem;
+    border-radius: 999px; font-size: .72rem; font-weight: 600; letter-spacing: .3px;
+}
+.vaidik-badge-source { background: #e8f5e2; color: #2e6b1f; border: 1px solid #9ccb8a; }
+.vaidik-badge-general { background: #fff3cf; color: #7a4a08; border: 1px solid rgba(212, 175, 55, .65); }
+.vaidik-badge-corpus { background: linear-gradient(135deg, #fff8e1, #ffecb3); color: #6d4405; border: 1px solid rgba(212, 175, 55, .8); }
+.vaidik-chips { display: flex; flex-wrap: wrap; gap: .4rem; padding: .55rem 1rem 0; }
+.vaidik-chip {
+    background: #fffaf0; border: 1px solid rgba(212, 175, 55, .55); color: #7a4a08;
+    border-radius: 999px; padding: .3rem .7rem; font: inherit; font-size: .78rem; cursor: pointer;
+    transition: background .2s ease, border-color .2s ease;
+}
+.vaidik-chip:hover { background: #fff3cf; border-color: #d4af37; }
+.vaidik-chip:focus-visible { outline: 3px solid #a35b10; outline-offset: 1px; }
+.vaidik-consent-row { display: block; font-size: .8rem; line-height: 1.5; padding: .6rem 16px .7rem; color: #5c4632; }
+.vaidik-form { display: flex; gap: .5rem; padding: .7rem .9rem; border-top: 1px solid #efd7b1; background: #fffaf0; }
+.vaidik-form input {
+    flex: 1; min-width: 0; border: 1px solid #e2c07a; border-radius: 10px; padding: .6rem .8rem;
+    font: inherit; background: #fff;
+}
+.vaidik-form input:focus-visible { outline: 3px solid #a35b10; outline-offset: 1px; }
+.vaidik-form button {
+    background: linear-gradient(135deg, #7c2413, #3d1206); color: #ffd977; border: 1px solid rgba(212, 175, 55, .5);
+    border-radius: 10px; padding: .6rem 1rem; font: inherit; font-weight: 700; cursor: pointer;
+    transition: filter .2s ease, transform .2s ease;
+}
+.vaidik-form button:hover:not(:disabled) { filter: brightness(1.12); transform: translateY(-1px); }
+.vaidik-form button:focus-visible { outline: 3px solid #a35b10; outline-offset: 2px; }
+@media (max-width: 600px) {
+    .suchna-banner { margin: 4.4rem .7rem 0; }
+    .vaidik-fab-label { display: none; }
+    .vaidik-fab { padding: .8rem; }
+}
+.vaidik-panel[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+    .vaidik-fab, .vaidik-chip, .vaidik-form button { transition: none !important; }
+}
+
+/* ---------- Motion & loading (design feedback 2026-11-09) ---------- */
+@keyframes btFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes btRiseIn { from { opacity: 0; transform: translateY(22px) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes btSpin { to { transform: rotate(360deg); } }
+@keyframes btSymbolPulse { 0%, 100% { transform: scale(1); opacity: .92; } 50% { transform: scale(1.14); opacity: 1; } }
+@keyframes btTitleShimmer { 0% { background-position: 0% 0; } 100% { background-position: 200% 0; } }
+
+/* Sacred preloader (markup injected by premium.js) */
+#bt-preloader {
+    position: fixed; inset: 0; z-index: 99999;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px;
+    background:
+        radial-gradient(900px 600px at 50% 28%, rgba(255, 190, 60, 0.10), transparent 60%),
+        radial-gradient(700px 500px at 50% 45%, #5a1510 0%, #2e0906 75%);
+    opacity: 1; transition: opacity .55s ease;
+}
+#bt-preloader.bt-hide { opacity: 0; pointer-events: none; }
+.bt-loader-mandala { position: relative; width: 124px; height: 124px; display: grid; place-items: center; }
+.bt-loader-ring {
+    position: absolute; inset: 0; border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: var(--p-gold-bright);
+    border-right-color: rgba(212, 175, 55, 0.55);
+    animation: btSpin 1.1s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.35));
+}
+.bt-loader-ring2 {
+    position: absolute; inset: 11px; border-radius: 50%;
+    border: 2px dashed rgba(255, 215, 0, 0.40);
+    animation: btSpin 7s linear infinite reverse;
+}
+.bt-loader-symbol {
+    font-family: var(--p-font-display);
+    font-size: 2.5rem; line-height: 1; min-width: 1.3em; text-align: center;
+    color: var(--p-gold-bright);
+    text-shadow: 0 0 18px rgba(255, 215, 0, 0.55), 0 2px 4px rgba(0, 0, 0, 0.5);
+    animation: btSymbolPulse 1.1s ease-in-out infinite;
+}
+.bt-loader-name {
+    font-family: var(--p-font-latin);
+    color: var(--p-gold-soft); letter-spacing: 5px; font-size: .95rem; text-transform: uppercase;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Entrance motion */
+.hero-content { animation: btFadeUp .9s cubic-bezier(.2,.7,.3,1) both; }
+.hero-content .hero-subtitle { animation: btFadeUp .9s .12s cubic-bezier(.2,.7,.3,1) both; }
+.hero-content .hero-description { animation: btFadeUp .9s .22s cubic-bezier(.2,.7,.3,1) both; }
+main.container > .page-header { animation: btFadeUp .8s cubic-bezier(.2,.7,.3,1) both; }
+
+/* Hero title: slow golden shimmer over the existing gradient text */
+.hero-title {
+    background-image: linear-gradient(100deg, #b8860b 0%, #ffd700 25%, #fff6d8 50%, #ffd700 75%, #b8860b 100%);
+    background-size: 200% 100%;
+    animation: btTitleShimmer 7s linear infinite;
+}
+
+/* Card hover lift */
+.card, .pooja-card, .aarti-card, .granth-card, .mantra-item, .panchang-item, .structure-section, .jyotish-sub {
+    transition: opacity .7s ease, transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s ease;
+}
+.card:hover, .pooja-card:hover, .aarti-card:hover, .granth-card:hover, .mantra-item:hover, .panchang-item:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--p-shadow-lift);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bt-loader-ring, .bt-loader-ring2, .bt-loader-symbol { animation: none !important; }
+    .hero-content, .hero-content .hero-subtitle, .hero-content .hero-description,
+    main.container > .page-header, .hero-title { animation: none !important; }
+    .card, .pooja-card, .aarti-card, .granth-card, .mantra-item, .panchang-item, .structure-section, .jyotish-sub { transition: none !important; }
+}
+
+/* ---------- Home: Kundli feature block + jyotish cards (feedback 2026-11-09) ---------- */
+#jyotish .jyotish-sub {
+    border-top: none;
+    background: linear-gradient(160deg, #fffdf6 0%, #fff7e0 100%);
+    border: 1px solid rgba(212, 175, 55, 0.40);
+    border-top: 3px solid var(--p-gold);
+    border-radius: 16px;
+    padding: 1.6rem 1.4rem;
+    margin: 1.2rem 0;
+    box-shadow: var(--p-shadow-soft);
+    transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s ease;
+}
+#jyotish .jyotish-sub:hover { transform: translateY(-4px); box-shadow: var(--p-shadow-lift); }
+#jyotish .jyotish-sub h2 { margin-bottom: .6rem; }
+#jyotish .jyotish-sub p { max-width: 640px; margin-left: auto; margin-right: auto; }
+
+/* Kundli block: distinct feature card with a faint north-chart diamond motif */
+#jyotish .jyotish-sub#kundli {
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(420px 200px at 50% 0%, rgba(255, 215, 0, 0.14), transparent 65%),
+        linear-gradient(165deg, #fffdf4 0%, #ffefd0 58%, #ffe9bd 100%);
+    border: 1px solid rgba(212, 175, 55, 0.55);
+    border-top: 3px solid var(--p-gold);
+}
+#jyotish .jyotish-sub#kundli::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cg fill='none' stroke='%23b8860b' stroke-opacity='0.13'%3E%3Crect x='30' y='30' width='240' height='240'/%3E%3Cpath d='M30 30 L270 270 M270 30 L30 270 M150 30 L270 150 L150 270 L30 150 Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+#jyotish .jyotish-sub#kundli > * { position: relative; z-index: 1; }
+#jyotish .jyotish-sub#kundli h2 {
+    font-family: var(--p-font-latin);
+    letter-spacing: 4px; text-transform: uppercase;
+    font-size: 1.9rem;
+}
+#jyotish .jyotish-sub#kundli h3 { color: var(--p-maroon); font-size: 1.5rem; margin: .9rem 0 .5rem; }
+#jyotish .jyotish-sub#kundli .status {
+    display: inline-block;
+    background: #fff3cf;
+    border: 1px solid rgba(212, 175, 55, 0.65);
+    color: #7a4a08;
+    border-radius: 999px;
+    padding: .35rem 1rem;
+    font-size: .85rem;
+    letter-spacing: .3px;
+}
+/* Kundli CTA: same maroon-gold pill as the other premium buttons */
+#jyotish .jyotish-sub#kundli a[href="kundli.html"] {
+    display: inline-block;
+    margin-top: 1rem;
+    background: linear-gradient(160deg, #7c2413 0%, #5a1510 100%);
+    color: var(--p-gold-bright);
+    border: 1px solid var(--p-gold);
+    border-radius: 999px;
+    padding: .7rem 1.6rem;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(90, 21, 16, 0.32);
+    transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+    font-weight: 600;
+    letter-spacing: .3px;
+}
+#jyotish .jyotish-sub#kundli a[href="kundli.html"]:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.14);
+    box-shadow: 0 10px 24px rgba(90, 21, 16, 0.42), 0 0 0 3px rgba(255, 215, 0, 0.22);
+    color: var(--p-gold-bright);
+}
+@media (prefers-reduced-motion: reduce) {
+    #jyotish .jyotish-sub, #jyotish .jyotish-sub#kundli a[href="kundli.html"] { transition: none !important; }
+                                }
