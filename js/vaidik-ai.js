@@ -32,7 +32,7 @@
 
         var note = document.createElement('p');
         note.className = 'vaidik-note';
-        note.textContent = 'उत्तर दो ही स्रोतों से मिलते हैं: (1) जाँचे हुए ग्रंथ-अंश से, स्रोत सहित; (2) साइट के मौजूदा संग्रह (मंत्र, पूजा विधि, ग्रंथ, आरती) के अंशों से — यह सामग्री ग्रंथ-मूल से स्वतंत्र रूप से जाँची नहीं गई है। जहाँ स्रोत उपलब्ध नहीं है, वहाँ अनुमानित उत्तर नहीं दिया जाता — स्पष्ट सूचना मिलती है।';
+        note.textContent = 'उत्तर दो ही स्रोतों से मिलते हैं: (1) जाँचे हुए ग्रंथ-अंश से, स्रोत सहित; (2) साइट के मौजूदा संग्रह (मंत्र, पूजा विधि, ग्रंथ, आरती) के अंशों से, यह सामग्री ग्रंथ-मूल से स्वतंत्र रूप से जाँची नहीं गई है। जहाँ स्रोत उपलब्ध नहीं है, वहाँ अनुमानित उत्तर नहीं दिया जाता; स्पष्ट सूचना मिलती है।';
 
         var log = document.createElement('div');
         log.className = 'vaidik-log';
@@ -73,6 +73,33 @@
 
         var input = form.querySelector('input');
         var send = form.querySelector('button');
+
+
+        function addSourceDetail(wrap, src) {
+            var rows = [];
+            if (src.edition) { rows.push(['संस्करण', src.edition]); }
+            if (src.pdfPage) { rows.push(['PDF पृष्ठ', String(src.pdfPage)]); }
+            if (src.printedPage) { rows.push(['मुद्रित पृष्ठ', String(src.printedPage)]); }
+            if (src.verification) { rows.push(['जाँच-विधि', src.verification]); }
+            if (src.unresolved) { rows.push(['अनिर्णीत बिंदु', src.unresolved]); }
+            if (!rows.length) { return; }
+            var det = document.createElement('details');
+            det.className = 'vaidik-src-detail';
+            det.style.fontSize = '0.85em';
+            det.style.marginTop = '4px';
+            var sum = document.createElement('summary');
+            sum.textContent = 'पूरा स्रोत-विवरण (संस्करण, जाँच-विधि, अनिर्णीत बिंदु)';
+            det.appendChild(sum);
+            rows.forEach(function (r) {
+                var p = document.createElement('p');
+                var strong = document.createElement('strong');
+                strong.textContent = r[0] + ': ';
+                p.appendChild(strong);
+                p.appendChild(document.createTextNode(r[1]));
+                det.appendChild(p);
+            });
+            wrap.appendChild(det);
+        }
 
         function scrollLog() {
             log.scrollTop = log.scrollHeight;
@@ -140,6 +167,9 @@
                             thinking.parentNode.insertBefore(b, thinking);
                         }
                         thinking.textContent = res.j.answer;
+                        if (res.j.answerType === 'source' && res.j.source) {
+                            addSourceDetail(thinking.parentNode, res.j.source);
+                        }
                     } else {
                         thinking.textContent = 'उत्तर अभी उपलब्ध नहीं है। कृपया बाद में प्रयास करें।';
                     }
