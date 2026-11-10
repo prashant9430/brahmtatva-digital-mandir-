@@ -287,12 +287,7 @@ async function fetchWithRetry(url, options = {}, retries = 3) {
     }
 }
 
-// Service Worker registration (for offline support)
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(err => {
-        console.log('Service Worker registration failed:', err);
-    });
-}
+// No offline cache worker is shipped, so do not request a nonexistent sw.js.
 
 console.log('BrahmTatva – Digital Mandir loaded successfully! 🙏');
 
@@ -309,3 +304,14 @@ function acharyaTab(prefix, tabId, btn) {
     document.getElementById(prefix + '-' + tabId).classList.add('active');
     btn.classList.add('active');
 }
+
+
+/* सिद्धांत-ज्ञान learning section (homepage only) */
+document.addEventListener('DOMContentLoaded', function () {
+  if (document.getElementById('sections')) {
+    var sg = document.createElement('script');
+    sg.src = 'js/siddhant-gyan.js';
+    sg.defer = true;
+    document.body.appendChild(sg);
+  }
+});
