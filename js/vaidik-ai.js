@@ -82,6 +82,7 @@
             if (src.printedPage) { rows.push(['मुद्रित पृष्ठ', String(src.printedPage)]); }
             if (src.verification) { rows.push(['जाँच-विधि', src.verification]); }
             if (src.unresolved) { rows.push(['अनिर्णीत बिंदु', src.unresolved]); }
+            if (src.rightsNote) { rows.push(['अधिकार-टिप्पणी', src.rightsNote]); }
             if (!rows.length) { return; }
             var det = document.createElement('details');
             det.className = 'vaidik-src-detail';
@@ -157,6 +158,8 @@
                         var badge = null;
                         if (res.j.matched && res.j.answerType === 'source') {
                             badge = { cls: 'vaidik-badge-source', text: 'ग्रंथ-स्रोत से जाँचा अंश' };
+                        } else if (res.j.matched && res.j.answerType === 'source-explanation') {
+                            badge = { cls: 'vaidik-badge-source', text: 'ग्रंथ-स्रोत का जाँचा अंश और हमारी व्याख्या' };
                         } else if (res.j.answerType === 'corpus') {
                             badge = { cls: 'vaidik-badge-corpus', text: 'साइट संग्रह · स्वतंत्र पुष्टि नहीं' };
                         }
@@ -167,7 +170,7 @@
                             thinking.parentNode.insertBefore(b, thinking);
                         }
                         thinking.textContent = res.j.answer;
-                        if (res.j.answerType === 'source' && res.j.source) {
+                        if ((res.j.answerType === 'source' || res.j.answerType === 'source-explanation') && res.j.source) {
                             addSourceDetail(thinking.parentNode, res.j.source);
                         }
                     } else {
