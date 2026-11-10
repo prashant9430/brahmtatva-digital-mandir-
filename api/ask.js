@@ -119,7 +119,7 @@ module.exports = async (req,res) => {
     const cid = await callModel(CORPUS_SELECTOR_INSTRUCTION, JSON.stringify({question,excerpts:chunks.map(c=>({id:c.id,text:c.title+' — '+c.text}))}), 100);
     const chunk = chunks.find(c=>c.id===cid);
     if (!chunk) return res.status(200).json({ok:true,answer:AWAITED,matched:false,answerType:'none'});
-    return res.status(200).json({ok:true,matched:true,answerType:'corpus',answer:'मौजूदा साइट संग्रह से अंश:\n"'+chunk.text+'"\n\nस्रोत: साइट संग्रह — '+chunk.title+' ('+chunk.section+')। यह सामग्री साइट पर पहले से मौजूद है; ग्रंथ-मूल से स्वतंत्र पुष्टि नहीं हुई।',sources:[{section:chunk.section,title:chunk.title}],limitedPreview:true});
+    return res.status(200).json({ok:true,matched:true,answerType:'corpus',answer:'मौजूदा साइट संग्रह से अंश:\n"'+chunk.text+'"\n\nस्रोत: साइट संग्रह: '+chunk.title+' ('+chunk.section+')। यह सामग्री साइट पर पहले से मौजूद है; ग्रंथ-मूल से स्वतंत्र पुष्टि नहीं हुई।',sources:[{section:chunk.section,title:chunk.title}],limitedPreview:true});
   } catch (e) {
     if (e && e.status) return res.status(e.status===429?429:502).json({ok:false,error:'provider_unavailable',upstreamStatus:e.status});
     return res.status(502).json({ok:false,error:e && (e.name==='TimeoutError' || e.name==='AbortError')?'provider_timeout':'provider_unavailable'});
