@@ -11,7 +11,7 @@ module.exports = [
   {
     "id": "siddhant-dharma",
     "verified": true,
-    "title": "मूल सिद्धांत: धर्म (भगवद्गीता ४.७-८)",
+    "title": "मूल सिद्धांत: धर्म और अवतार-उद्देश्य (भगवद्गीता ४.७-८)",
     "edition": "The Bhagavad-Gita, Annie Besant व Bhagavan Das: Theosophical Publishing Society, London और Benares, 1905 (शीर्षक-पृष्ठ; Commons दिनांक-फ़ील्ड 1906-01-03); djvu स्कैन (Wikimedia Commons, sa.wikisource प्रूफरीड); केवल मूल संस्कृत, संस्करण की अंग्रेज़ी अनुवाद-परत उपयोग में नहीं",
     "kind": "श्लोक ४.७-८",
     "text": "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत । अभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम् ॥४.७॥\nपरित्राणाय साधूनां विनाशाय च दुष्कृताम् । धर्मसंस्थापनार्थाय संभवामि युगे युगे ॥४.८॥",
