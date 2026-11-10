@@ -32,7 +32,7 @@
 
         var note = document.createElement('p');
         note.className = 'vaidik-note';
-        note.textContent = 'दो तरह के उत्तर मिलते हैं: (1) जाँचे हुए ग्रंथ-अंश से, स्रोत सहित; (2) सामान्य जानकारी, जहाँ ग्रंथ-जाँच उपलब्ध नहीं है — उस पर स्पष्ट चिह्न रहेगा। मंत्र, श्लोक या पूजा-विधि का पाठ अपनी ओर से नहीं बनाया जाता।';
+        note.textContent = 'उत्तर केवल जाँची हुई सामग्री से मिलते हैं: (1) जाँचे हुए ग्रंथ-अंश से, स्रोत सहित; (2) साइट के अपने संग्रह (मंत्र, पूजा विधि, ग्रंथ, आरती) के अंशों से, स्रोत सहित। जहाँ स्रोत उपलब्ध नहीं है, वहाँ अनुमानित उत्तर नहीं दिया जाता — स्पष्ट सूचना मिलती है।';
 
         var log = document.createElement('div');
         log.className = 'vaidik-log';
@@ -130,8 +130,8 @@
                         var badge = null;
                         if (res.j.matched && res.j.answerType === 'source') {
                             badge = { cls: 'vaidik-badge-source', text: 'ग्रंथ-स्रोत से जाँचा अंश' };
-                        } else if (res.j.answerType === 'general') {
-                            badge = { cls: 'vaidik-badge-general', text: 'सामान्य जानकारी · ग्रंथ-जाँच नहीं' };
+                        } else if (res.j.answerType === 'corpus') {
+                            badge = { cls: 'vaidik-badge-corpus', text: 'साइट संग्रह से · स्रोत सहित' };
                         }
                         if (badge) {
                             var b = document.createElement('span');
