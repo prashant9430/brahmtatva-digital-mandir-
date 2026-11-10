@@ -77,12 +77,9 @@ module.exports = async (req,res) => {
         return res.status(200).json({ok:true,matched:true,answerType:'source',answer:'जाँचा हुआ छोटा अंश:\n"'+selected.text+'"\n\nस्रोत: '+selected.title+'; '+selected.edition+'; PDF पृष्ठ '+selected.pdfPage+(selected.printedPage?' (मुद्रित पृष्ठ '+selected.printedPage+')':' (मुद्रित पृष्ठ संख्या नहीं)')+'।',source:{title:selected.title,edition:selected.edition,pdfPage:selected.pdfPage},limitedPreview:true});
       }
     }
-    // Tier 2: general information, clearly labelled in the UI. The
-    // instruction forbids composing mantra/shloka/vidhi text and requires
-    // tradition differences to be named instead of resolved.
-    const answer = await callModel(GENERAL_INSTRUCTION, question, 600);
-    if (!answer) return res.status(200).json({ok:true,answer:AWAITED,matched:false,answerType:'none'});
-    return res.status(200).json({ok:true,matched:false,answerType:'general',answer:answer.slice(0,1500)});
+    // Tier 2 temporarily fail-closed: uncited general generation is not
+    // source-grounded and is disabled until corpus retrieval replaces it.
+    return res.status(200).json({ok:true,answer:AWAITED,matched:false,answerType:'none'});
   } catch (e) {
     if (e && e.status) return res.status(e.status===429?429:502).json({ok:false,error:'provider_unavailable',upstreamStatus:e.status});
     return res.status(502).json({ok:false,error:e && (e.name==='TimeoutError' || e.name==='AbortError')?'provider_timeout':'provider_unavailable'});
