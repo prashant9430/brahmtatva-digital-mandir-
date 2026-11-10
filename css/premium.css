@@ -426,38 +426,70 @@ body > * { position: relative; z-index: 1; }
     padding: .7rem 1.1rem; font-family: 'Noto Sans Devanagari', sans-serif;
     font-weight: 700; font-size: 1rem; cursor: pointer;
     box-shadow: 0 12px 30px rgba(61, 18, 6, .35);
+    transition: transform .25s ease, box-shadow .25s ease;
 }
+.vaidik-fab:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(61, 18, 6, .45); }
 .vaidik-fab span[aria-hidden] { font-size: 1.25rem; line-height: 1; }
 .vaidik-fab:focus-visible { outline: 3px solid #5a1e08; outline-offset: 3px; }
 .vaidik-panel {
     position: fixed; right: 18px; bottom: 84px; z-index: 1201;
-    width: min(360px, calc(100vw - 36px)); max-height: min(520px, 72vh);
+    width: min(380px, calc(100vw - 36px)); max-height: min(560px, 74vh);
     display: flex; flex-direction: column;
-    background: #fffdf6; border: 1px solid rgba(240, 180, 41, .6); border-radius: 18px;
+    background: linear-gradient(170deg, #fffdf6, #fff8e6); border: 1px solid rgba(212, 175, 55, .55); border-radius: 20px;
     box-shadow: 0 24px 60px rgba(40, 12, 2, .4); overflow: hidden;
     font-family: 'Noto Sans Devanagari', sans-serif;
 }
 .vaidik-head {
     display: flex; align-items: center; justify-content: space-between;
-    background: linear-gradient(120deg, #3d1206, #5a1e08); color: #ffd977; padding: .7rem 1rem;
+    background: linear-gradient(120deg, #2e0906, #5a1e08 70%, #7c2413); color: #ffd977; padding: .7rem 1rem;
+    border-bottom: 2px solid rgba(212, 175, 55, .6);
 }
-.vaidik-head h2 { font-family: 'Yatra One', 'Tiro Devanagari Hindi', serif; font-size: 1.15rem; margin: 0; }
+.vaidik-title { display: flex; align-items: center; gap: .6rem; }
+.vaidik-om {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffe9ad, #f0b429);
+    color: #5a1e08; font-size: 1.15rem; font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .35);
+}
+.vaidik-head h2 { font-family: 'Yatra One', 'Tiro Devanagari Hindi', serif; font-size: 1.15rem; margin: 0; letter-spacing: .4px; }
+.vaidik-sub { margin: 0; font-size: .72rem; color: #f3d98b; letter-spacing: .6px; }
 .vaidik-close { background: none; border: 0; color: #ffe9b8; font-size: 1.35rem; cursor: pointer; min-width: 44px; min-height: 44px; }
-.vaidik-note { margin: 0; padding: .55rem 1rem; font-size: .8rem; color: #6c553e; background: #fff6df; }
-.vaidik-log { flex: 1 1 auto; overflow-y: auto; padding: .8rem 1rem; display: flex; flex-direction: column; gap: .55rem; }
-.vaidik-msg { margin: 0; padding: .55rem .8rem; border-radius: 12px; line-height: 1.6; font-size: .95rem; max-width: 92%; }
-.vaidik-user { align-self: flex-end; background: #f0b429; color: #3d1206; }
-.vaidik-bot { align-self: flex-start; background: #f7ecd2; color: #3a2a17; border-left: 3px solid #f0b429; }
+.vaidik-note { margin: 0; padding: .55rem 1rem; font-size: .8rem; color: #6c553e; background: #fff6df; border-bottom: 1px solid rgba(212, 175, 55, .3); }
+.vaidik-log { flex: 1 1 auto; overflow-y: auto; padding: .8rem 1rem; display: flex; flex-direction: column; gap: .55rem; min-height: 80px; }
+.vaidik-msg-wrap { display: flex; flex-direction: column; max-width: 92%; }
+.vaidik-msg-wrap.wrap-user { align-self: flex-end; align-items: flex-end; }
+.vaidik-msg-wrap.wrap-bot { align-self: flex-start; align-items: flex-start; }
+.vaidik-msg { margin: 0; padding: .55rem .8rem; border-radius: 12px; line-height: 1.6; font-size: .95rem; white-space: pre-wrap; }
+.vaidik-user { background: linear-gradient(135deg, #ffd977, #f0b429); color: #3d1206; }
+.vaidik-bot { background: #f7ecd2; color: #3a2a17; border-left: 3px solid #f0b429; }
+.vaidik-badge {
+    display: inline-block; margin: 0 0 .25rem; padding: .15rem .6rem;
+    border-radius: 999px; font-size: .72rem; font-weight: 600; letter-spacing: .3px;
+}
+.vaidik-badge-source { background: #e8f5e2; color: #2e6b1f; border: 1px solid #9ccb8a; }
+.vaidik-badge-general { background: #fff3cf; color: #7a4a08; border: 1px solid rgba(212, 175, 55, .65); }
+.vaidik-chips { display: flex; flex-wrap: wrap; gap: .4rem; padding: .55rem 1rem 0; }
+.vaidik-chip {
+    background: #fffaf0; border: 1px solid rgba(212, 175, 55, .55); color: #7a4a08;
+    border-radius: 999px; padding: .3rem .7rem; font: inherit; font-size: .78rem; cursor: pointer;
+    transition: background .2s ease, border-color .2s ease;
+}
+.vaidik-chip:hover { background: #fff3cf; border-color: #d4af37; }
+.vaidik-chip:focus-visible { outline: 3px solid #a35b10; outline-offset: 1px; }
+.vaidik-consent-row { display: block; font-size: .8rem; line-height: 1.5; padding: .6rem 16px .7rem; color: #5c4632; }
 .vaidik-form { display: flex; gap: .5rem; padding: .7rem .9rem; border-top: 1px solid #efd7b1; background: #fffaf0; }
 .vaidik-form input {
-    flex: 1; border: 1px solid #e2c07a; border-radius: 10px; padding: .6rem .8rem;
+    flex: 1; min-width: 0; border: 1px solid #e2c07a; border-radius: 10px; padding: .6rem .8rem;
     font: inherit; background: #fff;
 }
 .vaidik-form input:focus-visible { outline: 3px solid #a35b10; outline-offset: 1px; }
 .vaidik-form button {
-    background: linear-gradient(135deg, #5a1e08, #3d1206); color: #ffd977; border: 0;
+    background: linear-gradient(135deg, #7c2413, #3d1206); color: #ffd977; border: 1px solid rgba(212, 175, 55, .5);
     border-radius: 10px; padding: .6rem 1rem; font: inherit; font-weight: 700; cursor: pointer;
+    transition: filter .2s ease, transform .2s ease;
 }
+.vaidik-form button:hover:not(:disabled) { filter: brightness(1.12); transform: translateY(-1px); }
 .vaidik-form button:focus-visible { outline: 3px solid #a35b10; outline-offset: 2px; }
 @media (max-width: 600px) {
     .suchna-banner { margin: 4.4rem .7rem 0; }
@@ -465,6 +497,9 @@ body > * { position: relative; z-index: 1; }
     .vaidik-fab { padding: .8rem; }
 }
 .vaidik-panel[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+    .vaidik-fab, .vaidik-chip, .vaidik-form button { transition: none !important; }
+}
 
 /* ---------- Motion & loading (design feedback 2026-11-09) ---------- */
 @keyframes btFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
