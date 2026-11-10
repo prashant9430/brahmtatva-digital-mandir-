@@ -469,6 +469,7 @@ body > * { position: relative; z-index: 1; }
 }
 .vaidik-badge-source { background: #e8f5e2; color: #2e6b1f; border: 1px solid #9ccb8a; }
 .vaidik-badge-general { background: #fff3cf; color: #7a4a08; border: 1px solid rgba(212, 175, 55, .65); }
+.vaidik-badge-corpus { background: linear-gradient(135deg, #fff8e1, #ffecb3); color: #6d4405; border: 1px solid rgba(212, 175, 55, .8); }
 .vaidik-chips { display: flex; flex-wrap: wrap; gap: .4rem; padding: .55rem 1rem 0; }
 .vaidik-chip {
     background: #fffaf0; border: 1px solid rgba(212, 175, 55, .55); color: #7a4a08;
