@@ -144,3 +144,57 @@ ck('dasha-phal-all-lords',['Sun','Moon','Mars','Mercury','Jupiter','Venus','Satu
 ck('dasha-no-aggregate-score','score' in dc(base(S.Simha),S.Mesha,'Sun'),false);
 ck('dasha-venus-remedy-omission-noted',/उपाय-अंश नीति से नहीं लिया गया/.test(dc(base(S.Simha),S.Mesha,'Venus').phal.adv),true);
 console.log('\nFINAL3 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
+
+// --- Dasha stage-2 groundwork: bhavaLord + lordOf (no phal text yet)
+ck('bhavaLord-Mesha',[1,2,4,7,9,10].map(h=>R.bhavaLord(0,h)),['Mars','Venus','Moon','Venus','Jupiter','Saturn']);
+ck('bhavaLord-Karka-10',R.bhavaLord(3,10),'Mars');
+ck('bhavaLord-range-err',(()=>{try{R.bhavaLord(0,13);return 'no-throw';}catch(e){return e.message}})(),'House must be 1-12');
+ck('lordOf-Venus-Mesha',dc(base(S.Simha),S.Mesha,'Venus').lordOf,[2,7]);
+ck('lordOf-Mars-Mesha',dc(base(S.Simha),S.Mesha,'Mars').lordOf,[1,8]);
+ck('lordOf-Jupiter-Mesha',dc(base(S.Simha),S.Mesha,'Jupiter').lordOf,[9,12]);
+ck('lordOf-node-empty',dc(base(S.Simha),S.Mesha,'Rahu').lordOf,[]);
+
+console.log('\nFINAL4 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
+
+// --- Dasha stage-2: dashaBhava (BPHS ch48, ledger dasha-stage2-ledger-draft.md)
+function mk(map){return ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'].map(g=>P(g,map[g]));}
+const db=(ps,asc,lord)=>R.dashaBhava(ps,asc,lord);
+const refs=(rs,side)=>rs[side].map(r=>r.ref);
+// 48.9 per-lord: 9th lord Jupiter conjunct 5th lord Sun suffices alone
+ck('s2-48.9-per-lord',(x=>[refs(x,'fav').includes('BPHS 48.9'),x.fav.find(r=>r.ref==='BPHS 48.9').text.includes('9वें')])(db(mk({Sun:8,Jupiter:8,Moon:0,Mars:1,Mercury:2,Venus:3,Saturn:4,Rahu:5,Ketu:6}),0,'Jupiter')),[true,true]);
+// 48.9 for 10th lord alone (both not required)
+ck('s2-48.9-10th-alone',(x=>[refs(x,'fav').includes('BPHS 48.9'),x.fav.find(r=>r.ref==='BPHS 48.9').text.includes('10वें')])(db(mk({Sun:8,Saturn:8,Jupiter:0,Moon:1,Mars:2,Mercury:3,Venus:4,Rahu:5,Ketu:6}),0,'Saturn')),[true,true]);
+// 48.10 chosen pronoun reading: other planet's dasha, ambiguity recorded
+ck('s2-48.10-pronoun',(x=>{const r=x.fav.find(r=>r.ref==='BPHS 48.10');return [!!r,r&&r.text.includes('मंगल'),r&&r.text.includes('सर्वनाम-अस्पष्टता')];})(db(mk({Sun:4,Mars:4,Moon:0,Jupiter:1,Mercury:2,Venus:3,Saturn:6,Rahu:7,Ketu:8}),0,'Mars')),[true,true,true]);
+// 48.14 x 48.18 overlap: both shown, never netted (Mercury = 3rd/6th lord conjunct trikona lord Jupiter)
+ck('s2-overlap-both',(x=>[refs(x,'fav').includes('BPHS 48.14'),refs(x,'adv').includes('BPHS 48.18')])(db(mk({Jupiter:11,Mercury:11,Sun:0,Moon:1,Mars:2,Venus:3,Saturn:4,Rahu:5,Ketu:6}),0,'Mercury')),[true,true]);
+// 48.1 joint only: exalted+good house favourable
+ck('s2-48.1-fav',db(mk({Mars:9,Sun:0,Moon:1,Mercury:2,Jupiter:3,Venus:4,Saturn:5,Rahu:6,Ketu:7}),0,'Mars').d48.kind,'fav');
+// 48.1 debilitated+6/8/12 adverse (Kumbha lagna, Mars Karka = 6th)
+ck('s2-48.1-adv',db(mk({Mars:3,Sun:10,Moon:11,Mercury:0,Jupiter:1,Venus:2,Saturn:4,Rahu:5,Ketu:6}),10,'Mars').d48.kind,'adv');
+// 48.1 mixed = source silent, note not interpolation
+ck('s2-48.1-mixed-silent',(x=>[x.d48===null,x.notes.some(n=>n.includes('48.1')&&n.includes('मौन'))])(db(mk({Mercury:5,Sun:0,Moon:1,Mars:2,Jupiter:3,Venus:4,Saturn:6,Rahu:7,Ketu:8}),0,'Mercury')),[true,true]);
+// 48.20 node exception: no adverse placement row for Rahu in 3rd, exception noted
+ck('s2-node-exception',(x=>[!x.adv.some(r=>r.text.includes('3/6/11 भाव में स्थिति')),x.notes.some(n=>n.includes('48.20'))])(db(mk({Rahu:2,Sun:0,Moon:1,Mars:4,Jupiter:6,Venus:7,Saturn:8,Mercury:9,Ketu:10}),0,'Rahu')),[true,true]);
+// 48.19 maraka technical only: Sun conjunct Venus (2nd/7th lord) and in 2nd
+ck('s2-maraka',(x=>{const r=x.adv.find(r=>r.ref==='BPHS 48.19');return [!!r,r&&r.text.includes('मारक'),r&&r.text.includes('हटाई गई')];})(db(mk({Venus:1,Sun:1,Moon:3,Mars:4,Mercury:5,Jupiter:6,Saturn:7,Rahu:8,Ketu:9}),0,'Sun')),[true,true,true]);
+// 48.20 eighth placement
+ck('s2-eighth',refs(db(mk({Moon:7,Sun:0,Mars:1,Mercury:2,Jupiter:3,Venus:4,Saturn:5,Rahu:6,Ketu:8}),0,'Moon'),'adv').includes('BPHS 48.20'),true);
+// bhava-lordship rows for Venus (2nd+7th), and no death word anywhere in output
+ck('s2-bhava-rows',(x=>[x.lordOf,x.bhavaCharcha.length,x.bhavaCharcha[0].text.includes('हटाया गया')])(db(mk({Venus:1,Sun:0,Moon:3,Mars:4,Mercury:5,Jupiter:6,Saturn:7,Rahu:8,Ketu:9}),0,'Venus')),[[2,7],2,true]);
+ck('s2-no-death-word',JSON.stringify(db(mk({Venus:1,Sun:1,Moon:3,Mars:4,Mercury:5,Jupiter:6,Saturn:7,Rahu:8,Ketu:9}),0,'Sun')).includes('मृत्यु'),false);
+// dasha-start placement flagged essential-unmodeled
+ck('s2-unmodeled',db(mk({Sun:0,Moon:1,Mars:2,Mercury:3,Jupiter:4,Venus:5,Saturn:6,Rahu:7,Ketu:8}),0,'Sun').unmodeled[0].includes('दशा-आरम्भ'),true);
+// node in 3/6/11 as conjunction partner: adverse conjunction row withheld, uncertainty noted
+ck('s2-node-partner-uncertain',(x=>[!x.adv.some(r=>r.text.includes('राहु')),x.notes.some(n=>n.includes('48.18/48.20')&&n.includes('अनिश्चित'))])(db(mk({Rahu:5,Sun:5,Moon:0,Mars:1,Mercury:3,Jupiter:4,Venus:6,Saturn:7,Ketu:8}),0,'Sun')),[true,true]);
+// 48.16-17 lagnesh-dharmesh mutual placement (Mesha lagna: Jupiter in lagna, Mars in 9th)
+ck('s2-48.16-17',refs(db(mk({Jupiter:0,Mars:8,Sun:3,Moon:4,Mercury:5,Venus:6,Saturn:7,Rahu:10,Ketu:11}),0,'Jupiter'),'fav').includes('BPHS 48.16-17'),true);
+// 48.17-17.5 lagnesh-karmesh mutual placement (Saturn in lagna, Mars in 10th)
+ck('s2-48.17-karm',refs(db(mk({Saturn:0,Mars:9,Sun:3,Moon:4,Mercury:5,Venus:6,Jupiter:7,Rahu:10,Ketu:11}),0,'Saturn'),'fav').includes('BPHS 48.17-17½'),true);
+// negative fixtures: mutual-placement rows absent when either limb missing
+ck('s2-48.16-17-neg-no9',refs(db(mk({Jupiter:0,Mars:7,Sun:3,Moon:4,Mercury:5,Venus:6,Saturn:9,Rahu:10,Ketu:11}),0,'Jupiter'),'fav').includes('BPHS 48.16-17'),false);
+ck('s2-48.16-17-neg-no1',refs(db(mk({Jupiter:4,Mars:8,Sun:0,Moon:1,Mercury:5,Venus:6,Saturn:7,Rahu:10,Ketu:11}),0,'Jupiter'),'fav').includes('BPHS 48.16-17'),false);
+ck('s2-48.17-karm-neg',refs(db(mk({Saturn:0,Mars:8,Sun:3,Moon:4,Mercury:5,Venus:6,Jupiter:7,Rahu:10,Ketu:11}),0,'Saturn'),'fav').includes('BPHS 48.17-17½'),false);
+// 48.9 label names both houses when one lord rules 9+10 (Saturn, Taurus lagna)
+ck('s2-48.9-both-labels',(x=>{const r=x.fav.find(r=>r.ref==='BPHS 48.9');return r?r.text.includes('9वें/10वें'):false;})(db(mk({Saturn:5,Mercury:5,Sun:1,Moon:2,Mars:3,Jupiter:6,Venus:7,Rahu:8,Ketu:9}),1,'Saturn')),true);
+console.log('\nFINAL5 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
