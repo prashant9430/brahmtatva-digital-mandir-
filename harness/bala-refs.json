@@ -1,0 +1,147 @@
+{
+ "checks": [
+  {
+   "id": "F1-Sun",
+   "pass": true,
+   "want": "all components",
+   "got": "match"
+  },
+  {
+   "id": "F1-Moon",
+   "pass": true,
+   "want": "all components",
+   "got": "match"
+  },
+  {
+   "id": "F1-Mars",
+   "pass": true,
+   "want": "all components",
+   "got": "match"
+  },
+  {
+   "id": "F1-Mercury",
+   "pass": true,
+   "want": "all components",
+   "got": "match"
+  },
+  {
+   "id": "F1-Jupiter",
+   "pass": true,
+   "want": "all components",
+   "got": "match"
+  },
+  {
+   "id": "F1-Venus",
+   "pass": true,
+   "want": "all components",
+   "got": "match"
+  },
+  {
+   "id": "F1-Saturn",
+   "pass": true,
+   "want": "all components",
+   "got": "match"
+  },
+  {
+   "id": "Raman-kala-Sun",
+   "pass": true,
+   "want": 102.98,
+   "got": 102.952
+  },
+  {
+   "id": "Raman-kala-Moon",
+   "pass": true,
+   "want": 202.04,
+   "got": 202.068
+  },
+  {
+   "id": "Raman-kala-Mars",
+   "pass": true,
+   "want": 30.06,
+   "got": 30.081
+  },
+  {
+   "id": "Raman-kala-Mercury",
+   "pass": true,
+   "want": 192.79,
+   "got": 192.79
+  },
+  {
+   "id": "Raman-kala-Jupiter",
+   "pass": true,
+   "want": 211.18,
+   "got": 211.159
+  },
+  {
+   "id": "Raman-kala-Venus",
+   "pass": true,
+   "want": 115.53,
+   "got": 115.509
+  },
+  {
+   "id": "Raman-kala-Saturn",
+   "pass": true,
+   "want": 116.97,
+   "got": 116.991
+  }
+ ],
+ "info": {
+  "paksha_mercury_divergence": {
+   "module_verse_reading": 43.46,
+   "raman_printed": 16.54,
+   "note": "RESOLVED (reviewer 12:34 Q1): Raman intentionally classifies Mercury malefic (Ex18 Budha Papa; Ex54 footnote combustion/association with Sun). Module keeps the BPHS 27.11 text-first unconditional first-group reading; convention divergence documented."
+  },
+  "ayana_book21_vs_raman_printed": {
+   "Sun": {
+    "khanda_book21": 18.91736,
+    "raman_printed": 19.06,
+    "diff": -0.14
+   },
+   "Moon": {
+    "khanda_book21": 43.72236,
+    "raman_printed": 43.44,
+    "diff": 0.28
+   },
+   "Mars": {
+    "khanda_book21": 2.56319,
+    "raman_printed": 1.84,
+    "diff": 0.72
+   },
+   "Mercury": {
+    "khanda_book21": 41.39639,
+    "raman_printed": 41.25,
+    "diff": 0.15
+   },
+   "Jupiter": {
+    "khanda_book21": 57.96263,
+    "raman_printed": 59.4,
+    "diff": -1.44,
+    "reviewer_decomposition": {
+     "printed": 59.4,
+     "book_expression_value": 58.85764,
+     "printed_arithmetic_error": 0.54236,
+     "method_difference": 0.89501,
+     "ayanamsha_difference": 0.19416,
+     "khanda_book21": 57.96263
+    }
+   },
+   "Venus": {
+    "khanda_book21": 23.78389,
+    "raman_printed": 23.75,
+    "diff": 0.03
+   },
+   "Saturn": {
+    "khanda_book21": 13.40306,
+    "raman_printed": 13.75,
+    "diff": -0.35
+   }
+  },
+  "drik_vs_raman": {
+   "note": "WITHDRAWN as cross-convention golden (reviewer 12:34 Q2): Raman pp85-88 uses general aspect + fixed special additions (Mars15/Jupiter30/Saturn45), all quarter-weighted - a different model from BPHS26.6-12 curves + 27.19 weighting. Module drik is a chosen convention, experimental, excluded from partial sums."
+  }
+ },
+ "summary": {
+  "pass": 79,
+  "fail": 0
+ }
+}
