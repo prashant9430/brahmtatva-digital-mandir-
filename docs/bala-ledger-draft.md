@@ -364,3 +364,281 @@ cheshta की kala-घटक-पुनरावृत्ति पाठ-नि
 18d×2, 18e+1, 18f×5, 18g×4 + aligned); python harness 79/79;
 interpretation 138/138; siddhant 70/0; antardasha 34/34; dasha-phal,
 gallery-relations, relations 717, states 455 — सब पास।
+
+---
+
+# v0.6 — शेष घटक: स्रोत-सत्यापन + कार्यान्वयन-योजना (11 Nov 2026 ~13:00 IST)
+
+स्कोप: main 12:56 निर्देशानुसार शेष बला घटक — मंगल→शनि cheshta (27.21-25),
+ग्रह-युद्ध (27.20), भावबल (27.26-31)। यह खंड स्रोत-अभिलेख है; कोई कोड नहीं।
+
+## A. Ephemeris-पर्याप्तता (पूर्ण जाँच, 12:58; astro-core.js export-table पठित)
+- BrahmAstro exports: ayanamsha, grahaPositions, outerPositions, riseSet,
+  siderealLagna, dailyPanchanga, lagnaWindow, localDayString,
+  startOfLocalDayUTC, nextLocalDayStartUTC, nakshatra/tithi/karana/yoga
+  boundaries, name tables।
+- HelioVector: bundle में मौजूद (internal) पर export नहीं → सीघ्रोच्च का
+  heliocentric मार्ग बिना bundle-परिवर्तन के अनुपलब्ध। bundle-परिवर्तन एक
+  अलग build-process निर्णय होगा, इस increment में नहीं माना।
+- grahaPositions: प्रति-ग्रह sidereal longitude + retrograde flag;
+  raw speed नहीं। outerPositions finite-difference पैटर्न (±30min ×24)
+  दर्ज — speed व्युत्पन्न संभव, पर 8-गति परिपाटी की आवश्यकता यथावत।
+- MC/IC (meridian/nadir): पूरे codebase में कहीं गणना नहीं (grep: midheaven/
+  meridian/nadir/IC शून्य)। भावबल 27.26-27 के 4H/10H हेतु नया astronomy
+  घटक (obliquity/RAMC) चाहिए या समीक्षक-परिपाटी।
+- भाव-परिपाटी: app पहले से whole-sign (kundli-engine house(): राशि-अंतर;
+  UI source-note में घोषित) — यह सुसंगत मौजूदा परिपाटी है।
+
+## B. Cheshta मंगल→शनि (27.21-25)
+मत-भेद अब दोनों अनुवादों के पठित पाठ से दर्ज (formula-check only):
+- vedicpupil (27.22-23 श्लोक-पाठ): vakra 60, anuvakra 30 (दलम्), vikala 15
+  (पाद), sama 30 (मध्यगतेर्दलम्), manda 15 (पादो मन्दगतेः), mandatara 30
+  (दलं मन्दतरस्य), chara 45 (पादोन), atichara 30 (दलम्)।
+- jyotishvidya (अनाम ऑनलाइन अनुवाद, क्रम Vakra→Atichara): 60, 30, 15, 30,
+  15, 7.5, 45, 30।
+- असंगति: Manda/Mandatara अदला-बदली + Sama 30 (vp) बनाम 7.5 (jv)।
+  मुद्रित-श्लोक सत्यापन लंबित — दोनों दर्ज, कोई निर्णय नहीं (स्थायी
+  समीक्षक-शर्त 1)।
+- Primary (b) cheshta-kendra (27.24-25, Raman-सुसंगत): आवश्यक mean
+  geocentric longitude + sheeghrochcha — दोनों BrahmAstro exports में
+  नहीं।
+- Mean-elements प्राथमिक स्रोत (समीक्षक-नामित, 13:01; section-स्तर सत्यापित
+  13:02): Simon et al. 1994, A&A 282, 663-683, §5.9 pp.677-679
+  ("Mean elements of the planets referred to the mean dynamical ecliptic
+  and equinox of date"; VSOP87: Mercury/Venus/Earth/Mars/Uranus/Neptune;
+  JASON84: Jupiter/Saturn; t = TDB सहस्र-वर्ष J2000 से) —
+  https://articles.adsabs.harvard.edu/pdf/1994A&A...282..663S
+  ⚠ JPL fitted elements (ssd.jpl.nasa.gov/planets/approx_pos.html)
+  true-mean नहीं — उस स्रोत का उपयोग वर्जित। यह एक अलग दस्तावेज़ित
+  MODERN mean-elements cheshta परिपाटी होगी; coefficients + जाँचे हुए
+  Raman intermediates समीक्षक से आने शेष। implementation clearance अभी
+  नहीं।
+- Golden fixture उपलब्ध: Raman printed cheshta, **Standard Horoscope
+  (1918-10-16 14:06:16 LMT, 13°N 77°35'E — अलग fixture-पहचान; 2000-Delhi
+  नहीं)** = Ma 22.23, Me 2.30, Ju 35.26, Ve 5.95, Sa 21.14 virupa
+  (published printed numbers; कुछ ग्रह-total असंगतियाँ fixture issues में
+  पहले से दर्ज — component-level ही प्रमाण, totals नहीं)।
+- Alternative (a) 8-गति: speed-threshold परिपाटी + अनसुलझा मत-भेद →
+  अभी अमॉडल ही रखें; (b) के अनुपलब्ध होने पर fallback नहीं बल्कि अलग
+  समीक्षा-इकाई।
+
+## C. ग्रह-युद्ध (27.20) — अमॉडल यथावत
+श्लोक युद्ध-परिभाषा नहीं देता; Raman-नियम Sripati-आधारित व OCR-विकृत
+diameter-तालिका; कोई golden नहीं → अमॉडल + स्पष्ट नोट (रुलिंग 15 अपरिवर्तित)।
+
+## D. भावबल (27.26-31) — सूत्र-शृंखला (दोनों अनुवाद मेल)
+1. भाव-राशि-समूह से reference-बिन्दु घटाव: कन्या/मिथुन/तुला/कुम्भ/धनु-
+   प्रथमार्ध → 7H; वृषभ/मेष/सिंह/मकर-प्रथमार्ध/धनु-द्वितीयार्ध → 4H;
+   कर्क/वृश्चिक → लग्न; मकर-द्वितीयार्ध/मीन → 10H (27.26-27)।
+2. शेष >6 राशि हो तो 12 से घटाव; अंश में बदलकर /3 (27.28; dig-जैसा)।
+3. +1/4 शुभ-दृष्टि-पिंड, −1/4 पाप-दृष्टि-पिंड; बुध/गुरु दृष्टि पूर्ण जोड़
+   (27.28-29) — ch26 drishti() पहले से cleared, पुन:उपयोग।
+4. + भाव-स्वामी का बल (27.29) — कौन-सा बल (कुल/आंशिक) परिपाटी चाहिए;
+   Raman-पद्धति में स्वामी का कुल षड्बल (सत्यापन शेष)।
+5. विशेष 27.30: गुरु/बुध-स्थित भाव +1 rupa (=60 virupa); शनि/मंगल/सूर्य-
+   स्थित −1 rupa। (jv "1 rupa" स्पष्ट; vp "one" संक्षिप्त — jv-स्पष्टीकरण
+   अपनाया, दर्ज।)
+6. 27.31: शीर्षोदय-भाव +15 virupa दिन में; उभयोदय +15 संध्या; पृष्ठोदय
+   +15 रात्रि। (jv "15 Virupas"; vp "quarter" — quarter rupa = 15 virupa,
+   jv-स्पष्टीकरण दर्ज।) दिन/रात्रि sunrise/sunset से उपलब्ध।
+   ⚠ उभयोदय-परिभाषा (समीक्षक-सुधार 13:01, BPHS 4.23 से सत्यापित 13:02):
+   उभयोदय = केवल मीन (Pisces) — 4.23 "सौम्यस्थो ह्युभयोदयी", "rises both
+   ways"। jv ch27 का "dual (or common) Rasis" अनुवाद-विस्तार 4.23 से
+   भिन्न — 4.23 नियंत्रक, jv-पठन असंगति के रूप में दर्ज।
+   ⚠ संध्या (twilight) की परिभाषा: प्रतिस्पर्धी परिभाषाएँ अनसुलझी — कोई
+   silent default नहीं (समीक्षक 13:01); परिपाटी समीक्षक-निर्णय मांगती है।
+
+### खुले प्रश्न (समीक्षक को, कोड से पहले)
+- D4: भाव-स्वामी बल की परिभाषा (कुल षड्बल बनाम आंशिक; yuddha-समायोजन
+  अमॉडल होने से विचलन-मुक्त)।
+- MC/IC: 4H/10H हेतु meridian/nadir गणना जोड़ें (नया astro घटक) या
+  whole-sign 4H/10H परिपाटी? ⚠ anchor-संघर्ष दर्ज: Raman p.3 printed
+  mc 216°30', ic 36°30' बनाम worked Example 59 मान 216°36'/36°36' —
+  दोनों में असंगति; **कोई भी modern-astronomy golden नहीं**, केवल
+  published-print संदर्भ (समीक्षक 13:00)। meridian-मार्ग चुने तो modern
+  ephemeris से स्वतंत्र जाँच अलग से चाहिए।
+- संध्या-सीमा (27.31 ubhayodaya-खिड़की) परिपाटी।
+- D4 उत्तर (published source मिला, 12:59): Raman Graha and Bhava Balas
+  art. 124-125 + Example 58 — Bhavadhipathi Bala = भाव-स्वामी का **कुल षड्बल**
+  (Example 58 rupas में: Sa 6.49, Ju 7.23, Ma 4.97 ... = F1 totals/60;
+  Example 59 virupas में: 389.21, 433.77, 298.14, 376.25)। समीक्षक-पुष्टि
+  फिर भी आवश्यक, पर अब परिपाटी-प्रस्ताव स्रोत-सहित है।
+- नया मत-भेद/परिपाटी-प्रश्न (महत्वपूर्ण): BPHS 27.26-27 "भाव जिस राशि में
+  हो" — Raman इसे **भाव-मध्य (mid-point/cusp)** से operationalize करता है
+  (art. 126-131; Standard Horoscope भाव-मध्य: I = 298°27' = asc, II =
+  311°10', IV = 36°30' = IC, X = MC — cusp-आधारित, whole-sign नहीं)।
+  App की मौजूदा परिपाटी whole-sign है → समीक्षक-निर्णय: (i) whole-sign
+  operationalization + स्पष्ट मत-भेद नोट, या (ii) Sripati cusps जोड़ना
+  (नया astro घटक, अलग इकाई)।
+- Raman-विस्तार (BPHS 27.26-31 से बाहर): "Bhava Digbala" राशि-वर्ग घटक
+  (Nara/Jalachara/Chathushpada/Keeta, ±rupa, art. 126-131) — BPHS श्लोक
+  नहीं; यदि जोड़ा जाए तो "Raman-extension" लेबल से, अलग समीक्षा।
+- स्वतंत्र-जाँच स्थिति: source PDF से Example 59 (printed Total Bhavabala,
+  F1; जैसे भाव I = 473.39 virupa = 7.89 rupas, III = 510.21 = 8.51)
+  पठित, पर pdftotext OCR स्तम्भ-संरेखण बुरी तरह विकृत → golden fixture
+  हेतु page-image transcription + verified_by_page_image अनुशासन चाहिए
+  (अलग उप-कार्य)। Example 60-61 (Sun/Moon cheshta = ayana/paksha)
+  रुलिंग 13 की पुष्टि करते हैं।
+
+## E. प्रस्तावित क्रम
+1. समीक्षक: B (cheshta-b परिपाटी), D4/D-MC/संध्या निर्णय।
+2. तभी कोड + fixtures: Raman printed cheshta (5 ग्रह), F1 MC/IC anchor,
+   भावबल printed/hand-derived (labeled)।
+3. पाइपलाइन अपरिवर्तित: ledger → main → समीक्षा → कोड → harness →
+   protected commit → hosted verify।
+
+---
+
+# v0.7 — Cheshta MODERN mean-elements: समीक्षक-पैकेज + द्वितीय-प्रतिलेखन + prep (11 Nov ~13:04 IST)
+
+स्थिति: implementation PREP समर्थित, shipping clearance नहीं (main 13:02)।
+कोई commit नहीं; harness केवल local।
+
+## A. समीक्षक-परिपाटी (13:02, दर्ज)
+- स्रोत: Simon et al. 1994 §5.9.1-5.9.6 λ (heliocentric mean longitude,
+  mean dynamical ecliptic/equinox OF DATE); t=(JD_TDB−2451545)/365250;
+  constant degrees, t¹..t⁶ coefficients ARCSECONDS (÷3600)।
+- Mapping (Raman pp75-78 से स्वतंत्र समर्थन): meanSun = Earthλ + 180;
+  Ma/Ju/Sa: midpoint में own mean, sheeghrochcha = meanSun;
+  Me/Ve: midpoint में meanSun, sheeghrochcha = own λ।
+- सूत्र: midpoint = mean + wrap180(true−mean)/2; kendra =
+  |wrap180(apogee−midpoint)|; bala = kendra/3। angle-lifting averaging
+  से पहले; frame-rotation अपरिवर्तनता आवश्यक।
+- JPL approx_pos fitted elements वर्जित (true-mean नहीं)।
+
+## B. द्वितीय-प्रतिलेखन (मेरा, paper-pixels से, उच्च-zoom crops)
+परिणाम: Venus/Earth/Mars/Jupiter = reviewer-JSON से पूर्ण मेल।
+तीन सुधार (paper pixel = नियंत्रक):
+- Mercury t³: paper +0″06522; reviewer-JSON 0.065222 (अतिरिक्त अंक)।
+- Saturn t⁴: paper −0″35004; reviewer-JSON −0.335।
+- Saturn t⁶: paper +0″00103; reviewer-JSON +0.000103 (दस गुना)।
+संख्यात्मक प्रभाव 1900-2100 में <2e-6° (नगण्य), परंतु transcription
+exact होना आवश्यक — सुधारित सेट harness में स्थिर।
+
+## C. Prep harness (harness/cheshta-modern-prep.py, local-only) — 22/22 PASS
+- 12 polynomial reproductions (दो JD; लेबल: NOT independent goldens)।
+- 5 Raman-1918 published-input rows, bound 0.008334 (Ma 22.2308,
+  Me 2.2946, Ju 35.2558, Ve 5.9479, Sa 21.1392 — सभी printed 2dp से
+  भीतर; fixture computed से 1e-10 तक मेल)। Saturn p77 sheeghrochcha
+  151.23 typo → p75/p78 के 181.2275, named exclusion।
+- 2 wrap regressions (359/1/0→0; 1/359/0→0) exact।
+- 1000 frame-rotation invariance checks (200 triples × 5 rotations)।
+
+## D. Implementation से पहले सुलझाने शेष (main 13:02; कोई silent default नहीं)
+- Frame: app apparent-of-date sidereal + mean ayanamsha ↔ Simon mean
+  equinox-of-date — nutation सुधार या स्पष्ट small-approximation budget,
+  स्पष्ट लिखित निर्णय; "strict frame identity" दावा वर्जित।
+- TT≈TDB timing-error सीमा लिखित; UTC silent feeding वर्जित (civilUTC
+  wiring अलग hosted-regression मद यथावत)।
+- 1900-2100 product guard लागू।
+- Full totals/yuddha/bhava uncleared; reviewer bhava report forthcoming।
+
+---
+
+# v0.8 — भावबल समीक्षक-निर्णय (13:04) + चतुर्थ सुधार (13:05) + terms prep
+
+## A. चतुर्थ transcription सुधार (13:05)
+Jupiter t⁶: paper −0″00014; प्रथम JSON −0.000014। मेरा सेट पहले से सही,
+परंतु मेरा correction-log इसे चिह्नित करना चूक गया — दर्ज। समीक्षक के
+superseding artifacts (simon-mean-elements-8c3e507b.json,
+cheshta-research-fixture-c582db41.json) मेरे paper-verified सेट से
+identical; regenerated reproductions 1e-9 पर पुनः मेल; Raman inputs
+अपरिवर्तित। shipping clearance अभी भी नहीं।
+
+## B. भावबल निर्णय (bhava-decisions-ba3ba3c6.md, दर्ज)
+1. Geometry: अलग, स्पष्ट-नामित **Sripati madhya** — I=Asc, IV=IC,
+   VII=Desc, X=MC; प्रत्येक forward quadrant का त्रिभाजन। App की
+   whole-sign houses अपरिवर्तित; कोई silent whole-sign प्रतिस्थापन नहीं।
+2. MC helper: RAMC (LAST degrees) → tropical MC = atan2(sin RAMC,
+   cos RAMC·cos(true obliquity)); IC=MC+180, Desc=Asc+180; समान sidereal
+   frame में रूपांतरण; GMST/true-obliquity mixing बिना label के वर्जित।
+   independent astronomical fixture अभी शेष (synthetic checks ही हुए)।
+3. Typos: Ex59 II 311°10' → 331°10' (p21 + Jupiter D.K. 247°09' =
+   331°10'−84°01' पुष्टि), named exclusion; p3 216°30'/36°30' excluded
+   (worked 216°36'/36°36' नियंत्रक, averaging वर्जित)। XI: subha 45.18 −
+   asubha 12.05 = 33.13 बनाम printed nett 33.12 (0.01 source-विचलन)।
+   IV 0.20 / X 0.10 / XII 100.00 विचलन यथावत।
+4. भाव-स्वामी = madhya-राशि का स्वामी; बल = **पूर्ण Shadbala Pinda**
+   (Raman art.125 pp.92-93 pixels)। partial substitution वर्जित;
+   missing = zero नहीं; पूर्ण भाव total/rank तब तक blocked जब तक
+   ग्रह-बल अपूर्ण/experimental।
+5. Raman Ex59 BPHS arc/aspect model का golden नहीं (art.131 integer
+   bhava-distance ×10; Cancer-वर्गीकरण भिन्न; fixed-special-aspect +
+   Mercury सदा पूर्ण शुभ p99 footnote)। 27.29 बुध/गुरु-दृष्टि पाठ-
+   अस्पष्टता (additional-full बनाम replacement) स्पष्ट दर्ज; मौजूदा
+   replacement-weight experimental Drik को source-settled न कहें।
+6. 27.30: once-per-class provisional (+60 Me/Ju, −60 Su/Ma/Sa);
+   collisions स्पष्ट; cusp-भाव occupancy boundaries = आसन्न madhya के
+   मध्य-बिन्दु, half-open [start,end), exact-sandhi → अगला भाव (नामित)।
+7. 27.31: उभयोदय = केवल मीन (4.23); rising-groups Saravali 3.24 cite
+   (BPHS4 web-अनुवाद Sc/Sg पर भिन्न): shirshodaya Ge Le Vi Li Sc Aq;
+   prishthodaya Ar Ta Ca Sg Cp; ubhayodaya Pi; वर्गीकरण madhya-राशि से।
+   Twilight: provisional = BPHS 9.14 का 72min BEFORE half-disc sunrise /
+   72min AFTER half-disc sunset (cross-chapter transfer, स्पष्ट-labeled);
+   twilight > night priority, कोई double bonus नहीं; half-disc बनाम
+   upper-limb approximation बजट/रिपोर्ट आवश्यक; BPHS 46.44 (5 ghatis
+   प्रत्येक ओर) documented alternative; civil-twilight(−6°) को BPHS-नियम
+   कहना असमर्थित।
+
+## C. Prep harness harness/bhava-terms-prep.py (local-only) — 45/45 PASS
+- p21 geometry fixture: 4 angles → 12 madhyas, 1/3 arcmin tolerance
+  (minute-printed intermediates) — सभी 12 सटीक (geometry operation की
+  जाँच, 1918 जन्म-समय से modern-astronomy golden नहीं)।
+- uniform-quadrant, 300 rotation-invariance, forward-order।
+- boundaries: 1000 random longitudes partition, 12 exact-sandhi →
+  next-bhava, madhya स्व-भाव में।
+- rising-table 6 checks; occupant once-per-class 5 checks (collision
+  सहित)।
+- MC helper synthetic: RAMC 0/90/180/270 identity, 360 quadrant-
+  preservation, 360-periodicity। independent MC fixture शेष।
+
+---
+
+# v0.9 — Frame/time resolution + harness-सुधार (13:07)
+- Reviewer-पकड़ा vacuous-test दोष सुधारा: boundary-जाँच अब वास्तविक
+  invariants (सभी widths > 0; Σ=360; 2000-लंबाई unique membership count=1;
+  p21-बंधे 12 hand-literal boundaries; स्वतंत्र lifted-mid code-path) +
+  3 negative controls जो provably fail होते हैं (duplicate→width 0;
+  swapped→overlap; whole-sign substitution→literal विफल)। पुनःरन: 63/63।
+  (पहला सुधार-प्रयास स्वयं दोषपूर्ण था — गलत fixture-binding + हस्त-
+  गणना त्रुटि; द्वितीय पुनरावृत्ति में ठीक, दर्ज।)
+- Frame/time: bundle internals सत्यापित (w/AstroTime.tt, Q nutation+
+  tobl, wn GAST — chart के ascendant का वही sidereal-time path)।
+  o0-बीजगणित code में VERIFIED: sidereal + mean ayanamsha = apparent
+  tropical − dpsi (mean-equinoctial convention); दूसरा dpsi वर्जित।
+  JD_TT=2451545+AstroTime.tt; TDB≈TT (IAU2006B3 <2ms, <1e-7°) नामित;
+  UTC कभी TT नहीं। MC: RAMC=15·GAST+longE, tropical MC atan2, समान
+  ayanamsha-frame जैसा Asc; independent Swiss-isolated MC/IC oracle
+  fixtures reviewer बना रहा है — shipping से पहले आवश्यक।
+  विवरण: docs/frame-time-resolution-draft.md।
+- Minimal native wrapper exports proposed (astroTt, gastHours,
+  trueObliquity, nutationDpsi, meanAyanamsha) + API regression tests;
+  bala-module में DeltaT/nutation पुनःकार्यान्वयन नहीं।
+
+---
+
+## वर्तमान स्थिति (11 Nov 2026 ~13:36 IST, main-स्वीकृत आंतरिक रिकॉर्ड)
+
+**इकाई D+E(आंशिक): षड्बल घटक + चेष्टा (मंगल-शनि) + भावबल व्यक्तिगत शर्तें (27.26-31)**
+- कोड स्थिति: preview/kundli-suite पर committed, HEAD 7609726fa1f2eac81715e4ec651baff26363f22b।
+  main branch अपरिवर्तित (d7da476770348c6bf7fe98dc6f27e1ea25a0654c)। force-push नहीं।
+- होस्टेड जाँच: Vercel preview deployment https://brahmtatva-digital-mandir-g1ev19k9t.vercel.app
+  (कुंडली पेज: /kundli.html — owner-session में observed load)। पूर्व deployment
+  ...-3igrg1629 (0491a96) सुरक्षित।
+- गुमनाम सुरक्षा जाँच (13:35): root, /kundli.html, /kundli-bhava.js, /kundli-bala.js,
+  /kundli-suite-ui.js, /astro-core.js — सभी 302 → Vercel SSO (Standard Protection सक्रिय)।
+- परीक्षण: cheshta 40/40, bhava-terms 106/106, wrapper 51/51, bala 173/173,
+  bala-ui-context-check 12/12, reviewer bhava harness 0 failures (3/3 twilight)।
+- मोबाइल native-scroll प्रमाण (390px, बिना CSS-injection): बाला तालिका दाहिना छोर
+  (दृक्*/आंशिक योग) और भाव तालिका दाहिना छोर (अधिवासी ग्रह + ⇄ टकराव चिह्न) पठनीय।
+- main निर्णय 13:35: आंतरिक स्वीकृति। **उपयोगकर्ता-डिलीवरी नहीं** — अपराह्न batch में
+  main द्वारा नियोजित। सार्वजनिक release अनधिकृत।
+- लेबल अखंड: आंशिक-only, दृक् प्रायोगिक, कुल/अनुपात/क्रम जानबूझकर अनुपस्थित (pending ब्लॉक)।
+- ज्ञात अधूरा (आगे की इकाइयाँ): ग्रह-युद्ध, भावबल कुल मान (27.32-33), षड्बल कुल/आवश्यक-अनुपात,
+  दृष्टि/युति फल-स्तर, नामित योग विस्तार, भाव-फल कारकत्व — ledger section E।
+
+### wrapper-patch स्थिति
+impl-draft/wrapper-patch.txt (TT/GAST/obliquity/nutation/mean-ayanamsha exports) अब
+astro-core.js में applied + committed (7609726fa1f2)। पहले लागू नहीं था — होस्टेड भाव-पैनल ने
+स्पष्ट pending दिखाया ("MC के लिए आवश्यक समय-सहायक उपलब्ध नहीं"), जिससे खुलासा हुआ;
+यही pending-व्यवहार designed safe-state है।
