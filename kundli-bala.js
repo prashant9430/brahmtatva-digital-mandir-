@@ -1,0 +1,176 @@
+/* Original BrahmTatva extension. BPHS ch.27 (Shadbala) formulas + ch.26 sphuta drishti.
+Sources, conventions and mat-bhed records: docs/bala-ledger-draft.md (v0.7). Convention
+choices there are recorded with their evidence; build-scope approval belongs to the project
+review process, not to this file.
+Not computed here (explicit): Mars-Saturn Cheshta (no mean-longitude source), Graha-yuddha
+(no source definition), Bhava-bala (uncross-checked). Partial sums only - never presented
+as full Shadbala. All angles zero-based degrees. */
+(function(root){'use strict';
+const mod=(x,n=360)=>{const r=x%n;return r<0?r+n:r;};
+const fold=x=>{x=mod(x);return x>180?360-x:x;};
+const PLANETS=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'];
+const FALL={Sun:190,Moon:213,Mars:118,Mercury:345,Jupiter:275,Venus:177,Saturn:20}; // ch3.49-50 deep-fall
+const WEAKHOUSE={Sun:4,Moon:10,Mars:4,Mercury:7,Jupiter:7,Venus:10,Saturn:1}; // 27.7-7.5 powerless cusp
+const GENDER={Sun:'M',Moon:'F',Mars:'M',Mercury:'N',Jupiter:'M',Venus:'F',Saturn:'N'}; // ch3.19
+const NAIS_RANK={Saturn:1,Mars:2,Mercury:3,Jupiter:4,Venus:5,Moon:6,Sun:7}; // 27.14
+const NATURAL={ // ch3.55 printed table
+ Sun:{friend:['Moon','Mars','Jupiter'],enemy:['Venus','Saturn'],neutral:['Mercury']},
+ Moon:{friend:['Sun','Mercury'],enemy:[],neutral:['Mars','Jupiter','Venus','Saturn']},
+ Mars:{friend:['Sun','Moon','Jupiter'],enemy:['Mercury'],neutral:['Venus','Saturn']},
+ Mercury:{friend:['Sun','Venus'],enemy:['Moon'],neutral:['Mars','Jupiter','Saturn']},
+ Jupiter:{friend:['Sun','Moon','Mars'],enemy:['Mercury','Venus'],neutral:['Saturn']},
+ Venus:{friend:['Mercury','Saturn'],enemy:['Moon','Sun'],neutral:['Mars','Jupiter']},
+ Saturn:{friend:['Mercury','Venus'],enemy:['Sun','Moon','Mars'],neutral:['Jupiter']}};
+const DREK_NEED={M:1,N:2,F:3}; // 27.6: male/neuter/female -> 1st/middle/last (vedicpupil+Raman; jyotishvidya conflict recorded)
+const KHANDA=[[0,0],[30,45],[60,78],[90,90]]; // 27.15-17 piecewise lavas (cumulative 45/33/12)
+const CHALDEAN=['Saturn','Jupiter','Mars','Sun','Venus','Mercury','Moon'];
+const WEEKDAY_LORD=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn']; // Sunday first
+const OWN_SIGNS={Sun:[4],Moon:[3],Mars:[0,7],Mercury:[2,5],Jupiter:[8,11],Venus:[1,6],Saturn:[9,10]};
+// Moolatrikona: D1 (rasi) only, and within the BPHS 3.51-54 degree zone (reviewer 12:33 ruling).
+// Mat-bhed recorded in ledger: Raman reads the full rasi; the BPHS verse's all-seven-vargas reading
+// is also recorded. [rasi, zoneStartDeg, zoneEndDeg):
+const MT_ZONE={Sun:[4,0,20],Moon:[1,3,30],Mars:[0,0,12],Mercury:[5,15,20],Jupiter:[8,0,10],Venus:[6,0,15],Saturn:[10,0,20]};
+function isMT(lon,p){const [s,lo,hi]=MT_ZONE[p];const r=Math.floor(mod(lon)/30),d=mod(lon)%30;return r===s&&d>=lo&&d<hi;}
+const SAPTA_VALUES={mt:45,own:30,greatfriend:20,friend:15,neutral:10,enemy:4,greatenemy:2}; // BPHS 27.2-4 (Raman p.22 values differ - not used)
+const DAY_MS=86400000;
+
+function uchchaBala(lon,p){return fold(lon-FALL[p])/3;}
+function digBala(lon,asc,p){const cusp=mod(asc+(WEAKHOUSE[p]-1)*30);return fold(lon-cusp)/3;}
+function naisargikaBala(p){return 60/7*NAIS_RANK[p];}
+function kendradiBala(lon,asc){const h=mod(Math.floor(mod(lon)/30)-Math.floor(mod(asc)/30),12)+1;return h%3===1?{1:60,4:60,7:60,10:60}[h]||60:(h%3===2?30:15);}
+function ojhaYugmaRasi(lon,p){const odd=Math.floor(mod(lon)/30)%2===0;const wantsEven=(p==='Moon'||p==='Venus');return (wantsEven?!odd:odd)?15:0;}
+function ojhaYugmaNavamsa(lon,p,varga){const ns=varga(lon,9).rashi;const odd=ns%2===0;const wantsEven=(p==='Moon'||p==='Venus');return (wantsEven?!odd:odd)?15:0;}
+function drekkanaBala(lon,p){const d=Math.floor(mod(lon)%30/10)+1;return d===DREK_NEED[GENDER[p]]?15:0;}
+function pakshaBala(sun,moon,p){const pb=fold(moon-sun)/3;return ['Moon','Mercury','Venus','Jupiter'].includes(p)?pb:60-pb;} // 27.10-11, Mercury unconditional
+function nathonnathaBala(birthMs,transitMs,p){let d=Math.abs(birthMs-transitMs)/3600000;d=Math.min(d,24-d);const ghatis=d*2.5;if(p==='Mercury')return 60;return ['Moon','Mars','Saturn'].includes(p)?2*ghatis:60-2*ghatis;} // 27.8-9, true-transit noon reference
+function tribhagaBala(birthMs,sunriseMs,sunsetMs,nextSunriseMs,p){if(p==='Jupiter')return 60;let t,third,day;
+ if(birthMs>=sunriseMs&&birthMs<sunsetMs){day=true;third=(sunsetMs-sunriseMs)/3;t=birthMs-sunriseMs;}
+ else{day=false;const ns=nextSunriseMs??sunriseMs+DAY_MS;
+  if(birthMs<sunsetMs)throw new Error('tribhagaBala: night birth before the given sunset - pass the PREVIOUS sunset (pre-sunrise rollover)');
+  third=(ns-sunsetMs)/3;t=birthMs-sunsetMs;}
+ const k=Math.min(2,Math.floor(t/third));
+ const dayLords=['Mercury','Sun','Saturn'],nightLords=['Moon','Venus','Mars'];
+ return (day?dayLords[k]:nightLords[k])===p?60:0;} // 27.12
+function varaBala(weekday,p){return WEEKDAY_LORD[weekday]===p?45:0;} // 27.13 dina-lord 45
+function horaBala(birthMs,sunriseMs,weekday,p){const dayLord=WEEKDAY_LORD[weekday];const start=CHALDEAN.indexOf(dayLord);
+ const n=Math.floor((birthMs-sunriseMs)/3600000); // Raman Rule 1: equal 1-hour horas from sunrise,
+ // cycle continues UNWRAPPED past 24h (a >24h solar day has a 25th hora before the next sunrise)
+ if(n<0)throw new Error('horaBala: birth before sunriseMs - pass the previous sunrise (jyotish-day rollover)');
+ return CHALDEAN[(start+n)%7]===p?60:0;} // 27.13 hora-lord 60
+// Civil-date helpers for jyotish-day rollover (reviewer 12:38: NEVER subtract 86400000 -
+// across a DST transition that skips/duplicates a local calendar date; select the previous
+// LOCAL calendar date).
+function localDateString(ms,timeZone){return new Intl.DateTimeFormat('en-CA',{timeZone,year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(ms));}
+function previousLocalDateString(ms,timeZone){const [y,m,d]=localDateString(ms,timeZone).split('-').map(Number);return new Date(Date.UTC(y,m-1,d-1)).toISOString().slice(0,10);}
+function lavas(b){for(let i=1;i<KHANDA.length;i++){if(b<=KHANDA[i][0]){const[x0,y0]=KHANDA[i-1],[x1,y1]=KHANDA[i];return y0+(y1-y0)*(b-x0)/(x1-x0);}}return 90;}
+function ayanaBala(lonSidereal,ayanamsa,p){const sayana=mod(lonSidereal+ayanamsa);const q=mod(sayana,180);const bhuja=Math.min(q,180-q);
+ const lv=lavas(bhuja);const north=sayana<180;let add;
+ if(p==='Mercury')add=true;else if(['Sun','Mars','Jupiter','Venus'].includes(p))add=north;else add=!north; // 27.15-17 sign rules
+ return (90+(add?lv:-lv))/3;} // BPHS-khanda primary; up to ~1 virupa vs declination method (ledger note)
+function cheshtaBalaSunMoon(sun,moon,p,ayanaSun,pakshaMoon){if(p==='Sun')return ayanaSun;if(p==='Moon')return pakshaMoon;return null;} // 27.18, counted once here and once in kala - no doubling
+// ch26.6-12 sphuta drishti value (cross-read in two translations; reviewer spec.py)
+function drishtiValue(d,planet){d=mod(d);const x=d%30,sg=Math.floor(d/30);
+ if(planet==='Saturn'){if(sg===1)return 2*x;if(sg===9)return 2*(30-x);if(sg===2)return 60-x/2;if(sg===8)return x+30;}
+ if(planet==='Mars'){if(sg===3||sg===7)return 60-x;if(sg===2)return 1.5*x+15;if(sg===6)return 60;}
+ if(planet==='Jupiter'){if(sg===3||sg===7)return x/2+45;if(sg===4||sg===8)return 60-x;}
+ if(d<30)return 0;if(d<60)return (d-30)/2;if(d<90)return d-45;if(d<120)return 30+(120-d)/2;
+ if(d<150)return 150-d;if(d<180)return 2*(d-150);if(d<300)return (300-d)/2;return 0;}
+function isBeneficForDrik(p,positions){const get=g=>positions.find(q=>q.graha===g);
+ if(p==='Mercury'){const me=get('Mercury');return !['Sun','Mars','Saturn'].some(g=>{const o=get(g);return o&&Math.floor(mod(o.longitude)/30)===Math.floor(mod(me.longitude)/30);});}
+ if(p==='Moon'){const s=get('Sun'),m=get('Moon');return mod(m.longitude-s.longitude)<180;} // waxing benefic (convention note: ch3.11 "decreasing Moon")
+ return ['Jupiter','Venus'].includes(p);}
+// 27.19: benefic aspect +quarter, malefic aspect -quarter, Jupiter full-add; Mercury full-add
+// when benefic, malefic -quarter when conjoined with a malefic (ch3.11) - provisional, see note.
+function drikBala(p,positions){const me=positions.find(q=>q.graha===p);let total=0;
+ for(const o of positions){if(o.graha===p)continue;const v=drishtiValue(me.longitude-o.longitude,o.graha);if(v<=0)continue; // 26.6: aspecting subtracted FROM aspected (target - aspecter)
+  if(o.graha==='Jupiter')total+=v;
+  else if(o.graha==='Mercury')total+=isBeneficForDrik('Mercury',positions)?v:-v/4;
+  else total+=isBeneficForDrik(o.graha,positions)?v/4:-v/4;}
+ return total;}
+function compoundRelation(p,other,positions){ // ch3.55-58: natural + temporary -> five-fold
+ const nat=NATURAL[p].friend.includes(other)?'friend':NATURAL[p].enemy.includes(other)?'enemy':'neutral';
+ const a=positions.find(q=>q.graha===p),b=positions.find(q=>q.graha===other);
+ const h=mod(Math.floor(mod(b.longitude)/30)-Math.floor(mod(a.longitude)/30),12)+1;
+ const temp=[2,3,4,10,11,12].includes(h)?'friend':'enemy';
+ if(nat==='friend'&&temp==='friend')return 'greatfriend';
+ if(nat==='enemy'&&temp==='enemy')return 'greatenemy';
+ if((nat==='friend'&&temp==='enemy')||(nat==='enemy'&&temp==='friend'))return 'neutral';
+ return nat==='neutral'?temp:nat;}
+function saptavargaScore(lon,p,positions,varga,vargas){ // BPHS 27.2-4 values; compound friendship convention (no golden)
+ const LORDS=['Mars','Venus','Mercury','Moon','Sun','Mercury','Venus','Mars','Jupiter','Saturn','Saturn','Jupiter'];
+ let total=0,detail=[];
+ for(const n of vargas){const sign=varga(lon,n).rashi;let key;
+  if(n===1&&isMT(lon,p))key='mt';else if(OWN_SIGNS[p].includes(sign))key='own';
+  else key=compoundRelation(p,LORDS[sign],positions);
+  total+=SAPTA_VALUES[key];detail.push({varga:n,sign,relation:key,value:SAPTA_VALUES[key]});}
+ return {total,detail};}
+const AHARGANA_EPOCH=Date.UTC(1827,4,1); // Raman/Sripati schematic convention - NOT BPHS method
+function abdaMasaLords(birthMs){const A=Math.floor((birthMs-AHARGANA_EPOCH)/DAY_MS);
+ const yv=3*Math.floor(A/360)+1,mv=2*Math.floor(A/30)+1;
+ const fromWed=v=>WEEKDAY_LORD[mod(v-1+3,7)]; // condensed count, 1-indexed from Wednesday; reproduces Raman (Saturn/Mercury) and his Table I epoch values 33116/33405 exactly
+ return {abdaLord:fromWed(yv),masaLord:fromWed(mv),ahargana:A};}
+function abdaBala(lords,p){return lords.abdaLord===p?15:0;}
+function masaBala(lords,p){return lords.masaLord===p?30:0;}
+
+// Apparent solar transit (local true noon, for Nathonnatha 27.8-9 ruling): solve LST = Sun RA.
+// Standard Meeus constants (Astronomical Algorithms ch.12/22): GMST polynomial and mean
+// obliquity; nutation (<20s of time) ignored. Sun RA from the caller's sidereal longitude +
+// ayanamsha (tropical conversion). Iterated from the rise/set midpoint; converges to <1s.
+// Astronomy, not a jyotish convention.
+const D2R=Math.PI/180;
+function solarTransitMs(sunriseMs,sunsetMs,lonEastDeg,sunSiderealFn,ayanamshaFn){
+ let t=(sunriseMs+sunsetMs)/2;
+ for(let i=0;i<4;i++){
+  const jd=t/86400000+2440587.5,T=(jd-2451545)/36525;
+  const eps=23+26/60+21.448/3600-(46.8150/3600)*T-(0.00059/3600)*T*T+(0.001813/3600)*T*T*T;
+  const lam=mod(sunSiderealFn(t)+ayanamshaFn(t))*D2R;
+  const ra=mod(Math.atan2(Math.sin(lam)*Math.cos(eps*D2R),Math.cos(lam))/D2R);
+  const gmst=mod(280.46061837+360.98564736629*(jd-2451545)+0.000387933*T*T-T*T*T/38710000);
+  let delta=ra-mod(gmst+lonEastDeg);delta=((delta+540)%360)-180;
+  t+=delta/15.0410686*3600000;
+ }
+ return t;}
+
+const PROVISIONAL=[{id:'drik-classification',note:'Drik-bala computed per BPHS 26.6-12 sphuta drishti (aspected minus aspecting) + 27.19 weighting; benefic/malefic classification is a CHOSEN CONVENTION, provisional pending verified incoming-aspect/classifier fixtures: waxing Moon benefic / waning malefic (ch3.11); Mercury malefic only when conjoined with Sun/Mars/Saturn (ch3.11), in which case it is treated under the malefic -quarter rule instead of the 27.19 Mercury full-add; Jupiter always full-add. The literal 27.19 wording (Mercury full-add without qualification) is the alternative reading, recorded for the review. Raman pp85-88 uses a different model (general aspect + fixed special additions 15/30/45, all quarter-weighted) and is NOT a golden for this model - cross-convention sign comparison withdrawn (reviewer 12:34 Q2).'}];
+const UNMODELED=[
+ {id:'cheshta-ma-sa',note:'Cheshta (Mars-Saturn): BPHS 27.24-25 needs mean longitudes + sheeghrochcha - not yet sourced; not computed.'},
+ {id:'yuddha',note:'Graha-yuddha (27.20): verse gives no war definition; Raman rule is Sripati-based without golden; not computed.'},
+ {id:'bhava-bala',note:'Bhava-bala (27.26-31): read but not cross-checked; not computed in this increment.'}];
+// Input-time convention (jyotish day, NOT civil date): sunriseMs and weekday belong to the
+// sunrise that OPENS the current jyotish day (for a pre-sunrise birth: the PREVIOUS civil
+// date's sunrise and weekday). sunsetMs is the most recent sunset bounding the birth
+// (previous evening's for a pre-sunrise birth). nextSunriseMs is the next sunrise after birth.
+function compute(input){
+ const {positions,lagna,birthMs,weekday,sunriseMs,sunsetMs,nextSunriseMs,transitMs,ayanamsa,varga}=input;
+ if(birthMs<sunriseMs)throw new Error('compute: birth before sunriseMs - pass the previous civil date sunrise and weekday for a pre-sunrise birth (jyotish-day rollover)');
+ const sun=positions.find(p=>p.graha==='Sun').longitude,moon=positions.find(p=>p.graha==='Moon').longitude;
+ const vargasFn=varga||root.BrahmJyotish?.varga;
+ const pakshaMoon=pakshaBala(sun,moon,'Moon'),ayanaSun=ayanaBala(sun,ayanamsa,'Sun');
+ const lords=abdaMasaLords(birthMs);
+ const planets=positions.filter(p=>PLANETS.includes(p.graha)).map(p=>{
+  const g=p.graha;
+  const sthana={uchcha:uchchaBala(p.longitude,g),saptavargaja:saptavargaScore(p.longitude,g,positions,vargasFn,[1,2,3,7,9,12,30]),
+   ojhayugma:ojhaYugmaRasi(p.longitude,g)+ojhaYugmaNavamsa(p.longitude,g,vargasFn),kendradi:kendradiBala(p.longitude,lagna),
+   drekkana:drekkanaBala(p.longitude,g)};
+  sthana.total=sthana.uchcha+sthana.saptavargaja.total+sthana.ojhayugma+sthana.kendradi+sthana.drekkana;
+  const dig=digBala(p.longitude,lagna,g); // separate sixfold bucket - NOT a Sthana subcomponent
+  const kala={nathonnatha:nathonnathaBala(birthMs,transitMs,g),paksha:pakshaBala(sun,moon,g),
+   tribhaga:tribhagaBala(birthMs,sunriseMs,sunsetMs,nextSunriseMs,g),abda:abdaBala(lords,g),masa:masaBala(lords,g),
+   vara:varaBala(weekday,g),hora:horaBala(birthMs,sunriseMs,weekday,g),ayana:ayanaBala(p.longitude,ayanamsa,g)};
+  kala.total=kala.nathonnatha+kala.paksha+kala.tribhaga+kala.abda+kala.masa+kala.vara+kala.hora+kala.ayana;
+  const cheshta=cheshtaBalaSunMoon(sun,moon,g,ayanaSun,pakshaMoon);
+  const drik=drikBala(g,positions);
+  // Reviewer 12:34 Q2: drik EXCLUDED from the numeric partial sum until verified
+  // incoming-aspect/classifier fixtures exist; kept as a separate experimental field.
+  return {graha:g,sthana,dig,kala,cheshta,naisargika:naisargikaBala(g),drik,
+   partialSum:sthana.total+dig+kala.total+(cheshta??0)+naisargikaBala(g)};});
+ return {planets,unmodeled:UNMODELED,provisional:PROVISIONAL,partialOnly:true,experimental:['drik'],
+  note:'Partial sums only - Mars-Saturn Cheshta, Yuddha and Bhava-bala are not computed; this is not a full Shadbala total and no ratio against required strengths is given. Drik is shown separately as experimental and is NOT included in the partial sums pending verified classification fixtures.',
+  conventions:['saptavargaja: compound (natural+temporary) friendship, BPHS 27.2-4 values; moolatrikona 45 in D1 degree-zone per BPHS 3.51-54 (Raman full-rasi and all-seven-vargas readings recorded) - no golden',
+   'abda/masa lords: Raman/Sripati schematic ahargana (epoch 1827-05-01) - not a BPHS method, reproduction-only',
+   'ayana: BPHS khanda piecewise lavas primary; Raman uses a 15-degree segment interpolation table (his pp57-59) - a different method, so printed Raman ayana values are not an accuracy bound for khanda',
+   'nathonnatha: distance from true solar transit (local apparent noon)']};
+}
+const api={compute,solarTransitMs,localDateString,previousLocalDateString,uchchaBala,digBala,naisargikaBala,kendradiBala,ojhaYugmaRasi,ojhaYugmaNavamsa,drekkanaBala,pakshaBala,nathonnathaBala,tribhagaBala,varaBala,horaBala,ayanaBala,lavas,drishtiValue,drikBala,compoundRelation,saptavargaScore,abdaMasaLords,UNMODELED,PLANETS};
+if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.BrahmBala=api;
+})(typeof window!=='undefined'?window:globalThis);
