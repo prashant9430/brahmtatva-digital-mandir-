@@ -1,0 +1,72 @@
+{
+  "source": "https://articles.adsabs.harvard.edu/pdf/1994A&A...282..663S",
+  "citation": "Simon et al., Astronomy and Astrophysics 282 (1994), pp677-679, section5.9.1-5.9.6",
+  "provenance": "Numerical formula constants transcribed from primary paper page images, not another program. Lambda only; not ephemeris positions. No software copied.",
+  "time": "t=(JD_TDB-2451545.0)/365250 (Julian millennia). TT can approximate TDB subject to stated timing error, not UTC silently.",
+  "frame": "Heliocentric mean longitude, mean dynamical ecliptic and equinox OF DATE. Constant term degrees, coefficients t^1..t^6 ARCSECONDS. Longitude = (c0 + (c1*t+...+c6*t^6)/3600) mod360.",
+  "lambda_coefficients": {
+    "Mercury": [
+      252.25090552,
+      5381066598.20037,
+      109.25943,
+      0.06522,
+      -0.235,
+      -0.00179,
+      0.0002
+    ],
+    "Venus": [
+      181.97980085,
+      2106691666.31989,
+      111.65021,
+      0.05368,
+      -0.23516,
+      -0.00179,
+      0.0002
+    ],
+    "Earth": [
+      100.46645683,
+      1296027711.03429,
+      109.15809,
+      0.07207,
+      -0.2353,
+      -0.0018,
+      0.0002
+    ],
+    "Mars": [
+      355.43299958,
+      689101069.33069,
+      111.78674,
+      0.05624,
+      -0.23516,
+      -0.0018,
+      0.0002
+    ],
+    "Jupiter": [
+      34.35151874,
+      109306899.89453,
+      80.387,
+      0.13327,
+      -0.1885,
+      0.00411,
+      -0.00014
+    ],
+    "Saturn": [
+      50.0774443,
+      44046398.47038,
+      186.86817,
+      -0.10748,
+      -0.35004,
+      -0.0163,
+      0.00103
+    ]
+  },
+  "bala_mapping": "Chosen MODERN mean-element convention, not Raman historical tables: meanSun=EarthLambda+180; Mars/Jupiter/Saturn meanPlanet=own lambda, sheeghrochcha=meanSun; Mercury/Venus meanPlanet in midpoint=meanSun, sheeghrochcha=own lambda. True planet geocentric longitude must be in matching frame (of-date tropical or all converted to same sidereal frame).",
+  "limits": [
+    "Paper section5.9: Mercury/Venus/Earth/Mars from VSOP87; Jupiter/Saturn from JASON84, not all VSOP87.",
+    "Do not use JPL best-fit approximate-position L as a genuine mean; JPL says those elements not intended to represent any sort of mean.",
+    "Need explicit mean-vs-true ecliptic/equinox convention; app apparent sidereal positions plus mean ayanamsa yield nutation-bearing tropical positions. Do not claim strict frame identity without correction or explicit small-approximation budget.",
+    "Second independent transcription supplied by worker and rechecked on primary paper pixels; coefficient agreement now complete for the six lambda polynomials.",
+    "Apply existing app1900-2100 product guard; no claim here about unlimited-date validity."
+  ],
+  "transcription_corrections": "Second primary-image review confirms Mercury t3 .06522; Saturn t4 -.35004 and t6 +.00103; Jupiter t6 -.00014. First transcription had .065222/-.335/.000103/-.000014; superseded."
+}
