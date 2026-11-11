@@ -106,5 +106,51 @@ const lordOf=[];for(let bh=1;bh<=12;bh++)if(SIGN_LORD[(asc+bh-1)%12]===lord)lord
 return {lord,node,house:h,zone,dignity,degreeZone:degreeZoneOf(lord,g.rashi,g.degreesInRashi),conjunct:conj,lordOf,phal:DASHA_PHAL[lord]};}
 function panchaMaha(ys){const by={};for(const y of ys){if(!y.name.includes('पंचमहापुरुष')||!y.hit)continue;const[yoga,origin]=y.id.split('-');(by[yoga]=by[yoga]||{name:y.name,origins:[]}).origins.push(origin);}const entries=Object.values(by);return {count:entries.length,entries};}
 function doshaGeometry(planets,asc,transit){signCheck(asc,'Lagna');planetsCheck(planets,['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'],'natal planet');planetsCheck(transit,['Saturn'],'transit planet');for(const p of planets)if(['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu'].includes(p.graha))angleCheck(p.longitude,p.graha+' longitude');const p=Object.fromEntries(planets.map(p=>[p.graha,p])),mars=house(p.Mars.rashi,asc),rahu=p.Rahu.longitude,dist=x=>((x-rahu)%360+360)%360,positions=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'].map(k=>dist(p[k].longitude));const edge=positions.some(x=>Math.min(x,Math.abs(x-180),360-x)<.01),oneSide=positions.every(x=>x>0&&x<180)||positions.every(x=>x>180&&x<360),sat=house(transit.find(p=>p.graha==='Saturn').rashi,p.Moon.rashi);return {marsHouse:mars,marsPlacement:[1,4,7,8,12].includes(mars),axis:edge?'सीमा के निकट, अनिर्णीत':oneSide?'सातों ग्रह एक अर्धवृत्त में':'सातों ग्रह एक अर्धवृत्त में नहीं',saturnFromMoon:sat,sadeSati:{12:'पहला',1:'दूसरा',2:'तीसरा'}[sat]||null};}
-const METHODS={avakhada:{yoni:'Narada Purana 56 list, Uttara Ashadha = ox; modern nakula variant is not silently substituted',gana:'Customary 27-nakshatra table; Punarvasu deva differs from NP manushya',varna:'Element convention; Mithuna Brahmin in BPHS4 conflicts with air-Shudra',vashya:'Standard mapping; Karka jalachara and Simha vanachara have named variants',syllables:'Dekhopanchang 27-nakshatra table, classical attribution not independently verse-verified'},marsPlacement:'BPHS80.47 position limb only, no cancellation or final Manglik verdict',saturnRelationship:'Transit Saturn sign relative to natal Moon, customary 12/1/2 only',axis:'Modern numeric hemisphere diagnostic relative to Rahu axis only; 0.01 degree abstention tolerance is an engineering choice, not a classical rule'};const api={avakhada,yogas,panchaMaha,dashaContext,dashaBhava,bhavaLord,doshaGeometry,METHODS};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.BrahmRules=api;
+// BPHS ch52-60 antardasha (pair) layer: pair-local conditions only, from the reviewed ledger (docs/antardasha-ledger-draft.md).
+// Pair-local guard (reviewer): conditions are never harmonized across pairs (e.g. ch60.55-57 counts Labh/11th adverse; ch55.1-4 counts Ari/6th favourable).
+let PAIRS=null;
+function dashaPairsData(){if(PAIRS)return PAIRS;const src=(typeof module!=='undefined'&&module.exports)?require('./kundli-dasha-pairs.js'):root.BrahmDashaPairs;if(!src||!src.DATA)throw Error('Antardasha pair data not loaded (kundli-dasha-pairs.js)');PAIRS=src.DATA;return PAIRS;}
+function dashaPairContext(planets,asc,mahaLord,antarLord,paksha){
+ signCheck(asc,'Lagna');
+ planetsCheck(planets,['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'],'natal planet');
+ const DATA=dashaPairsData(),rec=DATA.pairs[mahaLord]&&DATA.pairs[mahaLord][antarLord];
+ if(!rec)throw Error('Unknown antardasha pair '+mahaLord+'-'+antarLord);
+ if(paksha!==undefined&&paksha!=='shukla'&&paksha!=='krishna')throw Error('paksha must be shukla or krishna');
+ const p=Object.fromEntries(planets.map(q=>[q.graha,q])),g=p[antarLord],m=p[mahaLord];
+ const node=antarLord==='Rahu'||antarLord==='Ketu';
+ const hL=house(g.rashi,asc),hM=mahaLord===antarLord?1:house(g.rashi,m.rashi);
+ const favH=[],advH=[];
+ if(rec.fl.includes(hL))favH.push({basis:'लग्न से '+hL+'वाँ भाव'});
+ if(mahaLord!==antarLord&&rec.fm.includes(hM))favH.push({basis:'महादशा-स्वामी से '+hM+'वाँ भाव'});
+ if(rec.al.includes(hL))advH.push({basis:'लग्न से '+hL+'वाँ भाव'});
+ if(mahaLord!==antarLord&&rec.am.includes(hM))advH.push({basis:'महादशा-स्वामी से '+hM+'वाँ भाव'});
+ // two-layer dignity, evaluated only where this pair's own text names the kind (digk); nodes stay unmodeled (mat-bhed)
+ let dignity=null;
+ if((rec.dig||rec.deb)&&!node)dignity=DASHA_EX[antarLord]===g.rashi?'उच्च राशि':(DASHA_EX[antarLord]+6)%12===g.rashi?'नीच राशि':DASHA_OWN[antarLord].includes(g.rashi)?'स्वराशि':'अन्य राशि (मित्रता का निर्णय नहीं)';
+ const degreeZone=rec.dig?degreeZoneOf(antarLord,g.rashi,g.degreesInRashi):null;
+ const dk=rec.digk||[];
+ const digHit=!node&&((dk.includes('ex')&&dignity==='उच्च राशि')||(dk.includes('own')&&dignity==='स्वराशि')||(dk.includes('mt')&&degreeZone&&degreeZone.zone==='मूलत्रिकोण क्षेत्र'));
+ const debHit=!!rec.deb&&!node&&dignity==='नीच राशि';
+ if(digHit)favH.push({basis:'राशि-गरिमा की अनुकूल शर्त: '+(dignity==='उच्च राशि'?'उच्च राशि':dignity==='स्वराशि'?'स्वराशि':'मूलत्रिकोण क्षेत्र')+' बनी'});
+ if(debHit)advH.push({basis:'नीच राशि की प्रतिकूल शर्त बनी'});
+ const notes=[],omissions=[];
+ if(rec.dig&&dk.includes('nav'))notes.push('इस युग्म के पाठ में नवांश-गरिमा भी शर्त है; नवांश इस परत में नहीं जाँची जाती — पूरी शर्त पाठ्य चर्चा में पढ़ें।');
+ if(rec.dig&&dignity&&!digHit&&!debHit&&dignity!=='अन्य राशि (मित्रता का निर्णय नहीं)')notes.push('राशि-स्थिति '+dignity+' — इस युग्म के पाठ की नामित गरिमा-शर्त इससे नहीं बनती (शर्तें युग्म-विशेष हैं, पाठ्य चर्चा देखें)।');
+ if(node)notes.push('राहु/केतु की राशि-गरिमा मत-भेद के कारण नहीं जाँची जाती; पाठ में कही गरिमा-बात केवल पाठ्य चर्चा है।');
+ // paksha: only for pairs whose own text carries the waxing/waning modifier (all are Moon-antar pairs)
+ let pakshaNote=null;
+ if(rec.waxing||rec.waning){
+  if(paksha==='shukla')pakshaNote=rec.waxing?'जन्म-चन्द्र शुक्ल-पक्ष (वर्धमान): स्रोत के अनुसार इस युग्म में पूर्ण फल की ओर।':'जन्म-चन्द्र शुक्ल-पक्ष (वर्धमान): इस युग्म की क्षीण-चन्द्र प्रतिकूल शर्त नहीं बनती।';
+  else if(paksha==='krishna')pakshaNote=rec.waning?(rec.waxing?'जन्म-चन्द्र क्षीण (कृष्ण-पक्ष): स्रोत के अनुसार प्रभाव में कुछ कमी कही गई है।':'जन्म-चन्द्र क्षीण (कृष्ण-पक्ष): इस युग्म की क्षीण-चन्द्र प्रतिकूल शर्त बनती है।'):'जन्म-चन्द्र क्षीण (कृष्ण-पक्ष): स्रोत केवल वर्धमान पर पूर्ण फल कहता है, क्षीण पर पूर्णता की शर्त नहीं बनती।';
+  else pakshaNote='चन्द्र-पक्ष उपलब्ध नहीं — इस युग्म की पक्ष-शर्त नहीं जाँची गई।';
+ }
+ if(rec.weak)notes.push('पाठ की "दुर्बल/बल-विहीन" चन्द्र-शर्त: बल-गणना (शड्बल) अनियंत्रित है, इसलिए यह शर्त कभी स्वतः नहीं लगाई जाती — केवल पाठ-चर्चा।');
+ if(rec.maraka)omissions.push('इस युग्म के 2/7 (मारक)-सूत्र श्लोक की मृत्यु-पदावली पूरी तरह हटाई गई है (तकनीकी लोप, लोप-अभिलेख में दर्ज)।');
+ if(rec.deathx)omissions.push('इस युग्म के अन्य मृत्यु-संबंधी वाक्यांश भी पूरी तरह हटाए गए हैं।');
+ if(rec.remedy)omissions.push('स्रोत का उपाय/दान/जप-अंश नीति से नहीं लिया गया (लोप-अभिलेख में दर्ज)।');
+ if(rec.prov)omissions.push('स्वामित्व-टिप्पणी: इस युग्म के श्लोक-खंड की ऑनलाइन अध्याय-सूची में परिचय-पंक्ति नहीं है; स्वामित्व समीक्षक-सत्यापित स्थिति-मानचित्र (अध्याय 58) से लिया गया — मुद्रित पुष्टि बाकी।');
+ if(rec.gap)omissions.push('स्रोत-अंतराल: ऑनलाइन पाठ में इसी अध्याय का श्लोक '+rec.gap+' अनुपलब्ध है; प्रपूरण नहीं किया गया।');
+ return {mahaLord,antarLord,node,ch:rec.ch,rec:{ref:rec.ref,fav:rec.fav,adv:rec.adv,mid:rec.mid||null},houseFromLagna:hL,houseFromMaha:hM,dignity,degreeZone,favH,advH,paksha:paksha||null,pakshaNote,notes,omissions,
+  unmodeled:['युति/दृष्टि-शर्तें','लग्नेश/योगकारक आदि स्वामित्व-संबंध शर्तें','नवांश-गरिमा','अस्तता','बल-गणना (शड्बल)','गोचर-शर्तें','दिशा/देवता-विशिष्ट पंक्तियाँ','काल-विभाजन की घड़ी-गणना (आरम्भ/मध्य/अंत की अवधियाँ)']};}
+const METHODS={avakhada:{yoni:'Narada Purana 56 list, Uttara Ashadha = ox; modern nakula variant is not silently substituted',gana:'Customary 27-nakshatra table; Punarvasu deva differs from NP manushya',varna:'Element convention; Mithuna Brahmin in BPHS4 conflicts with air-Shudra',vashya:'Standard mapping; Karka jalachara and Simha vanachara have named variants',syllables:'Dekhopanchang 27-nakshatra table, classical attribution not independently verse-verified'},marsPlacement:'BPHS80.47 position limb only, no cancellation or final Manglik verdict',saturnRelationship:'Transit Saturn sign relative to natal Moon, customary 12/1/2 only',axis:'Modern numeric hemisphere diagnostic relative to Rahu axis only; 0.01 degree abstention tolerance is an engineering choice, not a classical rule'};const api={avakhada,yogas,panchaMaha,dashaContext,dashaBhava,dashaPairContext,bhavaLord,doshaGeometry,METHODS};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.BrahmRules=api;
 })(typeof window!=='undefined'?window:globalThis);
