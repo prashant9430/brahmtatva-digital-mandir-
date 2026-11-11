@@ -198,3 +198,56 @@ ck('s2-48.17-karm-neg',refs(db(mk({Saturn:0,Mars:8,Sun:3,Moon:4,Mercury:5,Venus:
 // 48.9 label names both houses when one lord rules 9+10 (Saturn, Taurus lagna)
 ck('s2-48.9-both-labels',(x=>{const r=x.fav.find(r=>r.ref==='BPHS 48.9');return r?r.text.includes('9वें/10वें'):false;})(db(mk({Saturn:5,Mercury:5,Sun:1,Moon:2,Mars:3,Jupiter:6,Venus:7,Rahu:8,Ketu:9}),1,'Saturn')),true);
 console.log('\nFINAL5 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
+
+// --- Moolatrikona/degree-zone layer (BPHS 3.49-54, ledger moolatrikona-ledger-draft.md)
+const dz=(graha,rashi,deg)=>{const ps=base(S.Simha);const p=ps.find(x=>x.graha===graha);p.rashi=rashi;p.degreesInRashi=deg;p.longitude=rashi*30+deg;return R.dashaContext(ps,S.Mesha,graha).degreeZone;};
+ck('zone-sun-mt',dz('Sun',S.Simha,10),{zone:'मूलत्रिकोण क्षेत्र',boundary:false});
+ck('zone-sun-own',dz('Sun',S.Simha,25),{zone:'स्वराशि अंश (मूलत्रिकोण राशि का शेष)',boundary:false});
+ck('zone-moon-uc',dz('Moon',S.Vrishabha,1),{zone:'उच्च-क्षेत्र',boundary:false});
+ck('zone-moon-mt',dz('Moon',S.Vrishabha,10),{zone:'मूलत्रिकोण क्षेत्र',boundary:false});
+ck('zone-mercury-uc',dz('Mercury',S.Kanya,10),{zone:'उच्च-क्षेत्र',boundary:false});
+ck('zone-mercury-mt',dz('Mercury',S.Kanya,17),{zone:'मूलत्रिकोण क्षेत्र',boundary:false});
+ck('zone-mercury-own',dz('Mercury',S.Kanya,25),{zone:'स्वराशि अंश (मूलत्रिकोण राशि का शेष)',boundary:false});
+ck('zone-mars-mt',dz('Mars',S.Mesha,5),{zone:'मूलत्रिकोण क्षेत्र',boundary:false});
+ck('zone-mars-own',dz('Mars',S.Mesha,20),{zone:'स्वराशि अंश (मूलत्रिकोण राशि का शेष)',boundary:false});
+ck('zone-jupiter-mt',dz('Jupiter',S.Dhanu,5),{zone:'मूलत्रिकोण क्षेत्र',boundary:false});
+ck('zone-venus-own',dz('Venus',S.Tula,20),{zone:'स्वराशि अंश (मूलत्रिकोण राशि का शेष)',boundary:false});
+ck('zone-saturn-mt',dz('Saturn',S.Kumbha,10),{zone:'मूलत्रिकोण क्षेत्र',boundary:false});
+// rashi layer unchanged: exaltation RASHI label coexists with degree zone
+ck('rashi-layer-mercury',(x=>[x.dignity,x.degreeZone.zone])(R.dashaContext((ps=>{const p=ps.find(q=>q.graha==='Mercury');p.rashi=S.Kanya;p.degreesInRashi=17;p.longitude=5*30+17;return ps;})(base(S.Simha)),S.Mesha,'Mercury')),['उच्च राशि','मूलत्रिकोण क्षेत्र']);
+ck('rashi-layer-moon',(x=>[x.dignity,x.degreeZone.zone])(R.dashaContext((ps=>{const p=ps.find(q=>q.graha==='Moon');p.rashi=S.Vrishabha;p.degreesInRashi=10;p.longitude=1*30+10;return ps;})(base(S.Simha)),S.Mesha,'Moon')),['उच्च राशि','मूलत्रिकोण क्षेत्र']);
+// boundaries: half-open intervals + disclosed ±0.01 window, no label near boundary
+ck('bnd-sun-20.00',dz('Sun',S.Simha,20.00),{zone:null,boundary:true});
+ck('bnd-sun-20.005',dz('Sun',S.Simha,20.005),{zone:null,boundary:true});
+ck('bnd-sun-19.995',dz('Sun',S.Simha,19.995),{zone:null,boundary:true});
+ck('bnd-sun-19.9',dz('Sun',S.Simha,19.9).zone,'मूलत्रिकोण क्षेत्र');
+ck('bnd-sun-20.1',dz('Sun',S.Simha,20.1).zone,'स्वराशि अंश (मूलत्रिकोण राशि का शेष)');
+ck('bnd-mercury-15.00',dz('Mercury',S.Kanya,15.00),{zone:null,boundary:true});
+ck('bnd-mercury-14.995',dz('Mercury',S.Kanya,14.995).boundary,true);
+ck('bnd-mercury-15.005',dz('Mercury',S.Kanya,15.005).boundary,true);
+ck('bnd-mercury-14.9',dz('Mercury',S.Kanya,14.9).zone,'उच्च-क्षेत्र');
+ck('bnd-mercury-15.1',dz('Mercury',S.Kanya,15.1).zone,'मूलत्रिकोण क्षेत्र');
+ck('bnd-moon-3.00',dz('Moon',S.Vrishabha,3.00),{zone:null,boundary:true});
+// nodes and missing degree
+ck('zone-node-null',dz('Rahu',S.Simha,5),{zone:null,boundary:false});
+ck('zone-missing-deg',(()=>{const ps=base(S.Simha);delete ps.find(x=>x.graha==='Sun').degreesInRashi;return R.dashaContext(ps,S.Mesha,'Sun').degreeZone;})(),{zone:null,boundary:false,missing:true});
+// 48.1 expanded-reading branch (MT only, explicit interpretation)
+ck('d48x-mt-good',(x=>[x.d48===null,x.d48x&&x.d48x.kind,x.d48x&&x.d48x.text.includes('विस्तृत पठन')&&x.d48x.text.includes('शाब्दिक')])(db(mk({Jupiter:8,Sun:0,Moon:1,Mars:2,Mercury:3,Venus:4,Saturn:5,Rahu:6,Ketu:7}).map(p=>Object.assign(p,{degreesInRashi:5})),8,'Jupiter')),[true,'fav-expanded',true]);
+ck('d48x-neg-badhouse',db(mk({Jupiter:8,Sun:0,Moon:1,Mars:2,Mercury:4,Venus:5,Saturn:6,Rahu:7,Ketu:9}).map(p=>Object.assign(p,{degreesInRashi:5})),3,'Jupiter').d48x,null);
+ck('d48x-not-for-own-sign',(x=>[x.d48===null,x.d48x===null])(db(mk({Sun:4,Moon:0,Mars:1,Mercury:2,Jupiter:3,Venus:5,Saturn:6,Rahu:7,Ketu:8}).map(p=>Object.assign(p,{degreesInRashi:25})),0,'Sun')),[true,true]);
+// cross-module: relations moola signs == DASHA_MT signs (via zone behaviour)
+{const fs=require('fs'),src=fs.readFileSync(__dirname+'/../kundli-relations.js','utf8'),m=src.match(/moola=\{([^}]*)\}/)[1];
+ const moola=Object.fromEntries(m.split(',').map(e=>e.split(':').map(x=>x.trim())));
+ const mids={Sun:10,Moon:15,Mars:6,Mercury:17.5,Jupiter:5,Venus:7.5,Saturn:10};
+ ck('xmod-moola-signs',Object.entries(moola).map(([g,sg])=>dz(g,+sg,mids[g]).zone),Array(7).fill('मूलत्रिकोण क्षेत्र'));}
+console.log('\nFINAL6 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
+
+// --- next-touch guards: out-of-range degree loud, missing label path, MT+6/8/12 mixed source-silent
+ck('zone-invalid-30',dz('Sun',S.Simha,30),{zone:null,boundary:false,invalid:true});
+ck('zone-invalid-negative',dz('Sun',S.Simha,-0.5),{zone:null,boundary:false,invalid:true});
+ck('zone-invalid-high',dz('Moon',S.Vrishabha,31),{zone:null,boundary:false,invalid:true});
+ck('zone-invalid-near-upper',dz('Sun',S.Simha,29.999).zone,'स्वराशि अंश (मूलत्रिकोण राशि का शेष)');
+ck('d48xm-mixed-silent',(x=>[x.d48===null,x.d48x===null,x.d48xm&&x.d48xm.kind,x.d48xm&&x.d48xm.text.includes('मौन')&&x.d48xm.text.includes('अनुमान नहीं')])(db(mk({Jupiter:8,Sun:0,Moon:1,Mars:2,Mercury:4,Venus:5,Saturn:6,Rahu:7,Ketu:9}).map(p=>Object.assign(p,{degreesInRashi:5})),3,'Jupiter')),[true,true,'mixed-silent',true]);
+ck('d48xm-not-when-good',db(mk({Jupiter:8,Sun:0,Moon:1,Mars:2,Mercury:3,Venus:4,Saturn:5,Rahu:6,Ketu:7}).map(p=>Object.assign(p,{degreesInRashi:5})),8,'Jupiter').d48xm,null);
+ck('d48xm-not-for-own-sign-rest',(x=>[x.d48x===null,x.d48xm===null])(db(mk({Sun:4,Moon:0,Mars:1,Mercury:2,Jupiter:3,Venus:5,Saturn:6,Rahu:7,Ketu:8}).map(p=>Object.assign(p,{degreesInRashi:25})),11,'Sun')),[true,true]);
+console.log('\nFINAL7 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
