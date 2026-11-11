@@ -126,6 +126,40 @@ ck('no-subsumed-single',R.yogas(set(base(S.Simha),'Mars',S.Kanya),S.Mesha).every
 {const y=y1(set(base(S.Simha),'Jupiter',S.Meena),S.Vrishabha,'sakata');ck('sakata-cancelled-phal-held',[y.hit,y.cancelled,(y.phal||'').length>10],[true,true,true]);}
 console.log('\nFINAL2 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
 
+
+// --- Yoga-panel omission-boundary correction (main 14:35; same boundary as E2/E3)
+// kesari 6.16: आयु-पद हटाया, omit=1
+{const y=y1(base(S.Simha),S.Mesha,'kesari');ck('kesari-aayu-omitted',[/दीर्घायु/.test(y.phal),y.omit],[false,1]);}
+// anapha 6.6: स्वास्थ्य-स्थिति पद हटाया, omit=1
+{const ps=base(S.Simha);set(ps,'Mars',S.Karka);const y=R.yogas(ps,S.Mesha).find(q=>q.id==='anapha');ck('anapha-health-omitted',[y.hit,/आरोग्य/.test(y.phal),y.omit],[true,false,1]);}
+// bhadra 6.2: आयु-पद हटाया, omit=1
+{const ps=base(S.Simha);set(ps,'Mercury',S.Mithuna);const y=R.yogas(ps,S.Mithuna).find(q=>q.id==='Mercury-लग्न');ck('bhadra-aayu-omitted',[y.hit,/दीर्घायु/.test(y.phal),y.omit],[true,false,1]);}
+// sasa 6.4: प्रतिकूल पद पुनःस्थापित (silent adverse-drop उल्टा), कोई लोप नहीं
+{const ps=base(S.Simha);set(ps,'Saturn',S.Tula);const y=R.yogas(ps,S.Tula).find(q=>q.id==='Saturn-लग्न');ck('sasa-adverse-restored',[y.hit,/पर-स्त्री-संसर्ग/.test(y.phal),/ऐतिहासिक भाषा/.test(y.phal),y.omit||0],[true,true,true,0]);}
+// source-level scan: PHAL block free of every boundary class
+{const fs=require('fs');const src=fs.readFileSync(__dirname+'/../kundli-rules.js','utf8');const pb=src.slice(src.indexOf('const PHAL={'),src.indexOf('const PHAL_OMIT'));
+ for(const badw of ['दीर्घायु','लघुायु','आरोग्य','रोग-मुक्त','निरोग','अंग-हीन','वियोग','अपंग'])ck('yogaphal-free-'+badw,pb.includes(badw),false);}
+// UI: phalLine generic count-only notice, no categories
+{const fs=require('fs');const ui=fs.readFileSync(__dirname+'/../kundli-suite-ui.js','utf8');const pl=ui.slice(ui.indexOf('function phalLine'));const ple=pl.indexOf('\nfunction ');const plb=pl.slice(0,ple>0?ple:undefined);
+ ck('phalline-generic-notice',plb.includes('तकनीकी लोप: '),true);for(const badw of ['दीर्घायु','आरोग्य','रोग-मुक्त','अंग-हीन'])ck('phalline-free-'+badw,plb.includes(badw),false);}
+
+// --- Dasha stage-1: dashaContext (BPHS ch47, ledger dasha-phal-ledger-draft.md)
+function dc(ps,asc,lord){try{return R.dashaContext(ps,asc,lord);}catch(e){return 'ERR:'+e.message;}}
+ck('dasha-swarashi-Sun',(x=>[x.dignity,x.house,x.zone,x.node])(dc(set(base(S.Simha),'Sun',S.Simha),S.Mesha,'Sun')),['स्वराशि',5,'त्रिकोण',false]);
+ck('dasha-uchcha-Mars',(x=>[x.dignity,x.house,x.zone])(dc(set(base(S.Simha),'Mars',S.Makara),S.Karka,'Mars')),['उच्च राशि',7,'केंद्र']);
+ck('dasha-neecha-Venus',(x=>[x.dignity,x.zone])(dc(set(base(S.Simha),'Venus',S.Kanya),S.Mesha,'Venus')),['नीच राशि','6/8/12']);
+ck('dasha-lagna-bhava-zone',dc(set(base(S.Simha),'Jupiter',S.Mesha),S.Mesha,'Jupiter').zone,'केंद्र और त्रिकोण (लग्न भाव)');
+ck('dasha-trikona-9',(x=>[x.house,x.zone])(dc(set(base(S.Simha),'Saturn',S.Dhanu),S.Mesha,'Saturn')),[9,'त्रिकोण']);
+ck('dasha-other-zone',(x=>[x.dignity,x.house,x.zone])(dc(set(base(S.Simha),'Sun',S.Vrishabha),S.Mesha,'Sun')),['अन्य राशि (मित्रता का निर्णय नहीं)',2,'अन्य']);
+ck('dasha-node-no-dignity',(x=>[x.node,x.dignity])(dc(base(S.Simha),S.Mesha,'Rahu')),[true,null]);
+{const ps=base(S.Simha);['Moon','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'].forEach((g,i)=>set(ps,g,[1,2,3,5,6,7,8][i]));set(ps,'Mars',S.Simha);
+ ck('dasha-conjunct',dc(ps,S.Mesha,'Sun').conjunct,['Mars']);
+ ck('dasha-no-conjunct',dc(ps,S.Mesha,'Moon').conjunct,[]);}
+ck('dasha-unknown-lord',dc(base(S.Simha),S.Mesha,'Pluto'),'ERR:Unknown dasha lord Pluto');
+ck('dasha-missing-planet',dc(base(S.Simha).filter(p=>p.graha!=='Rahu'),S.Mesha,'Rahu'),'ERR:Missing planet Rahu');
+ck('dasha-phal-all-lords',['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'].every(l=>{const x=dc(base(S.Simha),S.Mesha,l);return x.phal&&x.phal.fav.length>20&&x.phal.adv.length>20&&/^BPHS 47/.test(x.phal.ref);}),true);
+ck('dasha-no-aggregate-score','score' in dc(base(S.Simha),S.Mesha,'Sun'),false);
+
 // --- Dasha stage-1: dashaContext (BPHS ch47, ledger dasha-phal-ledger-draft.md)
 function dc(ps,asc,lord){try{return R.dashaContext(ps,asc,lord);}catch(e){return 'ERR:'+e.message;}}
 ck('dasha-swarashi-Sun',(x=>[x.dignity,x.house,x.zone,x.node])(dc(set(base(S.Simha),'Sun',S.Simha),S.Mesha,'Sun')),['स्वराशि',5,'त्रिकोण',false]);
