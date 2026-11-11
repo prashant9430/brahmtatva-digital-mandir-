@@ -26,6 +26,8 @@ const ms=house(p.Moon.rashi,p.Sun.rashi),level=kendra(ms)?'अधमा':[2,5,8,
 out.push({id:'moon-from-sun',name:'चन्द्र-सूर्य श्रेणी',hit:true,level,reason:'चन्द्र सूर्य से भाव '+ms+' में ⇒ '+level+' (केंद्र=अधमा, पण्फर=सम, आपोक्लिम=वरिष्ठ)।',source:'Phaladeepika 6.14, फल 6.18',phal:'धन, वाहन, यश, सुख, ज्ञान, विनय, विद्या और त्याग-भोग की चर्चा इस श्रेणी में '+(level==='अधमा'?'न्यूनतम':level==='सम'?'मध्यम':'उत्तम')+' कही गई है। यह हर कुंडली का सामान्य वर्गीकरण है; कोई एक श्रेणी सदैव बनती है, विशेष योग नहीं।'});}
 return out;}
 const DASHA_OWN={Sun:[4],Moon:[3],Mars:[0,7],Mercury:[2,5],Jupiter:[8,11],Venus:[1,6],Saturn:[9,10]},DASHA_EX={Sun:0,Moon:1,Mars:9,Mercury:5,Jupiter:3,Venus:11,Saturn:6};
+const SIGN_LORD=['Mars','Venus','Mercury','Moon','Sun','Mercury','Venus','Mars','Jupiter','Saturn','Saturn','Jupiter'];
+function bhavaLord(asc,h){signCheck(asc,'Lagna');if(!Number.isInteger(h)||h<1||h>12)throw Error('House must be 1-12');return SIGN_LORD[(asc+h-1)%12];}
 const DASHA_PHAL={
 Sun:{ref:'BPHS 47.7-11 / 47.12-15',fav:'स्व/उच्च राशि, केंद्र या 11वें भाव, धर्म/कर्म-स्वामी संबंध और वर्ग-बल पर धन, सुख, सरकारी सम्मान और उच्च पद की चर्चा; 5वें/2वें/4वें स्वामी युति पर क्रमशः संतान/धन/वाहन-सुख।',adv:'नीच राशि, 6/8/12 में दुर्बलता, पाप-युति या 6/8/12-स्वामी युति पर चिंता, धन-हानि, सरकारी दंड, अपयश, पिता व कुटुम्ब के कष्ट की चर्चा; शुभ-दृष्टि पर कुछ शमन, पाप-दृष्टि पर वृद्धि कही गई है।'},
 Moon:{ref:'BPHS 47.16-22 / 47.23-26',fav:'उच्च/स्व राशि, केंद्र/11/9/5, शुभ-युति/दृष्टि और पूर्ण-बल पर ऐश्वर्य, धन-लाभ, मांगलिक कार्य, पद, वाहन और संतान-सुख की चर्चा; 2वें भाव में बलवान चन्द्र पर विशेष धन-लाभ।',adv:'क्षीण या नीच चन्द्र पर धन-हानि; 3वें में मिश्रित; पाप-युति पर मानसिक तनाव, माता/सेवक-कष्ट; क्षीण होकर 6/8/12 में सरकार से वैर व धन-हानि; बलवान 6/8/12 में मिश्रित फल कहा गया है।'},
@@ -36,10 +38,63 @@ Venus:{ref:'BPHS 47.79-82, 47.85-87 / 47.83-84½, 47.88-89',fav:'उच्च/�
 Saturn:{ref:'BPHS 47.53-56 / 47.57-60',fav:'उच्च/स्व/मूलत्रिकोण/मित्र राशि, स्व/उच्च नवांश और 3/11 स्थिति पर सरकारी मान, ऐश्वर्य, यश, विद्या, वाहन-आभूषण, धन, उच्च पद, संपत्ति और संतान की चर्चा।',adv:'6/8/12, नीच या अस्त पर विष/अस्त्र-कष्ट, पिता-वियोग, पत्नी-संतान कष्ट, सरकारी नाराज़गी और कारावास की परंपरागत चर्चा; उसी श्लोक-समूह में शुभ-दृष्टि/युति, केंद्र/त्रिकोण या धनु/मीन स्थिति पर शुभ प्रतिवाद भी है।'},
 Rahu:{ref:'BPHS 47.34-39½ / 47.40-43',fav:'शुभ राशि, शुभ-युति/दृष्टि और 1/4/7/10/11/3 स्थिति पर सुख, धन, वाहन, नया गृह, संतान और विदेशी स्रोत से लाभ की चर्चा।',adv:'8/12 स्थिति पर सर्व-कष्ट; पाप/मारक-युति या नीच पर पद-हानि, गृह-क्षति और मानसिक पीड़ा की चर्चा; आरम्भ में धन-हानि, मध्य में राहत, अंत में चिंता की क्रम-चर्चा।'},
 Ketu:{ref:'BPHS 47.72-77',fav:'केंद्र/त्रिकोण/11 और शुभ राशि पर शासक-मैत्री, प्रधानता, वाहन-सुख, संतान-सुख और विदेश-लाभ की चर्चा; 3/6/11 पर राज्य-लाभ व मित्र-सुख; आरम्भ राजयोग, मध्य भय, अंत रोग/दूर-यात्रा की क्रम-चर्चा।',adv:'2/8/12 स्थिति या पाप-दृष्टि पर कारावास, गृह-क्षति, चिंता और रोग की चर्चा।'}};
+const GRAHA_HI={Sun:'सूर्य',Moon:'चन्द्र',Mars:'मंगल',Mercury:'बुध',Jupiter:'गुरु',Venus:'शुक्र',Saturn:'शनि',Rahu:'राहु',Ketu:'केतु'};
+// BPHS 48.2-8 per house-lord dasha discussion; maraka/death clauses fully omitted (logged), illness kept only as historical category wording
+const BHAVA48={1:'लग्नेश की दशा में शारीरिक स्वस्थता की चर्चा।',2:'धनेश की दशा में कष्ट की चर्चा; स्रोत का मारक-भय इस चरण में पूरी तरह हटाया गया है।',3:'सहजेश की दशा में प्रतिकूल फल की चर्चा।',4:'बंधुवेश की दशा में गृह-भूमि प्राप्ति की चर्चा।',5:'पुत्रेश की दशा में शिक्षा-प्रगति और संतान-सुख की चर्चा।',6:'षष्ठेश की दशा में शत्रु-खतरा और रोग की परंपरागत श्रेणी-चर्चा (ऐतिहासिक वर्गीकरण, व्यक्तिगत स्वास्थ्य-अनुमान नहीं)।',7:'युवतीेश की दशा में पत्नी-कष्ट की चर्चा; मारक-भय हटाया गया।',8:'रन्ध्रेश की दशा में धन-हानि की चर्चा; मारक-भय हटाया गया।',9:'धर्मेश की दशा में शिक्षा, धार्मिकता और अप्रत्याशित धन-लाभ की चर्चा।',10:'कर्मेश की दशा में सरकारी मान-सम्मान की चर्चा।',11:'लाभेश की दशा में धन-लाभ में बाधा की चर्चा; स्रोत की रोग-संभावना ऐतिहासिक श्रेणी है, व्यक्तिगत अनुमान नहीं।',12:'व्ययेश की दशा में कष्ट की चर्चा; स्रोत का रोग-खतरा ऐतिहासिक श्रेणी है, व्यक्तिगत अनुमान नहीं।'};
+function dashaBhava(planets,asc,lord){const cx=dashaContext(planets,asc,lord),p=Object.fromEntries(planets.map(q=>[q.graha,q])),g=p[lord];
+ const lordOf=cx.lordOf,KENDRA=[1,4,7,10],TRIKONA=[1,5,9],DUSTHANA=[6,8,12];
+ const lordsOf=hs=>hs.map(h=>SIGN_LORD[(asc+h-1)%12]);
+ const isLordOf=hs=>lordOf.some(h=>hs.includes(h));
+ const conjSet=cx.conjunct;
+ const placedIn=(gr,hs)=>hs.includes(house(p[gr].rashi,asc));
+ const fav=[],adv=[],notes=[];
+ // bhava-lordship discussion rows (48.2-8)
+ const bhavaCharcha=lordOf.map(h=>({house:h,text:BHAVA48[h],ref:'BPHS 48.2-8'}));
+ // 48.9: 9th or 10th lord conjunct 5th lord - read per lord, both not required
+ const fifth=SIGN_LORD[(asc+4)%12];
+ if(isLordOf([9,10])&&conjSet.includes(fifth)){const nl=[9,10].filter(h=>lordOf.includes(h)).map(h=>h+'वें').join('/');fav.push({ref:'BPHS 48.9',text:nl+'-स्वामी की 5वें-स्वामी ('+GRAHA_HI[fifth]+') से युति; प्रत्येक स्वामी अलग पढ़ा गया है, दोनों की युति एक साथ आवश्यक नहीं।'});}
+ // 48.10: other planet associated with 5th lord - chosen pronoun reading: the other planet's dasha
+ if(lord!==fifth&&conjSet.includes(fifth))fav.push({ref:'BPHS 48.10',text:'5वें-स्वामी ('+GRAHA_HI[fifth]+') से युति; "any other planet" का चुना पठन: युति पाने वाले अन्य ग्रह ('+GRAHA_HI[lord]+') की दशा — सर्वनाम-अस्पष्टता दर्ज।'});
+ // 48.11: 10th/4th lord associated with 9th lord
+ const ninth=SIGN_LORD[(asc+8)%12];
+ if(isLordOf([10,4])&&conjSet.includes(ninth)&&ninth!==lord)fav.push({ref:'BPHS 48.11',text:(isLordOf([10])?'10वें':'4वें')+'-स्वामी का 9वें-स्वामी ('+GRAHA_HI[ninth]+') से संबंध।'});
+ // 48.12-13: kendra lord in trikona or trikona lord in kendra (placement, computable)
+ const inK=KENDRA.includes(cx.house),inT=TRIKONA.includes(cx.house);
+ if((isLordOf(KENDRA)&&inT)||(isLordOf(TRIKONA)&&inK))fav.push({ref:'BPHS 48.12-13',text:(isLordOf(KENDRA)?'केंद्र-स्वामी त्रिकोण में':'त्रिकोण-स्वामी केंद्र में')+' स्थित — अत्यंत अनुकूल कहा गया।'});
+ // 48.14: 6/8/12 lord associated with trikona lord
+ const trikonaLords=lordsOf(TRIKONA);
+ if(isLordOf(DUSTHANA)&&conjSet.some(c=>trikonaLords.includes(c)))fav.push({ref:'BPHS 48.14',text:'6/8/12-स्वामी का त्रिकोण-स्वामी से संबंध — अनुकूल कहा गया (48.18 की प्रतिकूल पंक्ति के साथ अतिव्यापन हो तो दोनों दिखाए जाते हैं, निर्णय-नेटिंग नहीं)।'});
+ // 48.14-15: dasha of planet conjunct one who is kendra-lord-in-trikona or trikona-lord-in-kendra
+ const special=conjSet.filter(c=>{const cl=[...Array(12)].map((_,i)=>i+1).filter(h=>SIGN_LORD[(asc+h-1)%12]===c);const ch=house(p[c].rashi,asc);return (cl.some(h=>KENDRA.includes(h))&&TRIKONA.includes(ch))||(cl.some(h=>TRIKONA.includes(h))&&KENDRA.includes(ch));});
+ if(special.length)fav.push({ref:'BPHS 48.14-15',text:'युति ग्रह '+special.map(c=>GRAHA_HI[c]).join(', ')+' केंद्र/त्रिकोण-स्वामी होकर त्रिकोण/केंद्र में है — युति पाने वाले की दशा अनुकूल कही गई।'});
+ // 48.16-17.5: mutual lagnesh-dharmesh and lagnesh-karmesh placements
+ const lagnesh=SIGN_LORD[asc],karmesh=SIGN_LORD[(asc+9)%12];
+ if(placedIn(ninth,[1])&&placedIn(lagnesh,[9])&&(lord===lagnesh||lord===ninth))fav.push({ref:'BPHS 48.16-17',text:'धर्मेश लग्न में और लग्नेश धर्म में — दोनों की दशा अत्यंत अनुकूल कही गई।'});
+ if(placedIn(karmesh,[1])&&placedIn(lagnesh,[10])&&(lord===lagnesh||lord===karmesh))fav.push({ref:'BPHS 48.17-17½',text:'कर्मेश लग्न में और लग्नेश कर्म में — "राज्य-प्राप्ति" की परंपरागत ऐतिहासिक पदावली।'});
+ // 48.18-20 adverse group
+ if(isLordOf([3,6,11]))adv.push({ref:'BPHS 48.18',text:'3/6/11-भाव का स्वामी — प्रतिकूल चर्चा।'});
+ if([3,6,11].includes(cx.house)){if(cx.node)notes.push('BPHS 48.20: राहु/केतु 3/6/11 में अनुकूल बताए गए हैं — प्रतिकूल स्थिति-पंक्ति इस अपवाद से नहीं लगाई गई।');else adv.push({ref:'BPHS 48.18',text:'3/6/11 भाव में स्थिति — प्रतिकूल चर्चा।'});}
+ const adhLords=lordsOf([3,6,11]),placed3611=planets.filter(q=>!['Rahu','Ketu'].includes(q.graha)&&[3,6,11].includes(house(q.rashi,asc))).map(q=>q.graha);
+ const adhPartners=conjSet.filter(c=>adhLords.includes(c)||placed3611.includes(c));
+ if(adhPartners.length)adv.push({ref:'BPHS 48.18',text:'3/6/11-स्वामी या उन भावों में स्थित ग्रह ('+adhPartners.map(c=>GRAHA_HI[c]).join(', ')+') से युति — प्रतिकूल चर्चा।'});
+ const nodePartner=conjSet.filter(c=>['Rahu','Ketu'].includes(c)&&[3,6,11].includes(house(p[c].rashi,asc)));
+ if(nodePartner.length&&!cx.node)notes.push('BPHS 48.18/48.20: युति में '+nodePartner.map(c=>GRAHA_HI[c]).join(', ')+' 3/6/11 में है; राहु/केतु-अपवाद के कारण इस युति-पंक्ति की प्रतिकूलता अनिश्चित मानी गई, पंक्ति नहीं लगाई।');
+ // 48.19 maraka group - technical term only, death inference fully omitted
+ const marakaLords=lordsOf([2,7]);
+ if(conjSet.some(c=>marakaLords.includes(c))||[2,7].includes(cx.house))adv.push({ref:'BPHS 48.19',text:'मारक-भाव (2/7) के स्वामी से युति या 2/7 में स्थिति — प्रतिकूल चर्चा; "मारक" तकनीकी शब्द है; स्रोत की मारक-संबंधी भय-पदावली इस चरण में पूरी तरह हटाई गई है (लोप अभिलेख में दर्ज)।'});
+ if(cx.house===8)adv.push({ref:'BPHS 48.20',text:'8वें भाव में स्थिति — प्रतिकूल चर्चा।'});
+ // 48.1 joint dignity+house: only the two addressed combinations; mixed = source silent
+ let d48=null;
+ const goodHouse=!DUSTHANA.includes(cx.house);
+ if(cx.dignity==='उच्च राशि'&&goodHouse)d48={ref:'BPHS 48.1',kind:'fav',text:'उच्च राशि + शुभ भाव (6/8/12 के बाहर, 48.5-8 सूची से; "त्रिकोण आदि" खुला वाक्य) — संयुक्त रूप से अनुकूल कहा गया।'};
+ else if(cx.dignity==='नीच राशि'&&!goodHouse)d48={ref:'BPHS 48.1',kind:'adv',text:'नीच राशि + 6/8/12 भाव — संयुक्त रूप से प्रतिकूल कहा गया।'};
+ else if(['उच्च राशि','नीच राशि'].includes(cx.dignity))notes.push('BPHS 48.1: '+(cx.dignity==='उच्च राशि'?'उच्च राशि परंतु 6/8/12 भाव':'नीच राशि परंतु 6/8/12 के बाहर का भाव')+' — स्रोत इस मिश्रित संयोजन पर मौन है; अनुमान नहीं जोड़ा गया।');
+ return {lord,cx,lordOf,bhavaCharcha,d48,fav,adv,notes,unmodeled:['दशा-आरम्भ का गोचर (48.5-8 इसे आवश्यक कहता है)','दृष्टि-आधारित अनुकूलता (48.14-17½)','मूलत्रिकोण और स्वराशि आदि "उच्चादि" विस्तार']};}
 function dashaContext(planets,asc,lord){signCheck(asc,'Lagna');planetsCheck(planets,['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'],'natal planet');if(!DASHA_PHAL[lord])throw Error('Unknown dasha lord '+lord);const p=Object.fromEntries(planets.map(q=>[q.graha,q])),g=p[lord];if(!g)throw Error('Missing planet '+lord);const node=lord==='Rahu'||lord==='Ketu',h=house(g.rashi,asc),zone=h===1?'केंद्र और त्रिकोण (लग्न भाव)':kendra(h)?'केंद्र':[5,9].includes(h)?'त्रिकोण':[6,8,12].includes(h)?'6/8/12':'अन्य',conj=planets.filter(q=>q.graha!==lord&&q.rashi===g.rashi).map(q=>q.graha);let dignity=null;
 if(!node){dignity=DASHA_EX[lord]===g.rashi?'उच्च राशि':(DASHA_EX[lord]+6)%12===g.rashi?'नीच राशि':DASHA_OWN[lord].includes(g.rashi)?'स्वराशि':'अन्य राशि (मित्रता का निर्णय नहीं)';}
-return {lord,node,house:h,zone,dignity,conjunct:conj,phal:DASHA_PHAL[lord]};}
+const lordOf=[];for(let bh=1;bh<=12;bh++)if(SIGN_LORD[(asc+bh-1)%12]===lord)lordOf.push(bh);
+return {lord,node,house:h,zone,dignity,conjunct:conj,lordOf,phal:DASHA_PHAL[lord]};}
 function panchaMaha(ys){const by={};for(const y of ys){if(!y.name.includes('पंचमहापुरुष')||!y.hit)continue;const[yoga,origin]=y.id.split('-');(by[yoga]=by[yoga]||{name:y.name,origins:[]}).origins.push(origin);}const entries=Object.values(by);return {count:entries.length,entries};}
 function doshaGeometry(planets,asc,transit){signCheck(asc,'Lagna');planetsCheck(planets,['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'],'natal planet');planetsCheck(transit,['Saturn'],'transit planet');for(const p of planets)if(['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu'].includes(p.graha))angleCheck(p.longitude,p.graha+' longitude');const p=Object.fromEntries(planets.map(p=>[p.graha,p])),mars=house(p.Mars.rashi,asc),rahu=p.Rahu.longitude,dist=x=>((x-rahu)%360+360)%360,positions=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'].map(k=>dist(p[k].longitude));const edge=positions.some(x=>Math.min(x,Math.abs(x-180),360-x)<.01),oneSide=positions.every(x=>x>0&&x<180)||positions.every(x=>x>180&&x<360),sat=house(transit.find(p=>p.graha==='Saturn').rashi,p.Moon.rashi);return {marsHouse:mars,marsPlacement:[1,4,7,8,12].includes(mars),axis:edge?'सीमा के निकट, अनिर्णीत':oneSide?'सातों ग्रह एक अर्धवृत्त में':'सातों ग्रह एक अर्धवृत्त में नहीं',saturnFromMoon:sat,sadeSati:{12:'पहला',1:'दूसरा',2:'तीसरा'}[sat]||null};}
-const METHODS={avakhada:{yoni:'Narada Purana 56 list, Uttara Ashadha = ox; modern nakula variant is not silently substituted',gana:'Customary 27-nakshatra table; Punarvasu deva differs from NP manushya',varna:'Element convention; Mithuna Brahmin in BPHS4 conflicts with air-Shudra',vashya:'Standard mapping; Karka jalachara and Simha vanachara have named variants',syllables:'Dekhopanchang 27-nakshatra table, classical attribution not independently verse-verified'},marsPlacement:'BPHS80.47 position limb only, no cancellation or final Manglik verdict',saturnRelationship:'Transit Saturn sign relative to natal Moon, customary 12/1/2 only',axis:'Modern numeric hemisphere diagnostic relative to Rahu axis only; 0.01 degree abstention tolerance is an engineering choice, not a classical rule'};const api={avakhada,yogas,panchaMaha,dashaContext,doshaGeometry,METHODS};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.BrahmRules=api;
+const METHODS={avakhada:{yoni:'Narada Purana 56 list, Uttara Ashadha = ox; modern nakula variant is not silently substituted',gana:'Customary 27-nakshatra table; Punarvasu deva differs from NP manushya',varna:'Element convention; Mithuna Brahmin in BPHS4 conflicts with air-Shudra',vashya:'Standard mapping; Karka jalachara and Simha vanachara have named variants',syllables:'Dekhopanchang 27-nakshatra table, classical attribution not independently verse-verified'},marsPlacement:'BPHS80.47 position limb only, no cancellation or final Manglik verdict',saturnRelationship:'Transit Saturn sign relative to natal Moon, customary 12/1/2 only',axis:'Modern numeric hemisphere diagnostic relative to Rahu axis only; 0.01 degree abstention tolerance is an engineering choice, not a classical rule'};const api={avakhada,yogas,panchaMaha,dashaContext,dashaBhava,bhavaLord,doshaGeometry,METHODS};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.BrahmRules=api;
 })(typeof window!=='undefined'?window:globalThis);
