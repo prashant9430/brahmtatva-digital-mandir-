@@ -125,3 +125,22 @@ ck('no-subsumed-single',R.yogas(set(base(S.Simha),'Mars',S.Kanya),S.Mesha).every
 // cancelled sakata still carries phal field (UI suppresses it), kemadruma ditto
 {const y=y1(set(base(S.Simha),'Jupiter',S.Meena),S.Vrishabha,'sakata');ck('sakata-cancelled-phal-held',[y.hit,y.cancelled,(y.phal||'').length>10],[true,true,true]);}
 console.log('\nFINAL2 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
+
+// --- Dasha stage-1: dashaContext (BPHS ch47, ledger dasha-phal-ledger-draft.md)
+function dc(ps,asc,lord){try{return R.dashaContext(ps,asc,lord);}catch(e){return 'ERR:'+e.message;}}
+ck('dasha-swarashi-Sun',(x=>[x.dignity,x.house,x.zone,x.node])(dc(set(base(S.Simha),'Sun',S.Simha),S.Mesha,'Sun')),['स्वराशि',5,'त्रिकोण',false]);
+ck('dasha-uchcha-Mars',(x=>[x.dignity,x.house,x.zone])(dc(set(base(S.Simha),'Mars',S.Makara),S.Karka,'Mars')),['उच्च राशि',7,'केंद्र']);
+ck('dasha-neecha-Venus',(x=>[x.dignity,x.zone])(dc(set(base(S.Simha),'Venus',S.Kanya),S.Mesha,'Venus')),['नीच राशि','6/8/12']);
+ck('dasha-lagna-bhava-zone',dc(set(base(S.Simha),'Jupiter',S.Mesha),S.Mesha,'Jupiter').zone,'केंद्र और त्रिकोण (लग्न भाव)');
+ck('dasha-trikona-9',(x=>[x.house,x.zone])(dc(set(base(S.Simha),'Saturn',S.Dhanu),S.Mesha,'Saturn')),[9,'त्रिकोण']);
+ck('dasha-other-zone',(x=>[x.dignity,x.house,x.zone])(dc(set(base(S.Simha),'Sun',S.Vrishabha),S.Mesha,'Sun')),['अन्य राशि (मित्रता का निर्णय नहीं)',2,'अन्य']);
+ck('dasha-node-no-dignity',(x=>[x.node,x.dignity])(dc(base(S.Simha),S.Mesha,'Rahu')),[true,null]);
+{const ps=base(S.Simha);['Moon','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'].forEach((g,i)=>set(ps,g,[1,2,3,5,6,7,8][i]));set(ps,'Mars',S.Simha);
+ ck('dasha-conjunct',dc(ps,S.Mesha,'Sun').conjunct,['Mars']);
+ ck('dasha-no-conjunct',dc(ps,S.Mesha,'Moon').conjunct,[]);}
+ck('dasha-unknown-lord',dc(base(S.Simha),S.Mesha,'Pluto'),'ERR:Unknown dasha lord Pluto');
+ck('dasha-missing-planet',dc(base(S.Simha).filter(p=>p.graha!=='Rahu'),S.Mesha,'Rahu'),'ERR:Missing planet Rahu');
+ck('dasha-phal-all-lords',['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'].every(l=>{const x=dc(base(S.Simha),S.Mesha,l);return x.phal&&x.phal.fav.length>20&&x.phal.adv.length>20&&/^BPHS 47/.test(x.phal.ref);}),true);
+ck('dasha-no-aggregate-score','score' in dc(base(S.Simha),S.Mesha,'Sun'),false);
+ck('dasha-venus-remedy-omission-noted',/उपाय-अंश नीति से नहीं लिया गया/.test(dc(base(S.Simha),S.Mesha,'Venus').phal.adv),true);
+console.log('\nFINAL3 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
