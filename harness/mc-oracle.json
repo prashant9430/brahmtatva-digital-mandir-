@@ -1,0 +1,201 @@
+{
+  "status": "Independent software oracle, not classical source proof; tropical true-ecliptic MC, east-positive longitude. No copied Swiss code. AGPL comparator installed locally only.",
+  "oracle": "pyswisseph 2.10.03",
+  "oracle_call": "houses_ex(jdUT,latitude,longitude,b'P',0); ascmc[1]=MC, ascmc[2]=ARMC",
+  "source": "https://rstub.github.io/swephR/reference/Section13.html",
+  "cases": [
+    {
+      "utc": "2000-01-01T06:30:00Z",
+      "latitude": 28.6139,
+      "longitude": 77.209,
+      "jdUT": 2451544.7708333335,
+      "swiss": {
+        "asc": 7.042337530087473,
+        "mc": 274.5343710384513,
+        "ic": 94.5343710384513,
+        "armc": 274.9401947749757,
+        "gastHours": 13.182079651665044,
+        "trueObliquity": 23.4376780838632,
+        "meanObliquity": 23.439279525532744,
+        "nutationLongitude": -0.003870083539880239
+      },
+      "astronomyEngineProbe": {
+        "tt": -0.228427698185655,
+        "gast": 13.182077777539241,
+        "dpsi": -14.04025897092633,
+        "obliquity": 23.437681802674792,
+        "ramc": 274.94016666308863,
+        "mc": 274.5343450886336,
+        "ic": 94.53434508863359,
+        "meanAyan": 23.857083563850196
+      },
+      "residualArcsec": {
+        "mc": -0.09341934355688863,
+        "ic": -0.09341934355688863,
+        "gast": -0.10120279331360393,
+        "obliquity": 0.013387721728008728
+      }
+    },
+    {
+      "utc": "2026-11-11T07:00:00Z",
+      "latitude": -33.8688,
+      "longitude": 151.2093,
+      "jdUT": 2461355.7916666665,
+      "swiss": {
+        "asc": 30.75933419751363,
+        "mc": 304.32158331187753,
+        "ic": 124.32158331187753,
+        "armc": 306.65293443935536,
+        "gastHours": 10.362908962623692,
+        "trueObliquity": 23.437838613064635,
+        "meanObliquity": 23.435784844989456,
+        "nutationLongitude": 0.0022209948140343404
+      },
+      "astronomyEngineProbe": {
+        "tt": 9810.792541464509,
+        "gast": 10.362908894591364,
+        "dpsi": 7.9895519058513935,
+        "obliquity": 23.437834544652844,
+        "ramc": 306.6529334188705,
+        "mc": 304.32158314096523,
+        "ic": 124.32158314096523,
+        "meanAyan": 24.232325316392398
+      },
+      "residualArcsec": {
+        "mc": -0.0006152840796858072,
+        "ic": -0.0006152840796858072,
+        "gast": -0.0036737457236313276,
+        "obliquity": -0.014646282446051373
+      }
+    },
+    {
+      "utc": "1987-04-10T19:21:00Z",
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "jdUT": 2446896.30625,
+      "swiss": {
+        "asc": 152.11861912810411,
+        "mc": 57.0224822066379,
+        "ic": 237.0224822066379,
+        "armc": 54.73090340674409,
+        "gastHours": 8.582460227116274,
+        "trueObliquity": 23.44356528737497,
+        "meanObliquity": 23.440935307860723,
+        "nutationLongitude": -0.001072307316681499
+      },
+      "astronomyEngineProbe": {
+        "tt": -4648.693108559308,
+        "gast": 8.58246128999055,
+        "dpsi": -3.7972114509865924,
+        "obliquity": 23.443571111660695,
+        "ramc": 54.730919349858226,
+        "mc": 57.022498801844485,
+        "ic": 237.02249880184448,
+        "meanAyan": 23.679309379764675
+      },
+      "residualArcsec": {
+        "mc": 0.059742743769675144,
+        "ic": 0.059742743769675144,
+        "gast": 0.05739521088798938,
+        "obliquity": 0.02096742861255052
+      }
+    },
+    {
+      "utc": "1900-01-01T00:00:00Z",
+      "latitude": 0,
+      "longitude": 0,
+      "jdUT": 2415020.5,
+      "swiss": {
+        "asc": 191.08385546790976,
+        "mc": 99.3622565713216,
+        "ic": 279.3622565713216,
+        "armc": 100.18829752212265,
+        "gastHours": 6.679219834808177,
+        "trueObliquity": 23.45165269957751,
+        "meanObliquity": 23.45228888034687,
+        "nutationLongitude": 0.0048426311843904725
+      },
+      "astronomyEngineProbe": {
+        "tt": -36524.50003193245,
+        "gast": 6.6792205229009705,
+        "dpsi": 17.471258249659858,
+        "obliquity": 23.451657066593754,
+        "ramc": 100.18830784351455,
+        "mc": 99.36226578320671,
+        "ic": 279.3622657832067,
+        "meanAyan": 22.460530617265132
+      },
+      "residualArcsec": {
+        "mc": 0.03316278625788982,
+        "ic": 0.03316278625788982,
+        "gast": 0.03715701084416878,
+        "obliquity": 0.01572125847104644
+      }
+    },
+    {
+      "utc": "2100-01-01T00:00:00Z",
+      "latitude": 51.5,
+      "longitude": -0.12,
+      "jdUT": 2488069.5,
+      "swiss": {
+        "asc": 187.48918961988895,
+        "mc": 99.76064029297403,
+        "ic": 279.760640292974,
+        "armc": 100.6185023230182,
+        "gastHours": 6.715900154867881,
+        "trueObliquity": 23.42864867387813,
+        "meanObliquity": 23.426269915325523,
+        "nutationLongitude": 0.0009137151552268647
+      },
+      "astronomyEngineProbe": {
+        "tt": 36524.50234550426,
+        "gast": 6.71593315594698,
+        "dpsi": 3.276075738953511,
+        "obliquity": 23.42864622202843,
+        "ramc": 100.6189973392047,
+        "mc": 99.76109712697101,
+        "ic": 279.761097126971,
+        "meanAyan": 25.254268171634138
+      },
+      "residualArcsec": {
+        "mc": 1.644602389069405,
+        "ic": 1.644602389069405,
+        "gast": 1.782058271381004,
+        "obliquity": -0.008826658917371333
+      }
+    },
+    {
+      "utc": "2024-02-29T23:59:00Z",
+      "latitude": -34.6,
+      "longitude": -58.38,
+      "jdUT": 2460370.4993055556,
+      "swiss": {
+        "asc": 196.43058041853647,
+        "mc": 99.79785093053214,
+        "ic": 279.79785093053215,
+        "armc": 100.65962846088837,
+        "gastHours": 10.602641897392559,
+        "trueObliquity": 23.438682771569137,
+        "meanObliquity": 23.436135804075157,
+        "nutationLongitude": -0.0012479275078956143
+      },
+      "astronomyEngineProbe": {
+        "tt": 8825.5001614038,
+        "gast": 10.602644401997336,
+        "dpsi": -4.344084997668412,
+        "obliquity": 23.43867080495342,
+        "ramc": 100.65966602996005,
+        "mc": 99.79788645723892,
+        "ic": 279.7978864572389,
+        "meanAyan": 24.194638873922766
+      },
+      "residualArcsec": {
+        "mc": 0.12789614456778509,
+        "ic": 0.12789614456778509,
+        "gast": 0.13524865800107477,
+        "obliquity": -0.04307981657802884
+      }
+    }
+  ],
+  "assessment": "All six MC/IC agree within observed 1.645 arcseconds. This is a measured inter-model residual, NOT an error allowance or fixture rounding bound. Contemporary four cases maximum 0.128 arcsec; 1900 0.034 arcsec; 2100 1.645 arcsec mainly GAST difference. Validate exact formula separately using same ARMC/epsilon at machine precision. Do not call independent software agreement primary source proof."
+}
