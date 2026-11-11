@@ -2,9 +2,10 @@
 Sources, conventions and mat-bhed records: docs/bala-ledger-draft.md (v0.7). Convention
 choices there are recorded with their evidence; build-scope approval belongs to the project
 review process, not to this file.
-Not computed here (explicit): Mars-Saturn Cheshta (no mean-longitude source), Graha-yuddha
-(no source definition), Bhava-bala (uncross-checked). Partial sums only - never presented
-as full Shadbala. All angles zero-based degrees. */
+Not computed here (explicit): Graha-yuddha (no source definition), Bhava-bala totals
+(individual 27.26-31 terms live separately in kundli-bhava.js). Mars-Saturn Cheshta is
+computed ONLY when input.cheshtaCtx is supplied; otherwise its unmodeled note stands.
+Partial sums only - never presented as full Shadbala. All angles zero-based degrees. */
 (function(root){'use strict';
 const mod=(x,n=360)=>{const r=x%n;return r<0?r+n:r;};
 const fold=x=>{x=mod(x);return x>180?360-x:x;};
@@ -68,6 +69,50 @@ function ayanaBala(lonSidereal,ayanamsa,p){const sayana=mod(lonSidereal+ayanamsa
  if(p==='Mercury')add=true;else if(['Sun','Mars','Jupiter','Venus'].includes(p))add=north;else add=!north; // 27.15-17 sign rules
  return (90+(add?lv:-lv))/3;} // BPHS-khanda primary; up to ~1 virupa vs declination method (ledger note)
 function cheshtaBalaSunMoon(sun,moon,p,ayanaSun,pakshaMoon){if(p==='Sun')return ayanaSun;if(p==='Moon')return pakshaMoon;return null;} // 27.18, counted once here and once in kala - no doubling
+// Cheshta (Mars-Saturn), BPHS 27.24-25 cheshta-kendra scheme with the MODERN
+// mean-elements convention. Sources/decisions: docs/bala-ledger-draft.md (v0.9),
+// docs/frame-time-resolution-draft.md. Convention names, not accuracy claims:
+// "Simon et al. 1994 sec5.9 mean longitudes (VSOP87/JASON84-based), of-date mean
+// equinox; true input = app apparent geocentric sidereal + mean ayanamsha
+// (apparent-geocentric in mean-equinoctial-longitude convention, not strict
+// mean-frame identity); TDB approximated by TT (IAU 2006 B3: <2ms)."
+// Simon 1994 sec5.9.1-5.9.6 lambda coefficients (arcseconds for t^1..t^6;
+// t = Julian MILLENNIA from J2000). Second-transcribed from the paper's page
+// images twice (worker + reviewer), 4 initial-transcription deltas resolved:
+// Mercury t3 .06522, Saturn t4 -.35004, Saturn t6 +.00103, Jupiter t6 -.00014.
+const SIMON_LAMBDA={
+ Mercury:[252.25090552,5381066598.20037,109.25943,0.06522,-0.23500,-0.00179,0.00020],
+ Venus:[181.97980085,2106691666.31989,111.65021,0.05368,-0.23516,-0.00179,0.00020],
+ Earth:[100.46645683,1296027711.03429,109.15809,0.07207,-0.23530,-0.00180,0.00020],
+ Mars:[355.43299958,689101069.33069,111.78674,0.05624,-0.23516,-0.00180,0.00020],
+ Jupiter:[34.35151874,109306899.89453,80.38700,0.13327,-0.18850,0.00411,-0.00014],
+ Saturn:[50.07744430,44046398.47038,186.86817,-0.10748,-0.35004,-0.01630,0.00103]};
+function meanLambda(planet,jdTt){
+ const t=(jdTt-2451545.0)/365250.0,c=SIMON_LAMBDA[planet];
+ let a=0;for(let k=1;k<=6;k++)a+=c[k]*Math.pow(t,k);
+ return mod(c[0]+a/3600.0);}
+const wrap180=x=>{x=mod(x);return x>180?x-360:x;};
+// Low-level formula (fixture-direct): midpoint between mean and true, kendra from apogee.
+function cheshtaFromComponents(mean,trueME,apogee){
+ const midpoint=mod(mean+wrap180(trueME-mean)/2); // angle-lifted averaging
+ return Math.abs(wrap180(apogee-midpoint))/3;}
+// Guard policy: INCLUSIVE UTC birth years 1900..2100 (the app form's policy), applied
+// on JD_TT with the boundary DeltaT shift named exactly - NOT an "equal ranges" claim:
+//   MIN = engine TT of 1900-01-01T00:00:00Z  = 2415020.4999680677 (DeltaT -2.7589 s), INCLUSIVE
+//   MAX = engine TT of 2101-01-01T00:00:00Z  = 2488434.502372775 (DeltaT +205.008 s), EXCLUSIVE
+// So the whole of 2100 computes down to the last millisecond (2100-12-31T23:59:59.999Z
+// is inside), and the first instant of 2101 is rejected.
+const CHESHTA_GUARD_JD_MIN=2415020.4999680677,CHESHTA_GUARD_JD_MAX=2488434.502372775;
+function cheshtaBalaTara(p,trueSiderealLon,meanAyanamsha,jdTt){
+ if(p==='Sun'||p==='Moon')return null;               // 27.18 handled by cheshtaBalaSunMoon
+ if(!Number.isFinite(jdTt)||!Number.isFinite(meanAyanamsha)||!Number.isFinite(trueSiderealLon))return null; // NaN never passes the guard
+ if(jdTt<CHESHTA_GUARD_JD_MIN||jdTt>=CHESHTA_GUARD_JD_MAX)return null; // guard: MIN inclusive, MAX exclusive; unavailable, NOT zero
+ const meanSun=mod(meanLambda('Earth',jdTt)+180);
+ const lam=meanLambda(p,jdTt);
+ const inner=(p==='Mercury'||p==='Venus');
+ const mean=inner?meanSun:lam,apogee=inner?lam:meanSun;  // sheeghrochcha mapping (Raman pp75-78 support)
+ const trueME=mod(trueSiderealLon+meanAyanamsha);        // named frame convention
+ return cheshtaFromComponents(mean,trueME,apogee);}
 // ch26.6-12 sphuta drishti value (cross-read in two translations; reviewer spec.py)
 function drishtiValue(d,planet){d=mod(d);const x=d%30,sg=Math.floor(d/30);
  if(planet==='Saturn'){if(sg===1)return 2*x;if(sg===9)return 2*(30-x);if(sg===2)return 60-x/2;if(sg===8)return x+30;}
@@ -133,7 +178,7 @@ function solarTransitMs(sunriseMs,sunsetMs,lonEastDeg,sunSiderealFn,ayanamshaFn)
 
 const PROVISIONAL=[{id:'drik-classification',note:'Drik-bala computed per BPHS 26.6-12 sphuta drishti (aspected minus aspecting) + 27.19 weighting; benefic/malefic classification is a CHOSEN CONVENTION, provisional pending verified incoming-aspect/classifier fixtures: waxing Moon benefic / waning malefic (ch3.11); Mercury malefic only when conjoined with Sun/Mars/Saturn (ch3.11), in which case it is treated under the malefic -quarter rule instead of the 27.19 Mercury full-add; Jupiter always full-add. The literal 27.19 wording (Mercury full-add without qualification) is the alternative reading, recorded for the review. Raman pp85-88 uses a different model (general aspect + fixed special additions 15/30/45, all quarter-weighted) and is NOT a golden for this model - cross-convention sign comparison withdrawn (reviewer 12:34 Q2).'}];
 const UNMODELED=[
- {id:'cheshta-ma-sa',note:'Cheshta (Mars-Saturn): BPHS 27.24-25 needs mean longitudes + sheeghrochcha - not yet sourced; not computed.'},
+ {id:'cheshta-ma-sa',note:'Cheshta (Mars-Saturn): computed when cheshtaCtx (jdTt + meanAyanamsha) is supplied and inside the 1900-2100 guard; otherwise not computed.'},
  {id:'yuddha',note:'Graha-yuddha (27.20): verse gives no war definition; Raman rule is Sripati-based without golden; not computed.'},
  {id:'bhava-bala',note:'Bhava-bala (27.26-31): read but not cross-checked; not computed in this increment.'}];
 // Input-time convention (jyotish day, NOT civil date): sunriseMs and weekday belong to the
@@ -158,19 +203,41 @@ function compute(input){
    tribhaga:tribhagaBala(birthMs,sunriseMs,sunsetMs,nextSunriseMs,g),abda:abdaBala(lords,g),masa:masaBala(lords,g),
    vara:varaBala(weekday,g),hora:horaBala(birthMs,sunriseMs,weekday,g),ayana:ayanaBala(p.longitude,ayanamsa,g)};
   kala.total=kala.nathonnatha+kala.paksha+kala.tribhaga+kala.abda+kala.masa+kala.vara+kala.hora+kala.ayana;
-  const cheshta=cheshtaBalaSunMoon(sun,moon,g,ayanaSun,pakshaMoon);
+  let cheshta=cheshtaBalaSunMoon(sun,moon,g,ayanaSun,pakshaMoon);
+  if(cheshta==null&&input.cheshtaCtx)
+   cheshta=cheshtaBalaTara(g,p.longitude,input.cheshtaCtx.meanAyanamsha,input.cheshtaCtx.jdTt);
   const drik=drikBala(g,positions);
   // Reviewer 12:34 Q2: drik EXCLUDED from the numeric partial sum until verified
   // incoming-aspect/classifier fixtures exist; kept as a separate experimental field.
   return {graha:g,sthana,dig,kala,cheshta,naisargika:naisargikaBala(g),drik,
    partialSum:sthana.total+dig+kala.total+(cheshta??0)+naisargikaBala(g)};});
- return {planets,unmodeled:UNMODELED,provisional:PROVISIONAL,partialOnly:true,experimental:['drik'],
-  note:'Partial sums only - Mars-Saturn Cheshta, Yuddha and Bhava-bala are not computed; this is not a full Shadbala total and no ratio against required strengths is given. Drik is shown separately as experimental and is NOT included in the partial sums pending verified classification fixtures.',
-  conventions:['saptavargaja: compound (natural+temporary) friendship, BPHS 27.2-4 values; moolatrikona 45 in D1 degree-zone per BPHS 3.51-54 (Raman full-rasi and all-seven-vargas readings recorded) - no golden',
+ // Availability = a finite, in-guard context (reviewer: presence of an object is not availability).
+ const _cc=input.cheshtaCtx;
+ const cheshtaComputed=_cc!=null&&Number.isFinite(_cc.jdTt)&&Number.isFinite(_cc.meanAyanamsha)
+  &&_cc.jdTt>=CHESHTA_GUARD_JD_MIN&&_cc.jdTt<CHESHTA_GUARD_JD_MAX;
+ // Caller-assembly CONTRACT TAG (reviewer): a usable context MUST carry birthMs equal to
+ // the birth instant. Absence or mismatch is a caller contract violation (throws), not
+ // unavailable data - an incoherent instant (e.g. birth 2000 with a 2100 JD) must never
+ // silently compute and drop the missing note. This is ONLY a caller-contract tag: the
+ // module cannot validate the JD mathematically (a matching tag with a still-wrong JD
+ // is accepted); the actual panel-body regression verifies the current caller's assembly.
+ if(cheshtaComputed&&(!Number.isFinite(_cc.birthMs)||_cc.birthMs!==birthMs))
+  throw new Error('compute: cheshtaCtx must carry birthMs equal to the birth instant (caller-assembly contract tag)');
+ // Status from ACTUAL results, not context alone: exactly the five tara planets, each
+ // with a finite cheshta value.
+ const tara=planets.filter(x=>!['Sun','Moon'].includes(x.graha));
+ const cheshtaActive=cheshtaComputed&&tara.length===5&&tara.every(x=>typeof x.cheshta==='number'&&Number.isFinite(x.cheshta));
+ const unmodeled=UNMODELED.filter(u=>!(cheshtaActive&&u.id==='cheshta-ma-sa'));
+ return {planets,unmodeled,provisional:PROVISIONAL,partialOnly:true,experimental:['drik'],
+  note:(cheshtaActive
+   ?'Partial sums only - Yuddha and Bhava-bala totals are not computed; this is not a full Shadbala total and no ratio against required strengths is given. Mars-Saturn Cheshta is computed under the MODERN Simon-1994 mean-elements convention (see conventions). Drik is shown separately as experimental and is NOT included in the partial sums pending verified classification fixtures.'
+   :'Partial sums only - Mars-Saturn Cheshta, Yuddha and Bhava-bala are not computed; this is not a full Shadbala total and no ratio against required strengths is given. Drik is shown separately as experimental and is NOT included in the partial sums pending verified classification fixtures.'),
+  conventions:(cheshtaActive?['cheshta (Mars-Saturn): BPHS 27.24-25 cheshta-kendra with Simon 1994 sec5.9 mean elements (VSOP87/JASON84-based) - MODERN named convention, not a classical mean-longitude source; frame: apparent-geocentric in mean-equinoctial-longitude convention; TDB~TT (IAU2006B3); guard = inclusive UTC years 1900-2100 with exact TT endpoints (boundary DeltaT shift named), unavailable is not zero; validated vs Raman 1918 published rounded inputs (bound 0.008334 virupa), not vs modern goldens']:[]).concat([
+   'saptavargaja: compound (natural+temporary) friendship, BPHS 27.2-4 values; moolatrikona 45 in D1 degree-zone per BPHS 3.51-54 (Raman full-rasi and all-seven-vargas readings recorded) - no golden',
    'abda/masa lords: Raman/Sripati schematic ahargana (epoch 1827-05-01) - not a BPHS method, reproduction-only',
    'ayana: BPHS khanda piecewise lavas primary; Raman uses a 15-degree segment interpolation table (his pp57-59) - a different method, so printed Raman ayana values are not an accuracy bound for khanda',
-   'nathonnatha: distance from true solar transit (local apparent noon)']};
+   'nathonnatha: distance from true solar transit (local apparent noon)'])};
 }
-const api={compute,solarTransitMs,localDateString,previousLocalDateString,uchchaBala,digBala,naisargikaBala,kendradiBala,ojhaYugmaRasi,ojhaYugmaNavamsa,drekkanaBala,pakshaBala,nathonnathaBala,tribhagaBala,varaBala,horaBala,ayanaBala,lavas,drishtiValue,drikBala,compoundRelation,saptavargaScore,abdaMasaLords,UNMODELED,PLANETS};
+const api={compute,solarTransitMs,localDateString,previousLocalDateString,uchchaBala,digBala,naisargikaBala,kendradiBala,ojhaYugmaRasi,ojhaYugmaNavamsa,drekkanaBala,pakshaBala,nathonnathaBala,tribhagaBala,varaBala,horaBala,ayanaBala,lavas,drishtiValue,drikBala,compoundRelation,saptavargaScore,abdaMasaLords,cheshtaBalaTara,cheshtaFromComponents,meanLambda,SIMON_LAMBDA,CHESHTA_GUARD_JD_MIN,CHESHTA_GUARD_JD_MAX,UNMODELED,PLANETS};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.BrahmBala=api;
 })(typeof window!=='undefined'?window:globalThis);
