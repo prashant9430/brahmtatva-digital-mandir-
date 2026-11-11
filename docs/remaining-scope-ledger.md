@@ -1,6 +1,6 @@
 # Brahmtatva कुंडली — शेष कार्य-अभिलेख (handoff-ready)
 
-स्थिति: 11 Nov 2026, ~10:40 IST. शाखा preview/kundli-suite, HEAD f59b73cc.
+स्थिति: 11 Nov 2026, ~11:55 IST. शाखा preview/kundli-suite, HEAD cd5c8122 (इस ledger-अद्यतन से पूर्व).
 मुख्य शाखा (main) अपरिवर्तित: d7da476770348c6bf7fe98dc6f27e1ea25a0654c.
 केवल संरक्षित preview; production merge की कोई स्वीकृति नहीं।
 
@@ -28,7 +28,7 @@
 
 ## शेष scope (प्राथमिकता: phaladesh उपयोगिता)
 
-### A. Dasha stage-2 — भाव-स्वामी परत (BPHS ch48) [✓ internally verified 10:50; user-delivery pending]
+### A. Dasha stage-2 — भाव-स्वामी परत (BPHS ch48) [✓ user-delivery 11:52, main-बैच में antardasha के साथ]
 - commits bd5aa9b3/dd802704/3b426823/74a5597d; deployment 9ykk7r4q2
   hosted-verified (mobile+desktop proof main को); anonymous gate protected।
 - user को अभी नहीं भेजा — main batching; user stage-1 (l0fahfzeu) पर है।
@@ -41,7 +41,7 @@
 - अमॉडल यथावत: दशा-आरम्भ गोचर (48.5-8 आवश्यक कहता है), दृष्टि, मूलत्रिकोण/
   स्वराशि "उच्चादि" विस्तार (B में चल रहा)।
 
-### B. Moolatrikona/अंश-क्षेत्र परत (BPHS 3.49-54) [✓ internally verified 11:08; user-delivery pending]
+### B. Moolatrikona/अंश-क्षेत्र परत (BPHS 3.49-54) [✓ user-delivery 11:52, main-बैच में]
 - commits 5029928 (rules), ec7305e (ui), 9b49913 (tests), 82ea858 (ledger);
   deployment brahmtatva-digital-mandir-neivcbr3g.vercel.app hosted-verified
   (facts row, boundary note, d48x mobile+desktop proof main को; yogini guard
@@ -53,11 +53,14 @@
 - tests 138/138; harness 31/31; ledger: docs/moolatrikona-ledger-draft.md।
 - user को अभी नहीं भेजा — main batching; stage-2 के साथ आयोजित।
 
-### C. Antardasha फल (BPHS ch52-60) [समीक्षक 11:38 सशर्त clearance; तीनों gate लागू; अंतिम पुष्टि pending; commit नहीं हुआ]
-- स्रोत-अभिलेख v2 (11 नव 11:16) 11:18 cleared; implementation-review 11:38
-  सशर्त: मंगल→शनि उपाय-ध्वज पुनःस्थापित (76→77), मंगल→शनि digk=[nav]
-  केवल-पाठ (अनुवाद-अस्पष्टता), वास्तविक kundli-dasha-pairs.js समीक्षा को
-  भेजा गया। commit तभी — अंतिम पुष्टि के बाद, protected web-editor से।
+### C. Antardasha फल (BPHS ch52-60) [✓ committed + hosted-सत्यापित; user-delivery 11:52 main-बैच में]
+- समीक्षक अंतिम पुष्टि 11:40 (तीनों gate पास; deepdiff शून्य अंतर; 34 node
+  जाँचें स्वतंत्र)। commits ae8e1975, 9e2edbb5, e68bba0a, 2ab4b823,
+  98a1829b (tests/validate-antardasha.js; क्षणिक tests/tests/ गलत-पथ
+  cfbee5be → 752ab602 में हटाया), 891f0863 (harness/antardasha-refs.json),
+  045774fe (ledger), 972f89a1 (यह ledger)। deployment
+  brahmtatva-digital-mandir-a7hgati2o.vercel.app hosted-सत्यापित (81 युग्म
+  सेवित, युग्म-ब्लॉक 10/10 जाँच, anonymous gate 302/263)।
 - कवर: 81/81 युग्म हिंदी चर्चा (अनुकूल+प्रतिकूल सदैव; एक-पक्षीय पर स्पष्ट
   नोट), pair-local भाव-शर्तें (लग्न से + महादशा-स्वामी से), digk-गेटेड
   गरिमा-जाँच (59 युग्म; केवल जहाँ युग्म का अपना पाठ प्रकार कहता है),
@@ -88,6 +91,10 @@
 6. raw.githubusercontent CDN stale हो सकता है — commit-सत्यापन contents API से।
 
 ## पुनःआरम्भ-संकेत (नया run/handoff)
+- audit-स्थायित्व (main-निर्देश 11:52): harness/ की सभी स्क्रिप्ट अब branch पर —
+  extract-antardasha.py, test-antardasha.py, test-dasha-phal.py,
+  test-gallery-relations.py, test-suite-next.py, mt-visual-proof.py,
+  sync-kundli-preview.py (byte-verified 11:54)।
 - local tree: /downloads/brahmtatva-kundli-suite (branch से byte-verified)
 - स्रोत cache: tools-box /tmp/jv-47-48.json (चली गई तो पुनः fetch)
 - harness: python3 harness/test-dasha-phal.py; node tests/validate-interpretation.js
