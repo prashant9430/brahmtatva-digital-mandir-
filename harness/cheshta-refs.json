@@ -1,0 +1,87 @@
+{
+  "fixture": "RamanStandard1918 ONLY, not F1Delhi2000",
+  "source": "https://astrojyotish.info/pdf/graha-bhava-balas.pdf",
+  "pages": "printed75,78,79 (PDF80,83,84)",
+  "cheshta_inputs_from_published_columns": [
+    {
+      "planet": "Mars",
+      "mean": 266.34,
+      "true": 229.5,
+      "sheeghrochcha": 181.2275,
+      "computed": 22.230833333333333,
+      "printed": 22.23,
+      "error": 0.0008333333333325754
+    },
+    {
+      "planet": "Mercury",
+      "mean": 181.2275,
+      "true": 181.52,
+      "sheeghrochcha": 174.49,
+      "computed": 2.2945833333333305,
+      "printed": 2.3,
+      "error": -0.00541666666666929
+    },
+    {
+      "planet": "Jupiter",
+      "mean": 66.91,
+      "true": 84.01,
+      "sheeghrochcha": 181.2275,
+      "computed": 35.25583333333333,
+      "printed": 35.26,
+      "error": -0.0041666666666699825
+    },
+    {
+      "planet": "Venus",
+      "mean": 181.2275,
+      "true": 171.16,
+      "sheeghrochcha": 158.35,
+      "computed": 5.947916666666667,
+      "printed": 5.95,
+      "error": -0.002083333333333215
+    },
+    {
+      "planet": "Saturn",
+      "mean": 111.23,
+      "true": 124.39,
+      "sheeghrochcha": 181.2275,
+      "computed": 21.139166666666664,
+      "printed": 21.14,
+      "error": -0.0008333333333361281
+    }
+  ],
+  "printed_typo": "p77/PDF82 lists Saturn sheeghrochcha151.23, but p75 explicitly meanSun181.2275 for all superior planets, and p78 uses181.23. Use181.2275 with named typo exclusion.",
+  "validation_scope": "BPHS27.24-25 formula checked with independent published mean/true/sheegrochcha inputs. DOES NOT validate modern Simon means against Raman historical means.",
+  "rounding_bound": "Using 2dp mean/true/sheegrochcha inputs: (0.005+(0.005+0.005)/2)/3+0.005=0.0083334 virupa versus printed2dp; meanSun is4dp so this is conservative.",
+  "wrap_regression": [
+    {
+      "mean": 359,
+      "true": 1,
+      "apogee": 0,
+      "expected": 0
+    },
+    {
+      "mean": 1,
+      "true": 359,
+      "apogee": 0,
+      "expected": 0
+    }
+  ],
+  "modern_polynomial_reproductions_not_independent_goldens": {
+    "2451545.0": {
+      "Mercury": 252.25090552,
+      "Venus": 181.97980085,
+      "Earth": 100.46645683,
+      "Mars": 355.43299958,
+      "Jupiter": 34.35151874,
+      "Saturn": 50.0774443
+    },
+    "2421882.872175926": {
+      "Mercury": 183.63960237969877,
+      "Venus": 178.24626723142865,
+      "Earth": 24.0687343333193,
+      "Mars": 290.3696997644438,
+      "Jupiter": 88.55560793947643,
+      "Saturn": 136.458574833998
+    }
+  }
+}
