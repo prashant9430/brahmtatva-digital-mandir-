@@ -1,0 +1,23 @@
+/* Original BrahmTatva extension. Mathematical rules, not copied implementation.
+Sources and conventions: docs/kundli-methods.md. All angles zero-based degrees. */
+(function(root){'use strict';
+const mod=(x,n=360)=>{const r=x%n;return r<0?r+n:r;};
+const partFloor=x=>{const r=Math.round(x);return Math.floor(Math.abs(x-r)<1e-11?r:x);};
+const VARGAS={1:'राशि',2:'होरा',3:'द्रेष्काण',4:'चतुर्थांश',7:'सप्तांश',9:'नवांश',10:'दशांश',12:'द्वादशांश',16:'षोडशांश',20:'विंशांश',24:'चतुर्विंशांश',27:'सप्तविंशांश',30:'त्रिंशांश',40:'खवेदांश',45:'अक्षवेदांश',60:'षष्ट्यंश'};
+const VIM=[['Ketu',7],['Venus',20],['Sun',6],['Moon',10],['Mars',7],['Rahu',18],['Jupiter',16],['Saturn',19],['Mercury',17]];
+const YOG=[['मंगला',1,'Moon'],['पिंगला',2,'Sun'],['धान्या',3,'Jupiter'],['भ्रामरी',4,'Mars'],['भद्रिका',5,'Mercury'],['उल्का',6,'Saturn'],['सिद्धा',7,'Venus'],['संकटा',8,'Rahu']];
+const YEAR=365.25*86400000;
+function varga(lon,n,options={}){if(!Number.isFinite(lon)||!VARGAS[n])throw Error('Unsupported varga');const l=mod(lon),s=Math.floor(l/30),d=l-s*30,odd=s%2===0,k=Math.min(n-1,partFloor(d*n/30));let target;
+switch(n){case 1:target=s;break;case 2:target=odd?(k===0?4:3):(k===0?3:4);break;case 3:target=s+4*k;break;case 4:target=s+3*k;break;case 7:target=s+(odd?0:6)+k;break;case 9:target=s+[0,8,4][s%3]+k;break;case 10:target=s+(odd?0:8)+k;break;case 12:target=s+k;break;case 16:case 45:target=[0,4,8][s%3]+k;break;case 20:target=[0,8,4][s%3]+k;break;case 24:target=(odd?4:3)+k;break;case 27:target=[0,3,6,9][s%4]+k;break;case 40:target=(odd?0:6)+k;break;case 60:target=(options.d60Origin==='aries'?0:s)+k;break;case 30:{const ends=odd?[5,10,18,25,30]:[5,12,20,25,30],signs=odd?[0,10,8,2,6]:[1,5,11,9,7];let i=ends.findIndex(v=>d<v);if(i<0)i=4;return {rashi:signs[i],part:i+1,boundary:Math.min(d-(i?ends[i-1]:0),ends[i]-d),degrees:null};}}
+return {rashi:mod(target,12),part:k+1,boundary:Math.min(d-k*30/n,(k+1)*30/n-d),degrees:mod(d*n,30)};}
+function divisional(planets,lagna,n,options={}){if(!Number.isFinite(lagna))throw Error('Invalid lagna');if(!Array.isArray(planets))throw Error('Invalid planets');return {lagna:varga(lagna,n,options).rashi*30,planets:planets.map(p=>{const v=varga(p.longitude,n,options);return {...p,rashi:v.rashi,longitude:v.rashi*30+(v.degrees??0),natalLongitude:p.longitude,divisionalDegree:v.degrees,part:v.part,boundary:v.boundary};})};}
+function dasha(moon,birth,system='vimshottari',cycles=(system==='yogini'?6:2)){if(!Number.isFinite(moon))throw Error('Moon longitude must be finite');if(!['vimshottari','yogini'].includes(system))throw Error('Unsupported dasha system');if(!Number.isInteger(cycles)||cycles<1||cycles>10)throw Error('Invalid dasha cycles');if(typeof birth==='string'&&!/(Z|[+-]\d{2}:?\d{2})$/.test(birth))throw Error('Birth instant requires an explicit UTC offset');const data=system==='yogini'?YOG:VIM,total=system==='yogini'?36:120,ni=partFloor(mod(moon)/(360/27)),fraction=mod(moon)/(360/27)-ni,idx=system==='yogini'?(ni+3)%8:ni%9,b=+new Date(birth);if(!Number.isFinite(b))throw Error('Invalid birth');let t=b-fraction*data[idx][1]*YEAR;const periods=[];for(let j=0;j<data.length*cycles;j++){const i=(idx+j)%data.length,end=t+data[i][1]*YEAR;periods.push({index:i,lord:data[i][0],planet:data[i][2]||data[i][0],start:t,end,birth:b,system,total,depth:1});t=end;}return periods;}
+function children(p){if(p.depth>=4)return [];const data=p.system==='yogini'?YOG:VIM;let t=p.start;return data.map((_,j)=>{const i=(p.index+j)%data.length,end=j===data.length-1?p.end:t+(p.end-p.start)*data[i][1]/p.total,v={...p,index:i,lord:data[i][0],planet:data[i][2]||data[i][0],start:t,end,depth:p.depth+1};t=end;return v;});}
+function activePath(periods,at){let p=periods.find(p=>p.start<=at&&at<p.end);const path=[];while(p){path.push(p);p=children(p).find(q=>q.start<=at&&at<q.end);}return path;}
+const LORDS=['Mars','Venus','Mercury','Moon','Sun','Mercury','Venus','Mars','Jupiter','Saturn','Saturn','Jupiter'];
+const EXALT={Sun:0,Moon:1,Mars:9,Mercury:5,Jupiter:3,Venus:11,Saturn:6};
+const OWN={Sun:[4],Moon:[3],Mars:[0,7],Mercury:[2,5],Jupiter:[8,11],Venus:[1,6],Saturn:[9,10]};
+function dignity(p){if(EXALT[p.graha]===p.rashi)return 'उच्च राशि';if(EXALT[p.graha]!==undefined&&mod(EXALT[p.graha]+6,12)===p.rashi)return 'नीच राशि';if(OWN[p.graha]?.includes(p.rashi))return 'स्वराशि';return 'अन्य राशि (मित्रता का निर्णय नहीं)';}
+function house(lon,lagna){return mod(Math.floor(mod(lon)/30)-Math.floor(mod(lagna)/30),12)+1;}
+const api={mod,VARGAS,VIM,YOG,YEAR,varga,divisional,dasha,children,activePath,LORDS,dignity,house};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.BrahmJyotish=api;
+})(typeof window!=='undefined'?window:globalThis);
