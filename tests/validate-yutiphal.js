@@ -82,7 +82,8 @@ throws(()=>M.report(base7(),12),'lagna 12 throws');
 // 9. B1: UI template must not render sensitive omission categories (generic count-only notice)
 const fs=require('fs');
 const uiSrc=fs.readFileSync(__dirname+'/../kundli-suite-ui.js','utf8');
-const yp=uiSrc.slice(uiSrc.indexOf('function yutiphalPanel'));
+const ypS=uiSrc.indexOf('function yutiphalPanel');const ypE=uiSrc.indexOf('\nfunction ',ypS+1);
+const yp=uiSrc.slice(ypS,ypE>0?ypE:undefined);
 ok(!yp.includes('esc(r.omit)')&&!yp.includes('${r.omit}'),'UI does not interpolate r.omit');
 ok(yp.includes('1 वाक्य सुरक्षा-नीति से हटाया गया'),'generic count-only omission notice in UI');
 for(const leak of ['पत्नी-पुत्र की हानि','हिंसा/यातना','इन्द्रिय-दुर्बलता/वृद्धावस्था','शस्त्र/विष से क्षति'])
