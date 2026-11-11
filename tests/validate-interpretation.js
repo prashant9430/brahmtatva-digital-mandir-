@@ -126,7 +126,6 @@ ck('no-subsumed-single',R.yogas(set(base(S.Simha),'Mars',S.Kanya),S.Mesha).every
 {const y=y1(set(base(S.Simha),'Jupiter',S.Meena),S.Vrishabha,'sakata');ck('sakata-cancelled-phal-held',[y.hit,y.cancelled,(y.phal||'').length>10],[true,true,true]);}
 console.log('\nFINAL2 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
 
-
 // --- Yoga-panel omission-boundary correction (main 14:35; same boundary as E2/E3)
 // kesari 6.16: आयु-पद हटाया, omit=1
 {const y=y1(base(S.Simha),S.Mesha,'kesari');ck('kesari-aayu-omitted',[/दीर्घायु/.test(y.phal),y.omit],[false,1]);}
@@ -159,24 +158,7 @@ ck('dasha-unknown-lord',dc(base(S.Simha),S.Mesha,'Pluto'),'ERR:Unknown dasha lor
 ck('dasha-missing-planet',dc(base(S.Simha).filter(p=>p.graha!=='Rahu'),S.Mesha,'Rahu'),'ERR:Missing planet Rahu');
 ck('dasha-phal-all-lords',['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'].every(l=>{const x=dc(base(S.Simha),S.Mesha,l);return x.phal&&x.phal.fav.length>20&&x.phal.adv.length>20&&/^BPHS 47/.test(x.phal.ref);}),true);
 ck('dasha-no-aggregate-score','score' in dc(base(S.Simha),S.Mesha,'Sun'),false);
-
-// --- Dasha stage-1: dashaContext (BPHS ch47, ledger dasha-phal-ledger-draft.md)
-function dc(ps,asc,lord){try{return R.dashaContext(ps,asc,lord);}catch(e){return 'ERR:'+e.message;}}
-ck('dasha-swarashi-Sun',(x=>[x.dignity,x.house,x.zone,x.node])(dc(set(base(S.Simha),'Sun',S.Simha),S.Mesha,'Sun')),['स्वराशि',5,'त्रिकोण',false]);
-ck('dasha-uchcha-Mars',(x=>[x.dignity,x.house,x.zone])(dc(set(base(S.Simha),'Mars',S.Makara),S.Karka,'Mars')),['उच्च राशि',7,'केंद्र']);
-ck('dasha-neecha-Venus',(x=>[x.dignity,x.zone])(dc(set(base(S.Simha),'Venus',S.Kanya),S.Mesha,'Venus')),['नीच राशि','6/8/12']);
-ck('dasha-lagna-bhava-zone',dc(set(base(S.Simha),'Jupiter',S.Mesha),S.Mesha,'Jupiter').zone,'केंद्र और त्रिकोण (लग्न भाव)');
-ck('dasha-trikona-9',(x=>[x.house,x.zone])(dc(set(base(S.Simha),'Saturn',S.Dhanu),S.Mesha,'Saturn')),[9,'त्रिकोण']);
-ck('dasha-other-zone',(x=>[x.dignity,x.house,x.zone])(dc(set(base(S.Simha),'Sun',S.Vrishabha),S.Mesha,'Sun')),['अन्य राशि (मित्रता का निर्णय नहीं)',2,'अन्य']);
-ck('dasha-node-no-dignity',(x=>[x.node,x.dignity])(dc(base(S.Simha),S.Mesha,'Rahu')),[true,null]);
-{const ps=base(S.Simha);['Moon','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'].forEach((g,i)=>set(ps,g,[1,2,3,5,6,7,8][i]));set(ps,'Mars',S.Simha);
- ck('dasha-conjunct',dc(ps,S.Mesha,'Sun').conjunct,['Mars']);
- ck('dasha-no-conjunct',dc(ps,S.Mesha,'Moon').conjunct,[]);}
-ck('dasha-unknown-lord',dc(base(S.Simha),S.Mesha,'Pluto'),'ERR:Unknown dasha lord Pluto');
-ck('dasha-missing-planet',dc(base(S.Simha).filter(p=>p.graha!=='Rahu'),S.Mesha,'Rahu'),'ERR:Missing planet Rahu');
-ck('dasha-phal-all-lords',['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'].every(l=>{const x=dc(base(S.Simha),S.Mesha,l);return x.phal&&x.phal.fav.length>20&&x.phal.adv.length>20&&/^BPHS 47/.test(x.phal.ref);}),true);
-ck('dasha-no-aggregate-score','score' in dc(base(S.Simha),S.Mesha,'Sun'),false);
-ck('dasha-venus-remedy-omission-noted',/उपाय-अंश नीति से नहीं लिया गया/.test(dc(base(S.Simha),S.Mesha,'Venus').phal.adv),true);
+ck('dasha-venus-remedy-omission-noted',(x=>[!x.phal.adv.includes('उपाय-अंश'),!x.phal.adv.includes('शारीरिक कष्ट'),x.omissions.some(o=>o.includes('47.88-89')&&o.includes('उपाय'))])(dc(base(S.Simha),S.Mesha,'Venus')),[true,true,true]);
 console.log('\nFINAL3 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
 
 // --- Dasha stage-2 groundwork: bhavaLord + lordOf (no phal text yet)
@@ -194,6 +176,31 @@ console.log('\nFINAL4 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSO
 function mk(map){return ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'].map(g=>P(g,map[g]));}
 const db=(ps,asc,lord)=>R.dashaBhava(ps,asc,lord);
 const refs=(rs,side)=>rs[side].map(r=>r.ref);
+// --- Dasha full-audit corrections D1-D11 (dasha-complete-audit, main 14:47-14:48)
+{const ALL=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+ const blob=ALL.map(l=>JSON.stringify(dc(base(S.Simha),S.Mesha,l))+JSON.stringify(db(mk({Sun:0,Moon:1,Mars:2,Mercury:3,Jupiter:4,Venus:5,Saturn:6,Rahu:7,Ketu:8}),0,l))).join('');
+ ck('d1-no-vish-astra',blob.includes('विष/अस्त्र'),false);
+ ck('d2d3-no-health-assurance',/स्वास्थ्य|स्वस्थता/.test(blob),false);
+ ck('d4-no-bodily-suffering',blob.includes('शारीरिक कष्ट'),false);
+ ck('d5-no-category-leak',/मारक-भय|भय-पदावली|हटाया गया|हटाई गई/.test(blob),false);
+ ck('d6-no-condition-keyed-disease',blob.includes('रोग'),false);
+ ck('d6-distress-words-kept',['चिंता','मानसिक पीड़ा','मानसिक तनाव'].every(w=>blob.includes(w)),true);
+ ck('d7-omissions-per-lord',ALL.map(l=>dc(base(S.Simha),S.Mesha,l).omissions.length),[0,1,0,2,0,1,1,0,1]);
+ ck('d7-ketu-count-in-string',dc(base(S.Simha),S.Mesha,'Ketu').omissions[0].includes('3 पद'),true);
+ ck('d8-para-every-lord',ALL.every(l=>/परंपरा में ऐसा माना गया है/.test(dc(base(S.Simha),S.Mesha,l).para)),true);
+ ck('d11-mercury-adverse-restored',(x=>x.phal.adv.includes('विषय-आसक्ति से धन-हानि')&&x.phal.adv.includes('ऐतिहासिक आचरण-वर्णन'))(dc(base(S.Simha),S.Mesha,'Mercury')),true);
+ const bnd=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'].map(g=>({graha:g,rashi:0,degreesInRashi:10}));
+ bnd[1]={graha:'Moon',rashi:1,degreesInRashi:0.005}; // Moon at UC-zone start edge (Taurus 0-3)
+ ck('d9-zone-boundary-fires',(x=>x.degreeZone.boundary===true&&x.degreeZone.zone===null)(R.dashaContext(bnd,0,'Moon')),true);
+ ck('d9-no-zone-no-row',(x=>x.degreeZone.boundary===false&&x.degreeZone.zone===null)(R.dashaContext(bnd,0,'Saturn')),true);
+ ck('d10-dup-nonrequired-throws',(()=>{try{R.dashaContext([...bnd,{graha:'Rahu',rashi:7,degreesInRashi:5},{graha:'Rahu',rashi:8,degreesInRashi:6}],0,'Sun');return 'no-throw';}catch(e){return e.message}})(),'Duplicate natal planet Rahu');
+ ck('d10-dup-in-bhava-path',(()=>{try{R.dashaBhava([...bnd,{graha:'Ketu',rashi:7,degreesInRashi:5},{graha:'Ketu',rashi:9,degreesInRashi:6}],0,'Sun');return 'no-throw';}catch(e){return e.message}})(),'Duplicate natal planet Ketu');
+ const fs2=require('fs'),uiSrc=fs2.readFileSync(__dirname+'/../kundli-suite-ui.js','utf8'),db0=uiSrc.indexOf('function dashaPhalBlock'),db1=uiSrc.indexOf('\nfunction ',db0+1),dblock=uiSrc.slice(db0,db1>0?db1:undefined);
+ ck('d7-ui-lop-suchna',dblock.includes('लोप-सूचना'),true);
+ ck('d8-ui-para-rendered',dblock.includes('cx.para'),true);
+ ck('d5-ui-block-clean',/मारक-भय|भय-पदावली|हटाया गया|हटाई गई|रोग|स्वास्थ्य|स्वस्थता|विष\/अस्त्र/.test(dblock),false);
+}
+
 // 48.9 per-lord: 9th lord Jupiter conjunct 5th lord Sun suffices alone
 ck('s2-48.9-per-lord',(x=>[refs(x,'fav').includes('BPHS 48.9'),x.fav.find(r=>r.ref==='BPHS 48.9').text.includes('9वें')])(db(mk({Sun:8,Jupiter:8,Moon:0,Mars:1,Mercury:2,Venus:3,Saturn:4,Rahu:5,Ketu:6}),0,'Jupiter')),[true,true]);
 // 48.9 for 10th lord alone (both not required)
@@ -211,11 +218,11 @@ ck('s2-48.1-mixed-silent',(x=>[x.d48===null,x.notes.some(n=>n.includes('48.1')&&
 // 48.20 node exception: no adverse placement row for Rahu in 3rd, exception noted
 ck('s2-node-exception',(x=>[!x.adv.some(r=>r.text.includes('3/6/11 भाव में स्थिति')),x.notes.some(n=>n.includes('48.20'))])(db(mk({Rahu:2,Sun:0,Moon:1,Mars:4,Jupiter:6,Venus:7,Saturn:8,Mercury:9,Ketu:10}),0,'Rahu')),[true,true]);
 // 48.19 maraka technical only: Sun conjunct Venus (2nd/7th lord) and in 2nd
-ck('s2-maraka',(x=>{const r=x.adv.find(r=>r.ref==='BPHS 48.19');return [!!r,r&&r.text.includes('मारक'),r&&r.text.includes('हटाई गई')];})(db(mk({Venus:1,Sun:1,Moon:3,Mars:4,Mercury:5,Jupiter:6,Saturn:7,Rahu:8,Ketu:9}),0,'Sun')),[true,true,true]);
+ck('s2-maraka',(x=>{const r=x.adv.find(r=>r.ref==='BPHS 48.19');return [!!r,r&&r.text.includes('मारक'),r&&!r.text.includes('भय-पदावली')&&r.text.includes('तकनीकी शब्द')];})(db(mk({Venus:1,Sun:1,Moon:3,Mars:4,Mercury:5,Jupiter:6,Saturn:7,Rahu:8,Ketu:9}),0,'Sun')),[true,true,true]);
 // 48.20 eighth placement
 ck('s2-eighth',refs(db(mk({Moon:7,Sun:0,Mars:1,Mercury:2,Jupiter:3,Venus:4,Saturn:5,Rahu:6,Ketu:8}),0,'Moon'),'adv').includes('BPHS 48.20'),true);
 // bhava-lordship rows for Venus (2nd+7th), and no death word anywhere in output
-ck('s2-bhava-rows',(x=>[x.lordOf,x.bhavaCharcha.length,x.bhavaCharcha[0].text.includes('हटाया गया')])(db(mk({Venus:1,Sun:0,Moon:3,Mars:4,Mercury:5,Jupiter:6,Saturn:7,Rahu:8,Ketu:9}),0,'Venus')),[[2,7],2,true]);
+ck('s2-bhava-rows',(x=>[x.lordOf,x.bhavaCharcha.length,x.bhavaCharcha.every(b=>!b.text.includes('हटाया गया')&&!b.text.includes('मारक-भय'))])(db(mk({Venus:1,Sun:0,Moon:3,Mars:4,Mercury:5,Jupiter:6,Saturn:7,Rahu:8,Ketu:9}),0,'Venus')),[[2,7],2,true]);
 ck('s2-no-death-word',JSON.stringify(db(mk({Venus:1,Sun:1,Moon:3,Mars:4,Mercury:5,Jupiter:6,Saturn:7,Rahu:8,Ketu:9}),0,'Sun')).includes('मृत्यु'),false);
 // dasha-start placement flagged essential-unmodeled
 ck('s2-unmodeled',db(mk({Sun:0,Moon:1,Mars:2,Mercury:3,Jupiter:4,Venus:5,Saturn:6,Rahu:7,Ketu:8}),0,'Sun').unmodeled[0].includes('दशा-आरम्भ'),true);
