@@ -96,7 +96,28 @@ function set(ps,g,r,deg){const p=ps.find(x=>x.graha===g);p.rashi=r;p.longitude=r
  // omissions content
  ps=set(base(0),'Mars',0);set(ps,'Saturn',0);
  pc=R.dashaPairContext(ps,0,'Mars','Saturn','shukla');
- ck('AD-5o maraka+deathx+remedy omission lines',pc.omissions.some(o=>o.includes('मारक')&&o.includes('मृत्यु-पदावली'))&&pc.omissions.some(o=>o.includes('अन्य मृत्यु-संबंधी'))&&pc.omissions.some(o=>o.includes('उपाय/दान/जप')),pc.omissions);
+ ck('AD-5o count-only omission line = omitN+flags (Mars-Saturn 4+2=6), no category names',pc.omissions.some(o=>o.includes('6 संवेदनशील अंश'))&&pc.omissions.some(o=>o.includes('उपाय/दान/जप'))&&!pc.omissions.some(o=>o.includes('मृत्यु')||o.includes('मारक')),pc.omissions);
+ // AD-5s banned-limb asserts over all 81 fav/adv/mid (reviewer wordlist + scan-list superset)
+ const BL=['रोग','स्वास्थ्य','स्वस्थता','विष','व्रण','सर्प','शारीरिक','ज्वर','बिच्छु','व्याघ्र','पेचिस','कुष्ठ','पित्त','अग्नि','दंत','मूत्र','हृदय','ललाट','गुल्म','जल-भय','प्लवन','पतन','शस्त्र','नेत्र','स्नायु','दाह','मधुमेह','शिरःपीड़ा','अजीर्ण','उदर','पांडु','रक्तदूषण','वातरक्त','रक्तस्राव','अस्वास्थ्य','औषधि','मसूड़','मृत्यु','मारक','आयु'];
+ const blHits=[];for(const m of VIM)for(const a of VIM){const r=DP.pair(m,a);for(const f of ['fav','adv','mid']){const v=r[f]||'';for(const b of BL)if(v.includes(b))blHits.push(m+'-'+a+':'+f+':'+b);}}
+ ck('AD-5s banned-limb scan clean on all 81',blHits.length===0,blHits);
+ ck('AD-5s-neg scanner not vacuous',BL.some(b=>'यह रोग परीक्षण-वाक्य है'.includes(b))&&BL.some(b=>'सर्प-दंश कथा'.includes(b)));
+ // AD-5t source-audited omission-limb counts (ledger section 13 itemization; 75 pairs, 217 limbs)
+ const OMITN={'Jupiter-Jupiter':1,'Jupiter-Ketu':3,'Jupiter-Mars':2,'Jupiter-Mercury':6,'Jupiter-Moon':1,'Jupiter-Rahu':4,'Jupiter-Saturn':3,'Jupiter-Sun':3,'Ketu-Jupiter':2,'Ketu-Ketu':2,'Ketu-Mars':3,'Ketu-Mercury':1,'Ketu-Rahu':6,'Ketu-Saturn':1,'Ketu-Sun':3,'Ketu-Venus':5,'Mars-Jupiter':4,'Mars-Ketu':4,'Mars-Mars':4,'Mars-Mercury':4,'Mars-Moon':1,'Mars-Rahu':4,'Mars-Saturn':4,'Mars-Sun':5,'Mars-Venus':2,'Mercury-Jupiter':5,'Mercury-Ketu':5,'Mercury-Mars':6,'Mercury-Mercury':2,'Mercury-Moon':3,'Mercury-Rahu':2,'Mercury-Sun':3,'Mercury-Venus':3,'Moon-Ketu':1,'Moon-Mars':1,'Moon-Mercury':3,'Moon-Moon':1,'Moon-Rahu':3,'Moon-Saturn':1,'Moon-Sun':4,'Moon-Venus':3,'Rahu-Jupiter':2,'Rahu-Ketu':5,'Rahu-Mars':2,'Rahu-Mercury':2,'Rahu-Moon':2,'Rahu-Rahu':2,'Rahu-Saturn':2,'Rahu-Sun':3,'Rahu-Venus':5,'Saturn-Jupiter':2,'Saturn-Ketu':5,'Saturn-Mars':3,'Saturn-Mercury':3,'Saturn-Moon':3,'Saturn-Rahu':3,'Saturn-Saturn':3,'Saturn-Sun':3,'Saturn-Venus':8,'Sun-Jupiter':1,'Sun-Ketu':2,'Sun-Mars':1,'Sun-Mercury':2,'Sun-Moon':4,'Sun-Rahu':5,'Sun-Saturn':1,'Sun-Venus':1,'Venus-Jupiter':2,'Venus-Ketu':4,'Venus-Mars':3,'Venus-Mercury':2,'Venus-Moon':3,'Venus-Rahu':2,'Venus-Saturn':1,'Venus-Sun':1};
+ const omErrs=[];for(const m of VIM)for(const a of VIM){const want=OMITN[m+'-'+a]||0,got=DP.pair(m,a).omitN||0;if(got!==want)omErrs.push(m+'-'+a+':want'+want+' got'+got);}
+ ck('AD-5t omitN matches audited map on all 81',omErrs.length===0,omErrs);
+ ck('AD-5t total limb count 217',Object.values(OMITN).reduce((s,n)=>s+n,0)===217&&VIM.flatMap(m=>VIM.map(a=>DP.pair(m,a).omitN||0)).reduce((s,n)=>s+n,0)===217);
+ // AD-5u rendered count = omitN+maraka+deathx, count-only, across representative coverage classes
+ const mkPs=(m,a)=>set(base(0),a,0);
+ const cnt=(m,a)=>{const pc2=R.dashaPairContext(mkPs(m,a),0,m,a,'shukla');const line=pc2.omissions.find(o=>o.includes('संवेदनशील अंश'))||'';const r=DP.pair(m,a),want=(r.omitN||0)+(r.maraka?1:0)+(r.deathx?1:0);return {line,want,ok:line.startsWith('इस युग्म के '+want+' संवेदनशील अंश'),om:pc2.omissions};};
+ const c1=cnt('Sun','Mars');ck('AD-5u no-flag stripped pair count (Sun-Mars=1)',c1.want===1&&c1.ok,c1.line);
+ const c2=cnt('Mercury','Jupiter');ck('AD-5u flag+multilimb count (Mercury-Jupiter omitN5+deathx=6)',c2.want===6&&c2.ok,c2.line);
+ const c3=cnt('Saturn','Mercury');ck('AD-5u full-omission pair count (Saturn-Mercury=3) + adv notice',c3.want===3&&c3.ok&&DP.pair('Saturn','Mercury').adv.includes('पूर्णतः हटाया गया'),c3.line);
+ const c4=cnt('Sun','Sun');ck('AD-5u baseline flag-only pair (Sun-Sun maraka=1)',c4.want===1&&c4.ok,c4.line);
+ const c5=cnt('Venus','Venus');ck('AD-5u flag-only both flags (Venus-Venus=2)',c5.want===2&&c5.ok,c5.line);
+ const allCnt=VIM.flatMap(m=>VIM.map(a=>cnt(m,a)));
+ ck('AD-5u every pair count-only message present and exact',allCnt.every(c=>c.ok),allCnt.filter(c=>!c.ok).slice(0,5));
+ ck('AD-5u no omission line leaks category words on any pair',allCnt.every(c=>!c.om.some(o=>/मृत्यु|मारक|रोग|स्वास्थ्य|विष|व्रण|सर्प|शारीरिक|ज्वर|आयु/.test(o.replace(/उपाय\/दान\/जप/,'')))),null);
  pc=R.dashaPairContext(set(base(0),'Mercury',0),0,'Mercury','Ketu','shukla');
  ck('AD-5p provenance note',pc.omissions.some(o=>o.includes('स्वामित्व-टिप्पणी')),pc.omissions);
  pc=R.dashaPairContext(set(base(0),'Mercury',0),0,'Mercury','Rahu','shukla');
