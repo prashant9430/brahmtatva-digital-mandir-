@@ -1,0 +1,19 @@
+.aarti-suite{max-width:1040px}
+.aarti-hero{text-align:center;padding:28px 8px 6px}
+.aarti-hero h1{font-family:var(--p-font-display);color:var(--p-maroon);font-size:clamp(2rem,6vw,3rem)}
+.aarti-hero p{color:var(--p-muted);max-width:560px;margin:8px auto}
+.diya{width:44px;height:44px;margin:0 auto 8px;position:relative}
+.diya:before{content:"";position:absolute;left:50%;top:0;width:14px;height:26px;margin-left:-7px;border-radius:50% 50% 50% 50%/70% 70% 30% 30%;background:radial-gradient(circle at 50% 70%,#fff3b0,#ffb42e 55%,#ff6a00);box-shadow:0 0 22px 8px #ff9a3c88;animation:aflame 1.6s ease-in-out infinite alternate;transform-origin:50% 90%}
+.diya:after{content:"";position:absolute;left:4px;right:4px;bottom:2px;height:14px;border-radius:0 0 22px 22px;background:linear-gradient(#e2b64a,#9a6b14)}
+@keyframes aflame{from{transform:scale(1) rotate(-2deg)}to{transform:scale(1.08,1.15) rotate(2deg)}}
+.deity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px;margin:24px 0}
+.deity{font:inherit;text-align:center;padding:22px 12px 18px;border-radius:20px;border:1px solid var(--p-gold-border);border-top:4px solid var(--p-gold);background:linear-gradient(165deg,#7d241a,#4a120c 75%);color:var(--p-ivory);box-shadow:var(--p-shadow-soft);display:flex;flex-direction:column;align-items:center;gap:8px;transition:transform .3s,box-shadow .3s}
+.deity.have{cursor:pointer}.deity.have:hover,.deity.have:focus-visible{transform:translateY(-6px);box-shadow:var(--p-shadow-lift),0 0 24px #d4af3755;outline:none}
+.deity.wait{opacity:.62;filter:saturate(.7)}
+.lotus{width:56px;height:36px;color:var(--p-gold-bright);filter:drop-shadow(0 0 8px #ffd70055)}
+.deity h3{font-family:var(--p-font-display);font-weight:400;font-size:1.2rem;color:var(--p-gold-soft);margin:2px 0}
+.tag{font-size:.75rem;padding:3px 10px;border-radius:20px;background:#0004;border:1px solid #d4af3755}
+.tag.ok{background:#ffd70022;color:var(--p-gold-bright)}
+.go{font-size:.82rem;color:var(--p-saffron)}
+.back{display:inline-block;margin:10px 0 30px}
+@media(prefers-reduced-motion:reduce){.diya:before{animation:none}.deity{transition:none}}
