@@ -279,7 +279,7 @@ function row(rep,id){const r=rep.rows.find(x=>x.id===id);if(!r)throw Error('row 
  ck('F20h F4 chart: served/unserved mix visible',unservedCount>0&&unservedCount<14,{unservedCount});
  ck('F20i row note rendered (SF1/G8 proxy)',html.includes('Sanskrit-primary AND'));
  ck('F20j nodes+conduct notes rendered',html.includes('राहु/केतु की युति/दृष्टि-भागीदारी अमॉडल')&&html.includes('चरित्र-निर्णय'));
- ck('F20k pane-report wiring (appended after labhaPanel; reviewed tanubhava/labhaphal substrings kept intact)',source.includes('bhavaphalPanel()+tanuPanel()+yutiphalPanel()+labhaPanel()+karmaphalPanel()'));
+ ck('F20k pane-report wiring (phalMethodPanel inserted after bhavaphalPanel; sequence pin updated)',source.includes('bhavaphalPanel()+phalMethodPanel()+tanuPanel()+yutiphalPanel()+labhaPanel()+karmaphalPanel()'));
  ck('F20l module absent -> honest pending',(()=>{const f=new Function('window','ps','ls','esc','panel','pending',body+';return karmaphalPanel();');
   return f({},psx,0,esc,(t,s)=>s,(t,s)=>'PENDING '+s);})().startsWith('PENDING'));
  ck('F20m kundli.html loads module',fs.readFileSync(__dirname+'/../kundli.html','utf8').includes('kundli-karmaphal.js'));
