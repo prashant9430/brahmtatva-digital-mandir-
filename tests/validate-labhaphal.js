@@ -174,7 +174,7 @@ function row(rep,id){const r=rep.rows.find(x=>x.id===id);if(!r)throw Error('row 
  ck('F12h F1 chart: served/unserved mix visible',unservedCount>0&&unservedCount<8,{unservedCount});
  ck('F12i unmodeled note rendered',html.includes('अस्तता-गणना अभी अमॉडल'));
  ck('F12j nodes note rendered',html.includes('राहु/केतु की युति/दृष्टि-भागीदारी अमॉडल'));
- ck('F12k pane-report wiring (appended after yutiphal; reviewed tanubhava substring kept intact)',source.includes('bhavaphalPanel()+tanuPanel()+yutiphalPanel()+labhaPanel()'));
+ ck('F12k pane-report wiring (phalMethodPanel inserted after bhavaphalPanel; sequence pin updated)',source.includes('bhavaphalPanel()+phalMethodPanel()+tanuPanel()+yutiphalPanel()+labhaPanel()'));
  ck('F12l module absent -> honest pending',(()=>{const f=new Function('window','ps','ls','esc','panel','pending',body+';return labhaPanel();');
   return f({},psx,0,esc,(t,s)=>s,(t,s)=>'PENDING '+s);})().startsWith('PENDING'));
  ck('F12m kundli.html loads module',fs.readFileSync(__dirname+'/../kundli.html','utf8').includes('kundli-labhaphal.js'));
