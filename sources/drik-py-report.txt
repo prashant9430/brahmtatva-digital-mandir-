@@ -1,0 +1,131 @@
+== F1 1990-06-15 10:30 IST (waning Moon; Mercury alone)
+  Sun        60.1236  sign 2
+  Moon      317.7488  sign 10
+  Mars      347.1040  sign 11
+  Mercury    41.4649  sign 1
+  Jupiter    82.0990  sign 2
+  Venus      24.7071  sign 0
+  Saturn    270.3216  sign 9
+  Sun: drik=-17.7079 (Mercury-unconditional-full, replacement model: -17.7079)
+    from Moon     d= 102.375 sg= 3 v= 38.813 mal ->   -9.703
+    from Mars     d=  73.020 sg= 2 v= 34.529 mal ->   -8.632
+    from Venus    d=  35.416 sg= 1 v=  2.708 ben ->   +0.677
+    from Saturn   d= 149.802 sg= 4 v=  0.198 mal ->   -0.050
+  Moon: drik=+56.5423 (Mercury-unconditional-full, replacement model: +56.5423)
+    from Sun      d= 257.625 sg= 8 v= 21.187 mal ->   -5.297
+    from Mercury  d= 276.284 sg= 9 v= 11.858 ben ->  +11.858
+    from Jupiter  d= 235.650 sg= 7 v= 57.825 ben ->  +57.825
+    from Venus    d= 293.042 sg= 9 v=  3.479 ben ->   +0.870
+    from Saturn   d=  47.427 sg= 1 v= 34.854 mal ->   -8.714
+  Mars: drik=+20.4654 (Mercury-unconditional-full, replacement model: +20.4654)
+    from Sun      d= 286.980 sg= 9 v=  6.510 mal ->   -1.627
+    from Jupiter  d= 265.005 sg= 8 v= 34.995 ben ->  +34.995
+    from Saturn   d=  76.782 sg= 2 v= 51.609 mal ->  -12.902
+  Mercury: drik=-17.4383 (Mercury-unconditional-full, replacement model: -17.4383)
+    from Moon     d=  83.716 sg= 2 v= 38.716 mal ->   -9.679
+    from Mars     d=  54.361 sg= 1 v= 12.180 mal ->   -3.045
+    from Saturn   d= 131.143 sg= 4 v= 18.857 mal ->   -4.714
+  Jupiter: drik=-22.3113 (Mercury-unconditional-full, replacement model: -22.3113)
+    from Moon     d= 124.350 sg= 4 v= 25.650 mal ->   -6.412
+    from Mars     d=  94.995 sg= 3 v= 55.005 mal ->  -13.751
+    from Mercury  d=  40.634 sg= 1 v=  5.317 ben ->   +5.317
+    from Venus    d=  57.392 sg= 1 v= 13.696 ben ->   +3.424
+    from Saturn   d= 171.777 sg= 5 v= 43.555 mal ->  -10.889
+  Venus: drik=-14.6418 (Mercury-unconditional-full, replacement model: -14.6418)
+    from Moon     d=  66.958 sg= 2 v= 21.958 mal ->   -5.490
+    from Mars     d=  37.603 sg= 1 v=  3.802 mal ->   -0.950
+    from Saturn   d= 114.385 sg= 3 v= 32.807 mal ->   -8.202
+  Saturn: drik=+84.9355 (Mercury-unconditional-full, replacement model: +84.9355)
+    from Sun      d= 210.198 sg= 7 v= 44.901 mal ->  -11.225
+    from Mars     d= 283.218 sg= 9 v=  8.391 mal ->   -2.098
+    from Mercury  d= 228.857 sg= 7 v= 35.572 ben ->  +35.572
+    from Jupiter  d= 188.223 sg= 6 v= 55.889 ben ->  +55.889
+    from Venus    d= 245.615 sg= 8 v= 27.193 ben ->   +6.798
+== F2 1985-01-01 11:30 IST (waxing Moon; Mercury+Saturn same sign)
+  Sun       257.1273  sign 8
+  Moon        9.0352  sign 0
+  Mars      311.6863  sign 10
+  Mercury   234.5425  sign 7
+  Jupiter   267.8707  sign 8
+  Venus     302.9911  sign 10
+  Saturn    211.1107  sign 7
+  Sun: drik=-1.5198 (Mercury-unconditional-full, replacement model: -1.5198)
+    from Moon     d= 248.092 sg= 8 v= 25.954 ben ->   +6.488
+    from Saturn   d=  46.017 sg= 1 v= 32.033 mal ->   -8.008
+  Moon: drik=+36.0741 (Mercury-unconditional-full, replacement model: +55.4582)
+    from Sun      d= 111.908 sg= 3 v= 34.046 mal ->   -8.512
+    from Mars     d=  57.349 sg= 1 v= 13.674 mal ->   -3.419
+    from Mercury  d= 134.493 sg= 4 v= 15.507 mal ->   -3.877
+    from Jupiter  d= 101.165 sg= 3 v= 50.582 ben ->  +50.582
+    from Venus    d=  66.044 sg= 2 v= 21.044 ben ->   +5.261
+    from Saturn   d= 157.925 sg= 5 v= 15.849 mal ->   -3.962
+  Mars: drik=-14.1261 (Mercury-unconditional-full, replacement model: +26.0536)
+    from Sun      d=  54.559 sg= 1 v= 12.279 mal ->   -3.070
+    from Mercury  d=  77.144 sg= 2 v= 32.144 mal ->   -8.036
+    from Jupiter  d=  43.816 sg= 1 v=  6.908 ben ->   +6.908
+    from Saturn   d= 100.576 sg= 3 v= 39.712 mal ->   -9.928
+  Mercury: drik=+8.2247 (Mercury-unconditional-full, replacement model: +8.2247)
+    from Moon     d= 225.507 sg= 7 v= 37.246 ben ->   +9.312
+    from Mars     d= 282.856 sg= 9 v=  8.572 mal ->   -2.143
+    from Venus    d= 291.551 sg= 9 v=  4.224 ben ->   +1.056
+  Jupiter: drik=-8.6504 (Mercury-unconditional-full, replacement model: -6.5704)
+    from Moon     d= 258.835 sg= 8 v= 20.582 ben ->   +5.146
+    from Mercury  d=  33.328 sg= 1 v=  1.664 mal ->   -0.416
+    from Saturn   d=  56.760 sg= 1 v= 53.520 mal ->  -13.380
+  Venus: drik=-15.5443 (Mercury-unconditional-full, replacement model: +13.7664)
+    from Sun      d=  45.864 sg= 1 v=  7.932 mal ->   -1.983
+    from Moon     d= 293.956 sg= 9 v=  3.022 ben ->   +0.756
+    from Mercury  d=  68.449 sg= 2 v= 23.449 mal ->   -5.862
+    from Jupiter  d=  35.120 sg= 1 v=  2.560 ben ->   +2.560
+    from Saturn   d=  91.880 sg= 3 v= 44.060 mal ->  -11.015
+  Saturn: drik=+11.1537 (Mercury-unconditional-full, replacement model: +11.1537)
+    from Moon     d= 202.075 sg= 6 v= 48.962 ben ->  +12.241
+    from Mars     d= 259.424 sg= 8 v= 20.288 mal ->   -5.072
+    from Venus    d= 268.120 sg= 8 v= 15.940 ben ->   +3.985
+== F3 1985-07-01 11:30 IST (waxing near-full Moon; Mercury alone)
+  Sun        75.6973  sign 2
+  Moon      238.9491  sign 7
+  Mars       80.7744  sign 2
+  Mercury    98.5489  sign 3
+  Jupiter   292.2309  sign 9
+  Venus      30.9517  sign 1
+  Saturn    208.2961  sign 6
+  Sun: drik=+42.2084 (Mercury-unconditional-full, replacement model: +42.2084)
+    from Moon     d= 196.748 sg= 6 v= 51.626 ben ->  +12.906
+    from Jupiter  d= 143.466 sg= 4 v= 36.534 ben ->  +36.534
+    from Venus    d=  44.746 sg= 1 v=  7.373 ben ->   +1.843
+    from Saturn   d= 227.401 sg= 7 v= 36.299 mal ->   -9.075
+  Moon: drik=+10.0603 (Mercury-unconditional-full, replacement model: +10.0603)
+    from Sun      d= 163.252 sg= 5 v= 26.504 mal ->   -6.626
+    from Mars     d= 158.175 sg= 5 v= 16.349 mal ->   -4.087
+    from Mercury  d= 140.400 sg= 4 v=  9.600 ben ->   +9.600
+    from Venus    d= 207.997 sg= 6 v= 46.001 ben ->  +11.500
+    from Saturn   d=  30.653 sg= 1 v=  1.306 mal ->   -0.327
+  Mars: drik=+37.7660 (Mercury-unconditional-full, replacement model: +37.7660)
+    from Moon     d= 201.825 sg= 6 v= 49.087 ben ->  +12.272
+    from Jupiter  d= 148.544 sg= 4 v= 31.456 ben ->  +31.456
+    from Venus    d=  49.823 sg= 1 v=  9.911 ben ->   +2.478
+    from Saturn   d= 232.478 sg= 7 v= 33.761 mal ->   -8.440
+  Mercury: drik=+38.2722 (Mercury-unconditional-full, replacement model: +38.2722)
+    from Moon     d= 219.600 sg= 7 v= 40.200 ben ->  +10.050
+    from Jupiter  d= 166.318 sg= 5 v= 32.636 ben ->  +32.636
+    from Venus    d=  67.597 sg= 2 v= 22.597 ben ->   +5.649
+    from Saturn   d= 250.253 sg= 8 v= 40.253 mal ->  -10.063
+  Jupiter: drik=+23.8320 (Mercury-unconditional-full, replacement model: +23.8320)
+    from Sun      d= 216.534 sg= 7 v= 41.733 mal ->  -10.433
+    from Moon     d=  53.282 sg= 1 v= 11.641 ben ->   +2.910
+    from Mars     d= 211.456 sg= 7 v= 58.544 mal ->  -14.636
+    from Mercury  d= 193.682 sg= 6 v= 53.159 ben ->  +53.159
+    from Venus    d= 261.279 sg= 8 v= 19.360 ben ->   +4.840
+    from Saturn   d=  83.935 sg= 2 v= 48.033 mal ->  -12.008
+  Venus: drik=+39.4922 (Mercury-unconditional-full, replacement model: +39.4922)
+    from Moon     d= 152.003 sg= 5 v=  4.005 ben ->   +1.001
+    from Mercury  d= 292.403 sg= 9 v=  3.799 ben ->   +3.799
+    from Jupiter  d=  98.721 sg= 3 v= 49.360 ben ->  +49.360
+    from Saturn   d= 182.656 sg= 6 v= 58.672 mal ->  -14.668
+  Saturn: drik=+50.7962 (Mercury-unconditional-full, replacement model: +50.7962)
+    from Sun      d= 132.599 sg= 4 v= 17.401 mal ->   -4.350
+    from Mars     d= 127.522 sg= 4 v= 22.478 mal ->   -5.620
+    from Mercury  d= 109.747 sg= 3 v= 35.126 ben ->  +35.126
+    from Jupiter  d= 276.065 sg= 9 v= 11.967 ben ->  +11.967
+    from Venus    d= 177.344 sg= 5 v= 54.689 ben ->  +13.672

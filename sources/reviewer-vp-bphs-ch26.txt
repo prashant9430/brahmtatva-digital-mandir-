@@ -1,0 +1,545 @@
+[1] Exact Planetary Aspects – Brihat Parashara Hora Shastra Ch. 26 — vedicpupil.in
+https://vedicpupil.in/library/books/brihat-parashara-hora-shastra/chapter-26
+
+# Exact Planetary Aspects
+
+अथे ग्रहस्फुटदृष्टिकथनाध्ययाः
+
+Chapter 26 of Brihat Parashara Hora Shastra sets out exact planetary aspects, moving from the familiar sign-based rules to degree-based calculations. Verses 1-3 introduce the question and distinguish aspect by rashi from aspect arising from a planet's own nature.
+
+i Brihat Parashara Hora Shastra Parashara Sanskrit 3,937 verses · 97 chapters fully explained
+
+← Chapter 25 · Shadow Planet Results Chapter 27 · Shadbala Calculation → All chapters
+
+Verse 4 states that every planet fully aspects the seventh house or sign; Shani also aspects the third and tenth, Jupiter the fifth and ninth, and Mars the fourth and eighth. Verse 3 adds that aspects connected with the third, fourth, seventh, and tenth positions, and with trinal positions, give results by increasing quarters. Verses 5-9 describe finding an exact aspect by comparing the seen point and the aspecting planet, using rashi, direction, degrees, and division by two. Verses 10-12 give further degree and portion rules for Shani, Mars, and Jupiter. Verse 13 says these exact aspects are used when stating results for the houses of a birth chart.
+
+The English below is our translation from the Sanskrit.
+
+## This chapter in 4 points
+
+1 Every planet fully aspects the seventh house or sign from its position.
+
+v.4
+
+2 Shani additionally aspects the third and tenth, Jupiter the fifth and ninth, and Mars the fourth and eighth. v.4
+
+3 The chapter distinguishes sign-based aspects from aspects calculated from the planets' exact positions. v.2
+
+4 Verses 10-12 give additional degree and portion rules for Shani, Mars, and Jupiter.
+
+## The exact planetary aspects, verse by verse
+
+Sanskrit · English · Simple meaning
+
+1. ### Verse 26.1
+
+भगवान् कतिधा दृष्टिर्बलं कतिविधं तथा ।
+
+Venerable sir, how many kinds of aspect (drishti) are there, and how many kinds of strength (bala)? This doubt has arisen in me; you should resolve it.
+
+Simple meaning: Question: how many kinds of aspect and strength are there?
+
+Open verse Openहिन्दी में Copy Share Report error Report
+2. Brihat Parashara Hora Shastra · Chapter 26
+
+See these rules in your own chart — Enter your birth details and your chart opens here: lagna, Moon sign, nakshatra and all nine planets. Free, no sign-in.
+
+Show my chart
+3. ### Verse 26.2
+
+Jupiter Mars Saturn 3rd house
+
+एका राशिवशाद् दृष्टिः पूर्वमुक्ता च या द्विज ।अन्या खेटस्वभावोत्था स्फुटा तां कथयाम्यहम्
+
+One aspect, based on the signs, was stated earlier, O twice-born. The other arises from the nature of the planet; that exact one I shall now tell.
+
+Simple meaning: Two aspects: by sign (told before) and by planet's nature (exact), told now.
+
+Open verse Openहिन्दी में Copy Share Report error Report
+4. ### Verse 26.3
+
+त्रिदशे च त्रिकोणे च चतुरस्रे च सप्तमे ।पादवृद्धया प्रपश्यन्ति प्रयच्छन्ति फलं तथा
+
+Planets in the 3rd [and 10th], in the trine, in the 4th [and 8th], and in the 7th aspect with increase by a quarter [each step], and give results accordingly (continued in the next verse).
+
+Simple meaning: Aspect grows by quarter steps: 3rd/10th, trines, 4th/8th, then full at the 7th.
+
+Open verse Openहिन्दी में Copy Share Report error Report
+5. ### Verse 26.4
+
+पूर्णं च सप्तमं सर्वे शानिजीवकुजाः पुनः ।विशेषतश्च त्रिदशत्रिकोणचतुरष्टमान्
+
+All planets cast a full aspect to the seventh house or sign from where they are placed. Shani additionally aspects the third and tenth; Jiva (Jupiter) additionally aspects the fifth and ninth; and Kuja (Mars) additionally aspects the fourth and eighth.
+
+Simple meaning: Aspects: every planet fully aspects the 7th house from where it sits. Saturn also aspects the 3rd and 10th, Jupiter the 5th and 9th, and Mars the 4th and 8th.
+
+Open verse Openहिन्दी में Copy Share Report error Report
+6. ### Verse 26.5
+
+स्फुटान्तरवशाद्या च दृष्टिः साऽतिस्फुटा यथा
+
+Thus, in general, it has been set out by earlier teachers. The aspect that arises from the exact difference is the most exact, as follows.
+
+Simple meaning: General aspect as older teachers said; now the exact calculation.
+
+Open verse Openहिन्दी में Copy Share Report error Report
+7. ### Verse 26.6
+
+दृश्याद् विशोध्य द्रष्टारं षड्राशिभ्योऽधिकान्तरम् ।दिगभ्यः संशोध्य तद्भागा द्विभक्ता दृक् स्फुटा भवेत्
+
+Subtract the aspecting planet from the aspected one; if the difference exceeds six signs, subtract it from ten (dik) [signs, i.e. 300 degrees]; those degrees divided by two give the exact aspect (drik).
+
+Simple meaning: Exact aspect: for a gap over 180 degrees, aspect = (300 minus the gap) / 2.
+
+Open verse Openहिन्दी में Copy Share Report error Report
+8. ### Verse 26.7
+
+पञ्चाधिके विना राशिं भागाद्विघ्नाश्च दृक् स्फुटा ।वेदाधिके त्यजेद् भूताद् भागा दृष्टिः त्रिभाधिके
+
+When [the difference] exceeds five [signs], leaving out the signs, the degrees multiplied by two (dvighna) are the exact aspect; when it exceeds four (veda) [signs], subtract [it] from five (bhuta) [signs]: the degrees are the aspect. When it exceeds three signs (continued in the next verse).
+
+Simple meaning: Exact aspect: 150-180 degrees, twice the extra degrees; 120-150 degrees, 150 minus the gap.
+
+Open verse Openहिन्दी में Copy Share Report error Report
+9. ### Verse 26.8
+
+विशोध्यार्णवतो द्वाभ्यां लब्धं त्रिंशद्युतं च दृक् ।द्व्यधिके तु विना राशिं भागास्तिथियुतास्तथा
+
+Subtract from four (arnava); [halve it by two]; the quotient plus thirty is the aspect. When [the difference] exceeds two [signs], leaving out the sign, the degrees plus fifteen (tithi) [are the aspect].
+
+Simple meaning: Aspect calculation: for 3-4 signs add 30 to half; for 2-3 signs add 15 to the degrees.
+
+Open verse Openहिन्दी में Copy Share Report error Report
+10. ### Verse 26.9
+
+Saturn
+
+रूपाधिके विना राशिं भागा द्वयाप्ताश्च दृग् भवेत् ।एवं राश्यादिके शेषे शनौ द्रष्टरि भो द्विज
+
+When [the difference] exceeds one [sign], leaving out the sign, the degrees halved are the aspect. Thus, O twice-born, when signs etc. remain, where Saturn is the aspecting planet (continued in the next verse)
+
+Simple meaning: Aspect calculation: for 1-2 signs, halve the degrees; Saturn's special rule follows.
+
+Open verse Openहिन्दी में Copy Share Report error Report
+11. ### Verse 26.10
+
+एकभे नवभे भागा भुक्ता भोग्या द्विसंगुणाः ।द्विभेंऽशार्धोनिताः षष्टिरष्टभे खाग्नियुग् लवाः
+
+[for Saturn], in the 1st and 9th [sign of difference], the degrees traversed and to be traversed are doubled; in the 2nd, sixty less half the degrees; in the 8th, the degrees plus thirty (continued from the previous verse).
+
+Simple meaning: Saturn's aspect: 1st/9th sign, double the degrees; 2nd, 60 minus half; 8th, degrees plus 30.
+
+Open verse Openहिन्दी में Copy Share Report error Report
+12. ### Verse 26.11
+
+Mars
+
+त्रिसप्तभे तु भौमस्य षष्टिरत्र लवोनिता ।सार्धांशास्तिथिसंयुक्ता द्विभे रूपं सदाऽङ्गभे
+
+For Mars, when [the difference] is three or seven signs [and some degrees], [the aspect] here is sixty less the degrees; when two signs, one and a half times the degrees (sardhamsha) plus fifteen (tithi); when six signs (anga), always one whole (rupa) [i.e. full aspect].
+
+Simple meaning: Mars' exact aspect: stronger than usual at the 4th, 7th and 8th.
+
+Open verse Openहिन्दी में Copy Share Report error Report
+13. ### Verse 26.12
+
+Jupiter
+
+त्रिसप्तभे तु जीवस्य भागार्धं शरवेदयुक् ।द्विगुणैस्तु लवैश्चोनाः खरसाश्चतुरष्टभे
+
+For Jupiter, in the 3rd and 7th, half the degrees plus forty-five (shara-veda); in the 4th and 8th, sixty (kha-rasa) less double the degrees.
+
+Simple meaning: Jupiter's aspect: 3rd/7th, half the degrees plus 45; 4th/8th, 60 minus double.
+
+Open verse Openहिन्दी में Copy Share Report error Report
+14. ### Verse 26.13
+
+एवं रव्यादिखेटानां स्फुटा दृष्टिः प्रजायते ।तद्वशादेव भावानां जातकस्य फलं वदेत्
+
+Thus the exact aspect of the planets beginning with the Sun is obtained; by it alone should the results for the houses (bhavas) of the native be declared.
+
+Simple meaning: Use the exact aspect to judge house results.
+
+Open verse Openहिन्दी में Copy Share Report error Report
+
+## Common questions
+
+Which aspects do all planets have?
+
+Verse 4 says that every planet casts a full aspect to the seventh house or sign from where it is placed. Shani, Jupiter, and Mars also have additional aspects.
+
+What additional aspects are given for Shani, Jupiter, and Mars?
+
+Shani additionally aspects the third and tenth. Jupiter aspects the fifth and ninth, while Mars aspects the fourth and eighth.
+
+How does the chapter calculate exact aspects?
+
+Verses 5-9 describe a degree-based method using the positions of the aspecting planet and the point being viewed. Verses 10-12 add specific portion and degree rules for Shani, Mars, and Jupiter.
+
+[2] Verse 20 · Evaluation Of Strengths · Brihat Parashara Hora Shastra · siva.sh — siva.sh
+https://www.siva.sh/brihat-parashara-hora-shastra/27/20
+
+Verse 20 · Evaluation Of Strengths · Brihat Parashara Hora Shastra · siva.sh
+
+## chapters
+
+1.
+
+सृष्टिक्रमकथा
+
+The Creation
+
+2.
+
+अथावतारकथा
+
+Great Incarnations
+
+3.
+
+ग्रहगुणस्वरूपाध्यायः
+
+Grah Characters And Description
+
+4.
+
+राशिस्वरूपाध्यायः
+
+Zodiacal Rāśis Described
+
+5.
+
+विशेषलग्नाध्यायः
+
+Special Lagnas
+
+6.
+
+षोडशवर्गाध्यायः
+
+The Sixteen Divisions Of A Rāśi
+
+7.
+
+वर्गविवेकाध्यायः
+
+Divisional Considerations
+
+8.
+
+राशिदृष्टिकथनाध्यायः
+
+Drishtis Of The Rāśis
+
+9.
+
+अरिष्टाध्यायः
+
+अरिष्टभंगाध्यायः
+
+12.
+
+तनुभावफलाध्यायः
+
+13.
+
+धनभावफलाध्यायः
+
+14.
+
+सहजभावफलाध्यायः
+
+सुखभावफलाध्यायः
+
+16.
+
+पञ्चमभावफलाध्यायः
+
+17.
+
+षष्ठभावफलाध्यायः
+
+18.
+
+जायाभावफलाध्यायः
+
+19.
+
+आयुर्भावफलाध्यायः
+
+भाग्यभावफलाध्यायः
+
+कर्मभावफलाध्यायः
+
+लाभभावफलाध्यायः
+
+व्ययभावफलाध्यायः
+
+भावेशफलाध्यायः
+
+25.
+
+अथाऽप्रकाशग्रहफलाध्यायः
+
+26.
+
+ग्रहस्फुटदृष्टिकथनाध्ययाः
+
+52.
+
+विंशोत्तरीमतेन सूर्यदशान्तर्दशाफलाध्यायः
+
+53.
+
+चन्द्रान्तर्दशाफलाध्यायः
+
+कुजदशान्तर्दशाफलाध्यायः
+
+siva. sh/brihat-parashara-hora-shastra/27/20
+
+अथ तारग्रहाणां तु युद्ध्यतोश्च द्वयोर्मिथः । बलान्तरं विजेतुः स्वं निर्जितस्य बले त्वृणम् ॥ २०॥
+
+War Between Grahas. Should there be a war between the starry Grahas, the difference between the Shad Balas of the two should be added to the victor‟s Shad Bal and deducted from the Shad Bal of the vanquished.
+
+Chapter 27
+
+Verse 21
+
+Chapter 27
+
+[3] Verse 17 · Of Planetary Conjunctions. · Surya Siddhanta · siva.sh — siva.sh
+https://www.siva.sh/surya-siddhanta/7/17
+
+Verse 17 · Of Planetary Conjunctions. · Surya Siddhanta · siva.sh
+
+## chapters
+
+1.
+
+Rules For Finding The Mean Places Of The Planets
+
+The Rules For Finding The True Places Of The Planets.
+
+त्रिप्रश्नाधिकारः
+
+The Rules For Resolving The Questions On Time, The Position Of Places, And Directions.
+
+4.
+
+चन्द्रग्रहणाधिकारः
+
+On The Eclipses Of The Moon.
+
+5.
+
+सूर्यग्रहणाधिकारः
+
+On The Eclipses Of The Sun.
+
+6.
+
+On The Projection Of Solar And Lunar Eclipses.
+
+Of Heliacal Risings And Settings.
+
+Of Certain Malignant Aspects Of The Sun And Moon.
+
+From the extremity of the shadow until the apex of the cones, determine the two hypotenuses of the shadow. To a person standing at the extremity of the line joining the tip of the hypotenuse of the shadow, show the planet, and he would be able to see the tip of the cone too.
+
+Chapter 7
+
+Verse 18
+
+[4] Verse 18 · Of Planetary Conjunctions. · Surya Siddhanta · siva.sh — siva.sh
+https://www.siva.sh/surya-siddhanta/7/18
+
+Verse 18 · Of Planetary Conjunctions. · Surya Siddhanta · siva.sh
+
+## chapters
+
+1.
+
+मध्यमाधिकारः
+
+Rules For Finding The Mean Places Of The Planets
+
+2.
+
+स्पष्टाधिकारः
+
+The Rules For Finding The True Places Of The Planets.
+
+3.
+
+त्रिप्रश्नाधिकारः
+
+The Rules For Resolving The Questions On Time, The Position Of Places, And Directions.
+
+4.
+
+चन्द्रग्रहणाधिकारः
+
+On The Eclipses Of The Moon.
+
+5.
+
+सूर्यग्रहणाधिकारः
+
+On The Eclipses Of The Sun.
+
+6.
+
+छेद्यकाधिकारः
+
+On The Projection Of Solar And Lunar Eclipses.
+
+ग्रहयुत्यधिकारः
+
+Of Planetary Conjunctions.
+
+8.
+
+भग्रहयुत्यधिकारः
+
+9.
+
+उदयास्ताधिकारः
+
+Of Heliacal Risings And Settings.
+
+10.
+
+चन्द्रशृंगोन्नत्यधिकारः
+
+Of The Moon's Rising And Setting, And Of The Elevation Of Her Cusps.
+
+11.
+
+पाताधिकारः
+
+Of Certain Malignant Aspects Of The Sun And Moon.
+
+12.
+
+भूगोलाध्यायः
+
+13.
+
+ज्यौतिषोपनिषदध्यायः
+
+14.
+
+मानाध्यायः
+
+Of The Different Modes Of Reckoning Time.
+
+Progress: 55.0%
+
+siva. sh/surya-siddhanta/7/18
+
+स्वशङ्कुमूर्धगौ व्योम्नि ग्रहौ दृक्तुल्यताम् इतौ । उल्लेखम् तारकास्पर्शाद् भेदे भेदः प्रकीर्त्यते॥
+
+The two planets in the sky situated at the apex of each of the cones and arrived at the coincidence of observed place (drik), when there is contact of the stars is called ullekha (depiction). When there is separation, it is called bheda/bhedayuddha (division).
+
+slp1 transliteration by vidyut
+
+Chapter 7
+
+Verse 19
+
+[5] Verse 22 · Of Planetary Conjunctions. · Surya Siddhanta · siva.sh — siva.sh
+https://www.siva.sh/surya-siddhanta/7/22
+
+Verse 22 · Of Planetary Conjunctions. · Surya Siddhanta · siva.sh
+
+## chapters
+
+1.
+
+मध्यमाधिकारः
+
+Rules For Finding The Mean Places Of The Planets
+
+2.
+
+स्पष्टाधिकारः
+
+The Rules For Finding The True Places Of The Planets.
+
+3.
+
+त्रिप्रश्नाधिकारः
+
+The Rules For Resolving The Questions On Time, The Position Of Places, And Directions.
+
+4.
+
+चन्द्रग्रहणाधिकारः
+
+On The Eclipses Of The Moon.
+
+5.
+
+सूर्यग्रहणाधिकारः
+
+On The Eclipses Of The Sun.
+
+6.
+
+छेद्यकाधिकारः
+
+On The Projection Of Solar And Lunar Eclipses.
+
+ग्रहयुत्यधिकारः
+
+Of Planetary Conjunctions.
+
+8.
+
+भग्रहयुत्यधिकारः
+
+9.
+
+उदयास्ताधिकारः
+
+Of Heliacal Risings And Settings.
+
+10.
+
+चन्द्रशृंगोन्नत्यधिकारः
+
+Of The Moon's Rising And Setting, And Of The Elevation Of Her Cusps.
+
+11.
+
+पाताधिकारः
+
+Of Certain Malignant Aspects Of The Sun And Moon.
+
+12.
+
+भूगोलाध्यायः
+
+13.
+
+ज्यौतिषोपनिषदध्यायः
+
+14.
+
+मानाध्यायः
+
+Of The Different Modes Of Reckoning Time.
+
+Progress: 55.8%
+
+siva. sh/surya-siddhanta/7/22
+
+आसन्नाव् अप्य् उभौ दीप्तौ भवतश् चेत् समागमः। स्वल्पौ द्वाव् अपि विध्वस्तौ भवेताम् कूटविग्रहौ॥
+
+If both planets be brilliant, when they come near—we have conjunction (samagama). If the planets be of lesser brilliancy and struck down, they are called kuta vigraha (transverse planets).
+
+slp1 transliteration by vidyut
+
+Chapter 7
+
+Verse 23
