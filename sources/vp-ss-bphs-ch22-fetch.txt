@@ -1,0 +1,42 @@
+[1] vedicpupil.in BPHS chapter-22 (Sanskrit + English, full chapter) — fetched 12 Nov 2026 ~18:33 IST via web_fetch
+https://vedicpupil.in/library/books/brihat-parashara-hora-shastra/chapter-22
+
+22.1: लाभभावफलञ्चाथ कथयामि द्विजोत्तम ।श्रूयतां जातको लोके यच्छुभत्वे सदा सुखी
+EN: Now I tell the results of the 11th house, O best of Brahmins; listen, [to know] how, when it is favourable, the person in the world is always happy.
+
+22.2: लाभाधिपो यदा लाभे तिष्टेत् केन्द्रत्रिकोणयोः ।बहुलाभं तदा कुर्यादुच्चे सूर्यांशगोऽपि वा
+EN: With the 11th lord in the 11th, or in a kendra or trikona, or exalted, or in the Sun's division, [the person] will have abundant gains.
+
+22.3: लाभेशे धनराशिस्थे धनेशे केन्द्रसंस्थिते ।गुरुणा सहिते भावे गुरुलाभं विनिर्दिशेत्
+EN: If the 11th lord is in the 2nd sign and the 2nd lord is in a kendra, joined by Jupiter, one may declare great gains.
+
+22.4: लाभेशे विक्रमे भावे शुभग्रहसमन्विते ।षट्त्रिंशे वत्सरे प्राप्ते सहस्रद्वयनिष्कभाक्
+EN: If the 11th lord is in the 3rd house, joined by benefic planets, then on reaching the 36th year the person receives two thousand nishkas.
+
+22.5: केन्द्रत्रिकोणगे लाभनाथे शुभसमन्विते ।चत्वारिंशे तु सम्प्राप्ते सहस्रार्धसुनिष्कभाक्
+EN: If the 11th lord is in a kendra or trine, joined by benefics, then on reaching the 40th year the person receives half a thousand good nishkas.
+
+22.6: लाभस्थाने गुरुयुते धने चन्द्रसमन्विते ।भाग्यस्थानगते शुक्रे षट्सहस्राधिपो भवेत्
+EN: With Jupiter in the 11th, the Moon in the 2nd, and Venus in the 9th, [the person] becomes lord of six thousand [coins].
+
+22.7: लाभाच्च लाभगे जीवे बुधचन्द्रसमन्विते ।धनधान्याधिपः श्रीमान्त्रत्नाद्याभरणैर्युतः
+EN: With Jupiter in the 11th from the 11th [the 9th], joined by Mercury and the Moon, [the person] is lord of wealth and grain, prosperous, and adorned with jewels and ornaments.
+
+22.8: लाभेशे लग्नभावस्थे लग्नेशे लाभसंयुते ।त्रयस्त्रिंशे तु सम्प्राप्ते सहस्रनिष्कभाग् भवेत्
+EN: If the 11th lord is in the lagna and the lagna lord is joined with the 11th, then on reaching the 33rd year the person receives a thousand nishkas.
+
+22.9: धनेशे लाभराशिस्थे लाभेशे धनराशिगे ।विवाहात्परतश्चैव बहुभाग्यं समादिशेत्
+EN: With the 2nd lord in the 11th and the 11th lord in the 2nd, much fortune is to be predicted from marriage onward.
+
+22.10: भ्रातृपे लाभराशिस्थे लाभेशे भ्रातृसंस्थिते ।भ्रातृभावाद्धनप्राप्तिदिव्याभरणसंयुतः
+EN: With the 3rd lord in the 11th and the 11th lord in the 3rd, [the person] gains wealth through siblings and has fine ornaments.
+
+22.11: लाभेशे नीचभेऽस्ते वा त्रिके पापसमन्विते ।कृते भूरिप्रयत्नेऽपि नैव लाभः कदाचन
+EN: With the 11th lord debilitated, or combust, or in the 6th, 8th or 12th joined with a malefic, there is never any gain even with great effort.
+
+[2] siva.sh BPHS ch22 verse pages — fetched 12 Nov 2026 ~18:34 IST via cloud browser (web_fetch CRAWL_TIMEOUT)
+https://siva.sh/brihat-parashara-hora-shastra/22/1 — EN: "O excellent of the Brahmins, I now explain effects relating to Labh Bhava, the auspiciousness of which Bhava will make one happy at all times."
+https://siva.sh/brihat-parashara-hora-shastra/22/2 — Sanskrit: लाभाधिपो यदा लाभे तिष्टेत् केन्द्रत्रिकोणयोः । बहुलाभं तदा कुर्यादुच्चे सूर्यांशगोऽपि वा ॥ २॥ (vp से 1:1 मेल) EN: "Should Labh's Lord be in Labh itself, or be in an angle, or in a trine from Lagn, there will be many gains. Similarly, if Labh's Lord is exalted, though in combustion there will be many gains."
+https://siva.sh/brihat-parashara-hora-shastra/22/11 — EN: "There will be no gains in spite of numerous efforts, if Labh's Lord is in fall, in combustion, or be in Ari, Randhr, or Vyaya Bhava with a malefic."
+
+[3] jyotishvidya.com/ch22.htm (Santhanam tradition) — पूर्व capture: sources/src-capture-jv-bphs-ch12-ch19-ch22-ch23.txt (reviewer-verified complete)
