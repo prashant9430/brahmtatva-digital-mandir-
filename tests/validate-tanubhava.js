@@ -167,7 +167,7 @@ function row(rep,id){const r=rep.rows.find(x=>x.id===id);if(!r)throw Error('row 
  ck('F11h F1 chart: served/unserved mix visible',unservedCount>0&&unservedCount<9,{unservedCount});
  ck('F11i mat-bhed line rendered',html.includes('पठन-भेद दर्ज'));
  ck('F11j nodes+drishti notes rendered',html.includes('अमॉडल')&&html.includes('binary'));
- ck('F11k pane-report wiring',source.includes('bhavaphalPanel()+tanuPanel()+yutiphalPanel()'));
+ ck('F11k pane-report wiring (phalMethodPanel inserted after bhavaphalPanel; sequence pin updated)',source.includes('bhavaphalPanel()+phalMethodPanel()+tanuPanel()+yutiphalPanel()'));
  ck('F11l module absent -> honest pending',(()=>{const f=new Function('window','ps','ls','esc','panel','pending',body+';return tanuPanel();');
   return f({},psx,0,esc,(t,s)=>s,(t,s)=>'PENDING '+s);})().startsWith('PENDING'));
  ck('F11m kundli.html loads module',fs.readFileSync(__dirname+'/../kundli.html','utf8').includes('kundli-tanubhava.js'));
