@@ -1,6 +1,6 @@
 // Avastha (BPHS45.5-10 jagratadi + deeptadi) module checks. Run: node tests/validate-avastha.js
-// Oracles: sloka-by-sloka mapping in docs/avastha-ledger-draft.md (reviewer scoped GO 2026-11-11,
-// rulings 1-4 + conditions A-C). siva.sh Sanskrit decisive; jyotishvidya duhkhita-drop anomaly guarded.
+// Oracles: sloka-by-sloka mapping in docs/avastha-ledger-draft.md
+// (rulings 1-4 + conditions A-C). siva.sh Sanskrit decisive; jyotishvidya duhkhita-drop anomaly guarded.
 // Labeled conventions under test: panchadha yardstick (jagratadi), first-match precedence in sloka
 // order, whole-sign yuti, kshina-chandra by paksha (sandhi -> anirnit), khalagriha = adhishatru.
 // Kopa/combustion is never computed (no orb in 45.9; project-wide unmodeled) - pinned here.

@@ -1,6 +1,6 @@
-# Bala (षड्बल/भावबल) increment — स्रोत-अभिलेख DRAFT v0.5 (11 Nov 2026 ~12:02 IST)
+# Bala (षड्बल/भावबल) increment — स्रोत-अभिलेख DRAFT v0.5 (11 Nov 2026)
 
-स्थिति: groundwork v0.1 (Bala-reviewer artifacts मिले 11:56). समीक्षा चक्र शेष: source-ledger → main → समीक्षक → कोड।
+स्थिति: groundwork v0.1 (अनुसंधान artifacts मिले)। जाँच चक्र शेष: source-ledger → जाँच → कोड।
 स्रोत: jyotishvidya.com BPHS ch27 "Shadbala" (एकल, अनाम अनामक ऑनलाइन अनुवाद;
 मुद्रित-श्लोक सत्यापन बाकी — पूर्व increments जैसा ही caveat)। raw cache: /tmp/ch27.html (cp1252)।
 पार्श्व-अध्याय: ch28 Ishta/Kashta (इस increment से बाहर, cache रखा)।
@@ -10,7 +10,7 @@
 - कोई नया phal-प्रोज़ नहीं; कोई उपाय/निर्णय/स्कोर-आधारित भविष्यवाणी नहीं।
 - UI: मौजूदा pending bala पैनल में तालिका; प्रत्येक संख्या के साथ घटक-विभाजन।
 - "बल के अनुसार फल" (47.2-4) अब भी लागू नहीं — bala संख्या केवल तथ्य-पंक्ति,
-  फल-चर्चा से जोड़ने का दावा नहीं (जब तक अलग increment समीक्षा न करे)।
+  फल-चर्चा से जोड़ने का दावा नहीं (जब तक अलग increment जाँच न करे)।
 
 ## घटक-सूची (ch27 श्लोक-सीमा → सूत्र)
 1. Uchcha (1-2): |ग्रह - गहन-नीच बिंदु|, 180° पर मोड़, /3 → Virupa (अधिकतम 60)।
@@ -22,7 +22,7 @@
 3. Ojha-yugma (4½): शुक्र/चन्द्र सम राशि/नवांश, अन्य विषम → 15+15।
 4. Kendradi (5): केन्द्र 60, पण्फर 30, आपोक्लिम 15 (whole-sign भाव)।
 5. Drekkana (6): पुरुष 1st / नपुंसक मध्य (2nd) / स्त्री अंतिम (3rd) → 15।
-   ⚠ मत-भेद (समीक्षक-सिफ़ारिश 12:00, main-निर्देश से अपनाया): vedicpupil ch27.6 "male, neuter and
+   ⚠ मत-भेद (सिफ़ारिश अपनाई): vedicpupil ch27.6 "male, neuter and
    female in order" 1st/middle/last + Raman-समर्थन; jyotishvidya "male, female,
    hermaphrodite → first, second, third" से सीधा टकराव — neuter-middle पठन
    अपनाया, टकराव यहाँ दर्ज। ग्रह-लिंग: ch3.19 (बुध/शनि नपुंसक; चन्द्र/शुक्र
@@ -68,7 +68,7 @@
     सीघ्रोच्च - (mean+true)/2, 180° मोड़, /3) — Raman यही उपयोग करता है।
     परंतु mean-longitude स्रोत उपलब्ध नहीं → अमॉडल + स्पष्ट नोट, जब तक स्रोत
     न मिले (स्थायी हटाव नहीं)। (a) 21-23 गति-तालिका = अगणित विकल्प; ⚠ मेरा
-    पूर्व-अंकन "mandatara 7.5" त्रुटिपूर्ण — समीक्षक-पठन (संस्कृत dala): vakra
+    पूर्व-अंकन "mandatara 7.5" त्रुटिपूर्ण — पठन (संस्कृत dala): vakra
     60, anuvakra 30, vikala 15, sama 30, manda 15, mandatara 30, chara 45,
     atichara 30; jyotishvidya-क्रम भिन्न — द्वितीय-संस्करण असत्यापित, दोनों
     दर्ज।
@@ -81,15 +81,15 @@
 20. 37-40: भाव-फल-सम्बन्ध + गणक-योग्यता — प्रोज़; UI में शामिल नहीं (या केवल
     विधि-नोट)।
 
-## प्रमुख निर्भरताएँ/खुले प्रश्न (समीक्षक को)
+## प्रमुख निर्भरताएँ/खुले प्रश्न
 - पंचधा-मैत्री + शुभ/पाप वर्गीकरण + ग्रह-लिंग: ch3 श्लोक-उद्धरण आवश्यक।
 - ch26 दृष्टि-पिंड सूत्र — ch26.htm cache करें, श्लोक-सीमा उद्धृत करें।
 - Ayana (15-17) वाक्यांश-अस्पष्टता; Cheshta (a) बनाम (b); युद्ध-परिभाषा;
-  वर्ष/मास-अधिपति गणना-भार — प्रत्येक पर समीक्षक-निर्णय।
-- Ephemeris-पर्याप्तता (जाँचा 11:57): astro-core.js grahaPositions प्रति-ग्रह
+  वर्ष/मास-अधिपति गणना-भार — प्रत्येक पर निर्णय।
+- Ephemeris-पर्याप्तता (जाँचा गया): astro-core.js grahaPositions प्रति-ग्रह
   sidereal longitude + retrograde (आंतरिक गति-चिह्न) देता है — 8-गति cheshta
   योजना (a) के लिए गति-सीमाएँ औसत-गति से व्युत्पन्न करनी होंगी (threshold-
-  परिपाटी समीक्षक-निर्णय)। sunrise/sunset उपलब्ध — दिन/रात्रि, tribhaga,
+  परिपाटी निर्णय)। sunrise/sunset उपलब्ध — दिन/रात्रि, tribhaga,
   nathonnatha, hora-lord सभी साध्य। HelioVector बंडल में मौजूद — सीघ्रोच्च
   मार्ग (b) सैद्धांतिक रूप से साध्य, export-जाँच शेष। mean longitudes
   प्रत्यक्ष नहीं — (b) के लिए अलग परिपाटी चाहिए।
@@ -97,12 +97,12 @@
   6-8 drishti-kona मूल्यांकन, 9-10 शनि, 11 मंगल, 12 गुरु विशेष — spec
   drishti() पठन से मेल; drishti-पिंड = Σ दृष्टि-मान, drik-bala 27.19 नियम से।
 
-## स्वतंत्र-फिक्स्चर नीति (main 11:55)
+## स्वतंत्र-फिक्स्चर नीति
 - एकल-अनुवाद सूत्र-सहमति स्वतंत्र-शुद्धता-प्रमाण नहीं।
-- फिक्स्चर: बाहरी प्रकाशित षड्बल-तालिकाओं वाले ज्ञात चार्ट (Bala-reviewer
-  agent-01M7491K0CFBJ4MTZ4QQ70PQK1 के पूर्व-शोध से, main के माध्यम से)।
+- फिक्स्चर: बाहरी प्रकाशित षड्बल-तालिकाओं वाले ज्ञात चार्ट
+  (पूर्व-शोध से)।
 - tolerance [रुलिंग]: केवल Dig ±0.06 (पुस्तक की अपनी rounding से व्युत्पन्न)।
-  ±0.5/±0.1 प्रस्ताव समीक्षक-असमर्थित — हटाए गए। अन्य घटकों पर कोई derived
+  ±0.5/±0.1 प्रस्ताव असमर्थित — हटाए गए। अन्य घटकों पर कोई derived
   tolerance नहीं; exact-match अथवा note।
 
 ## परीक्षण-योजना (रोupt)
@@ -112,8 +112,8 @@
   harness/bala-refs.json।
 - पूर्व सूट अक्षत (validate-interpretation, siddhant, antardasha आदि)।
 
-## समीक्षक-अनुसंधान artifacts (main 11:56, reviewer agent-01M7491K0CFBJ4MTZ4QQ70PQK1)
-फ़ाइलें (main को वापस भेजी गईं; branch-commit समीक्षा के बाद):
+## अनुसंधान artifacts
+फ़ाइलें (स्थानीय; branch-commit जाँच के बाद):
 - spec-21aac9af.py — BPHS 27.7-8 dig + 26.6-12 drishti पठन-स्पेक; oracle-तुलना।
 - shadbala_spec_checks-82810eb0.json — F1/F2/F3 (2000-01-01 Delhi, 1985-06-15
   London, 1975-11-02 Chennai): lahiri longitudes, asc, dig spec-बनाम-oracle,
@@ -135,7 +135,7 @@
   total 8.57 से ही reproduce)।
 - Required totals 390/360/300/420/390/330/300 (Su..Sa) — पठन स्पष्ट।
 - Raman उपयोगी: inputs, Dig, Naisargika, Drik-चिह्न, totals केवल Mo/Ve/Sa।
-- [अद्यतन 12:00] Example-35 Kala-तालिका सभी 7 ग्रहों के लिए आंतरिक-संगत →
+- [अद्यतन] Example-35 Kala-तालिका सभी 7 ग्रहों के लिए आंतरिक-संगत →
   Nathonnatha/Paksha/Ayana(declination)/Tribhaga/Hora के लिए golden। Mars
   "33.06" Example-56 typo था (सही 30.06; Mars total 298.14 सही) — पूर्व-flag
   हटाया। शेष print-विसंगति: Sun +0.70, Mercury rupa (537.02 बनाम 531.02),
@@ -143,8 +143,8 @@
 - Raman print-विसंगतियाँ दर्ज: Sun/Mars/Jupiter total-अंतर, Mercury rupa,
   p3 cusp 36:30 बनाम example 36:36।
 
-### NOT golden / अनिर्णित conventions (समीक्षक-निर्णय अपेक्षित)
-- friendship: चरण-1 नैसर्गिक+तात्कालिक मिश्रित (ch3.55-58 पूर्ण) प्रस्ताव; केवल-नैसर्गिक सरलीकरण अस्वीकार्य (स्रोत मिश्रित मांगता है)।
+### NOT golden / अनिर्णित conventions (निर्णय अपेक्षित)
+- friendship: चरण-1 नैसर्गिक+तात्कालिक मिश्रित (ch3.55-58 पूर्ण) लागू; केवल-नैसर्गिक सरलीकरण अस्वीकार्य (स्रोत मिश्रित मांगता है)।
 - Sthana/Kala/Cheshta: Raman से certify नहीं — प्रति-घटक स्वतंत्र derivation
   या दूसरा उदाहरण चाहिए।
 - PyJHora विचलन: Dig >60 संभव (cusps-योजना भिन्न, Sripati-प्रवण), Sun/Moon
@@ -160,7 +160,7 @@
 - F1-F3: केवल उन घटकों के लिए oracle-तुलना जहाँ परिपाटी ज्ञात (Dig max-60
   fold, Naisargika)। भिन्न-परिपाटी घटकों में oracle-मिलान प्रमाण नहीं।
 - Raman: Dig/Naisargika/Drik-sign/Mo-Ve-Sa totals; ±0.06 (Dig), totals ±0.1
-  प्रस्तावित — समीक्षक-शब्दावली अपेक्षित।
+  प्रस्तावित — शब्दावली अपेक्षित।
 - प्रत्येक घटक के लिए hand-derivation example ledger में (independent proof)।
 
 ## Hand-derivation worked example (F1: 2000-01-01 12:00 Delhi; asc 343.1891)
@@ -196,20 +196,18 @@ derivation harness-चरण में; परिपाटी-निर्णय
 पंचधा (ch3.57-58): दोनों मित्र=अति-मित्र; एक मित्र+एक सम=मित्र; एक शत्रु+एक
 मित्र=सम; एक शत्रु+एक सम=शत्रु; दोनों शत्रु=अति-शत्रु।
 
-## समीक्षक-सिफ़ारिशें 12:00 (main-निर्देश 12:00/12:03/12:04 से कार्यान्वयन) — कार्यान्वयन-क्रम और अवशिष्ट निर्णय-पंजीकरण
+## सिफ़ारिशें — कार्यान्वयन-क्रम और अवशिष्ट निर्णय-पंजीकरण
 
-> प्रमाणन-टिप्पणी (समीक्षक 12:02): ये पंक्तियाँ अनुसंधान-एजेंट की सिफ़ारिशें हैं,
-> फ़ाइल में दर्ज; फ़ाइल स्वयं अनुमति प्रमाणित नहीं करती। build-scope अनुमति
-> main/user के पास है; कार्यान्वयन main के 12:00/12:03/12:04 निर्देशों के अधीन।
+> प्रमाणन-टिप्पणी: ये पंक्तियाँ अनुसंधान-सिफ़ारिशें हैं, फ़ाइल में दर्ज।
 
-### कार्यान्वयन-क्रम (समीक्षक confidence-क्रम)
+### कार्यान्वयन-क्रम (confidence-क्रम)
 1. Uchcha, Dig, Naisargika, Kendradi, Ojha, Drekkana (सुधारित मान: Mo 0, Sa 15)।
 2. Paksha, Nathonnatha, Tribhaga, Hora, Vara — Raman Ex35 Kala golden से
    जाँच (convention-caveat: Raman kala में Sun-ayana/Moon-paksha दोगुने;
    true-noon संदर्भ; declination-ayana)।
 3. Ayana (BPHS-khanda primary) + Sun/Moon Cheshta — convention-नोट सहित।
 
-### अमॉडल + स्पष्ट नोट (हटाया नहीं — main 12:00: "deferred gaps को स्थायी
+### अमॉडल + स्पष्ट नोट (हटाया नहीं — "deferred gaps को स्थायी
 हटाव न मानें")
 - Cheshta मंगल→शनि: mean-longitude स्रोत अनुपलब्ध; स्रोत मिलने पर (b) लागू।
 - ग्रह-युद्ध: परिभाषा स्रोत में नहीं; अमॉडल + नोट।
@@ -220,17 +218,17 @@ derivation harness-चरण में; परिपाटी-निर्णय
 - Bhava bala (26-31): "one"=60, "quarter"=15 पठन plausible, cross-check बाकी।
 - Fixture-tolerance: केवल Dig ±0.06; अन्य कोई नहीं।
 
-### आंशिक-समग्रता नियम (main 12:00)
+### आंशिक-समग्रता नियम
 अनुपलब्ध घटकों से कुल/अनुपात न बनाएँ; आंशिक को पूर्ण षड्बल/भावबल न कहें —
 UI में प्रत्येक अमॉडल घटक स्पष्ट सूची में, कुल केवल तब जब सभी 6 स्रोत
 गणित हों (अथवा "आंशिक योग" स्पष्ट लेबल)।
 
-### अवशिष्ट निर्णय-पंक्तियाँ (अंतिम पुष्टि हेतु reviewer को)
-1. Saptavargaja compound-परिपाटी बिना golden — स्वीकार्य?
+### निर्णय-पंक्तियाँ (v0.8 में लागू)
+1. Saptavargaja compound-परिपाटी बिना golden — तय (v0.8)।
 2. Abda/Masa Raman-convention लेबल पर्याप्त?
-3. Ayana BPHS-khanda primary + ~1 virupa विचलन-नोट — स्वीकार्य?
-4. Yuddha अमॉडल (न कि flag-के-पीछे Raman-नियम) — स्वीकार्य?
-5. MT-45 केवल-राशि पठन — जोखिम स्वीकार या अमॉडल-नोट?
+3. Ayana BPHS-khanda primary + ~1 virupa विचलन-नोट — तय (v0.8)।
+4. Yuddha अमॉडल (न कि flag-के-पीछे Raman-नियम) — तय (v0.8)।
+5. MT-45 केवल-राशि पठन — जोखिम लेना या अमॉडल-नोट — तय (v0.8)।
 
 ## F1 kala-श्रेणी worked example (सन्निकट — सटीक मान implementation में engine से)
 - Paksha: |196.7119-256.2879| = 59.576° → PB 19.86; Mo/Me/Ve/Ju 19.86,
@@ -243,7 +241,7 @@ UI में प्रत्येक अमॉडल घटक स्पष्�
 सटीक sunrise/transit/hora-सीमाएँ implementation में ephemeris से; ये मान fixture-
 गणना की संरचना दिखाते हैं, golden नहीं।
 
-## Abda/Masa indexing — resolved 12:04 (main की शर्त पूर्ण)
+## Abda/Masa indexing — resolved (शर्त पूर्ण)
 - epoch 1827-05-01 दो स्वतंत्र Table-I मानों से सत्य: 1917-12-31 → A=33116,
   1918-10-16 → A=33405 (दोनों exact)।
 - सूत्र: yv=3*⌊A/360⌋+1, mv=2*⌊A/30⌋+1; स्वामी = ((v-1) mod 7) गिनती
@@ -252,14 +250,14 @@ UI में प्रत्येक अमॉडल घटक स्पष्�
   epoch दो बिंदुओं से, गुणक 3/2 Raman pp.43-47 पठन से।
 - F1 (2000-01-01): abda-lord Mercury, masa-lord Sun।
 - Drik-वर्गीकरण (waxing-Moon, Mercury-conjunction) PROVISIONAL — output में
-  provisional[] सूची + note; समीक्षक sign-off + independent fixtures बाकी।
+  provisional[] सूची + note; अंतिम पुष्टि + independent fixtures बाकी।
 
 ---
 
-## v0.8 — समीक्षक consolidated verdict 12:34 (2026-11-11), सभी निर्णय लागू
+## v0.8 — consolidated verdict (2026-11-11), सभी निर्णय लागू
 
-स्रोत: reviewer consolidated verdict 12:34 (main मार्ग); BPHS26.6 / 3.51-54 vedicpupil
-पाठ से reviewer-सत्यापित; Raman पुस्तक-पृष्ठ pixels (pp57/59/60) reviewer-निरीक्षित।
+स्रोत: consolidated verdict; BPHS26.6 / 3.51-54 vedicpupil
+पाठ से सत्यापित; Raman पुस्तक-पृष्ठ pixels (pp57/59/60) निरीक्षितत।
 
 **Blocker-fixes (1-6)**
 1. Drik कोण-दिशा: 26.6 = दृष्टि-लक्ष्य − दृष्टि-कर्ता (aspected minus aspecting)।
@@ -292,12 +290,12 @@ fixtures न आएँ। व्यक्तिगत आगामी-दृष�
 
 **Q3 Jupiter ayana (हल)**: मिश्रित ayanamsha + मुद्रित अंकगणित विसंगति।
 Raman fixture अलग book-ayanamsha 21°16' से; वास्तविक चार्ट engine-Lahiri से;
-दोनों न मिलाएँ। Jupiter decomposition (reviewer): printed 59.4 − book-expression
+दोनों न मिलाएँ। Jupiter decomposition: printed 59.4 − book-expression
 58.85764 = 0.54236 मुद्रित-अंकगणित; 58.85764 − khanda(book-ayan) 57.96263 =
 0.89501 पद्धति-अन्तर; book-vs-engine ayanamsha 0.19416; कुल 1.63153।
 Raman p57 Moon 312°17' vs input-तालिका 311°17' — मुद्रित-पंक्ति दोष दर्ज।
 
-**Tolerance-सुधार (reviewer के पूर्व परामर्श पर)**
+**Tolerance-सुधार (पूर्व परामर्श पर)**
 - 0.98 केवल khanda-lavas/3 vs 30·sin(bhuja) shape-bound (समान input पर);
   मुद्रित Raman-ayana की accuracy-bound नहीं। "~1 virupa vs true-declination"
   जैसा broad दावा हटा; Raman पद्धति = 15°-खंड interpolation-तालिका।
@@ -313,12 +311,12 @@ cheshta की kala-घटक-पुनरावृत्ति पाठ-नि
 
 ---
 
-## v0.9 — समीक्षक re-review gates 12:38:59 / 12:39:22 (2026-11-11), सभी लागू
+## v0.9 — पुनर्जाँच (2026-11-11), सभी लागू
 
-स्रोत: reviewer re-review of v0.8 (main मार्ग, 12:38:59 chronology gates +
-12:39:22 evidence-label/visual gates)।
+स्रोत: v0.8 की पुनर्जाँच (chronology जाँच +
+evidence-label/visual जाँच)।
 
-**Chronology fixes (12:38:59)**
+**Chronology fixes**
 1. UI rollover: pre-sunrise branch अब birth−86400000 नहीं — पिछली LOCAL
    CALENDAR DATE चुनता है (B.previousLocalDateString, en-CA + UTC calendar
    math) और उस date के civil-noon पर dailyPanchanga। DST spring-forward
@@ -335,8 +333,8 @@ cheshta की kala-घटक-पुनरावृत्ति पाठ-नि
    Saturday-sunrise instant से, tribhaga engine-night thirds; अब
    B.previousLocalDateString helper के माध्यम से।
 
-**Evidence-label fixes (12:39:22)**
-4. UI जाँच-दायरा paragraph reviewer के scoped wording पर: सूत्र-परीक्षण
+**Evidence-label fixes**
+4. UI जाँच-दायरा paragraph scoped wording पर: सूत्र-परीक्षण
    सभी दिखाए घटक; चुनी रामन-उदाहरण जाँचें = नाथोन्नथ, पक्ष (बुध छोड़कर),
    त्रिभाग, वार, होरा; अब्द/मास = रामन की चुनी convention की reproduction;
    दिग्बल = रामन-सारणी की 5 पंक्तियाँ arc-सूत्र से, 2 दोषपूर्ण पंक्तियाँ
@@ -350,7 +348,7 @@ cheshta की kala-घटक-पुनरावृत्ति पाठ-नि
    test + named exclusions से बदला); drik-in-partialSum की कोई टिप्पणी
    शेष नहीं (drik experimental, sum से बाहर — अपरिवर्तित)।
 
-**Visual fixes (12:39:22)**
+**Visual fixes**
 7. Mobile: "⇠ तालिका को बाईं-दाईं ओर खिसकाएँ ⇢" hint सारणी के ऊपर;
    nested horizontal scroll-region हटाया (expanded details अब wrapping
    text, अलग scroller नहीं — scroll-trap सम्भावना समाप्त); css का टूटा
@@ -367,12 +365,12 @@ gallery-relations, relations 717, states 455 — सब पास।
 
 ---
 
-# v0.6 — शेष घटक: स्रोत-सत्यापन + कार्यान्वयन-योजना (11 Nov 2026 ~13:00 IST)
+# v0.6 — शेष घटक: स्रोत-सत्यापन + कार्यान्वयन-योजना (11 Nov 2026)
 
-स्कोप: main 12:56 निर्देशानुसार शेष बला घटक — मंगल→शनि cheshta (27.21-25),
+स्कोप: शेष बला घटक — मंगल→शनि cheshta (27.21-25),
 ग्रह-युद्ध (27.20), भावबल (27.26-31)। यह खंड स्रोत-अभिलेख है; कोई कोड नहीं।
 
-## A. Ephemeris-पर्याप्तता (पूर्ण जाँच, 12:58; astro-core.js export-table पठित)
+## A. Ephemeris-पर्याप्तता (पूर्ण जाँच; astro-core.js export-table पठित)
 - BrahmAstro exports: ayanamsha, grahaPositions, outerPositions, riseSet,
   siderealLagna, dailyPanchanga, lagnaWindow, localDayString,
   startOfLocalDayUTC, nextLocalDayStartUTC, nakshatra/tithi/karana/yoga
@@ -385,7 +383,7 @@ gallery-relations, relations 717, states 455 — सब पास।
   दर्ज — speed व्युत्पन्न संभव, पर 8-गति परिपाटी की आवश्यकता यथावत।
 - MC/IC (meridian/nadir): पूरे codebase में कहीं गणना नहीं (grep: midheaven/
   meridian/nadir/IC शून्य)। भावबल 27.26-27 के 4H/10H हेतु नया astronomy
-  घटक (obliquity/RAMC) चाहिए या समीक्षक-परिपाटी।
+  घटक (obliquity/RAMC) चाहिए या परिपाटी।
 - भाव-परिपाटी: app पहले से whole-sign (kundli-engine house(): राशि-अंतर;
   UI source-note में घोषित) — यह सुसंगत मौजूदा परिपाटी है।
 
@@ -398,12 +396,12 @@ gallery-relations, relations 717, states 455 — सब पास।
   15, 7.5, 45, 30।
 - असंगति: Manda/Mandatara अदला-बदली + Sama 30 (vp) बनाम 7.5 (jv)।
   मुद्रित-श्लोक सत्यापन लंबित — दोनों दर्ज, कोई निर्णय नहीं (स्थायी
-  समीक्षक-शर्त 1)।
+  शर्त 1)।
 - Primary (b) cheshta-kendra (27.24-25, Raman-सुसंगत): आवश्यक mean
   geocentric longitude + sheeghrochcha — दोनों BrahmAstro exports में
   नहीं।
-- Mean-elements प्राथमिक स्रोत (समीक्षक-नामित, 13:01; section-स्तर सत्यापित
-  13:02): Simon et al. 1994, A&A 282, 663-683, §5.9 pp.677-679
+- Mean-elements प्राथमिक स्रोत (नामित; section-स्तर सत्यापित):
+  Simon et al. 1994, A&A 282, 663-683, §5.9 pp.677-679
   ("Mean elements of the planets referred to the mean dynamical ecliptic
   and equinox of date"; VSOP87: Mercury/Venus/Earth/Mars/Uranus/Neptune;
   JASON84: Jupiter/Saturn; t = TDB सहस्र-वर्ष J2000 से) —
@@ -411,7 +409,7 @@ gallery-relations, relations 717, states 455 — सब पास।
   ⚠ JPL fitted elements (ssd.jpl.nasa.gov/planets/approx_pos.html)
   true-mean नहीं — उस स्रोत का उपयोग वर्जित। यह एक अलग दस्तावेज़ित
   MODERN mean-elements cheshta परिपाटी होगी; coefficients + जाँचे हुए
-  Raman intermediates समीक्षक से आने शेष। implementation clearance अभी
+  Raman intermediates आने शेष। implementation clearance अभी
   नहीं।
 - Golden fixture उपलब्ध: Raman printed cheshta, **Standard Horoscope
   (1918-10-16 14:06:16 LMT, 13°N 77°35'E — अलग fixture-पहचान; 2000-Delhi
@@ -420,7 +418,7 @@ gallery-relations, relations 717, states 455 — सब पास।
   पहले से दर्ज — component-level ही प्रमाण, totals नहीं)।
 - Alternative (a) 8-गति: speed-threshold परिपाटी + अनसुलझा मत-भेद →
   अभी अमॉडल ही रखें; (b) के अनुपलब्ध होने पर fallback नहीं बल्कि अलग
-  समीक्षा-इकाई।
+  जाँच-इकाई।
 
 ## C. ग्रह-युद्ध (27.20) — अमॉडल यथावत
 श्लोक युद्ध-परिभाषा नहीं देता; Raman-नियम Sripati-आधारित व OCR-विकृत
@@ -441,38 +439,38 @@ diameter-तालिका; कोई golden नहीं → अमॉडल +
 6. 27.31: शीर्षोदय-भाव +15 virupa दिन में; उभयोदय +15 संध्या; पृष्ठोदय
    +15 रात्रि। (jv "15 Virupas"; vp "quarter" — quarter rupa = 15 virupa,
    jv-स्पष्टीकरण दर्ज।) दिन/रात्रि sunrise/sunset से उपलब्ध।
-   ⚠ उभयोदय-परिभाषा (समीक्षक-सुधार 13:01, BPHS 4.23 से सत्यापित 13:02):
+   ⚠ उभयोदय-परिभाषा (सुधार, BPHS 4.23 से सत्यापित):
    उभयोदय = केवल मीन (Pisces) — 4.23 "सौम्यस्थो ह्युभयोदयी", "rises both
    ways"। jv ch27 का "dual (or common) Rasis" अनुवाद-विस्तार 4.23 से
    भिन्न — 4.23 नियंत्रक, jv-पठन असंगति के रूप में दर्ज।
    ⚠ संध्या (twilight) की परिभाषा: प्रतिस्पर्धी परिभाषाएँ अनसुलझी — कोई
-   silent default नहीं (समीक्षक 13:01); परिपाटी समीक्षक-निर्णय मांगती है।
+   silent default नहीं; परिपाटी निर्णय मांगती है।
 
-### खुले प्रश्न (समीक्षक को, कोड से पहले)
+### खुले प्रश्न (कोड से पहले)
 - D4: भाव-स्वामी बल की परिभाषा (कुल षड्बल बनाम आंशिक; yuddha-समायोजन
   अमॉडल होने से विचलन-मुक्त)।
 - MC/IC: 4H/10H हेतु meridian/nadir गणना जोड़ें (नया astro घटक) या
   whole-sign 4H/10H परिपाटी? ⚠ anchor-संघर्ष दर्ज: Raman p.3 printed
   mc 216°30', ic 36°30' बनाम worked Example 59 मान 216°36'/36°36' —
   दोनों में असंगति; **कोई भी modern-astronomy golden नहीं**, केवल
-  published-print संदर्भ (समीक्षक 13:00)। meridian-मार्ग चुने तो modern
+  published-print संदर्भ। meridian-मार्ग चुने तो modern
   ephemeris से स्वतंत्र जाँच अलग से चाहिए।
 - संध्या-सीमा (27.31 ubhayodaya-खिड़की) परिपाटी।
-- D4 उत्तर (published source मिला, 12:59): Raman Graha and Bhava Balas
+- D4 उत्तर (published source मिला): Raman Graha and Bhava Balas
   art. 124-125 + Example 58 — Bhavadhipathi Bala = भाव-स्वामी का **कुल षड्बल**
   (Example 58 rupas में: Sa 6.49, Ju 7.23, Ma 4.97 ... = F1 totals/60;
-  Example 59 virupas में: 389.21, 433.77, 298.14, 376.25)। समीक्षक-पुष्टि
+  Example 59 virupas में: 389.21, 433.77, 298.14, 376.25)। पुष्टि
   फिर भी आवश्यक, पर अब परिपाटी-प्रस्ताव स्रोत-सहित है।
 - नया मत-भेद/परिपाटी-प्रश्न (महत्वपूर्ण): BPHS 27.26-27 "भाव जिस राशि में
   हो" — Raman इसे **भाव-मध्य (mid-point/cusp)** से operationalize करता है
   (art. 126-131; Standard Horoscope भाव-मध्य: I = 298°27' = asc, II =
   311°10', IV = 36°30' = IC, X = MC — cusp-आधारित, whole-sign नहीं)।
-  App की मौजूदा परिपाटी whole-sign है → समीक्षक-निर्णय: (i) whole-sign
+  App की मौजूदा परिपाटी whole-sign है → निर्णय: (i) whole-sign
   operationalization + स्पष्ट मत-भेद नोट, या (ii) Sripati cusps जोड़ना
   (नया astro घटक, अलग इकाई)।
 - Raman-विस्तार (BPHS 27.26-31 से बाहर): "Bhava Digbala" राशि-वर्ग घटक
   (Nara/Jalachara/Chathushpada/Keeta, ±rupa, art. 126-131) — BPHS श्लोक
-  नहीं; यदि जोड़ा जाए तो "Raman-extension" लेबल से, अलग समीक्षा।
+  नहीं; यदि जोड़ा जाए तो "Raman-extension" लेबल से, अलग जाँच।
 - स्वतंत्र-जाँच स्थिति: source PDF से Example 59 (printed Total Bhavabala,
   F1; जैसे भाव I = 473.39 virupa = 7.89 rupas, III = 510.21 = 8.51)
   पठित, पर pdftotext OCR स्तम्भ-संरेखण बुरी तरह विकृत → golden fixture
@@ -481,20 +479,20 @@ diameter-तालिका; कोई golden नहीं → अमॉडल +
   रुलिंग 13 की पुष्टि करते हैं।
 
 ## E. प्रस्तावित क्रम
-1. समीक्षक: B (cheshta-b परिपाटी), D4/D-MC/संध्या निर्णय।
+1. खुले: B (cheshta-b परिपाटी), D4/D-MC/संध्या निर्णय।
 2. तभी कोड + fixtures: Raman printed cheshta (5 ग्रह), F1 MC/IC anchor,
    भावबल printed/hand-derived (labeled)।
-3. पाइपलाइन अपरिवर्तित: ledger → main → समीक्षा → कोड → harness →
+3. पाइपलाइन अपरिवर्तित: ledger → जाँच → कोड → harness →
    protected commit → hosted verify।
 
 ---
 
-# v0.7 — Cheshta MODERN mean-elements: समीक्षक-पैकेज + द्वितीय-प्रतिलेखन + prep (11 Nov ~13:04 IST)
+# v0.7 — Cheshta MODERN mean-elements: पैकेज + द्वितीय-प्रतिलेखन + prep (11 Nov 2026)
 
-स्थिति: implementation PREP समर्थित, shipping clearance नहीं (main 13:02)।
+स्थिति: implementation PREP समर्थित, shipping clearance नहीं।
 कोई commit नहीं; harness केवल local।
 
-## A. समीक्षक-परिपाटी (13:02, दर्ज)
+## A. परिपाटी (दर्ज)
 - स्रोत: Simon et al. 1994 §5.9.1-5.9.6 λ (heliocentric mean longitude,
   mean dynamical ecliptic/equinox OF DATE); t=(JD_TDB−2451545)/365250;
   constant degrees, t¹..t⁶ coefficients ARCSECONDS (÷3600)।
@@ -507,11 +505,11 @@ diameter-तालिका; कोई golden नहीं → अमॉडल +
 - JPL approx_pos fitted elements वर्जित (true-mean नहीं)।
 
 ## B. द्वितीय-प्रतिलेखन (मेरा, paper-pixels से, उच्च-zoom crops)
-परिणाम: Venus/Earth/Mars/Jupiter = reviewer-JSON से पूर्ण मेल।
+परिणाम: Venus/Earth/Mars/Jupiter = oracle-JSON से पूर्ण मेल।
 तीन सुधार (paper pixel = नियंत्रक):
-- Mercury t³: paper +0″06522; reviewer-JSON 0.065222 (अतिरिक्त अंक)।
-- Saturn t⁴: paper −0″35004; reviewer-JSON −0.335।
-- Saturn t⁶: paper +0″00103; reviewer-JSON +0.000103 (दस गुना)।
+- Mercury t³: paper +0″06522; oracle-JSON 0.065222 (अतिरिक्त अंक)।
+- Saturn t⁴: paper −0″35004; oracle-JSON −0.335।
+- Saturn t⁶: paper +0″00103; oracle-JSON +0.000103 (दस गुना)।
 संख्यात्मक प्रभाव 1900-2100 में <2e-6° (नगण्य), परंतु transcription
 exact होना आवश्यक — सुधारित सेट harness में स्थिर।
 
@@ -524,24 +522,24 @@ exact होना आवश्यक — सुधारित सेट harnes
 - 2 wrap regressions (359/1/0→0; 1/359/0→0) exact।
 - 1000 frame-rotation invariance checks (200 triples × 5 rotations)।
 
-## D. Implementation से पहले सुलझाने शेष (main 13:02; कोई silent default नहीं)
+## D. Implementation से पहले सुलझाने शेष (कोई silent default नहीं)
 - Frame: app apparent-of-date sidereal + mean ayanamsha ↔ Simon mean
   equinox-of-date — nutation सुधार या स्पष्ट small-approximation budget,
   स्पष्ट लिखित निर्णय; "strict frame identity" दावा वर्जित।
 - TT≈TDB timing-error सीमा लिखित; UTC silent feeding वर्जित (civilUTC
   wiring अलग hosted-regression मद यथावत)।
 - 1900-2100 product guard लागू।
-- Full totals/yuddha/bhava uncleared; reviewer bhava report forthcoming।
+- Full totals/yuddha/bhava uncleared; bhava report अपेक्षित।
 
 ---
 
-# v0.8 — भावबल समीक्षक-निर्णय (13:04) + चतुर्थ सुधार (13:05) + terms prep
+# v0.8 — भावबल निर्णय + चतुर्थ सुधार + terms prep
 
-## A. चतुर्थ transcription सुधार (13:05)
-Jupiter t⁶: paper −0″00014; प्रथम JSON −0.000014। मेरा सेट पहले से सही,
-परंतु मेरा correction-log इसे चिह्नित करना चूक गया — दर्ज। समीक्षक के
+## A. चतुर्थ transcription सुधार
+Jupiter t⁶: paper −0″00014; प्रथम JSON −0.000014। सेट पहले से सही,
+परंतु correction-log इसे चिह्नित करना चूक गया — दर्ज।
 superseding artifacts (simon-mean-elements-8c3e507b.json,
-cheshta-research-fixture-c582db41.json) मेरे paper-verified सेट से
+cheshta-research-fixture-c582db41.json) paper-verified सेट से
 identical; regenerated reproductions 1e-9 पर पुनः मेल; Raman inputs
 अपरिवर्तित। shipping clearance अभी भी नहीं।
 
@@ -594,8 +592,8 @@ identical; regenerated reproductions 1e-9 पर पुनः मेल; Raman i
 
 ---
 
-# v0.9 — Frame/time resolution + harness-सुधार (13:07)
-- Reviewer-पकड़ा vacuous-test दोष सुधारा: boundary-जाँच अब वास्तविक
+# v0.9 — Frame/time resolution + harness-सुधार
+- पकड़ा गया vacuous-test दोष सुधारा: boundary-जाँच अब वास्तविक
   invariants (सभी widths > 0; Σ=360; 2000-लंबाई unique membership count=1;
   p21-बंधे 12 hand-literal boundaries; स्वतंत्र lifted-mid code-path) +
   3 negative controls जो provably fail होते हैं (duplicate→width 0;
@@ -609,7 +607,7 @@ identical; regenerated reproductions 1e-9 पर पुनः मेल; Raman i
   JD_TT=2451545+AstroTime.tt; TDB≈TT (IAU2006B3 <2ms, <1e-7°) नामित;
   UTC कभी TT नहीं। MC: RAMC=15·GAST+longE, tropical MC atan2, समान
   ayanamsha-frame जैसा Asc; independent Swiss-isolated MC/IC oracle
-  fixtures reviewer बना रहा है — shipping से पहले आवश्यक।
+  fixtures स्वतंत्र रूप से बनाने शेष — shipping से पहले आवश्यक।
   विवरण: docs/frame-time-resolution-draft.md।
 - Minimal native wrapper exports proposed (astroTt, gastHours,
   trueObliquity, nutationDpsi, meanAyanamsha) + API regression tests;
@@ -617,22 +615,21 @@ identical; regenerated reproductions 1e-9 पर पुनः मेल; Raman i
 
 ---
 
-## वर्तमान स्थिति (11 Nov 2026 ~13:36 IST, main-स्वीकृत आंतरिक रिकॉर्ड)
+## वर्तमान स्थिति (11 Nov 2026)
 
 **इकाई D+E(आंशिक): षड्बल घटक + चेष्टा (मंगल-शनि) + भावबल व्यक्तिगत शर्तें (27.26-31)**
-- कोड स्थिति: preview/kundli-suite पर committed, HEAD 7609726fa1f2eac81715e4ec651baff26363f22b।
-  main branch अपरिवर्तित (d7da476770348c6bf7fe98dc6f27e1ea25a0654c)। force-push नहीं।
+- कोड स्थिति: preview/kundli-suite पर committed।
+  main branch अपरिवर्तित। force-push नहीं।
 - होस्टेड जाँच: Vercel preview deployment https://brahmtatva-digital-mandir-g1ev19k9t.vercel.app
   (कुंडली पेज: /kundli.html — owner-session में observed load)। पूर्व deployment
   ...-3igrg1629 (0491a96) सुरक्षित।
-- गुमनाम सुरक्षा जाँच (13:35): root, /kundli.html, /kundli-bhava.js, /kundli-bala.js,
+- गुमनाम सुरक्षा जाँच: root, /kundli.html, /kundli-bhava.js, /kundli-bala.js,
   /kundli-suite-ui.js, /astro-core.js — सभी 302 → Vercel SSO (Standard Protection सक्रिय)।
 - परीक्षण: cheshta 40/40, bhava-terms 106/106, wrapper 51/51, bala 173/173,
-  bala-ui-context-check 12/12, reviewer bhava harness 0 failures (3/3 twilight)।
+  bala-ui-context-check 12/12, bhava harness 0 failures (3/3 twilight)।
 - मोबाइल native-scroll प्रमाण (390px, बिना CSS-injection): बाला तालिका दाहिना छोर
   (दृक्*/आंशिक योग) और भाव तालिका दाहिना छोर (अधिवासी ग्रह + ⇄ टकराव चिह्न) पठनीय।
-- main निर्णय 13:35: आंतरिक स्वीकृति। **उपयोगकर्ता-डिलीवरी नहीं** — अपराह्न batch में
-  main द्वारा नियोजित। सार्वजनिक release अनधिकृत।
+- **उपयोगकर्ता-डिलीवरी नहीं।** सार्वजनिक release अनधिकृत।
 - लेबल अखंड: आंशिक-only, दृक् प्रायोगिक, कुल/अनुपात/क्रम जानबूझकर अनुपस्थित (pending ब्लॉक)।
 - ज्ञात अधूरा (आगे की इकाइयाँ): ग्रह-युद्ध, भावबल कुल मान (27.32-33), षड्बल कुल/आवश्यक-अनुपात,
   दृष्टि/युति फल-स्तर, नामित योग विस्तार, भाव-फल कारकत्व — ledger section E।

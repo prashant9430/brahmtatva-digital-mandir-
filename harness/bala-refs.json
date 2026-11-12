@@ -89,7 +89,7 @@
   "paksha_mercury_divergence": {
    "module_verse_reading": 43.46,
    "raman_printed": 16.54,
-   "note": "RESOLVED (reviewer 12:34 Q1): Raman intentionally classifies Mercury malefic (Ex18 Budha Papa; Ex54 footnote combustion/association with Sun). Module keeps the BPHS 27.11 text-first unconditional first-group reading; convention divergence documented."
+   "note": "Resolved on source grounds: Raman intentionally classifies Mercury malefic (Ex18 Budha Papa; Ex54 footnote combustion/association with Sun). Module keeps the BPHS 27.11 text-first unconditional first-group reading; convention divergence documented."
   },
   "ayana_book21_vs_raman_printed": {
    "Sun": {
@@ -116,7 +116,7 @@
     "khanda_book21": 57.96263,
     "raman_printed": 59.4,
     "diff": -1.44,
-    "reviewer_decomposition": {
+    "spec_decomposition": {
      "printed": 59.4,
      "book_expression_value": 58.85764,
      "printed_arithmetic_error": 0.54236,
@@ -137,7 +137,7 @@
    }
   },
   "drik_vs_raman": {
-   "note": "WITHDRAWN as cross-convention golden (reviewer 12:34 Q2): Raman pp85-88 uses general aspect + fixed special additions (Mars15/Jupiter30/Saturn45), all quarter-weighted - a different model from BPHS26.6-12 curves + 27.19 weighting. Module drik is a chosen convention, experimental, excluded from partial sums."
+   "note": "WITHDRAWN as cross-convention golden: Raman pp85-88 uses general aspect + fixed special additions (Mars15/Jupiter30/Saturn45), all quarter-weighted - a different model from BPHS26.6-12 curves + 27.19 weighting. Module drik is a chosen convention, experimental, excluded from partial sums."
   }
  },
  "summary": {

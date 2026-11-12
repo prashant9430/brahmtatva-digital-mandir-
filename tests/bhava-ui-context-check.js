@@ -1,4 +1,4 @@
-// Private reviewer regression against the ACTUAL function body. Run in bundle root.
+// Regression against the ACTUAL function body. Run in bundle root.
 const fs=require('fs'),vm=require('vm'),B=require('../kundli-bala'),J=require('../kundli-engine'),BV=require('../kundli-bhava');
 const c={Date};vm.createContext(c);vm.runInContext(fs.readFileSync(__dirname+'/../astro-core.js','utf8'),c);const A=c.BrahmAstro;
 const source=fs.readFileSync(__dirname+'/../kundli-suite-ui.js','utf8');const body=source.slice(source.indexOf('function bhavaTermsPanel(){'),source.indexOf('\nconst tabs='));

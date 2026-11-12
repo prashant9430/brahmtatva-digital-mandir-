@@ -1,6 +1,6 @@
 /* E4 vishesh-yoga fixtures: Phaladeepika 6.14 (rule-fact only), 6.19
-vasumat/pushkala, 6.21-6.25 rules+phal. Reviewer-ruling fixtures (section-e4
-draft §9.3): mahabhagya gender-gate no-row, pushkala अनिर्णीत-path +
+vasumat/pushkala, 6.21-6.25 rules+phal. Ruling fixtures (docs/section-e4-
+rules-draft.md §9.3): mahabhagya gender-rule no-row, pushkala अनिर्णीत-path +
 "बल-शर्त अमॉडल" + per-condition negatives, vasumat BPHS 7.36 pin +
 reference-Moon exclusion, subha/asubhamala exact-set + shared-6th,
 lakshmi dignity ±, gauri 5/7/9 drishti controls, omission invariants
@@ -16,7 +16,7 @@ const row=(rep,k)=>rep.rows.find(r=>r.key===k);
 const allReps=[];
 const R=(planets,lagna)=>{const r=M.report(mk(planets),lagna);allReps.push(r);return r;};
 
-// ---------- 1. Mahabhagya: gender gate — never बनी/नहीं, no phal ----------
+// ---------- 1. Mahabhagya: gender rule — never बनी/नहीं, no phal ----------
 ok(M.report.length===2,'mahabhagya: report() takes only (planets,lagnaSign) — no gender/day-night input exists');
 let rep=R([['Sun',0,10],['Moon',3,15],['Mars',4,10],['Mercury',1,12],['Jupiter',8,2],['Venus',5,20],['Saturn',10,25]],0);
 ok(row(rep,'mahabhagya').status==='अमॉडल','mahabhagya always अमॉडल');

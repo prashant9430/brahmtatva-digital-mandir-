@@ -7,7 +7,7 @@ verification pending. Known source conditions (recorded in
 docs/antardasha-ledger-draft.md):
   - ch58 Ketu pair (6-8½, 9-11, 12) has NO 'Antar Dasha of Ketu' intro
     phrase in the online text; ownership assigned positionally per the
-    reviewer-verified ch58 map (2026-11-11 verdict).
+    verified ch58 map.
   - Genuine verse gaps in the online text: ch58 verse 50, ch59 verse 66.
   - ch58 Mangal range printed as '3-44½' (OCR typo for 43-44½).
   - Typography variants handled: ch55 '54-55½,' (comma terminator),
@@ -110,4 +110,4 @@ if __name__ == '__main__':
     seg = extract()
     validate(seg)
     json.dump(seg, open(out, 'w'), ensure_ascii=False, indent=1)
-    print('OK 81 pairs ->', out, '(Mercury-Ketu: positional per reviewer-verified ch58 map)')
+    print('OK 81 pairs ->', out, '(Mercury-Ketu: positional per verified ch58 map)')

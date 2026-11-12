@@ -104,7 +104,7 @@ function bhavaTermsPanel(){
  if(!BV)return pending('भावबल: घटक-शर्तें (27.26-31)','गणना-मॉड्यूल नहीं मिला; बिना आधार के घटक अनुमान से नहीं दिखाए जाते।');
  try{
   // Birth-moment day events from the CIVIL date plus NEIGHBOR windows (previous sunset /
-  // next sunrise) - NOT the Kala jyotish-day context (reviewer pre-commit fix): a birth
+  // next sunrise) - NOT the Kala jyotish-day context: a birth
   // before today's sunrise is today's MORNING twilight; an evening window can cross midnight.
   const ev=BV.civilBhavaEvents(A,birth,l);
   if(!ev)return pending('भावबल: घटक-शर्तें (27.26-31)','इस अक्षांश/दिन पर सामान्य सूर्योदय या सूर्यास्त नहीं; उदय-प्रकार शर्त अनुमान से नहीं दिखाई जाती।');

@@ -1,6 +1,6 @@
 // Offline regression harness for the siddhant tier-1 path.
 // Run: node tests/validate-siddhant.js   (from the repo root)
-// Covers: pack integrity, keyword candidate gate across meaning/source/
+// Covers: pack integrity, keyword quality checks across meaning/source/
 // paraphrase phrasings for all 6 topics, negatives, tat-tvam-asi tradition
 // framing order, and the selector instruction's meaning/source rule.
 // The model-level NONE/select judgment is spot-checked live, not here.
@@ -20,7 +20,7 @@ function check(name, cond) {
 const ids = new Set();
 for (const s of PACK) check('validSource ' + s.id, validSource(s, ids) && !ids.has(s.id) && ids.add(s.id));
 
-// 2. Candidate gate battery: meaning / source / paraphrase per topic.
+// 2. Pack quality battery: meaning / source / paraphrase per topic.
 const CASES = [
   ['siddhant-dharma', 'अवतार का अर्थ क्या है?'],
   ['siddhant-dharma', 'भगवान कब आते हैं?'],

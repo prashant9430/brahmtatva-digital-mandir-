@@ -92,7 +92,7 @@ throws(()=>M.report(mk(BASE),0),'missing baladi fn throws');
 const all=M.KARAKATVA.map(k=>k.items.join(' ')).join(' ');
 for(const bad of ['मृत्यु','आयु','death','longevity','नेत्रहीन','loss of sight'])
  ok(!all.includes(bad),'forbidden wording absent: '+bad);
-ok(all.includes('मृतक-धन'),'मृतक-धन kept as traditional topic (reviewer decision 1)');
+ok(all.includes('मृतक-धन'),'मृतक-धन kept as traditional topic (recorded decision)');
 const expOmit=[0,1,1,0,0,1,2,1,0,0,0,1];
 ok(JSON.stringify(M.KARAKATVA.map(k=>k.omitted))===JSON.stringify(expOmit),'omission counts per bhava');
 ok(M.KARAKATVA.length===12,'12 karakatva rows');

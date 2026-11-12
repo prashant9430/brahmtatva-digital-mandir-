@@ -1,24 +1,24 @@
 /* Bhavaphal ch12 pilot (BPHS तनुभावफल, 1st house) - condition-matched tradition
-rows. Curation frozen by reviewer rulings 2026-11-11 17:15/17:17 (docs/bhavaphal-ch12-ledger-draft.md):
+rows. Served-row curation (frozen 2026-11-11):
 KEEP 12.1 x2 (JOINT condition), 12.4 x3, 12.5 minus दीर्घायुः, 12.6, 12.7, 12.11 method;
 OMIT 12.2, 12.3 (breadth), 12.5 दीर्घायुः, 12.8, 12.9, 12.10, 12.11 lead-in, 12.12-14, 12.15
-(omitN = 10, count-only notice, ledger itemized).
+(omitN = 10, count-only notice).
 Sources (fetched 2026-11-12, caches in sources/):
  jyotishvidya.com/ch12.htm (Santhanam), vedicpupil chapter-12 (Sanskrit per verse),
  siva.sh /brihat-parashara-hora-shastra/12/1 (Sanskrit 12.1 formula-check).
 Machinery (reviewed, kundli-bhavaphal.js): BPHS 3.11 benefic/malefic classes
 (dynamic Moon/Mercury), 26.2-5 whole-sign graha-drishti incl. special aspects.
-Conventions (labeled, reviewer rulings):
+Conventions (labeled):
  - 12.1 JOINT reading: Sanskrit has both adjectives on the same subject (देहपः),
    no वा/अथ; Santhanam/siva.sh English "or" split = recorded mat-bhed.
  - Drishti conditions BINARY participation only; no strength language
-   (quantitative Drik-bala 26.12/27.19 is a separate unreviewed layer).
+   (quantitative Drik-bala 26.12/27.19 is a separate layer, not adopted here).
  - At-least-one-benefic convention (12.4/12.6 name no exclusivity); coexisting
    malefic aspects shown as factual transparency detail, never a blocker/verdict.
  - Nodes excluded from yuti/drishti participation (unmodeled, labeled).
  - Favourable and adverse rows both always listed (served or unserved);
    no verdicts, no scores; rows are tradition-labeled statements, not predictions.
- - Omission policy per omission boundary (main 2026-11-11 14:48 strong form):
+ - Omission policy (strong form):
    death/grief, longevity (दीर्घायुः), disease words (रोगकृत्/सर्वरोगहराः authentic),
    birth-circumstance claims (नाल-वेष्टित, twins, three mothers), wound/mark/
    decanate-limb table - omitted; comfort (देह-सुख) lines incl. adverse kept. */
@@ -34,7 +34,7 @@ const OMIT_NOTICE='BPHS अध्याय 12 की इस परंपरा-�
 const HEADER='ये पंक्तियाँ BPHS अध्याय 12 (तनुभावफल) की परंपरा-वर्णित शर्त-फल सूची हैं — शर्त बने तो परंपरा-कथन दिखता है, न बने तो पंक्ति पारदर्शिता के लिए बिना फल-पाठ के रहती है। ये भविष्यकथन या निश्चय नहीं; अनुकूल और प्रतिकूल पंक्तियाँ साथ दी गई हैं, कोई निर्णय/स्कोर नहीं।';
 const MATBHED_121='12.1 पठन-भेद दर्ज: संस्कृत में दोनों विशेषण एक ही कर्ता (देहपः) के हैं, कोई वा/अथ नहीं — अतः संयुक्त (JOINT) शर्त अपनाई; Santhanam/siva.sh अंग्रेजी "or" पठन भिन्न है। OR पठन में पाप-युक्त केन्द्रस्थ लग्नेश पर दोनों अर्धांश साथ लागू हो परस्पर विरोध करते।';
 const NODES_NOTE='राहु/केतु की युति/दृष्टि-भागीदारी अमॉडल (परंपरा-भेद); शर्तों में केवल सात ग्रह।';
-const DRISHTI_NOTE='दृष्टि-शर्तें केवल उपस्थिति (binary) देखती हैं — बल/तीव्रता की भाषा नहीं; मात्रात्मक दृक्-बल अलग असमीक्षित परत है। शुभ-दृष्टि के साथ पाप-दृष्टि भी हो तो वह तथ्य पारदर्शिता में दिखता है, रोक या निर्णय नहीं।';
+const DRISHTI_NOTE='दृष्टि-शर्तें केवल उपस्थिति (binary) देखती हैं — बल/तीव्रता की भाषा नहीं; मात्रात्मक दृक्-बल एक अलग परत है, यहाँ लागू नहीं। शुभ-दृष्टि के साथ पाप-दृष्टि भी हो तो वह तथ्य पारदर्शिता में दिखता है, रोक या निर्णय नहीं।';
 function checkPlanets(planets,asc){if(!Number.isInteger(asc)||asc<0||asc>11)throw Error('asc must be an integer sign 0..11');
  if(!Array.isArray(planets))throw Error('planets must be an array');const seen=new Set();
  for(const p of planets){if(!p||!SEVEN.includes(p.graha)){if(p&&(p.graha==='Rahu'||p.graha==='Ketu')){if(!Number.isInteger(p.rashi)||p.rashi<0||p.rashi>11)throw Error(p.graha+' rashi must be an integer sign 0..11');}continue;} // nodes tolerated but excluded from all conditions (unmodeled participation)
@@ -59,7 +59,7 @@ function report(planets,asc){checkPlanets(planets,asc);
  const kt55=[lagnesh,'Mercury','Jupiter','Venus'].filter(g=>KT.has(houseOf(p[g].rashi,asc)));
  const k7=['Mercury','Jupiter','Venus'].filter(g=>(p[g].rashi===asc&&p.Moon.rashi===asc)||KENDRA.includes(houseOf(p[g].rashi,asc)));
  const rows=[];
- // c12-1a (JOINT, reviewer ruling 17:17)
+ // c12-1a (JOINT reading)
  rows.push({id:'c12-1a',ref:'BPHS 12.1',polarity:'प्रतिकूल',topic:'देह-सुख',
   served:maleficWith.length>0&&DUSTHANA.includes(lordBhava),
   condition:`लग्नेश (${G[lagnesh]}) पाप-युति + 6/8/12 भाव (संयुक्त शर्त)`,

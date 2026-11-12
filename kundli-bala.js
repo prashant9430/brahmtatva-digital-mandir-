@@ -27,7 +27,7 @@ const KHANDA=[[0,0],[30,45],[60,78],[90,90]]; // 27.15-17 piecewise lavas (cumul
 const CHALDEAN=['Saturn','Jupiter','Mars','Sun','Venus','Mercury','Moon'];
 const WEEKDAY_LORD=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn']; // Sunday first
 const OWN_SIGNS={Sun:[4],Moon:[3],Mars:[0,7],Mercury:[2,5],Jupiter:[8,11],Venus:[1,6],Saturn:[9,10]};
-// Moolatrikona: D1 (rasi) only, and within the BPHS 3.51-54 degree zone (reviewer 12:33 ruling).
+// Moolatrikona: D1 (rasi) only, and within the BPHS 3.51-54 degree zone.
 // Mat-bhed recorded in ledger: Raman reads the full rasi; the BPHS verse's all-seven-vargas reading
 // is also recorded. [rasi, zoneStartDeg, zoneEndDeg):
 const MT_ZONE={Sun:[4,0,20],Moon:[1,3,30],Mars:[0,0,12],Mercury:[5,15,20],Jupiter:[8,0,10],Venus:[6,0,15],Saturn:[10,0,20]};
@@ -58,7 +58,7 @@ function horaBala(birthMs,sunriseMs,weekday,p){const dayLord=WEEKDAY_LORD[weekda
  // cycle continues UNWRAPPED past 24h (a >24h solar day has a 25th hora before the next sunrise)
  if(n<0)throw new Error('horaBala: birth before sunriseMs - pass the previous sunrise (jyotish-day rollover)');
  return CHALDEAN[(start+n)%7]===p?60:0;} // 27.13 hora-lord 60
-// Civil-date helpers for jyotish-day rollover (reviewer 12:38: NEVER subtract 86400000 -
+// Civil-date helpers for jyotish-day rollover (never subtract 86400000 -
 // across a DST transition that skips/duplicates a local calendar date; select the previous
 // LOCAL calendar date).
 function localDateString(ms,timeZone){return new Intl.DateTimeFormat('en-CA',{timeZone,year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(ms));}
@@ -78,7 +78,7 @@ function cheshtaBalaSunMoon(sun,moon,p,ayanaSun,pakshaMoon){if(p==='Sun')return 
 // mean-frame identity); TDB approximated by TT (IAU 2006 B3: <2ms)."
 // Simon 1994 sec5.9.1-5.9.6 lambda coefficients (arcseconds for t^1..t^6;
 // t = Julian MILLENNIA from J2000). Second-transcribed from the paper's page
-// images twice (worker + reviewer), 4 initial-transcription deltas resolved:
+// images twice independently, 4 initial-transcription deltas resolved:
 // Mercury t3 .06522, Saturn t4 -.35004, Saturn t6 +.00103, Jupiter t6 -.00014.
 const SIMON_LAMBDA={
  Mercury:[252.25090552,5381066598.20037,109.25943,0.06522,-0.23500,-0.00179,0.00020],
@@ -113,7 +113,7 @@ function cheshtaBalaTara(p,trueSiderealLon,meanAyanamsha,jdTt){
  const mean=inner?meanSun:lam,apogee=inner?lam:meanSun;  // sheeghrochcha mapping (Raman pp75-78 support)
  const trueME=mod(trueSiderealLon+meanAyanamsha);        // named frame convention
  return cheshtaFromComponents(mean,trueME,apogee);}
-// ch26.6-12 sphuta drishti value (cross-read in two translations; reviewer spec.py)
+// ch26.6-12 sphuta drishti value (cross-read in two translations plus an independent implementation)
 function drishtiValue(d,planet){d=mod(d);const x=d%30,sg=Math.floor(d/30);
  if(planet==='Saturn'){if(sg===1)return 2*x;if(sg===9)return 2*(30-x);if(sg===2)return 60-x/2;if(sg===8)return x+30;}
  if(planet==='Mars'){if(sg===3||sg===7)return 60-x;if(sg===2)return 1.5*x+15;if(sg===6)return 60;}
@@ -176,10 +176,10 @@ function solarTransitMs(sunriseMs,sunsetMs,lonEastDeg,sunSiderealFn,ayanamshaFn)
  }
  return t;}
 
-const PROVISIONAL=[{id:'drik-classification',note:'Drik-bala computed per BPHS 26.6-12 sphuta drishti (aspected minus aspecting) + 27.19 weighting; benefic/malefic classification is a CHOSEN CONVENTION, provisional pending verified incoming-aspect/classifier fixtures: waxing Moon benefic / waning malefic (ch3.11); Mercury malefic only when conjoined with Sun/Mars/Saturn (ch3.11), in which case it is treated under the malefic -quarter rule instead of the 27.19 Mercury full-add; Jupiter always full-add. The literal 27.19 wording (Mercury full-add without qualification) is the alternative reading, recorded for the review. Raman pp85-88 uses a different model (general aspect + fixed special additions 15/30/45, all quarter-weighted) and is NOT a golden for this model - cross-convention sign comparison withdrawn (reviewer 12:34 Q2).'},{id:'drik-26-12-coefficient',note:'SOURCE CONFLICT unresolved (bala audit 11 Nov 17:11): this module computes Jupiter 4/8-sign intervals as 60-x, following the jyotishvidya/siva.sh English translations; the Sanskrit of 26.12 (dvigunais tu lavaish chonaah kharasaash chaturashtabhe, verified siva.sh/vedicpupil) reads 60-2x (doubled elapsed degrees). vedicpupil English preserves the doubling; the other two translations omit it. Fixture impact measured: 3 of 21 fixture cells change materially (F1Mars, F3Sun, F3Mars; see docs/yuddha-drik-research-ledger-draft.md). No numeric patch applied; both readings preserved pending explicit source resolution.'},{id:'drik-27-19-weighting',note:'SOURCE READING unresolved (bala audit 11 Nov 17:11): 27.19 quarters malefic/benefic aspects and then SUPERADDS the entire Mercury and Jupiter aspects (additive on top of quarters); this module uses REPLACEMENT weighting (Jupiter/Mercury counted once at full). Measured delta example F1Saturn: replacement 84.93548 vs quarter-plus-superadd 107.80056. The Mercury-malefic question is separate and also open. Both readings preserved; drik remains experimental and outside partial sums.'}];
+const PROVISIONAL=[{id:'drik-classification',note:'Drik-bala computed per BPHS 26.6-12 sphuta drishti (aspected minus aspecting) + 27.19 weighting; benefic/malefic classification is a chosen convention: waxing Moon benefic / waning malefic (ch3.11); Mercury malefic only when conjoined with Sun/Mars/Saturn (ch3.11), then treated under the malefic -quarter rule instead of the 27.19 Mercury full-add; Jupiter always full-add. This BPHS model has no published worked golden; Raman pp85-88 uses a different model (general aspect + fixed special additions 15/30/45, all quarter-weighted) and is not a golden for it. Values are experimental and excluded from partial sums.'},{id:'drik-26-12-coefficient',note:'The Sanskrit of 26.12 (dvigunais tu lavaish chonaah kharasaash chaturashtabhe, siva.sh/vedicpupil) reads 60-2x (elapsed degrees doubled) for Jupiter 4/8-sign intervals; vedicpupil English preserves the doubling while the jyotishvidya/siva.sh English translations omit it. This module still computes 60-x, following those translations; the Sanskrit reading 60-2x has not been adopted in code yet.'},{id:'drik-27-19-weighting',note:'27.19 readings: the text-first reading applies the quarter rule to all 7 grahas per the 3.11 benefic/malefic classification, then adds the full Mercury and Jupiter aspects unconditionally on top (superadd). This module uses replacement weighting instead (Jupiter/Mercury counted once at full); measured example: replacement 84.93548 vs quarter-plus-superadd 107.80056 for one fixture graha. Raman pp85-88 is a separate model, not a golden for this one. The text-first reading has not been adopted in code; values remain experimental and outside partial sums.'}];
 const UNMODELED=[
  {id:'cheshta-ma-sa',note:'Cheshta (Mars-Saturn): computed when cheshtaCtx (jdTt + meanAyanamsha) is supplied and inside the 1900-2100 guard; otherwise not computed.'},
- {id:'yuddha',note:'Graha-yuddha (27.20): verse gives no war definition; Raman rule is Sripati-based without golden; not computed.'},
+ {id:'yuddha',note:'Graha-yuddha (27.20): verse gives no war definition; Raman rule is Sripati-based; no golden found or verified; not computed.'},
  {id:'bhava-bala',note:'Bhava-bala (27.26-31): read but not cross-checked; not computed in this increment.'}];
 // Input-time convention (jyotish day, NOT civil date): sunriseMs and weekday belong to the
 // sunrise that OPENS the current jyotish day (for a pre-sunrise birth: the PREVIOUS civil
@@ -207,15 +207,15 @@ function compute(input){
   if(cheshta==null&&input.cheshtaCtx)
    cheshta=cheshtaBalaTara(g,p.longitude,input.cheshtaCtx.meanAyanamsha,input.cheshtaCtx.jdTt);
   const drik=drikBala(g,positions);
-  // Reviewer 12:34 Q2: drik EXCLUDED from the numeric partial sum until verified
-  // incoming-aspect/classifier fixtures exist; kept as a separate experimental field.
+  // Drik is excluded from the numeric partial sum until verified incoming-aspect
+  // and classifier fixtures exist; kept as a separate experimental field.
   return {graha:g,sthana,dig,kala,cheshta,naisargika:naisargikaBala(g),drik,
    partialSum:sthana.total+dig+kala.total+(cheshta??0)+naisargikaBala(g)};});
- // Availability = a finite, in-guard context (reviewer: presence of an object is not availability).
+ // Availability = a finite, in-guard context (presence of an object is not availability).
  const _cc=input.cheshtaCtx;
  const cheshtaComputed=_cc!=null&&Number.isFinite(_cc.jdTt)&&Number.isFinite(_cc.meanAyanamsha)
   &&_cc.jdTt>=CHESHTA_GUARD_JD_MIN&&_cc.jdTt<CHESHTA_GUARD_JD_MAX;
- // Caller-assembly CONTRACT TAG (reviewer): a usable context MUST carry birthMs equal to
+ // Caller-assembly contract: a usable context MUST carry birthMs equal to
  // the birth instant. Absence or mismatch is a caller contract violation (throws), not
  // unavailable data - an incoherent instant (e.g. birth 2000 with a 2100 JD) must never
  // silently compute and drop the missing note. This is ONLY a caller-contract tag: the

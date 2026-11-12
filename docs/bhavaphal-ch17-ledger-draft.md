@@ -1,6 +1,6 @@
 # भाव-फल ch17 ledger (6वाँ भाव, रिपु) — curation (DRAFT)
 
-स्थिति: 12 Nov 2026 ~22:20 IST।
+दिनांक: 12 Nov 2026।
 पैटर्न: docs/bhavaphal-ch15/ch16 ledgers के अनुरूप।
 
 Sources: vedicpupil ch17 (28 verses, Sanskrit canonical) +

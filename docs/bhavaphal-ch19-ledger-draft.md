@@ -1,6 +1,6 @@
 # भाव-फल ch19 ledger (8वाँ भाव, आयुः) — curation (DRAFT)
 
-स्थिति: 12 Nov 2026 ~22:25 IST।
+दिनांक: 12 Nov 2026।
 पैटर्न: docs/bhavaphal-ch15-ch17 ledgers के अनुरूप।
 
 Sources: vedicpupil ch19 (15 verses, Sanskrit canonical) +

@@ -1,5 +1,5 @@
-// Actual-body regression for the balaPanel cheshtaCtx ASSEMBLY CONTRACT (reviewer
-// 13:18): the panel's compute() input must bind jdTt, meanAyanamsha and birthMs to
+// Actual-body regression for the balaPanel cheshtaCtx ASSEMBLY CONTRACT:
+// the panel's compute() input must bind jdTt, meanAyanamsha and birthMs to
 // the SAME birth instant. Runs the real function body extracted from kundli-suite-ui.js.
 // Run: node tests/bala-ui-context-check.js
 const fs=require('fs'),vm=require('vm'),B=require('../kundli-bala.js'),J=require('../kundli-engine.js');

@@ -4,7 +4,7 @@
    contract as documented in the UI's own source note - Uranus/Neptune/Pluto are a
    separate modern list, sidereal with the same Lahiri ayanamsha, UTC years
    1900-2100 only, and never enter navagraha computations.
-   Reviewer gates semantics before this file is committed. */
+   Semantics are pinned by this suite. */
 'use strict';
 const fs = require('fs');
 const path = require('path');

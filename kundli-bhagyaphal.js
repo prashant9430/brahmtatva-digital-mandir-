@@ -8,7 +8,7 @@ SCOPE-OMIT (count-only, 29): 9 fortune-statement units (20.1, 20.2, 20.10,
 20.4, 20.6, 20.7, 20.11); 14 father life-span timing units (20.5 and
 20.13-20.25); 1 conduct unit (20.8). Age qualifiers are never stripped
 into untimed servings - the whole yoga is omitted (ages 32/20/36 of
-20.10/20.27/20.28 recorded in the ledger and notice). Both valences
+20.10/20.27/20.28 recorded in the curation record and notice). Both valences
 treated alike; conservative scope for the current limited stage, not an
 enduring prohibition; the source text's meaning is not altered.
 BREADTH-OMIT (not safety, 1): 20.32 (closing method statement - judge
@@ -18,7 +18,7 @@ UNMODELED (documented, never silently satisfied; none is a leg of the two
 served rows): deep-exaltation DEGREE legs (परमोच्चांश/परमोच्चस्थे - 20.5,
 20.8, 20.26, 20.28), navamsha legs (20.5, 20.15उत्तर, 20.20उत्तर),
 strength legs (20.1, 20.2), combustion/fall legs (20.12 and others).
-Reading decisions (ledger mat-bhed, disclosed):
+Reading decisions (recorded mat-bhed, disclosed):
  20.5 चतुष्टये = the kendra tetrad (1/4/7/10); both translations agree.
  20.9 trikona taken conservatively as the 5th/9th only; a lagna-inclusive
  trikona reading (1st/5th/9th) is explicitly excluded. The Jupiter
@@ -29,7 +29,7 @@ Reading decisions (ledger mat-bhed, disclosed):
  20.13-20.25 is a staggered half-verse chain: each result half pairs
  with the prior verse's condition half (spans disclosed in the ledger);
  the navamsha legs of 20.15 and 20.20 sit in the उत्तरार्ध (b) halves.
- jv divergences recorded in the ledger: 20.7 drops the 10L-in-9th leg;
+ jv divergences recorded: 20.7 drops the 10L-in-9th leg;
  20.12 both-lords-weak vs Sanskrit 3L-weak-joined-10L; 20.13 8L-in-9th
  vs vp 8L-joined-9L; 20.16 years 3/6 vs Sanskrit/vp 3/16; 20.20
  रन्ध्रसंयुते: jv in-8th vs vp joined-or-placed; 20.25 years 26/30 vs

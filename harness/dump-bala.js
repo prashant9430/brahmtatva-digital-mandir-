@@ -23,7 +23,7 @@ function build({birth,l,weekday,positions,lagna}){
   nextSunriseMs:nsMs??undefined,transitMs:transit,ayanamsa,varga:(lon,n)=>J.varga(lon,n)});
  return {birthUtc:birth.toISOString(),weekday,sunriseMs:srMs,sunsetMs:ssMs,nextSunriseMs:nsMs,
   transitMs:transit,ayanamsa,engineSunAtBirth:sunFn(+birth),positions:positions.map(p=>({graha:p.graha,longitude:p.longitude})),lagna,output:out,
-  // isolated ayana fixture with the BOOK's ayanamsha 21d16' (reviewer 12:34 Q3: do not mix
+  // isolated ayana fixture with the BOOK's ayanamsha 21d16' (do not mix
   // book ayanamsha with engine Lahiri; engine Lahiri stays for real charts)
   ayanaBook21:Object.fromEntries(PLANETS.map(p=>[p,B.ayanaBala(positions.find(q=>q.graha===p).longitude,21+16/60,p)]))};
 }

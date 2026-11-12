@@ -14,7 +14,7 @@ weighing strength/weakness of the yogas; graha strength unmodeled).
 UNMODELED (documented, never silently satisfied): 14.8's Rahu-yuti leg
 (node yuti/drishti unmodeled), 14.6's own/friendly VARGA leg
 (amsha-based), graha strength in 14.5-first/14.15.
-Reading decisions (ledger mat-bhed, disclosed):
+Reading decisions (recorded mat-bhed, disclosed):
  14.2+14.3 ONE condition unit: Sanskrit 14.2 carries no standalone
  favourable fruit (it is the condition preamble, naming only the topic
  house)

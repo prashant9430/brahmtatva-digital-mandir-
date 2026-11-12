@@ -1,6 +1,6 @@
 // Bhavaphal ch12 pilot (tanubhava) checks. Run: node tests/validate-tanubhava.js
 // Fixtures: hand-computed synthetic charts (whole-sign houses from stated lagna; BPHS 3.11
-// classes with dynamic Moon; 26.2-5 whole-sign drishti). Curation rulings: reviewer 17:15/17:17.
+// classes with dynamic Moon; 26.2-5 whole-sign drishti).
 'use strict';
 const fs=require('fs');
 const T=require('../kundli-tanubhava.js');
@@ -115,7 +115,7 @@ function row(rep,id){const r=rep.rows.find(x=>x.id===id);if(!r)throw Error('row 
  ck('F8b omitN is 10',all.omitN===10,{omitN:all.omitN});
  ck('F8c count-only omission notice (no category words)',banned.every(w=>!all.omitNotice.includes(w))&&all.omitNotice.includes('10'));
  ck('F8d mat-bhed record on 12.1 rows',row(all,'c12-1a').matbhed.includes('संयुक्त')&&row(all,'c12-1a').matbhed.includes('or'));
- ck('F8e drishti binary note present',all.drishtiNote.includes('binary')&&all.drishtiNote.includes('असमीक्षित'));
+ ck('F8e drishti binary note present',all.drishtiNote.includes('binary')&&all.drishtiNote.includes('लागू नहीं'));
  ck('F8f c12-11 always served (method note)',charts.every(psx=>row(T.report(psx,0),'c12-11').served===true));
  ck('F8g exactly 9 rows',all.rows.length===9,{n:all.rows.length});
  ck('F8h header states no-prediction framing',all.header.includes('भविष्यकथन या निश्चय नहीं'));

@@ -14,7 +14,7 @@ UNMODELED (2 independent OR-segments, labeled - never silently satisfied):
 23.3's own/11th/9th/5th-lord NAVAMSHA options (c23-2 still checks its
 rashi-based legs), 23.5's enemy/debilitation/ashtamsha options (c23-3
 still checks the 6th/8th-placement leg).
-Reading decisions (ledger mat-bhed, disclosed on the rows):
+Reading decisions (recorded mat-bhed, disclosed on the rows):
  23.2b-4 OR-structure adopted (Santhanam): Moon as 12th lord AND (bhava
  9/11/5 OR exalted OR own sign OR navamsha options). vedicpupil's
  AND-chain is vacuous (Moon lords the 12th only from Leo lagna, where

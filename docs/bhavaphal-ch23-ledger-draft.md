@@ -1,6 +1,6 @@
 # भाव-फल ch23 ledger (12वाँ भाव, व्यय) — curation (DRAFT)
 
-स्थिति: 12 Nov 2026 ~20:30 IST।
+दिनांक: 12 Nov 2026।
 पैटर्न: docs/bhavaphal-ch21-ledger-draft.md, docs/bhavaphal-ch22-ledger-draft.md
 और docs/bhavaphal-ch13-ledger-draft.md के अनुरूप; मूल pilot:
 docs/bhavaphal-ch12-ledger-draft.md।
@@ -104,7 +104,7 @@ OR-खंड, पूर्व-परिपाटी अनुरूप): 23.3 �
 - स्वामी-पहचान: व्ययेश=चन्द्र (c23-2)।
 - Dignity: EXALT/OWN maps — उच्च/स्व-राशि (c23-1, c23-2)।
 - युति/दृष्टि: whole-sign, केवल 7 ग्रह, drishti binary; शुभ/पाप-वर्ग
-  BPHS 3.11 (conditional बुध + paksha-चन्द्र gated)।
+  BPHS 3.11 (conditional बुध + paksha-चन्द्र सशर्त)।
 - Negative-check: "शुभ-दृष्टि-रहित" (c23-11) = शुभ-दृष्टि-संख्या शून्य।
 - Node-PLACEMENT केवल तथ्य (c23-7 में प्रयोग था, पंक्ति OMIT)।
 - **नामित परिपाटी**: शुभ-राशि स्थिर सूची (mat-bhed #7)।

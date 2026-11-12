@@ -95,7 +95,7 @@ ck('Kemadruma-neg-sunapha',y1(set(base(S.Simha),'Mars',S.Kanya),S.Mesha,'kemadru
  ck('Kemadruma-sun-conj-cancel',(x=>[x.hit,x.cancelled])(y1(ps,S.Mesha,'kemadruma')),[true,true]);}
 {const ps=base(S.Simha);['Mars','Mercury','Jupiter','Venus','Saturn'].forEach(g=>set(ps,g,S.Tula));set(ps,'Sun',S.Vrishabha);
  ck('Kemadruma-sun-kendra-cancel',(x=>[x.hit,x.cancelled])(y1(ps,S.Mesha,'kemadruma')),[true,true]);}
-// PanchaMahapurusha count = distinct yogas across lagna/Moon origins (6.4 pancakam/tesveka) - reviewer synthetic: lagna+Moon Karka, Mars Mesha, Jupiter Karka, Saturn Tula => 3, not 6
+// PanchaMahapurusha count = distinct yogas across lagna/Moon origins (6.4 pancakam/tesveka) - synthetic check: lagna+Moon Karka, Mars Mesha, Jupiter Karka, Saturn Tula => 3, not 6
 {const ps=base(S.Simha);set(ps,'Moon',S.Karka);set(ps,'Mars',S.Mesha);set(ps,'Jupiter',S.Karka);set(ps,'Saturn',S.Tula);const s=R.panchaMaha(R.yogas(ps,S.Karka));
  ck('PanchaMaha-distinct-3',s.count,3);
  ck('PanchaMaha-origins-both',s.entries.map(e=>e.origins),[['लग्न','चन्द्र'],['लग्न','चन्द्र'],['लग्न','चन्द्र']]);
@@ -126,7 +126,7 @@ ck('no-subsumed-single',R.yogas(set(base(S.Simha),'Mars',S.Kanya),S.Mesha).every
 {const y=y1(set(base(S.Simha),'Jupiter',S.Meena),S.Vrishabha,'sakata');ck('sakata-cancelled-phal-held',[y.hit,y.cancelled,(y.phal||'').length>10],[true,true,true]);}
 console.log('\nFINAL2 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
 
-// --- Yoga-panel omission-boundary correction (main 14:35; same boundary as E2/E3)
+// --- Yoga-panel omission-boundary correction (same boundary as E2/E3)
 // kesari 6.16: आयु-पद हटाया, omit=1
 {const y=y1(base(S.Simha),S.Mesha,'kesari');ck('kesari-aayu-omitted',[/दीर्घायु/.test(y.phal),y.omit],[false,1]);}
 // anapha 6.6: स्वास्थ्य-स्थिति पद हटाया, omit=1
@@ -142,7 +142,7 @@ console.log('\nFINAL2 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSO
 {const fs=require('fs');const ui=fs.readFileSync(__dirname+'/../kundli-suite-ui.js','utf8');const pl=ui.slice(ui.indexOf('function phalLine'));const ple=pl.indexOf('\nfunction ');const plb=pl.slice(0,ple>0?ple:undefined);
  ck('phalline-generic-notice',plb.includes('तकनीकी लोप: '),true);for(const badw of ['दीर्घायु','आरोग्य','रोग-मुक्त','अंग-हीन'])ck('phalline-free-'+badw,plb.includes(badw),false);}
 
-// --- Dasha stage-1: dashaContext (BPHS ch47, ledger dasha-phal-ledger-draft.md)
+// --- Dasha stage-1: dashaContext (BPHS ch47, docs/dasha-phal-ledger-draft.md)
 function dc(ps,asc,lord){try{return R.dashaContext(ps,asc,lord);}catch(e){return 'ERR:'+e.message;}}
 ck('dasha-swarashi-Sun',(x=>[x.dignity,x.house,x.zone,x.node])(dc(set(base(S.Simha),'Sun',S.Simha),S.Mesha,'Sun')),['स्वराशि',5,'त्रिकोण',false]);
 ck('dasha-uchcha-Mars',(x=>[x.dignity,x.house,x.zone])(dc(set(base(S.Simha),'Mars',S.Makara),S.Karka,'Mars')),['उच्च राशि',7,'केंद्र']);
@@ -172,11 +172,11 @@ ck('lordOf-node-empty',dc(base(S.Simha),S.Mesha,'Rahu').lordOf,[]);
 
 console.log('\nFINAL4 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
 
-// --- Dasha stage-2: dashaBhava (BPHS ch48, ledger dasha-stage2-ledger-draft.md)
+// --- Dasha stage-2: dashaBhava (BPHS ch48, docs/dasha-stage2-ledger-draft.md)
 function mk(map){return ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'].map(g=>P(g,map[g]));}
 const db=(ps,asc,lord)=>R.dashaBhava(ps,asc,lord);
 const refs=(rs,side)=>rs[side].map(r=>r.ref);
-// --- Dasha full-audit corrections D1-D11 (dasha-complete-audit, main 14:47-14:48)
+// --- Dasha corrections D1-D11 (dasha complete-audit record)
 {const ALL=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
  const blob=ALL.map(l=>JSON.stringify(dc(base(S.Simha),S.Mesha,l))+JSON.stringify(db(mk({Sun:0,Moon:1,Mars:2,Mercury:3,Jupiter:4,Venus:5,Saturn:6,Rahu:7,Ketu:8}),0,l))).join('');
  ck('d1-no-vish-astra',blob.includes('विष/अस्त्र'),false);
@@ -240,7 +240,7 @@ ck('s2-48.17-karm-neg',refs(db(mk({Saturn:0,Mars:8,Sun:3,Moon:4,Mercury:5,Venus:
 ck('s2-48.9-both-labels',(x=>{const r=x.fav.find(r=>r.ref==='BPHS 48.9');return r?r.text.includes('9वें/10वें'):false;})(db(mk({Saturn:5,Mercury:5,Sun:1,Moon:2,Mars:3,Jupiter:6,Venus:7,Rahu:8,Ketu:9}),1,'Saturn')),true);
 console.log('\nFINAL5 '+pass+'/'+(pass+fail)+' passed');if(fail){console.log(JSON.stringify(bad,null,1));process.exit(1);}
 
-// --- Moolatrikona/degree-zone layer (BPHS 3.49-54, ledger moolatrikona-ledger-draft.md)
+// --- Moolatrikona/degree-zone layer (BPHS 3.49-54, docs/moolatrikona-ledger-draft.md)
 const dz=(graha,rashi,deg)=>{const ps=base(S.Simha);const p=ps.find(x=>x.graha===graha);p.rashi=rashi;p.degreesInRashi=deg;p.longitude=rashi*30+deg;return R.dashaContext(ps,S.Mesha,graha).degreeZone;};
 ck('zone-sun-mt',dz('Sun',S.Simha,10),{zone:'मूलत्रिकोण क्षेत्र',boundary:false});
 ck('zone-sun-own',dz('Sun',S.Simha,25),{zone:'स्वराशि अंश (मूलत्रिकोण राशि का शेष)',boundary:false});

@@ -1,6 +1,6 @@
 # भाव-फल ch15 ledger (4था भाव, सुख) — curation (DRAFT)
 
-स्थिति: 12 Nov 2026 ~21:50 IST।
+दिनांक: 12 Nov 2026।
 पैटर्न: docs/bhavaphal-ch14-ledger-draft.md आदि पूर्व ledgers के अनुरूप।
 
 Sources: vedicpupil ch15 (14 verses, Sanskrit canonical; sha 569aa4ef4e965d28) +

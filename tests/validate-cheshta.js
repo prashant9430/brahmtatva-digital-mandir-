@@ -1,5 +1,5 @@
 // Cheshta (Mars-Saturn) module checks. Run: node tests/validate-cheshta.js
-// Fixtures: harness/cheshta-refs.json (cheshta-research-fixture-c582db41, reviewer
+// Fixtures: harness/cheshta-refs.json (cheshta-research-fixture-c582db41,
 // superseding transcription) + harness/simon-mean-elements.json (8c3e507b).
 // Provenance labels kept exact: polynomial reproductions are NON-INDEPENDENT (same
 // coefficients, consistency only); Raman 1918 rows are published rounded inputs,
@@ -66,7 +66,7 @@ const near=(a,b,e)=>Math.abs(a-b)<=(e??1e-9);
  ck('guard boundaries: MIN inclusive computes, MAX exclusive null',typeof B.cheshtaBalaTara('Mars',100,0,B.CHESHTA_GUARD_JD_MIN)==='number'&&B.cheshtaBalaTara('Mars',100,0,B.CHESHTA_GUARD_JD_MAX)===null);
 }
 // --- 6. compute() integration: COHERENT identity (F1: 2000-01-01 12:00 IST Delhi =
-// 2000-01-01T06:30:00Z; jdTt pinned from the reviewer probe row in harness/mc-oracle.json)
+// 2000-01-01T06:30:00Z; jdTt pinned from the probe row in harness/mc-oracle.json)
 {
  const JD_TT_F1=2451544.7715723016; // 2451545 + probe tt -0.228427698185655, 2000-01-01T06:30:00Z
  const base={positions:['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'].map((g,i)=>({graha:g,longitude:[256.2879,196.7119,303.9406,247.6923,1.3916,217.4435,16.546][i]})),
@@ -84,7 +84,7 @@ const near=(a,b,e)=>Math.abs(a-b)<=(e??1e-9);
  ck('with cheshtaCtx: convention string names Simon 1994 + guard',yes.conventions.some(c=>/Simon 1994/.test(c)&&/1900-2100/.test(c)));
  ck('partialSum includes cheshta when computed',near(mars.partialSum,mars.sthana.total+mars.dig+mars.kala.total+mars.cheshta+mars.naisargika,1e-9));
  ck('partialOnly flag remains true',yes.partialOnly===true);
- // availability semantics (reviewer): an OBJECT is not availability - out-of-guard or
+ // availability semantics: an OBJECT is not availability - out-of-guard or
  // non-finite contexts leave the unmodeled note and produce no numeric cheshta.
  const outGuard=B.compute({...base,cheshtaCtx:{jdTt:B.CHESHTA_GUARD_JD_MAX+10,meanAyanamsha:23.853,birthMs:Date.UTC(2000,0,1,6,30)}});
  ck('ctx out of guard: cheshta null, unmodeled retains cheshta-ma-sa',
@@ -96,7 +96,7 @@ const near=(a,b,e)=>Math.abs(a-b)<=(e??1e-9);
  ck('ctx NaN meanAyanamsha: same unavailability behavior',
   nanAy.planets.filter(p=>!['Sun','Moon'].includes(p.graha)).every(p=>p.cheshta===null)&&nanAy.unmodeled.some(u=>u.id==='cheshta-ma-sa')&&nanAy.planets.every(p=>Number.isFinite(p.partialSum)));
 }
-// --- 6b. same-instant assembly contract (reviewer reproduction: birth 2000 + 2100 JD
+// --- 6b. same-instant assembly contract (reproduction case: birth 2000 + 2100 JD
 // succeeded and dropped the missing note -> now a contract violation)
 {
  const base={positions:['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'].map((g,i)=>({graha:g,longitude:[256.2879,196.7119,303.9406,247.6923,1.3916,217.4435,16.546][i]})),

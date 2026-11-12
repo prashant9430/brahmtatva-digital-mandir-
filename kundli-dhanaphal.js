@@ -11,7 +11,7 @@ contradict the source).
 SAFETY-OMIT (count-only): 13.12b, 13.13b (disease-class descriptions).
 BREADTH-OMIT (not safety): 13.1's address phrase only - that verse's
 condition clause lives on in c13-2a.
-Reading decisions (ledger mat-bhed, disclosed on the rows):
+Reading decisions (recorded mat-bhed, disclosed on the rows):
  13.3 Mars-yuti is UNRESTRICTED (Sanskrit वाऽपि is an independent
  predicate; jyotishvidya + siva.sh read unrestricted; vedicpupil's English
  "there" restriction is a documented divergence).
@@ -39,7 +39,7 @@ Reading decisions (ledger mat-bhed, disclosed on the rows):
  siva.sh read AND; vedicpupil's English OR is a documented divergence) -
  both legs always shown separately in the detail.
 Sources (caches in sources/): vedicpupil chapter-13 (Sanskrit per verse,
-12 Nov 18:36), jyotishvidya.com/ch13.htm (Santhanam, 12 Nov 18:36).
+), jyotishvidya.com/ch13.htm (Santhanam).
 Machinery (kundli-bhavaphal.js): BPHS 3.11 benefic/malefic classes
 (dynamic Moon/Mercury), 26.2-5 whole-sign graha-drishti incl. special
 aspects (binary presence only). Dignity: EXALT map duplicated from

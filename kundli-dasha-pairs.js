@@ -1,5 +1,5 @@
 // AUTO-GENERATED (do not edit by hand): BPHS ch52-60 antardasha pair phal - authored Hindi prose + pair-local
-// condition flags, merged with the reviewer-verified refs contract (harness/antardasha-refs.json);
+// condition flags, merged with the verified refs contract (harness/antardasha-refs.json);
 // digk dignity kinds derived from each pair's own source wording. Source: jyotishvidya.com online translation.
 (function(root,factory){
   var DATA=factory();

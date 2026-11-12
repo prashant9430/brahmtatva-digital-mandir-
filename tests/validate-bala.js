@@ -1,6 +1,6 @@
 // Bala (BPHS ch27 + ch26 drishti) module checks. Run: node tests/validate-bala.js
-// Fixture provenance: docs/bala-ledger-draft.md worked example F1 (reviewer-verified 12:00),
-// shadbala_spec_checks F1/F2/F3 (reviewer spec), Raman Standard Horoscope Kala decomposition.
+// Fixture provenance: docs/bala-ledger-draft.md worked example F1,
+// independent spec checks F1/F2/F3, Raman Standard Horoscope Kala decomposition.
 // Tolerances: only representational rounding bounds, each derived at the assertion (2dp
 // fixtures -> 0.0051; Raman dig printed rows -> 0.008 from minute-rounded powerless
 // points + 2dp print, section 18d). No formula tolerances, no universal allowances.
@@ -18,7 +18,7 @@ const PLANETS=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'];
 const P=(graha,longitude)=>({graha,rashi:Math.floor(longitude/30),longitude});
 const H=3600000;
 
-// F1/F2/F3 reviewer fixtures (shadbala_spec_checks-82810eb0.json, embedded)
+// F1/F2/F3 independent spec fixtures (shadbala_spec_checks-82810eb0.json, embedded)
 const SPEC={
  F1:{lon:[256.2879,196.7119,303.9406,247.6923,1.3916,217.4435,16.546],asc:343.1891,
      dig:[58.97,18.83,43.08,28.17,53.93,11.92,11.12],
@@ -50,7 +50,7 @@ const NAIS=[60,51.42857142857143,17.142857142857142,25.714285714285715,34.285714
  // PyJHora oracle cells where equal-house convention aligns (ledger: Me/Ju F1, Ju/Sa F2, Me/Ju/Sa F3)
  const ORA={F1:{Mercury:28.17,Jupiter:53.93},F2:{Jupiter:10.31,Saturn:42.29},F3:{Mercury:27.56,Jupiter:30.05,Saturn:5.31}};
  const oerrs=[];
- // Reviewer 12:34: 0.06 was a mislabeled observed residual, withdrawn. Compare oracle cells at
+ // The 0.06 allowance was a mislabeled observed residual, withdrawn. Compare oracle cells at
  // the 2dp representational bound; any cell beyond it is excluded BY NAME (listed here) as a
  // suspected oracle-convention divergence, never covered by a blanket allowance.
  const DIG_ORACLE_EXCLUDED=[]; // [fixture, planet] cells excluded with reason recorded in refs
@@ -149,7 +149,7 @@ ck('vara Sunday = Sun 45',B.varaBala(0,'Sun')===45);
  for(let n=0;n<24;n++){const b=sr+n*H+30*60000;
   for(const p of PLANETS){const v=B.horaBala(b,sr,6,p);const exp=seq[n%7]===p?60:0;if(v!==exp){ok=false;detail.push([n,p,v,exp]);}}}
  ck('hora Chaldean sequence over 24h from Saturday sunrise',ok,detail.slice(0,5));
- // F1: 5th hora on Saturday = Venus (reviewer verdict)
+ // F1: 5th hora on Saturday = Venus
  ck('hora F1 5th = Venus',B.horaBala(Date.UTC(2000,0,1,6,30),sr,6,'Venus')===60);
 }
 // --- 12. Ayana (27.15-17, BPHS khanda): synthetic with ayanamsha=0
@@ -191,7 +191,7 @@ ck('cheshta others null (not fabricated)',(()=>{const out=B.compute(mkSynthetic(
  // Jupiter 7th full aspect on Sun: +60 (full, benefic)
  let ps=[P('Sun',0),P('Moon',40),P('Mars',120),P('Mercury',50),P('Jupiter',180),P('Venus',90),P('Saturn',210)];
  ck('drik Jupiter full-add',near(B.drikBala('Sun',ps.filter(p=>['Sun','Jupiter'].includes(p.graha))),60));
- // 26.6 direction (reviewer blocker 1): d = aspected MINUS aspecting (target - aspecter).
+ // 26.6 direction: d = aspected MINUS aspecting (target - aspecter).
  // Mars at 90 on Sun at 0: d = 0-90 = 270 -> general (300-270)/2 = 15 -> malefic -15/4 = -3.75
  ck('drik Mars malefic -quarter',near(B.drikBala('Sun',[P('Sun',0),P('Mars',90)]),-3.75));
  // Waxing Moon (Sun 0, Moon 90): d = 0-90 = 270 -> general 15 -> benefic +15/4 = +3.75
@@ -268,7 +268,7 @@ ck('cheshta others null (not fabricated)',(()=>{const out=B.compute(mkSynthetic(
  const f=B.abdaMasaLords(Date.UTC(2000,0,1,6,30));
  ck('abda/masa F1 = Mercury/Sun',f.abdaLord==='Mercury'&&f.masaLord==='Sun',[f.abdaLord,f.masaLord]);
 }
-// --- 18b. Moolatrikona D1 degree-zones (BPHS 3.51-54, reviewer 12:33)
+// --- 18b. Moolatrikona D1 degree-zones (BPHS 3.51-54)
 {
  const ps=[P('Sun',0),P('Moon',45),P('Mars',90),P('Mercury',135),P('Jupiter',180),P('Venus',225),P('Saturn',270)];
  const rel=(lon,p)=>B.saptavargaScore(lon,p,ps,(l,n)=>J.varga(l,n),[1,2,3,7,9,12,30]).detail[0];
@@ -283,7 +283,7 @@ ck('cheshta others null (not fabricated)',(()=>{const out=B.compute(mkSynthetic(
  // outside MT sign: no MT (Moon in Cancer = own, not mt)
  ck('MT only in its own rasi',rel(100,'Moon').relation==='own');
 }
-// --- 18c. Pre-sunrise rollover (reviewer blocker 3): jyotish-day inputs
+// --- 18c. Pre-sunrise rollover: jyotish-day inputs
 {
  // Birth Tuesday 03:00 UTC before civil sunrise 06:00: caller passes PREVIOUS civil date's
  // sunrise (Mon 06:00), weekday Monday=1, previous sunset (Mon 18:00), next sunrise (Tue 06:00).
@@ -303,9 +303,9 @@ ck('cheshta others null (not fabricated)',(()=>{const out=B.compute(mkSynthetic(
  ck('rollover compute end-to-end',g('Moon').kala.vara===45&&g('Moon').kala.hora===60&&g('Mars').kala.tribhaga===60&&g('Moon').kala.tribhaga===0);
 }
 // --- 18d. Raman printed dig rows vs the ARC FORMULA on the book's own p32 powerless points
-// (reviewer 12:34: test the stated arc formula; exclude print-inconsistent rows; no 0.06).
+// (test the stated arc formula; exclude print-inconsistent rows; no 0.06).
 // Convention note: Raman uses his meridian powerless points (IC/MC table), the module uses
-// equal-house from lagna (reviewer spec) - recorded convention difference, no module change.
+// equal-house from lagna - recorded convention difference, no module change.
 {
  const fold=x=>{x=((x%360)+360)%360;return x>180?360-x:x;};
  const RL={Sun:180+53/60+55/3600,Moon:311+17/60+19/3600,Mars:229+30/60+34/3600,Mercury:181+31/60+34/3600,Jupiter:84+0/60+49/3600,Venus:171+9/60+56/3600,Saturn:124+22/60+41/3600};
@@ -319,7 +319,7 @@ ck('cheshta others null (not fabricated)',(()=>{const out=B.compute(mkSynthetic(
  ck('Raman dig printed rows (5, Me/Ju excluded) vs arc formula',errs.length===0,errs);
  ck('Raman dig excluded rows confirmed print-inconsistent',Math.abs(fold(RL.Mercury-PP.Mercury)/3-PRINT.Mercury)>0.008&&Math.abs(fold(RL.Jupiter-PP.Jupiter)/3-PRINT.Jupiter)>0.008);
 }
-// --- 18e. DST-zone engine fixture (reviewer 12:38): pre-sunrise birth across a DST
+// --- 18e. DST-zone engine fixture: pre-sunrise birth across a DST
 // transition uses the engine's ACTUAL instants (Europe/London, BST starts 2024-03-31).
 {
  const l={latitude:51.5074,longitude:-0.1278,timeZone:'Europe/London'};
@@ -344,7 +344,7 @@ ck('cheshta others null (not fabricated)',(()=>{const out=B.compute(mkSynthetic(
  ck('DST fixture tribhaga: module agrees with engine-derived night thirds',B.tribhagaBala(+birth,srMs,ssMs,nsMs,tl)===60,['k='+k,tl]);
 }
 // --- 18f. previousLocalDateString: exact spring-forward and fall-back UI-context fixtures
-// (reviewer 12:38:59: the old birth-86400000 skipped/duplicated a local date; the helper
+// (a birth-86400000 subtraction skips/duplicates a local date; the helper
 // must return the previous LOCAL calendar date and the wrong arithmetic must differ).
 {
  const ny='America/New_York';
@@ -362,7 +362,7 @@ ck('cheshta others null (not fabricated)',(()=>{const out=B.compute(mkSynthetic(
  const wd2=new Date(Date.UTC(...B.previousLocalDateString(b2,ny).split('-').map(Number).map((v,i)=>i===1?v-1:v))).getUTCDay();
  ck('NY fixtures weekday pairing: both Sundays, vara lord Sun=45',wd1===0&&wd2===0&&B.varaBala(0,'Sun')===45,[wd1,wd2]);
 }
-// --- 18g. hora cycle UNWRAPPED past 24h (reviewer 12:38:59): a >24h solar day has a 25th
+// --- 18g. hora cycle UNWRAPPED past 24h: a >24h solar day has a 25th
 // hora before the next sunrise; the 7-lord cycle must continue, no %24 reset.
 {
  const CHALD=['Saturn','Jupiter','Mars','Sun','Venus','Mercury','Moon'];
@@ -382,7 +382,7 @@ ck('cheshta others null (not fabricated)',(()=>{const out=B.compute(mkSynthetic(
 }
 // --- 19. Solar transit helper (Meeus GMST/obliquity, standard astronomy)
 {
- // F1 Delhi: transit expected near 12:24 IST (longitude +21.2min, EoT ~-3.1min; reviewer estimate)
+ // F1 Delhi: transit expected near 12:24 IST (longitude +21.2min, EoT ~-3.1min)
  const birth=new Date(Date.UTC(2000,0,1,6,30)),l={latitude:28.6139,longitude:77.2090,timeZone:'Asia/Calcutta'};
  const daily=A.dailyPanchanga(birth,l);
  const srMs=+new Date(daily.sunrise),ssMs=+new Date(daily.sunset);
@@ -390,7 +390,7 @@ ck('cheshta others null (not fabricated)',(()=>{const out=B.compute(mkSynthetic(
    t=>A.grahaPositions(new Date(t)).find(g=>g.graha==='Sun').longitude,t=>A.ayanamsha(new Date(t)));
  const ist=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Calcutta',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(new Date(tr));
  ck('transit F1 within sunrise..sunset',tr>srMs&&tr<ssMs,ist);
- console.log('INFO transit F1 IST =',ist,'(reviewer estimate ~12:24)');
+ console.log('INFO transit F1 IST =',ist,'(expected ~12:24)');
  ck('transit F1 within 2 min of independent estimate 12:24',Math.abs(tr-Date.UTC(2000,0,1,6,54))<=120000,ist);
  // Raman chart: 1918-10-16, 13N 77.5833E (LMT 5h10m20s). Source value minute-rounded: 11:46 LMT -> bound 30s+computation slack
  const rb=new Date(Date.UTC(1918,9,16,14,6,16)-(5*H+10*60000+20000));
@@ -429,10 +429,10 @@ function mkSynthetic(){
  const PB=Math.abs(f.lon[1]-f.lon[0])/3;
  ck('compute F1 paksha exact',near(out.planets.find(p=>p.graha==='Moon').kala.paksha,PB)&&near(out.planets.find(p=>p.graha==='Sun').kala.paksha,60-PB));
  // dig inside compute vs spec fixture: exact formula values, 2dp representational bound only
- // (reviewer 12:34: the 0.06 allowance is withdrawn; the arc formula is what is tested)
+ // (the 0.06 allowance is withdrawn; the arc formula is what is tested)
  const derrs=PLANETS.map((p,i)=>{const pl=out.planets.find(q=>q.graha===p);return Math.abs(pl.dig-f.dig[i]);});
  ck('compute F1 dig bucket, spec within 2dp rounding 0.0051',derrs.every(d=>d<=0.0051),derrs);
- // decomposition invariant (main 12:20): sixfold buckets separate; sthana.total has NO dig;
+ // decomposition invariant: sixfold buckets separate; sthana.total has NO dig;
  // partialSum = sthana.total + dig + kala.total + cheshta + naisargika + drik, dig exactly once
  let ids=true;
  for(const pl of out.planets){
@@ -459,7 +459,7 @@ function mkSynthetic(){
  console.log('INFO F1 partial sums:',PLANETS.map(p=>{const pl=out.planets.find(q=>q.graha===p);return p+' '+pl.partialSum.toFixed(2);}).join(' | '));
  console.log('INFO F1 kala:',PLANETS.map(p=>{const pl=out.planets.find(q=>q.graha===p);return p+' '+pl.kala.total.toFixed(2);}).join(' | '));
 }
-// --- 21. Engine ephemeris vs reviewer spec longitudes: gross-mismatch guard only.
+// --- 21. Engine ephemeris vs independent spec longitudes: gross-mismatch guard only.
 // The two ephemerides (Astronomy Engine vs PyJHora/Swiss) differ by up to ~0.013 deg here;
 // not a constant ayanamsha shift. Formula fixtures above use the spec longitudes directly,
 // so this delta does not leak into formula checks. 0.02 deg is a sanity bound, not a

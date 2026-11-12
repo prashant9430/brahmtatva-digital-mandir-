@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # Bala harness: independent python re-derivation of every computed component from the
 # ledger formulas (docs/bala-ledger-draft.md), compared against the JS module dump
-# (harness/dump-bala.js). Raman Standard Horoscope golden per reviewer verdict 12:00/12:02.
-# Tolerances (reviewer 12:34 consolidated verdict): only representational rounding bounds,
+# (harness/dump-bala.js). Raman Standard Horoscope golden as the printed worked example.
+# Tolerances: only representational rounding bounds,
 # each derived at the assertion: 2dp printed/rounded values -> 0.0051; Raman nathonnatha
 # rounding chain (minute-rounded transit +/-30s -> +/-0.0417; d rounded to 2dp ghatis then
 # doubled -> +/-0.0101) -> 0.052. Kala-total reconstruction bound derived below from the
@@ -51,7 +51,7 @@ NATURAL = {
  'Saturn':{'friend':['Mercury','Venus'],'enemy':['Sun','Moon','Mars'],'neutral':['Jupiter']}}
 LORDS = ['Mars','Venus','Mercury','Moon','Sun','Mercury','Venus','Mars','Jupiter','Saturn','Saturn','Jupiter']
 OWN = {'Sun':[4],'Moon':[3],'Mars':[0,7],'Mercury':[2,5],'Jupiter':[8,11],'Venus':[1,6],'Saturn':[9,10]}
-# Moolatrikona: D1-only, BPHS 3.51-54 degree zones (reviewer 12:33 ruling; Raman full-rasi
+# Moolatrikona: D1-only, BPHS 3.51-54 degree zones (Raman full-rasi
 # reading recorded as mat-bhed): [rasi, zoneStartDeg, zoneEndDeg)
 MTZ = {'Sun':(4,0,20),'Moon':(1,3,30),'Mars':(0,0,12),'Mercury':(5,15,20),'Jupiter':(8,0,10),'Venus':(6,0,15),'Saturn':(10,0,20)}
 def is_mt(lon,p):
@@ -171,7 +171,7 @@ def drik(p,pos):
     tot=0
     for g,lo in pos.items():
         if g==p: continue
-        v=drishti_val(pos[p]-lo,g)  # 26.6: aspected minus aspecting (reviewer 12:34 blocker 1)
+        v=drishti_val(pos[p]-lo,g)  # 26.6: aspected minus aspecting
         if v<=0: continue
         if g=='Jupiter': tot+=v
         elif g=='Mercury': tot+= v if is_benefic('Mercury',pos) else -v/4
@@ -272,7 +272,7 @@ tr1_py = transit_meeus(sr1, ss1, 77.2090, sun_rate_fn(birth1, sun1), lambda t: a
 ck('F1 transit helper agrees with independent Meeus <2s', abs(tr1_py-tr1) < 2000,
    {'module': tr1, 'python': tr1_py, 'diff_s': (tr1_py-tr1)/1000})
 
-# ---------- Raman golden (printed Example-35 Kala; reviewer verdict C decomposition) ----------
+# ---------- Raman golden (printed Example-35 Kala decomposition) ----------
 rm = dump['RAMAN']
 posR = {p['graha']: p['longitude'] for p in rm['positions']}
 outR = {p['graha']: p for p in rm['output']['planets']}
@@ -284,7 +284,7 @@ trR, ayanR = rm['transitMs'], rm['ayanamsa']
 G_NATH = {'Moon':11.68,'Mars':11.68,'Saturn':11.68,'Sun':48.32,'Jupiter':48.32,'Venus':48.32,'Mercury':60}
 G_PAKSHA = {p: 43.46 for p in ('Moon','Venus','Jupiter')}
 G_PAKSHA.update({p: 16.54 for p in ('Sun','Mars','Saturn')})
-# Mercury EXCLUDED from the paksha golden. Reviewer 12:34 Q1 RESOLUTION: Raman INTENTIONALLY
+# Mercury EXCLUDED from the paksha golden: Raman INTENTIONALLY
 # classifies Mercury malefic here (his Example18 lists Budha Papa; Example54 footnote: malefic
 # by close association with Sun/combustion), not a print artifact. BPHS 27.11 names
 # Moon/Mercury/Venus/Jupiter for PB unconditionally; the module keeps that documented
@@ -310,7 +310,7 @@ ck('Raman paksha Mercury: module = verse reading (unconditional first group)',
 refs['info']['paksha_mercury_divergence'] = {
    'module_verse_reading': round(outR['Mercury']['kala']['paksha'],2),
    'raman_printed': G_PAKSHA_MERCURY_PRINTED,
-   'note': 'RESOLVED (reviewer 12:34 Q1): Raman intentionally classifies Mercury malefic (Ex18 Budha Papa; Ex54 footnote combustion/association with Sun). Module keeps the BPHS 27.11 text-first unconditional first-group reading; convention divergence documented.'}
+   'note': 'Resolved on source grounds: Raman intentionally classifies Mercury malefic (Ex18 Budha Papa; Ex54 footnote combustion/association with Sun). Module keeps the BPHS 27.11 text-first unconditional first-group reading; convention divergence documented.'}
 # tribhaga: Saturn 3rd day third, Jupiter always (verdict B5)
 ck('Raman tribhaga Saturn+Jupiter only 60',
    outR['Saturn']['kala']['tribhaga']==60 and outR['Jupiter']['kala']['tribhaga']==60
@@ -336,9 +336,9 @@ ck('Raman ahargana 33405 reproduction', A_r==33405 and yv_r=='Saturn' and mv_r==
 # ayana substituted, Raman's doubling (Sun ayana x2, Moon paksha x2) added back; Mercury's
 # printed paksha substituted. Substituting printed values means this checks arithmetic
 # reconstruction of the printed total ONLY - it is not evidence for the ayana/paksha
-# component implementations (reviewer 12:34).
+# component implementations.
 # Bound derived from the adopted inputs, doubling the coefficient where the source entry
-# is used twice (reviewer 12:39): nath rounding chain 0.052 + paksha printed 2dp 0.005
+# is used twice: nath rounding chain 0.052 + paksha printed 2dp 0.005
 # (x2 for Moon, whose printed paksha is doubled back; 0 for Mercury, substituted) + ayana
 # printed 2dp 0.005 (x2 for Sun, doubled back) + printed total 2dp 0.005
 # = Sun 0.072, Moon 0.072, Mercury 0.062, others 0.067. tribhaga/vara/hora/abda/masa are
@@ -355,7 +355,7 @@ for p in PLANETS:
     ck('Raman kala arithmetic reconstruction ' + p, near(rec, G_KALA[p], bound),
        {'reconstructed': round(rec,3), 'printed': G_KALA[p], 'derived_bound': bound})
     record('Raman-kala-' + p, near(rec, G_KALA[p], bound), G_KALA[p], round(rec,3))
-# ayana isolated fixture with the BOOK's ayanamsha 21d16' (reviewer 12:34 Q3: book fixture
+# ayana isolated fixture with the BOOK's ayanamsha 21d16' (book fixture
 # uses book ayanamsha; engine Lahiri retained for real charts; never mix). Module emits
 # ayanaBook21 via dump-bala.js; python re-derives independently at the same input.
 AYAN_BOOK = 21 + 16/60
@@ -374,18 +374,18 @@ for p in PLANETS:
        {'khanda': round(khanda_py,2), 'sine': round(sine,2)})
     ayana_info[p] = {'khanda_book21': round(khanda_py,5), 'raman_printed': G_AYANA_PRINT[p],
                      'diff': round(khanda_py-G_AYANA_PRINT[p],2)}
-# reviewer 12:34 Q3 decomposition for Jupiter (printed 59.4):
+# Decomposition for Jupiter (printed 59.4):
 # book's own expression (p59: [1238' + (14d43'/15)*150']/60 = 23.086111 kranti) yields 58.85764;
 # 59.4 - 58.85764 = 0.54236 printed arithmetic inconsistency; 58.85764 - 57.96263 (khanda at
 # book ayanamsha) = 0.89501 method difference; book-vs-engine ayanamsha 0.19416. Total 1.63153.
-ayana_info['Jupiter']['reviewer_decomposition'] = {'printed': 59.4, 'book_expression_value': 58.85764,
+ayana_info['Jupiter']['spec_decomposition'] = {'printed': 59.4, 'book_expression_value': 58.85764,
    'printed_arithmetic_error': 0.54236, 'method_difference': 0.89501, 'ayanamsha_difference': 0.19416,
    'khanda_book21': 57.96263}
 refs['info']['ayana_book21_vs_raman_printed'] = ayana_info
 print('INFO ayana (book ayanamsha 21d16) vs Raman printed (15-degree segment table; not an accuracy bound):')
 for p in PLANETS:
     print('  ', p, ayana_info[p])
-refs['info']['drik_vs_raman'] = {'note': 'WITHDRAWN as cross-convention golden (reviewer 12:34 Q2): Raman pp85-88 uses general aspect + fixed special additions (Mars15/Jupiter30/Saturn45), all quarter-weighted - a different model from BPHS26.6-12 curves + 27.19 weighting. Module drik is a chosen convention, experimental, excluded from partial sums.'}
+refs['info']['drik_vs_raman'] = {'note': 'WITHDRAWN as cross-convention golden: Raman pp85-88 uses general aspect + fixed special additions (Mars15/Jupiter30/Saturn45), all quarter-weighted - a different model from BPHS26.6-12 curves + 27.19 weighting. Module drik is a chosen convention, experimental, excluded from partial sums.'}
 print('INFO drik: Raman sign comparison withdrawn (different model); module drik experimental, excluded from partial sums')
 # Sun saptavargaja structural: BPHS values -> 100 (verdict 12:02 decision 1)
 tot, det = saptavarga(posR['Sun'], 'Sun', posR)
@@ -402,7 +402,7 @@ lmt_midnight = datetime(1918,10,16,0,0,0,tzinfo=timezone.utc).timestamp()*1000 -
 ck('Raman transit within source minute-rounding of 11:46 LMT',
    abs((trR-lmt_midnight)/60000 - (11*60+46)) <= 1.0, (trR-lmt_midnight)/60000)
 
-# ---------- pre-sunrise / after-sunset rollover fixtures (reviewer 12:34 blocker 3) ----------
+# ---------- pre-sunrise / after-sunset rollover fixtures ----------
 # Jyotish-day inputs: birth Tuesday 03:00 UTC before civil sunrise -> previous civil date's
 # sunrise (Mon 06:00), weekday Monday, previous sunset (Mon 18:00), next sunrise (Tue 06:00).
 srMon = datetime(2021,3,1,6,tzinfo=timezone.utc).timestamp()*1000

@@ -1,4 +1,4 @@
-// Bhav-chalit view checks (Sripati-madhya presentation layer; prep-GO 2026-11-11 17:15,
+// Bhav-chalit view checks (Sripati-madhya presentation layer;
 // labels verbatim from docs/bhavachalit-bhavaphal-plan-draft.md). Run: node tests/validate-bhavachalit.js
 // Fixtures: Raman p21 printed anchors -> hand-computed boundary literals (same geometry the
 // reviewed bhava-terms suite pins); shift fixtures hand-computed against whole-sign houses;

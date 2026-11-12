@@ -14,13 +14,13 @@ this view's row set and are not counted as omissions.
 UNMODELED (documented, all on omitted rows): strength legs (19.8, 19.9, 19.15;
 19.7's strength-weighing instruction); navamsha (19.5). Plus the full
 implementation gap: no condition of this chapter is computed at the current
-stage. Reading decisions (ledger mat-bhed, disclosed): 19.2 AND-stack vs the
+stage. Reading decisions (recorded mat-bhed, disclosed): 19.2 AND-stack vs the
 translation's OR-split; 19.4 leg options and unsettled third-leg subject; 19.5
 text-critical reading and the translation's added lord; 19.8 definite-span vs
 range reading; 19.14 ambiguous Moon leg. None changes the zero-served scope.
 Sources: vedicpupil chapter-19 (Sanskrit per verse), jyotishvidya.com/
 ch19.htm (Santhanam; verse grouping differs from the canonical numbering -
-grouping divergence disclosed in the ledger; verse count is 15 either way).
+grouping divergence disclosed in the curation record; verse count is 15 either way).
 Conventions (labeled, ch12 module 1:1):
  - Whole-sign bhavas from Lagna; conditions would use only the seven grahas
    (no condition row is computed at the current stage).

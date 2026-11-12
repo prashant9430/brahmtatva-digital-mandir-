@@ -18,7 +18,7 @@ condition row of their own.
 UNMODELED (documented, never silently satisfied): 15.3's own-navamsha
 (स्वांशक) amsha leg - the row can only be served by the own-sign or
 exaltation legs.
-Reading decisions (ledger mat-bhed, disclosed):
+Reading decisions (recorded mat-bhed, disclosed):
  15.3 Sanskrit सुखस्थानाधिपो = 4th lord; Santhanam's "5th lord" is a
  documented translation slip.
  15.4 Sanskrit: (4th lord joined the 10th lord) AND (4th lord in an

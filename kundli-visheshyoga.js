@@ -30,7 +30,7 @@ function report(planets,lagnaSign){
  const benefics=SEVEN.filter(g=>cls[g].cls==='शुभ');
  const unresolved=SEVEN.filter(g=>cls[g].cls==='अनिर्णीत');
  const rows=[];
- // 1. Mahabhagya — लिंग-सशर्त नियम; detection अमॉडल (hard gate: कभी बनी/नहीं नहीं)
+ // 1. Mahabhagya — लिंग-सशर्त नियम; detection अमॉडल (कठोर नियम: कभी बनी/नहीं नहीं)
  rows.push({key:'mahabhagya',name:'महाभाग्य',status:'अमॉडल',reason:'परंपरा-नियम (लिंग-सशर्त): पुरुष के दिवा-जन्म में सूर्य, चन्द्र और लग्न तीनों विषम राशियों में; स्त्री के रात्रि-जन्म में तीनों सम राशियों में (6.14)। इस प्रिव्यू में लिंग-इनपुट नहीं है — जाँच अमॉडल; फल-पंक्ति (6.15) नहीं दिखाई जाती।',sloka:'6.14'});
  // 2. Vasumat — सभी शुभ-वर्ग upachaya (लग्न से OR चन्द्र से)
  const UP=[2,5,9,10]; // houses 3,6,10,11 as 0-offsets (BPHS 7.36)

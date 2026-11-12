@@ -1,7 +1,7 @@
 // Bhavaphal ch22 (labha bhava) checks. Run: node tests/validate-labhaphal.js
 // Fixtures: hand-computed synthetic charts (whole-sign houses from stated lagna; BPHS 3.11
-// classes with dynamic Moon). Curation gate: reviewer 2026-11-12 18:39 PASS WITH CORRECTIONS
-// (docs/bhavaphal-ch22-ledger-draft.md). Scans hardened per gate correction 3: served
+// classes with dynamic Moon). Curation record: docs/bhavaphal-ch22-ledger-draft.md.
+// Scans hardened per the ch22 correction: served
 // text+detail+transparency scan plus source-literal scan EXTENDED to backtick templates.
 'use strict';
 const fs=require('fs');
@@ -110,7 +110,7 @@ function row(rep,id){const r=rep.rows.find(x=>x.id===id);if(!r)throw Error('row 
    if(/परंपरा-कथन/.test(r.text)===false)leaks.push([r.id,'missing tradition-label']);}}
  ck('F9a no banned wording in any served text/detail/transparency',leaks.length===0,leaks);
  // source-level: EVERY string literal in the module - single-quoted AND backtick
- // template literals (gate correction 3: backtick gap closed from day one).
+ // template literals (ch22 correction: backtick gap closed from day one).
  // Comments carry the omitted category words and are not literals.
  const tsrc=fs.readFileSync(__dirname+'/../kundli-labhaphal.js','utf8');
  const sq=[...tsrc.matchAll(/'((?:[^'\\]|\\.)*)'/g)].map(m=>m[1]);
@@ -186,9 +186,9 @@ function row(rep,id){const r=rep.rows.find(x=>x.id===id);if(!r)throw Error('row 
  const uiLeaks=uiLits.flatMap(t=>banned.filter(w=>t.includes(w)).map(w=>({lit:t.slice(0,40),w})));
  ck('F12n labhaPanel body literals clean (single-quote + backtick)',uiLeaks.length===0,{n:uiLits.length,uiLeaks});
 }
-// --- F13: EXALT pinned for ALL seven grahas (reviewer implementation-gate 18:50 fix)
+// --- F13: EXALT pinned for ALL seven grahas (implementation fix)
 // Prior gap: only Saturn's dignity was fixture-pinned; labhesh can be any graha, so a
-// wrong EXALT value for the other six would ship silently (reviewer's Mercury 5->4
+// wrong EXALT value for the other six would ship silently (the Mercury 5->4
 // tamper probe passed 60/60). Now: per-graha fixtures for c22-2b/c22-11a across all 7,
 // expectations hardcoded HERE from the standard uccha/nicha list (independent of the
 // module), plus a byte-level sync assertion of the duplicated EXALT literal.

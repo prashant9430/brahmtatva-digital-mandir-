@@ -1,6 +1,6 @@
 // astro-core wrapper export checks. Run: node tests/validate-wrapper.js
 // The 5 additions are PURE export-table entries on native MIT astronomy-engine
-// internals (no reimplementation, no copied code). Values pinned to the reviewer
+// internals (no reimplementation, no copied code). Values pinned to the
 // probe rows in harness/mc-oracle.json (astronomyEngineProbe), 1e-9.
 'use strict';
 const vm=require('vm'),fs=require('fs'),path=require('path');

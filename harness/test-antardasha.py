@@ -35,9 +35,9 @@ with sync_playwright() as p:
  ck('live-provenance-note','स्वामित्व-टिप्पणी' in z['prov'])
  ck('live-gap-note','58.50' in z['gap'])
  ck('live-weak-unevaluated','अनियंत्रित' in z['weak'])
- # reviewer 11:38 gate 1: Mars-Saturn carries the remedy-omission note (ch54.33-35 prescribed Mrityunjaya passage, content omitted)
+ # Mars-Saturn carries the remedy-omission note (ch54.33-35 prescribed Mrityunjaya passage, content omitted)
  ck('live-remedy-omission-note','उपाय/दान/जप' in z['ms'])
- # reviewer 11:38 gate 2: Mars-Saturn digk nav-only - exalted rashi Saturn triggers NO rashi dignity hit, only the nav/text notes
+ # Mars-Saturn digk nav-only - exalted rashi Saturn triggers NO rashi dignity hit, only the nav/text notes
  ck('live-mars-saturn-nav-only',('गरिमा की अनुकूल शर्त' not in z['msxFavH']) and 'नामित गरिमा-शर्त' in z['msxNotes'] and 'नवांश-गरिमा भी शर्त' in z['msxNotes'])
  # drill level 1: scope switches to chosen mahadasha's current antardasha
  page.locator('.suite-period.is-active').first.click();page.locator('.dasha-pair').wait_for()

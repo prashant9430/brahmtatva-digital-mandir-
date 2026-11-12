@@ -1,6 +1,6 @@
 # Brahmtatva कुंडली — scope स्थिति
 
-स्थिति: 12 Nov 2026। शाखा preview/kundli-suite (code version 1b0614c3)। मुख्य शाखा अपरिवर्तित।
+दिनांक: 12 Nov 2026। शाखा preview/kundli-suite (code version de20ece)। मुख्य शाखा अपरिवर्तित।
 प्रत्येक भाग की स्रोत-curation ledger docs/ निर्देशिका में है।
 
 ## लागू भाग

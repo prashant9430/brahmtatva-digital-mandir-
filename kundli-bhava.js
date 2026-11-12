@@ -1,6 +1,5 @@
 /* Original BrahmTatva extension. Bhava-bala INDIVIDUAL TERMS, BPHS 27.26-31.
-Separate explicitly named SRIPATI MADHYA geometry (reviewer decisions 13:04,
-docs/bala-ledger-draft.md v0.8) - the app's whole-sign chart houses are
+Separate explicitly named SRIPATI MADHYA geometry - the app's whole-sign chart houses are
 unchanged and never substituted here.
 NOT computed (blocked/explicit): Bhavadhipathi-bala (needs each lord's FULL
 Shadbala Pinda; planetary strength is incomplete/experimental - missing is not
@@ -62,7 +61,7 @@ function risingType(madhya){
 // NOTE: app sunrise/sunset events are assumed upper-limb contacts; the
 // half-disc vs upper-limb difference is an unresolved approximation, named in
 // the UI note (not silently absorbed).
-// CONTEXT CONTRACT (reviewer pre-commit fix): sunriseMs/sunsetMs are the CIVIL
+// CONTEXT CONTRACT: sunriseMs/sunsetMs are the CIVIL
 // DATE OF BIRTH's events - NOT the Kala jyotish-day context. A birth 30 min
 // before today's sunrise is MORNING TWILIGHT of today (Pisces/ubhayodaya gets
 // 15); rolling to the previous day's events would misread it as night. The

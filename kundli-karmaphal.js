@@ -1,46 +1,45 @@
 /* Bhavaphal ch21 (BPHS कर्म-भाव फल, 10th house) - condition-matched tradition
-rows. Curation frozen by reviewer gate 2026-11-12 ~19:10 IST (PASS WITH
-CORRECTIONS; docs/bhavaphal-ch21-ledger-draft.md):
+rows. Served-row curation (frozen 2026-11-12):
 KEEP 14 rows: 21.3b, 21.4, 21.5, 21.7, 21.8, 21.9, 21.11, 21.13, 21.14,
 21.15, 21.17, 21.18, 21.19, 21.21 (22 verses -> 23 row objects via the
 21.3a/3b split; 3a unserved, 3b kept).
-BREADTH-OMIT (not safety): 21.1 intro, 21.22 closing method (gate G1).
+BREADTH-OMIT (not safety): 21.1 intro, 21.22 closing method.
 SAFETY-OMIT: none (omitN = 0 - no death/disease/birth/remedy class rows in
-this chapter; per-sentence scan in the ledger).
-UNSERVED + count-only (gate G5/G6/G7; main 18:38 rule - a required unmodeled
-term never silently drops out of a conjunction): 21.2, 21.3a, 21.10, 21.12,
+this chapter; per-sentence scan recorded).
+UNSERVED + count-only (a required unmodeled term never silently drops out
+of a conjunction): 21.2, 21.3a, 21.10, 21.12,
 21.20 (required graha-bala: Shadbala totals deliberately uncertified;
-reviewer noted v2 lists strength AND dignity separately, so a dignity proxy
-would contradict the source), 21.6 (required Rahu-yuti; node participation
+the source lists strength AND dignity separately, so a dignity proxy would
+contradict the source), 21.6 (required Rahu-yuti; node participation
 unmodeled), 21.16 (karmamsha = 10th from the D9 lagna; D9-bhava machinery
 not established, no proxy).
-Gate corrections applied: M1 21.10 meena is the SIGN Pisces (not the 12th
-bhava); M2 21.12 मीने जीवे likewise; M3 21.20 Jupiter's aspect targets the
+Corrections applied: 21.10 meena is the SIGN Pisces (not the 12th
+bhava); 21.12 मीने जीवे likewise; 21.20 Jupiter's aspect targets the
 10th LORD (देवेन्द्रगुरुणा दृष्टे with कर्मेशे), not the 10th bhava - all
-three rows unserved anyway, corrections recorded in the ledger.
-Gate should-fixes: SF1 21.4 Sanskrit "तथा" is AND; Santhanam's gloss reads
-OR - Sanskrit-primary AND selected (row note). SF2 21.13 literal fruit is
+three rows unserved anyway.
+Reading/wording decisions: 21.4 Sanskrit "तथा" is AND; Santhanam's gloss reads
+OR - Sanskrit-primary AND selected (row note). 21.13 literal fruit is
 "ratnavaan" (gem-endowed); display text reworded to aabhuShan-samriddhi
 under the project scan-token policy - scan-collision only, not a content
 prohibition; the literal shloka word lives in the source caches and ledger,
 and this rewording is documented in the row note without reintroducing the
-scan token. SF3 vp cache carries 21.22 in English only; the closing Sanskrit
+scan token. 21.22: the vp cache carries it in English only; the closing Sanskrit
 was verified live on siva.sh (sources/ss-bphs-ch21-fetch.txt).
-Mat-bhed (ledger, code notes on rows): 21.13 केन्द्रेश Sanskrit-primary
+Mat-bhed (recorded, code notes on rows): 21.13 केन्द्रेश Sanskrit-primary
 (vp Sanskrit = siva.sh live; Santhanam "10th lord in the 12th" is
 text-inconsistent); 21.19 तदीशे = karmesh in a trine from the 10th (source
 majority + prior-pada reading; vp's Moon-dispositor reading is the outlier);
 21.9 तावुभौ केन्द्रगौ वापि carries no yuti requirement (Santhanam adds
 "conjunct" as a gloss).
-Sources (caches in sources/): vedicpupil chapter-21 (Sanskrit per verse,
-12 Nov 18:36 fresh), jyotishvidya.com/ch21.htm (Santhanam), siva.sh
-/brihat-parashara-hora-shastra/21/{7,13,19,22} (12 Nov 19:01-19:11).
-Machinery (reviewed, kundli-bhavaphal.js): BPHS 3.11 benefic/malefic classes
+Sources (caches in sources/): vedicpupil chapter-21 (Sanskrit per verse),
+jyotishvidya.com/ch21.htm (Santhanam), siva.sh
+/brihat-parashara-hora-shastra/21/{7,13,19,22}.
+Machinery (kundli-bhavaphal.js): BPHS 3.11 benefic/malefic classes
 (dynamic Moon/Mercury), 26.2-5 whole-sign graha-drishti incl. special
 aspects (binary presence only). Dignity: EXALT map duplicated from reviewed
 kundli-engine.js:18 (byte-stable snippet, same values; reviewed file
 untouched). Sign placement (e.g. meena) is a modeled, lagna-independent
-condition type - distinct from bhava placement (M1/M2 context).
+condition type - distinct from bhava placement (the sign-vs-bhava correction).
 Conventions (labeled, ch12 pilot 1:1):
  - Whole-sign bhavas from Lagna. All yuti/drishti conditions use only the
    seven grahas; nodes' yuti/drishti participation is unmodeled (NODES_NOTE).
@@ -50,7 +49,7 @@ Conventions (labeled, ch12 pilot 1:1):
    no verdicts, no scores; rows are tradition-labeled statements, not
    predictions. Conduct-topic rows are historical/tradition conduct
    discussion only - never a verdict on a present person's moral or
-   sexual character (gate G6, CONDUCT_NOTE).
+   sexual character (CONDUCT_NOTE).
  - The 7 unserved rows are never shown as "शर्त बनी/नहीं बनी" - they were
    not checked at all; only a count-only category note is shipped. */
 (function(root){'use strict';
@@ -102,7 +101,7 @@ function report(planets,asc){checkPlanets(planets,asc);
   detail:rahu?`राहु ${RASHI[rahu.rashi]} में (भाव ${rahuBh})`:'राहु-स्थिति इनपुट में उपलब्ध नहीं',
   text:'परंपरा-कथन: ज्योतिष्टोम आदि यज्ञ-कर्म करने की चर्चा (ऐतिहासिक क्रिया-वर्णन) है।',
   note:'यह क्रिया-वर्णन है, कोई क्रिया-निर्देश नहीं। राहु की भाव-स्थिति तथ्य है; राहु/केतु की युति/दृष्टि-भागीदारी अमॉडल (नीचे नोट)।'});
- // c21-4 (favourable; AND-conjunction SF1; shubhasthana proxy named - G8)
+ // c21-4 (favourable; AND-conjunction; shubhasthana proxy named)
  rows.push({id:'c21-4',ref:'BPHS 21.4',polarity:'अनुकूल',topic:'लाभ',
   served:benYuti(karmesh).length>0&&KT.includes(bhOf(karmesh)),
   condition:`कर्मेश (${G[karmesh]}) शुभ-ग्रह-सहित और केन्द्र/त्रिकोण भाव में`,
@@ -115,7 +114,7 @@ function report(planets,asc){checkPlanets(planets,asc);
   condition:'10वें और 11वें दोनों भाव में पाप-ग्रह (सातों में से)',
   detail:`10वें भाव में पाप: ${malIn(10).length?malIn(10).map(g=>G[g]).join(', '):'कोई नहीं'}; 11वें भाव में पाप: ${malIn(11).length?malIn(11).map(g=>G[g]).join(', '):'कोई नहीं'}`,
   text:'परंपरा-कथन: दुष्कृत आचरण और अपनों का अपमान करने की चर्चा (ऐतिहासिक आचरण-कथन) है।'});
- // c21-7 (adverse; gate G6 softened conduct framing - CONDUCT_NOTE)
+ // c21-7 (adverse; softened conduct framing - CONDUCT_NOTE)
  rows.push({id:'c21-7',ref:'BPHS 21.7',polarity:'प्रतिकूल',topic:'आचरण',
   served:bhOf(karmesh)===7&&bhOf('Mars')===7&&bhOf('Saturn')===7&&malYuti(saptamesh).length>0,
   condition:`कर्मेश (${G[karmesh]}) 7वें में शनि-मंगल-सहित; सप्तमेश (${G[saptamesh]}) पाप-युति`,
@@ -127,7 +126,7 @@ function report(planets,asc){checkPlanets(planets,asc);
   condition:`कर्मेश (${G[karmesh]}) उच्च-राशि में गुरु-सहित; भाग्येश (${G[bhagyesh]}) 10वें भाव में`,
   detail:`कर्मेश ${G[karmesh]} ${RASHI[p[karmesh].rashi]} में (${p[karmesh].rashi===EXALT[karmesh]?'उच्च':'उच्च नहीं'})${karmesh==='Jupiter'?'; कर्मेश स्वयं गुरु — गुरु-युति संभव नहीं':(jupYutiKarmesh?'; गुरु-युति: हाँ':'; गुरु-युति: नहीं')}; भाग्येश ${G[bhagyesh]} भाव ${bhOf(bhagyesh)}`,
   text:'परंपरा-कथन: मान, ऐश्वर्य और प्रताप बताए हैं।'});
- // c21-9 (favourable; exchange OR both-in-kendra; no yuti required - G9)
+ // c21-9 (favourable; exchange OR both-in-kendra; no yuti required)
  rows.push({id:'c21-9',ref:'BPHS 21.9',polarity:'अनुकूल',topic:'सुख-जीवन',
   served:(bhOf(labhesh)===10&&bhOf(karmesh)===1)||(KENDRA.includes(bhOf(karmesh))&&KENDRA.includes(bhOf(labhesh))),
   condition:`लाभेश (${G[labhesh]}) 10वें में और कर्मेश (${G[karmesh]}) लग्न में, या दोनों केन्द्र में`,
@@ -140,7 +139,7 @@ function report(planets,asc){checkPlanets(planets,asc);
   condition:'सूर्य, राहु, मंगल और शनि चारों 11वें भाव में',
   detail:`सूर्य भाव ${bhOf('Sun')}; राहु ${rahu?('भाव '+rahuBh):'उपलब्ध नहीं'}; मंगल भाव ${bhOf('Mars')}; शनि भाव ${bhOf('Saturn')}`,
   text:'परंपरा-कथन: कर्म में व्यवधान आने की चर्चा है।'});
- // c21-13 (favourable; kendresh Sanskrit-primary - G9; SF2 reworded fruit, note)
+ // c21-13 (favourable; kendresh Sanskrit-primary; reworded fruit, note)
  rows.push({id:'c21-13',ref:'BPHS 21.13',polarity:'अनुकूल',topic:'समृद्धि',
   served:kendrashesh.some(k=>bhOf(k)===11)&&bhOf(labhesh)===1&&bhOf('Venus')===10,
   condition:`कोई केन्द्रेश (${kendrashesh.map(k=>G[k]).join('/')}) 11वें में; लाभेश (${G[labhesh]}) लग्न में; शुक्र 10वें में`,
@@ -171,7 +170,7 @@ function report(planets,asc){checkPlanets(planets,asc);
   condition:`कर्मेश (${G[karmesh]}) नीच-राशि में; 10वें और 7वें (10वें से 10वाँ) भाव में पाप-ग्रह`,
   detail:`कर्मेश ${G[karmesh]} ${RASHI[p[karmesh].rashi]} में (${p[karmesh].rashi===mod(EXALT[karmesh]+6,12)?'नीच':'नीच नहीं'}); 10वें में पाप: ${malIn(10).length?malIn(10).map(g=>G[g]).join(', '):'कोई नहीं'}; 7वें में पाप: ${malIn(7).length?malIn(7).map(g=>G[g]).join(', '):'कोई नहीं'}`,
   text:'परंपरा-कथन: कर्म-बाधा की चर्चा है।'});
- // c21-19 (favourable; Moon 10th, karmesh trine-from-10th, lagnesh kendra - G9)
+ // c21-19 (favourable; Moon 10th, karmesh trine-from-10th, lagnesh kendra)
  rows.push({id:'c21-19',ref:'BPHS 21.19',polarity:'अनुकूल',topic:'सत्कीर्ति',
   served:bhOf('Moon')===10&&(bhOf(karmesh)===2||bhOf(karmesh)===6)&&KENDRA.includes(bhOf(lagnesh)),
   condition:`चन्द्र 10वें में; कर्मेश (${G[karmesh]}) 2रे/6ठे (10वें से त्रिकोण) में; लग्नेश (${G[lagnesh]}) केन्द्र में`,

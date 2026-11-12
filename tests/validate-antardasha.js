@@ -9,7 +9,7 @@ const P=(graha,rashi,deg=10)=>({graha,rashi,longitude:rashi*30+deg,degreesInRash
 function base(r){return VIM.map(g=>P(g,r));}
 function set(ps,g,r,deg){const p=ps.find(x=>x.graha===g);p.rashi=r;p.longitude=r*30+(deg===undefined?10:deg);if(deg!==undefined)p.degreesInRashi=deg;return ps;}
 
-// AD-1: 81 pairs, chapter + ref agreement with the reviewer-verified refs contract
+// AD-1: 81 pairs, chapter + ref agreement with the verified refs contract
 {
  let n=0,errs=[];
  for(const m of VIM)for(const a of VIM){
@@ -35,7 +35,7 @@ function set(ps,g,r,deg){const p=ps.find(x=>x.graha===g);p.rashi=r;p.longitude=r
   for(const b of banned)if(t.includes(b))errs.push(m+'-'+a+' has '+b);}
  ck('AD-3 omission vocabulary absent from all pair prose',errs.length===0,errs);
 }
-// AD-4: flag invariants against reviewer-verified lists
+// AD-4: flag invariants against verified lists
 {
  const f=fn=>VIM.flatMap(m=>VIM.filter(a=>fn(DP.pair(m,a))).map(a=>m+'-'+a));
  ck('AD-4a weak == 4 verified',JSON.stringify(f(r=>r.weak))===JSON.stringify(['Sun-Moon','Jupiter-Moon','Saturn-Moon','Mercury-Moon']),f(r=>r.weak));
@@ -75,7 +75,7 @@ function set(ps,g,r,deg){const p=ps.find(x=>x.graha===g);p.rashi=r;p.longitude=r
  ps=set(base(0),'Mars',0);set(ps,'Saturn',0);
  pc=R.dashaPairContext(ps,0,'Mars','Saturn','shukla');
  ck('AD-5h debilitation hit',pc.advH.some(x=>x.basis.includes('नीच राशि')),pc.advH);
- // reviewer 11:38 gate 2: Mars-Saturn digk nav-only (translation ambiguity) - exalted rashi Saturn gives NO rashi dignity hit
+ // Mars-Saturn digk nav-only (translation ambiguity) - exalted rashi Saturn gives NO rashi dignity hit
  set(ps,'Saturn',6);pc=R.dashaPairContext(ps,0,'Mars','Saturn','shukla');
  ck('AD-5h2 Mars-Saturn nav-only digk',!pc.favH.some(x=>x.basis.includes('गरिमा'))&&pc.notes.some(n=>n.includes('नवांश-गरिमा भी शर्त'))&&pc.notes.some(n=>n.includes('नामित गरिमा-शर्त')),{favH:pc.favH,notes:pc.notes});
  // paksha variants
@@ -97,15 +97,15 @@ function set(ps,g,r,deg){const p=ps.find(x=>x.graha===g);p.rashi=r;p.longitude=r
  ps=set(base(0),'Mars',0);set(ps,'Saturn',0);
  pc=R.dashaPairContext(ps,0,'Mars','Saturn','shukla');
  ck('AD-5o count-only omission line = omitN+flags (Mars-Saturn 4+2=6), no category names',pc.omissions.some(o=>o.includes('6 संवेदनशील अंश'))&&pc.omissions.some(o=>o.includes('उपाय/दान/जप'))&&!pc.omissions.some(o=>o.includes('मृत्यु')||o.includes('मारक')),pc.omissions);
- // AD-5s banned-limb asserts over all 81 fav/adv/mid (reviewer wordlist + scan-list superset)
+ // AD-5s banned-limb asserts over all 81 fav/adv/mid (wordlist + scan-list superset)
  const BL=['रोग','स्वास्थ्य','स्वस्थता','विष','व्रण','सर्प','शारीरिक','ज्वर','बिच्छु','व्याघ्र','पेचिस','कुष्ठ','पित्त','अग्नि','दंत','मूत्र','हृदय','ललाट','गुल्म','जल-भय','प्लवन','पतन','शस्त्र','नेत्र','स्नायु','दाह','मधुमेह','शिरःपीड़ा','अजीर्ण','उदर','पांडु','रक्तदूषण','वातरक्त','रक्तस्राव','अस्वास्थ्य','औषधि','मसूड़','मृत्यु','मारक','आयु'];
  const blHits=[];for(const m of VIM)for(const a of VIM){const r=DP.pair(m,a);for(const f of ['fav','adv','mid']){const v=r[f]||'';for(const b of BL)if(v.includes(b))blHits.push(m+'-'+a+':'+f+':'+b);}}
  ck('AD-5s banned-limb scan clean on all 81',blHits.length===0,blHits);
  ck('AD-5s-neg scanner not vacuous',BL.some(b=>'यह रोग परीक्षण-वाक्य है'.includes(b))&&BL.some(b=>'सर्प-दंश कथा'.includes(b)));
- // AD-5t source-audited omission-limb counts (ledger section 13 itemization; 75 pairs, 217 limbs)
+ // AD-5t source-checked omission-limb counts (itemized per pair; 75 pairs, 217 limbs)
  const OMITN={'Jupiter-Jupiter':1,'Jupiter-Ketu':3,'Jupiter-Mars':2,'Jupiter-Mercury':6,'Jupiter-Moon':1,'Jupiter-Rahu':4,'Jupiter-Saturn':3,'Jupiter-Sun':3,'Ketu-Jupiter':2,'Ketu-Ketu':2,'Ketu-Mars':3,'Ketu-Mercury':1,'Ketu-Rahu':6,'Ketu-Saturn':1,'Ketu-Sun':3,'Ketu-Venus':5,'Mars-Jupiter':4,'Mars-Ketu':4,'Mars-Mars':4,'Mars-Mercury':4,'Mars-Moon':1,'Mars-Rahu':4,'Mars-Saturn':4,'Mars-Sun':5,'Mars-Venus':2,'Mercury-Jupiter':5,'Mercury-Ketu':5,'Mercury-Mars':6,'Mercury-Mercury':2,'Mercury-Moon':3,'Mercury-Rahu':2,'Mercury-Sun':3,'Mercury-Venus':3,'Moon-Ketu':1,'Moon-Mars':1,'Moon-Mercury':3,'Moon-Moon':1,'Moon-Rahu':3,'Moon-Saturn':1,'Moon-Sun':4,'Moon-Venus':3,'Rahu-Jupiter':2,'Rahu-Ketu':5,'Rahu-Mars':2,'Rahu-Mercury':2,'Rahu-Moon':2,'Rahu-Rahu':2,'Rahu-Saturn':2,'Rahu-Sun':3,'Rahu-Venus':5,'Saturn-Jupiter':2,'Saturn-Ketu':5,'Saturn-Mars':3,'Saturn-Mercury':3,'Saturn-Moon':3,'Saturn-Rahu':3,'Saturn-Saturn':3,'Saturn-Sun':3,'Saturn-Venus':8,'Sun-Jupiter':1,'Sun-Ketu':2,'Sun-Mars':1,'Sun-Mercury':2,'Sun-Moon':4,'Sun-Rahu':5,'Sun-Saturn':1,'Sun-Venus':1,'Venus-Jupiter':2,'Venus-Ketu':4,'Venus-Mars':3,'Venus-Mercury':2,'Venus-Moon':3,'Venus-Rahu':2,'Venus-Saturn':1,'Venus-Sun':1};
  const omErrs=[];for(const m of VIM)for(const a of VIM){const want=OMITN[m+'-'+a]||0,got=DP.pair(m,a).omitN||0;if(got!==want)omErrs.push(m+'-'+a+':want'+want+' got'+got);}
- ck('AD-5t omitN matches audited map on all 81',omErrs.length===0,omErrs);
+ ck('AD-5t omitN matches checked map on all 81',omErrs.length===0,omErrs);
  ck('AD-5t total limb count 217',Object.values(OMITN).reduce((s,n)=>s+n,0)===217&&VIM.flatMap(m=>VIM.map(a=>DP.pair(m,a).omitN||0)).reduce((s,n)=>s+n,0)===217);
  // AD-5u rendered count = omitN+maraka+deathx, count-only, across representative coverage classes
  const mkPs=(m,a)=>set(base(0),a,0);

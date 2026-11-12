@@ -14,7 +14,7 @@ the source text's meaning is not altered.
 UNMODELED (documented, all on omitted rows): Mandi (17.16); navamsha (17.25);
 node yuti (17.7, 17.14, 17.25). Plus the full implementation gap: no condition
 of this chapter is computed at the current stage.
-Reading decisions (ledger mat-bhed, disclosed): 17.4-5 limb-mapping divergence
+Reading decisions (recorded mat-bhed, disclosed): 17.4-5 limb-mapping divergence
 (the Sanskrit and the translation assign the planet-to-limb correspondence
 differently); 17.8 "without the lagna lord" rendered as a sign exception in the
 translation - a plausible ellipsis resolution, recorded as a simplification;

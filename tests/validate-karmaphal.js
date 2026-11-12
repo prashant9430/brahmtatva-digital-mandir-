@@ -1,8 +1,8 @@
 // Bhavaphal ch21 (karma bhava) checks. Run: node tests/validate-karmaphal.js
 // Fixtures: hand-computed synthetic charts (whole-sign houses from stated lagna; BPHS 3.11
-// classes with dynamic Moon). Curation gate: reviewer 2026-11-12 ~19:10 PASS WITH
-// CORRECTIONS (docs/bhavaphal-ch21-ledger-draft.md; M1-M3, SF1-SF3, G1-G9). Scans hardened
-// per ch22 gate correction 3: served text+detail+transparency+note scan plus source-literal
+// classes with dynamic Moon). Curation record: docs/bhavaphal-ch21-ledger-draft.md
+// (sign/reading corrections). Scans hardened per the ch22 correction:
+// served text+detail+transparency+note scan plus source-literal
 // scan EXTENDED to backtick templates.
 'use strict';
 const fs=require('fs');
@@ -139,7 +139,7 @@ function row(rep,id){const r=rep.rows.find(x=>x.id===id);if(!r)throw Error('row 
  const m2=T.report(mk({Sun:5,Moon:3,Mars:9,Mercury:1,Jupiter:2,Venus:4,Saturn:0}),0);
  ck('F12c mutation: no malefic in 7th -> unserved',row(m2,'c21-18').served===false);
 }
-// --- F13: c21-19 (Moon 10th; karmesh in 2nd/6th=trine-from-10th; lagnesh kendra) - G9
+// --- F13: c21-19 (Moon 10th; karmesh in 2nd/6th=trine-from-10th; lagnesh kendra)
 {
  const rep=T.report(mk({Sun:5,Moon:9,Mars:0,Mercury:3,Jupiter:2,Venus:4,Saturn:1}),0);
  ck('F13a c21-19 served (Moon 10th; Saturn 2nd; Mars lagna)',row(rep,'c21-19').served===true,{d:row(rep,'c21-19').detail});
@@ -174,7 +174,7 @@ function row(rep,id){const r=rep.rows.find(x=>x.id===id);if(!r)throw Error('row 
  ck('F16 waning Moon in 11th fires c21-5 (dynamic class)',row(rep,'c21-5').served===true,{d:row(rep,'c21-5').detail});
 }
 // --- F17: omission scans on served rows + source literals (single-quoted AND backtick)
-// Also: no internal review-workflow tokens in any user-facing literal (main pixel check).
+// Also: no internal workflow tokens in any user-facing literal.
 {
  const charts=[mk({Sun:0,Moon:3,Mars:7,Mercury:1,Jupiter:2,Venus:0,Saturn:0},3),
   mk({Sun:2,Moon:3,Mars:6,Mercury:1,Jupiter:4,Venus:2,Saturn:6},10),
@@ -189,7 +189,7 @@ function row(rep,id){const r=rep.rows.find(x=>x.id===id);if(!r)throw Error('row 
    if(/परंपरा-कथन/.test(r.text)===false)leaks.push([r.id,'missing tradition-label']);}});
  ck('F17a no banned wording in any served text/detail/transparency/note',leaks.length===0,leaks);
  const tsrcRaw=fs.readFileSync(__dirname+'/../kundli-karmaphal.js','utf8');
- // Quote-aware literal extractor (reviewer fix B). NO destructive comment stripping:
+ // Quote-aware literal extractor. NO destructive comment stripping:
  // a comment marker inside a template literal is literal text and stays visible.
  // Module code has no regex literals and no double-quoted strings.
  function extractLiterals(src){const lits=[];let i=0;const n=src.length;
@@ -277,7 +277,7 @@ function row(rep,id){const r=rep.rows.find(x=>x.id===id);if(!r)throw Error('row 
  ck('F20g unserved row hides tradition text',html.includes('पूरी नहीं बनी; परंपरा-कथन नहीं दिखाया गया'));
  const unservedCount=(html.match(/शर्त नहीं बनी/g)||[]).length;
  ck('F20h F4 chart: served/unserved mix visible',unservedCount>0&&unservedCount<14,{unservedCount});
- ck('F20i row note rendered (SF1/G8 proxy)',html.includes('Sanskrit-primary AND'));
+ ck('F20i row note rendered (AND/proxy)',html.includes('Sanskrit-primary AND'));
  ck('F20j nodes+conduct notes rendered',html.includes('राहु/केतु की युति/दृष्टि-भागीदारी अमॉडल')&&html.includes('चरित्र-निर्णय'));
  ck('F20k pane-report wiring (phalMethodPanel inserted after bhavaphalPanel; sequence pin updated)',source.includes('bhavaphalPanel()+phalMethodPanel()+tanuPanel()+yutiphalPanel()+labhaPanel()+karmaphalPanel()'));
  ck('F20l module absent -> honest pending',(()=>{const f=new Function('window','ps','ls','esc','panel','pending',body+';return karmaphalPanel();');
@@ -289,7 +289,7 @@ function row(rep,id){const r=rep.rows.find(x=>x.id===id);if(!r)throw Error('row 
  const uiLeaks=uiLits.flatMap(t=>banned.filter(w=>t.includes(w)).map(w=>({lit:t.slice(0,40),w})));
  ck('F20n karmaphalPanel body literals clean (single-quote + backtick)',uiLeaks.length===0,{n:uiLits.length,uiLeaks});
 }
-// --- F21: EXALT pinned for ALL seven grahas (ch22 reviewer F13 pattern)
+// --- F21: EXALT pinned for ALL seven grahas (ch22 pin pattern)
 // No single-condition dignity row exists in ch21, so the pin is on the DETAIL text of
 // c21-14 (exalt) and c21-18 (debil) which report dignity independent of the conjunction,
 // plus full-serve fixtures where the conjunction is satisfiable. Byte-level sync assertion

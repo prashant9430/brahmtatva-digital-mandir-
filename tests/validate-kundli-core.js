@@ -6,7 +6,7 @@
    Oracles: BPHS dasha order/years (ch 46-47), rashi lords (ch 3-4),
    ashtakavarga rekha totals Sun48/Moon49/Mars39/Mercury54/Jupiter56/Venus52/
    Saturn39/Lagna49, SAV total 337 over the 7 grahas (BPHS ch 66-72 tradition).
-   Reviewer gates semantics before this file is committed. */
+   Semantics are pinned by this suite. */
 'use strict';
 const E = require('../kundli-engine.js');
 const AV = require('../kundli-ashtak.js');

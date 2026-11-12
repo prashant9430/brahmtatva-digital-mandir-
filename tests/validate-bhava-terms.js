@@ -109,7 +109,7 @@ const d=(dg,m)=>dg+m/60;
  ck('risingTerm ubhayodaya+day=0',V.risingTerm(345,'day')===0);
  ck('risingTerm prishthodaya+night=15',V.risingTerm(15,'night')===15);
 }
-// --- 7b. neighbor twilight windows (reviewer 13:14:16 refinement)
+// --- 7b. neighbor twilight windows (refined boundary handling)
 {
  const D=86400000,sr=Date.UTC(2000,2,20,6),ss=Date.UTC(2000,2,20,18);
  // evening window crossing midnight: previous sunset 23:45, birth 00:10 next civil date

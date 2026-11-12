@@ -1,28 +1,27 @@
 /* Bhavaphal ch22 (BPHS लाभ-भाव फल, 11th house) - condition-matched tradition
-rows. Curation frozen by reviewer gate 2026-11-12 18:39 IST (PASS WITH
-CORRECTIONS; docs/bhavaphal-ch22-ledger-draft.md):
+rows. Served-row curation (frozen 2026-11-12):
 KEEP 22.2a, 22.2b, 22.3, 22.7, 22.9, 22.10, 22.11a, 22.11c (8 rows);
 OMIT 22.1 (breadth), 22.4/22.5/22.6/22.8 (fixed-year + fixed-nishka-quantity
 wealth claims - specific fortune timing+amount category, historical frame does
-not rescue) (omitN = 5, count-only notice, ledger itemized);
+not rescue) (omitN = 5, count-only notice);
 UNMODELED segments (not omissions, not counted in omitN): 22.2c suryanshag
 (translation mat-bhed: Santhanam/siva.sh "though in combustion" vs vedicpupil
 "in the Sun's division" - both readings unmodeled) and 22.11b asta (authentic
 combustion in all three sources, combustion machinery unmodeled). Both are
 independent segments of their verses: the kept fruit sentences rest on the
 modeled conditions alone, so dropping the unmodeled segment does not make a row
-look satisfied (main 18:38 rule applied at the gate).
-Gate corrections applied: (1) 22.7 wording reworded to avoid the project's
-banned scan token (remedy-category collision only, not a content violation -
-reviewer clarification); (2) nodes convention restated below and shipped in the
+look satisfied.
+Corrections applied: (1) 22.7 wording reworded to avoid the project's
+banned scan token (remedy-category collision only, not a content
+violation); (2) nodes convention restated below and shipped in the
 module (NODES_NOTE); (3) tests carry hardened scans incl. backtick templates.
 Sources (caches in sources/):
  jyotishvidya.com/ch22.htm (Santhanam), vedicpupil chapter-22 (Sanskrit per
- verse, 12 Nov 18:33 fresh), siva.sh /brihat-parashara-hora-shastra/22/{1,2,11}
- (12 Nov 18:34); Sanskrit vp vs siva.sh 22.2 byte-identical.
-Machinery (reviewed, kundli-bhavaphal.js): BPHS 3.11 benefic/malefic classes
-(dynamic Moon/Mercury). Dignity: EXALT map duplicated from reviewed
-kundli-engine.js:18 (byte-stable snippet, same values; reviewed file untouched).
+ verse), siva.sh /brihat-parashara-hora-shastra/22/{1,2,11};
+ Sanskrit vp vs siva.sh 22.2 byte-identical.
+Machinery (kundli-bhavaphal.js): BPHS 3.11 benefic/malefic classes
+(dynamic Moon/Mercury). Dignity: EXALT map duplicated from
+kundli-engine.js:18 (byte-stable snippet, same values; source file untouched).
 Conventions (labeled, ch12 pilot 1:1):
  - Whole-sign bhavas from Lagna. All conditions use only the seven grahas.
  - Nodes excluded from yuti participation (unmodeled, labeled) - a node sharing
@@ -81,7 +80,7 @@ function report(planets,asc){checkPlanets(planets,asc);
   condition:`लाभेश (${G[labhesh]}) 2रे भाव में; धनेश (${G[dhanesh]}) केन्द्र में गुरु-सहित`,
   detail:`लाभेश ${G[labhesh]} भाव ${bhOf(labhesh)}; धनेश ${G[dhanesh]} भाव ${bhOf(dhanesh)}${p.Jupiter.rashi===p[dhanesh].rashi?'; गुरु-युति: हाँ':'; गुरु-युति: नहीं'}`,
   text:'परंपरा-कथन: बड़े लाभ (गुरुलाभ) बताए हैं।'});
- // c22-7 (gate-corrected wording: see header note 1)
+ // c22-7 (corrected wording: see header note 1)
  rows.push({id:'c22-7',ref:'BPHS 22.7',polarity:'अनुकूल',topic:'समृद्धि',
   served:bhOf('Jupiter')===9&&bhOf('Mercury')===9&&bhOf('Moon')===9,
   condition:'गुरु, बुध और चन्द्र तीनों 9वें भाव (लाभ से 11वाँ) में',

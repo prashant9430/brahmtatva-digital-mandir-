@@ -1,13 +1,13 @@
-# भाव-चलित + भाव-फल: दो increment योजनाएँ (योजना-दस्तावेज़, समीक्षा-अनुरोध नहीं)
+# भाव-चलित + भाव-फल: दो increment योजनाएँ (योजना-दस्तावेज़, DRAFT)
 
-स्थिति: 11 Nov 2026, ~17:15 IST. लेखक: kundli worker.
-दोनों योजनाएँ अभी कार्यान्वयन-अनुरोध नहीं — केवल तैयारी; समीक्षक क्रम main तय करे।
+दिनांक: 11 Nov 2026.
+दोनों योजनाएँ अभी कार्यान्वयन-अनुरोध नहीं — केवल तैयारी; जाँच-क्रम बाद में तय हो।
 
 ## योजना 1: भाव-चलित दृश्य (हल्का, geometry पहले से reviewed)
 
 - आधार: kundli-bhava.js में Sripati-madhya geometry पहले से reviewed और
   परीक्षित (madhyas/boundaries/bhavaOf; fixture Raman p21 geometry-check)।
-  13:04 reviewer-nिर्णय: app का whole-sign chart अपरिवर्तित, कभी substitute नहीं।
+  निर्णय: app का whole-sign chart अपरिवर्तित, कभी substitute नहीं।
 - प्रस्ताव: अलग "भाव चलित" दृश्य/पंक्तियाँ — 7 ग्रहों (+nodes: भागीदारी अमॉडल
   label) की chalit-भाव स्थिति; whole-sign से shift हुए ग्रहों का स्पष्ट नोट;
   "Sripati-madhya परंपरा, whole-sign मुख्य चार्ट अपरिवर्तित" caveat।
@@ -15,12 +15,12 @@
   astro-core से; MC oracle harness मौजूद)।
 - परीक्षण: geometry fixture पुनःउपयोग + occupancy fixtures (sandhi half-open
   नियम: exact sandhi अगले भाव में — पहले से named convention)।
-- जोखिम: कम — data-layer प्रस्तुति; समीक्षा मुख्यतः UI-शब्दावली/labeling की।
-- समीक्षक GO-for-prep (17:15): dependence claim verified — validate-bhava-terms.js
+- जोखिम: कम — data-layer प्रस्तुति; जाँच मुख्यतः UI-शब्दावली/labeling की।
+- prep-पूर्व-जाँच पूर्ण: dependence claim verified — validate-bhava-terms.js
   (106 checks, committed) Raman p21 fixture + boundary literals + Swiss MC
   oracle pins करता है। KP-संदेह नहीं (Sripati-madhya ≠ KP Placidus)।
 
-### प्रस्तावित label-पाठ (verbatim समीक्षा हेतु)
+### प्रस्तावित label-पाठ (verbatim)
 1. Header caveat (चलित दृश्य के ऊपर): "यह भाव-चलित दृश्य Sripati-madhya
    परंपरा पर आधारित है; ऊपर का मुख्य चार्ट whole-sign (राशि-भाव) परंपरा में
    है और अपरिवर्तित रहता है।"
@@ -31,7 +31,7 @@
    गिना जाता है (अर्ध-खुला सीमा-नियम)।"
 5. कोई chalit-आधारित भाव-फल निष्कर्ष इस increment में नहीं।
 - Astrotalk-parity: "Bhav Chalit" उनके KP tab में था, परंतु भाव-चलित स्वयं
-  Sripati परंपरा है, KP नहीं — scope-सीमा main पुष्टि करे (todo में BhavChalit
+  Sripati परंपरा है, KP नहीं — scope-सीमा पुष्टि अपेक्षित (BhavChalit
   खुली scope के रूप में सूचीबद्ध है)।
 
 ## योजना 2: भाव-फल पाठ-परत (BPHS ch12-23) — phaladesh का मूल, भारी curation
@@ -52,7 +52,7 @@
 | ch22 | 11th | 28* | 11 |
 | ch23 | 12th | 26* | 9 |
 
-*ch19/22/23 छोटे परंतु पूर्ण हैं (17:13 tail-जाँच: कोई truncation नहीं —
+*ch19/22/23 छोटे परंतु पूर्ण हैं (tail-जाँच: कोई truncation नहीं —
 अंतिम श्लोक-समूह पूर्ण वाक्यों में समाप्त)। विशेष: ch19 (8th) लगभग पूरी तरह
 longevity/death-पाठ है — नीति के तहत serveable yield न्यूनतम होगा; चरण-क्रम
 में अंतिम या पारदर्शी लोप-प्रधान कार्ड के रूप में।
@@ -74,17 +74,17 @@ graha-drishti whole-sign, dignity)।
 
 ### चरणबद्ध प्रस्ताव
 - Pilot: ch12 (1st भाव; सबसे कम लोप-घनत्व 7, केंद्रीय भाव) — पूर्ण ledger +
-  curation + per-sentence scan → समीक्षा → पैटर्न freeze।
+  curation + per-sentence scan → जाँच → पैटर्न अंतिम।
 - फिर क्रम: ch22 (11th), ch21 (10th), ch13 (2nd)... उच्च-घनत्व (ch18/ch20)
   अंत में।
 - 12 भाव एक साथ नहीं — प्रत्येक भाव अलग review unit।
 
-### अनुमानित समीक्षा-भार
+### अनुमानित जाँच-भार
 उच्च (pair-layer अनुभव: 81 pairs/217 लोप-पद कई चक्र)। Pilot पहले पैटर्न
 बाँध देगा, बाद के भाव तेज़ होंगे।
 
-## क्रम-सुझाव (main के लिए)
+## क्रम-सुझाव
 1. Drik review पूर्ण होने दें (in flight)।
-2. योजना 1 (भाव-चलित) हल्की समीक्षा — drik के बाद या साथ।
+2. योजना 1 (भाव-चलित) हल्की जाँच — drik के बाद या साथ।
 3. योजना 2 pilot (ch12) तैयारी मैं build-free कर सकता हूँ (ledger + curation
-   draft), पर समीक्षा-बैच main तय करे — reviewer capacity की रक्षा।
+   draft), पर जाँच-क्रम बाद में तय हो।

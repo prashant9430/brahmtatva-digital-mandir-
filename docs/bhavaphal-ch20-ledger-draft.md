@@ -1,6 +1,6 @@
 # भाव-फल ch20 ledger (9वाँ भाव, भाग्य) — curation (DRAFT)
 
-स्थिति: 12 Nov 2026 ~22:45 IST।
+दिनांक: 12 Nov 2026।
 पैटर्न: docs/bhavaphal-ch15-ch19 ledgers के अनुरूप।
 
 Sources: vedicpupil ch20 (32 verses, Sanskrit canonical) +
