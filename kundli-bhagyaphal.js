@@ -16,7 +16,7 @@ further from the STATE/position, स्थिति, of L1/9L; no result row of 
 own).
 UNMODELED (documented, never silently satisfied; none is a leg of the two
 served rows): deep-exaltation DEGREE legs (परमोच्चांश/परमोच्चस्थे - 20.5,
-20.8, 20.26, 20.28), navamsha legs (20.5, 20.15पूर्व, 20.20पूर्व),
+20.8, 20.26, 20.28), navamsha legs (20.5, 20.15उत्तर, 20.20उत्तर),
 strength legs (20.1, 20.2), combustion/fall legs (20.12 and others).
 Reading decisions (ledger mat-bhed, disclosed):
  20.5 चतुष्टये = the kendra tetrad (1/4/7/10); both translations agree.
