@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>संस्कार | BrahmTatva</title><link href="css/style.css" rel="stylesheet"/><link href="css/responsive.css" rel="stylesheet"/><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;600;800&family=Marcellus&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/premium.css">
+<script src="js/premium.js" defer></script>
+<style>
+.preview-status{padding:1rem;border-left:4px solid var(--primary-saffron);background:#fff8e7;color:#71502b;border-radius:8px}
+.sanskar-category{margin:2.2rem 0 1rem}
+.sanskar-category h2{font-family:var(--font-sanskrit);font-size:1.7rem;color:var(--primary-saffron);border-bottom:2px solid #f1cc91;padding-bottom:.4rem}
+.sanskar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1.4rem;margin:1.2rem 0}
+.sanskar-card{background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(255,250,220,.95));border-radius:14px;box-shadow:var(--soft-shadow);border-top:3px solid var(--primary-saffron);padding:1.3rem;cursor:pointer}
+.sanskar-card h3{font-family:var(--font-sanskrit);color:var(--primary-saffron);margin:.2rem 0}
+.sanskar-card .iast{color:#8a6a3a;font-size:.92rem;font-style:italic}
+.sanskar-card p{color:#555;font-size:.95rem;line-height:1.7}
+.sanskar-card .order-tag{display:inline-block;border-radius:20px;background:#fff1d1;color:#71450c;padding:.2rem .7rem;font-size:.8rem}
+.sanskar-card:focus-visible{outline:3px solid #a35b10;outline-offset:3px}
+.detail-block{margin:1rem 0;color:#444;line-height:1.8}
+.detail-block h4{color:#a44b0b;margin:.3rem 0}
+.verse{background:#fff9ed;border:1px solid #efd7b1;border-radius:12px;padding:1rem;margin:.8rem 0}
+.verse .deva{font-family:var(--font-sanskrit);font-size:1.15rem;color:#7a3d08;line-height:1.9}
+.verse .iast-line{color:#8a6a3a;font-style:italic;font-size:.95rem;margin:.4rem 0}
+.verse .eng{color:#555;font-size:.93rem}
+.verse .cite{color:#6c553e;font-size:.85rem;margin-top:.4rem}
+.verse a{color:#8a390d;font-weight:600}
+.list-note{background:#fffdf7;border:1px solid #efd7b1;border-radius:14px;padding:1rem;margin:1rem 0;color:#4d3a26;line-height:1.8}
+.list-note h3{color:#994408;margin:.2rem 0}
+.source-block{background:#fffdf7;border:1px solid #efd7b1;border-radius:14px;padding:1rem;margin:1rem 0;font-size:.92rem;color:#4d3a26;line-height:1.8;word-break:break-word}
+.modal-content{padding:0;overflow:hidden;max-height:92vh;display:flex;flex-direction:column}
+.sanskar-modal-header{background:linear-gradient(135deg,var(--primary-saffron) 0%,#FFB347 100%);color:#fff;padding:1rem 1.4rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;border-radius:15px 15px 0 0}
+.sanskar-modal-header h2{margin:0;font-family:var(--font-sanskrit);font-size:1.4rem}
+.sanskar-close{background:#fff;color:#7a3d08;border:0;border-radius:10px;font-size:1.1rem;font-weight:700;min-width:48px;min-height:48px;padding:.4rem .9rem;cursor:pointer}
+.sanskar-close:focus-visible{outline:3px solid #381f08;outline-offset:3px}
+.sanskar-modal-body{padding:1.6rem 1.8rem;overflow-y:auto;overflow-x:hidden}
+.sanskar-modal-body ol{padding-left:1.4rem}
+.verse,.list-note,.detail-block,.source-block{overflow-wrap:break-word}
+.verse .deva,.verse .iast-line,.verse .eng,.cite,.cite a,.list-note a,.detail-block a{overflow-wrap:anywhere;word-break:break-word}
+@media(max-width:600px){.sanskar-modal-body{padding:1.1rem 1.2rem}.sanskar-modal-header h2{font-size:1.15rem}}
+@media(max-width:600px){.sanskar-grid{grid-template-columns:1fr}.sanskar-category h2{font-size:1.4rem}}
+</style>
+</head><body><nav class="navbar">
+<div class="nav-container">
+<div class="nav-logo">
+<span class="om-symbol">ॐ</span>
+<span class="logo-text">BrahmTatva</span>
+</div>
+<div class="nav-menu" id="navMenu">
+<a class="nav-link" href="index.html">गृह</a>
+<a class="nav-link" href="panchang.html">पंचांग</a>
+<a class="nav-link" href="pooja.html">पूजा विधि</a>
+<a class="nav-link" href="mantra.html">मंत्र संग्रह</a>
+<a class="nav-link" href="aarti.html">आरती</a>
+<a class="nav-link" href="granth.html">ग्रंथ</a>
+<a class="nav-link" href="about.html">परिचय</a>
+</div>
+<div class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</nav><main class="container">
+<div class="preview-status">सामग्री का पूर्वावलोकन · इस सीमित चरण में संस्कारों का वर्णन स्रोत-उल्लेख सहित दिया गया है।</div>
+<div class="page-header"><h1 id="secTitle"></h1><p id="secSubtitle"></p></div>
+<p class="list-note" id="secIntro"></p>
+<div id="sanskarList"></div>
+<section id="matbhed"></section>
+<section id="srcs"></section>
+<a href="index.html#sections">सभी सेक्शन देखें →</a>
+</main>
+<div class="modal" id="sanskarModal" style="display:none"><div class="modal-content"><div class="sanskar-modal-header"><h2 id="sanskarModalTitle"></h2><button class="sanskar-close" type="button" aria-label="बंद करें" onclick="closeModal('sanskarModal')">✕ बंद</button></div><div class="sanskar-modal-body" id="sanskarDetail"></div></div></div>
+<footer class="footer"><p>ॐ BrahmTatva</p><p>संरचना का पूर्वावलोकन</p></footer>
+<script src="js/main.js"></script>
+<script src="js/sanskar.js"></script>
+</body></html>
