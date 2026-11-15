@@ -1,0 +1,310 @@
+/* ============================================================
+   BrahmTatva – Digital Mandir | HOME LUXE LAYER C (preview)
+   Variant C: "Kashi Ratri" - midnight temple, modern dark luxe.
+   Replaces home-luxe.css wholesale (theme switcher, preview only).
+   Distinct structure: full dark canvas, glowing Om halo hero with
+   glass content panel, floating pill navbar, dark surfaces.
+   ============================================================ */
+
+html, body { overflow-x: clip; }
+
+/* ---------- Canvas: deep midnight ---------- */
+body {
+    background:
+        radial-gradient(1300px 700px at 50% -12%, rgba(255, 200, 60, 0.10), transparent 55%),
+        radial-gradient(1000px 560px at 50% 115%, rgba(70, 110, 200, 0.10), transparent 60%),
+        linear-gradient(180deg, #0b0f18 0%, #101623 45%, #0c111b 100%);
+    color: #e9dfc6;
+}
+
+/* ---------- Navbar: floating dark glass pill ---------- */
+.navbar {
+    background: rgba(13, 18, 29, 0.82);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    border: 1px solid rgba(255, 200, 60, 0.22);
+    border-radius: 999px;
+    margin: .7rem auto 0;
+    width: min(1180px, calc(100% - 1.6rem));
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 220, 120, 0.12);
+}
+.nav-logo { letter-spacing: 1.5px; color: #ffd977; }
+.logo-text { color: #ffd977; }
+.om-symbol {
+    display: inline-grid; place-items: center;
+    width: 40px; height: 40px; border-radius: 50%;
+    color: #ffd977;
+    border: 1.5px solid rgba(255, 200, 60, 0.55);
+    background: radial-gradient(circle at 50% 35%, rgba(255, 200, 60, 0.22), rgba(255, 200, 60, 0.05));
+    box-shadow: 0 0 16px rgba(255, 200, 60, 0.35);
+    font-size: 1.35rem;
+}
+.nav-link { letter-spacing: .5px; white-space: nowrap; padding: .42rem .8rem; font-size: .93rem; color: #d8cba6; border-radius: 999px; }
+.nav-menu { gap: .15rem; flex-wrap: nowrap; }
+.nav-link:hover { color: #ffd977; background: rgba(255, 200, 60, 0.10); }
+.nav-link.active { color: #1a1206; background: linear-gradient(160deg, #ffd977, #d4a017); }
+.hamburger span { background: #ffd977; }
+
+/* ---------- Hero: midnight halo + glass panel ---------- */
+.hero {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-top: 0;
+    margin-bottom: 0;
+    max-width: none;
+    border-radius: 0;
+    min-height: min(80vh, 800px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(4.5rem, 10vh, 7rem) 1.5rem clamp(5rem, 11vh, 7.5rem);
+    background:
+        radial-gradient(720px 420px at 50% 26%, rgba(255, 200, 60, 0.20), transparent 62%),
+        radial-gradient(1200px 600px at 50% 120%, rgba(60, 90, 180, 0.16), transparent 60%),
+        linear-gradient(180deg, #0a0e16 0%, #0e1420 50%, #090d15 100%);
+    border-bottom: 0;
+    box-shadow: inset 0 -50px 90px rgba(0, 0, 0, 0.55);
+}
+/* glowing Om halo + orbit rings behind the panel */
+.hero::before {
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='560' viewBox='0 0 560 560'%3E%3Cg fill='none' stroke='%23ffc83c' stroke-opacity='0.13'%3E%3Ccircle cx='280' cy='280' r='240'/%3E%3Ccircle cx='280' cy='280' r='196'/%3E%3Ccircle cx='280' cy='280' r='152'/%3E%3Cpath d='M280 40 L298 250 L520 280 L298 310 L280 520 L262 310 L40 280 L262 250 Z'/%3E%3C/g%3E%3Cg fill='%23ffc83c' fill-opacity='0.10'%3E%3Ccircle cx='280' cy='52' r='5'/%3E%3Ccircle cx='508' cy='280' r='5'/%3E%3Ccircle cx='280' cy='508' r='5'/%3E%3Ccircle cx='52' cy='280' r='5'/%3E%3C/g%3E%3C/svg%3E");
+    background-position: center 16%;
+    background-repeat: no-repeat;
+    background-size: min(560px, 94vw) auto;
+}
+/* glass content panel */
+.hero .hero-content {
+    max-width: 780px;
+    background: rgba(16, 22, 35, 0.55);
+    border: 1px solid rgba(255, 200, 60, 0.28);
+    border-radius: 22px;
+    padding: clamp(1.8rem, 4vw, 3rem) clamp(1.4rem, 4vw, 3.2rem);
+    backdrop-filter: blur(12px) saturate(1.15);
+    -webkit-backdrop-filter: blur(12px) saturate(1.15);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 220, 120, 0.14);
+    position: relative;
+    z-index: 1;
+}
+.hero-title {
+    font-size: clamp(2.6rem, 7vw, 4.4rem);
+    letter-spacing: 2px;
+    margin-bottom: 1.1rem;
+    color: #ffe9ad;
+    text-shadow: 0 0 26px rgba(255, 200, 60, 0.35), 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+.hero-subtitle { letter-spacing: 4px; color: #d4a017; }
+.hero-description { max-width: 600px; color: #cfc3a0; }
+.hero-description::after {
+    content: "";
+    display: block;
+    width: 240px; height: 14px;
+    margin: 1.6rem auto 0;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='14' viewBox='0 0 240 14'%3E%3Cg stroke='%23ffc83c' stroke-opacity='0.85'%3E%3Cline x1='0' y1='7' x2='100' y2='7'/%3E%3Cline x1='140' y1='7' x2='240' y2='7'/%3E%3C/g%3E%3Ccircle cx='120' cy='7' r='5' fill='%23ffc83c' fill-opacity='0.9'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.hero .hero-content::after {
+    content: "";
+    display: block;
+    width: 24px; height: 24px;
+    margin: 2.2rem auto -0.4rem;
+    border-right: 2px solid rgba(255, 200, 60, 0.8);
+    border-bottom: 2px solid rgba(255, 200, 60, 0.8);
+    transform: rotate(45deg);
+    animation: luxeCueC 2.4s ease-in-out infinite;
+    opacity: .85;
+}
+@keyframes luxeCueC {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: .45; }
+    50% { transform: rotate(45deg) translate(5px, 5px); opacity: .95; }
+}
+.diya { bottom: 40px; }
+
+/* ---------- Section titles: centered gold with orbit dots ---------- */
+.about-intro h2,
+.structure-section h2,
+.jyotish-sub h2,
+.gau-section h2,
+.about-content h2 {
+    letter-spacing: 2px;
+    color: #ffd977;
+    text-transform: none;
+}
+.about-intro h2::before,
+.structure-section h2::before,
+.jyotish-sub h2::before,
+.gau-section h2::before,
+.about-content h2::before {
+    content: "";
+    display: block;
+    width: 46px; height: 12px;
+    margin: 0 auto .6rem;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='12' viewBox='0 0 46 12'%3E%3Cg fill='%23ffc83c'%3E%3Ccircle cx='6' cy='6' r='2.4' fill-opacity='0.55'/%3E%3Ccircle cx='23' cy='6' r='3.6' fill-opacity='0.95'/%3E%3Ccircle cx='40' cy='6' r='2.4' fill-opacity='0.55'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}
+.about-intro p, .structure-section p, .gau-section p, .about-content p { color: #cfc3a0; }
+
+/* ---------- Cards: dark slate, gold ring medallions ---------- */
+.cards-grid { gap: 2.2rem; }
+.card {
+    border-radius: 22px;
+    padding: 2.1rem 1.6rem 1.9rem;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(170deg, #171e2d 0%, #121826 100%);
+    border: 1px solid rgba(255, 200, 60, 0.20);
+    border-top: 3px solid rgba(255, 200, 60, 0.55);
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.45);
+}
+.card::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: -80%;
+    width: 55%;
+    background: linear-gradient(105deg, transparent 0%, rgba(255, 220, 130, 0.14) 50%, transparent 100%);
+    transform: skewX(-14deg);
+    transition: left .7s ease;
+    pointer-events: none;
+}
+.card:hover::after { left: 130%; }
+.card h3 { font-size: 1.32rem; margin: 1.05rem 0 .5rem; color: #ffd977; }
+.card p { line-height: 1.75; color: #cfc3a0; }
+.card-icon {
+    position: relative;
+    width: 148px; height: 148px;
+    margin: 0 auto;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 34%, #232c40 0%, #171e2d 70%);
+    border: 1.5px solid rgba(255, 200, 60, 0.45);
+    box-shadow: 0 0 0 7px rgba(255, 200, 60, 0.07), 0 0 34px rgba(255, 200, 60, 0.14);
+}
+.card-icon img {
+    box-shadow: 0 0 0 2px rgba(255, 200, 60, 0.55), 0 10px 22px rgba(0, 0, 0, 0.5) !important;
+}
+.card:hover .card-icon {
+    box-shadow: 0 0 0 9px rgba(255, 200, 60, 0.12), 0 0 44px rgba(255, 200, 60, 0.22);
+}
+.card a, .section-link { color: inherit; }
+
+/* ---------- Content panels: dark glass ---------- */
+.structure-section {
+    border-radius: 22px;
+    padding: 2.6rem 2.4rem;
+    background: linear-gradient(170deg, rgba(23, 30, 45, 0.92), rgba(16, 22, 35, 0.92));
+    border: 1px solid rgba(255, 200, 60, 0.16);
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.4);
+}
+.jyotish-sub { padding: 1.4rem 0; border-top-color: rgba(255, 200, 60, 0.16); }
+.preview-status {
+    background: rgba(255, 200, 60, 0.08) !important;
+    border-left-color: #d4a017 !important;
+    color: #d8cba6 !important;
+}
+
+/* ---------- Siddhant-gyan band + cards (over injected styles) ---------- */
+.sg-section {
+    border-top: 1px solid rgba(255, 200, 60, 0.25);
+    border-bottom: 1px solid rgba(255, 200, 60, 0.25);
+}
+.sg-head h2 { color: #ffd977 !important; }
+.sg-sub, .sg-scope { color: #cfc3a0 !important; }
+.sg-card {
+    background: linear-gradient(170deg, #171e2d, #121826) !important;
+    border: 1px solid rgba(255, 200, 60, 0.22) !important;
+    border-top: 3px solid rgba(255, 200, 60, 0.55) !important;
+    color: #e9dfc6 !important;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.45) !important;
+}
+.sg-card h3 { color: #ffd977 !important; }
+.sg-card p, .sg-card li { color: #cfc3a0 !important; }
+.sg-card .sg-src { color: #b7a982 !important; }
+.sg-card details { border-top-color: rgba(255, 200, 60, 0.2) !important; }
+.sg-card summary { color: #ffd977 !important; }
+.sg-card .sg-verse, .sg-card blockquote { color: #ffe9ad !important; }
+
+/* ---------- Consolidated AI ask section ---------- */
+.ai-ask-section { text-align: center; }
+.ai-ask-grid {
+    display: flex; flex-wrap: wrap; gap: .8rem;
+    justify-content: center; margin-top: 1.3rem;
+}
+.sg-ask.ai-ask-btn {
+    margin-top: 0; align-self: auto;
+    padding: .65rem 1.2rem; border-radius: 999px;
+    font-weight: 600; letter-spacing: .3px;
+    min-height: 44px;
+    color: #ffd977 !important;
+    border: 1.5px solid rgba(255, 200, 60, 0.5);
+    background: rgba(255, 200, 60, 0.07);
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+}
+.sg-ask.ai-ask-btn:hover {
+    background: linear-gradient(160deg, #ffd977, #d4a017);
+    color: #1a1206 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(255, 200, 60, 0.25);
+}
+.sg-ask.ai-ask-btn:focus-visible { outline: 3px solid #ffc83c; outline-offset: 2px; }
+
+/* ---------- Homepage entry to the Siddhant-gyan page ---------- */
+.sg-entry { text-align: center; }
+.sg-entry p { max-width: 620px; margin: .4rem auto 1.2rem; }
+.sg-entry-btn {
+    display: inline-block; padding: .8rem 1.9rem; border-radius: 999px;
+    font-weight: 700; letter-spacing: .4px; text-decoration: none;
+    background: linear-gradient(160deg, #ffd977, #d4a017);
+    color: #1a1206; border: 1px solid rgba(255, 220, 130, 0.8);
+    box-shadow: 0 12px 30px rgba(255, 200, 60, 0.25);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.sg-entry-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(255, 200, 60, 0.35); }
+
+/* ---------- Long-form sections: keep readable on dark ---------- */
+.acharya-section, .gau-section, .about-content, .about-intro {
+    color: #cfc3a0;
+}
+.acharya-section {
+    background: linear-gradient(170deg, rgba(23, 30, 45, 0.9), rgba(16, 22, 35, 0.9));
+    border: 1px solid rgba(255, 200, 60, 0.14);
+}
+.acharya-section h2, .acharya-section h3 { color: #ffd977; }
+.acharya-section p, .acharya-section li { color: #cfc3a0; }
+.footer { color: #b7a982; }
+.footer-mantra { color: #ffd977; }
+
+/* ---------- Footer: orbit ornament ---------- */
+.footer::before {
+    content: "";
+    display: block;
+    width: 200px; height: 14px;
+    margin: 0 auto 1.1rem;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='14' viewBox='0 0 200 14'%3E%3Cg stroke='%23ffc83c' stroke-opacity='0.6'%3E%3Cline x1='0' y1='7' x2='82' y2='7'/%3E%3Cline x1='118' y1='7' x2='200' y2='7'/%3E%3C/g%3E%3Ccircle cx='100' cy='7' r='4.5' fill='%23ffc83c' fill-opacity='0.9'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 768px) {
+    .navbar { width: calc(100% - 1rem); margin-top: .5rem; }
+    .hero { min-height: 66vh; padding: 3.4rem 1.1rem 4.2rem; }
+    .hero .hero-content { padding: 1.6rem 1.2rem; }
+    .structure-section { padding: 1.7rem 1.2rem; }
+    .card { padding: 1.7rem 1.2rem 1.5rem; }
+    .card-icon { width: 128px; height: 128px; }
+    .om-symbol { width: 34px; height: 34px; font-size: 1.15rem; }
+    .nav-link { white-space: normal; font-size: inherit; padding: .45rem 1.05rem; }
+    .nav-menu { background: rgba(13, 18, 29, 0.97); }
+    .nav-menu .nav-link { color: #d8cba6; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero .hero-content::after { animation: none !important; }
+    .card::after { transition: none !important; }
+}
+
+/* ---------- Dark contrast fixes for injected band elements ---------- */
+.sg-scope {
+    background: rgba(255, 200, 60, 0.08) !important;
+    border-left-color: #d4a017 !important;
+    color: #d8cba6 !important;
+}
+.sg-card .sg-src b { color: #d8cba6 !important; }

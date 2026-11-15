@@ -247,3 +247,16 @@ html, body { overflow-x: clip; }
     .hero .hero-content::after { animation: none !important; }
     .card::after { transition: none !important; }
 }
+
+/* ---------- Homepage entry to the Siddhant-gyan page ---------- */
+.sg-entry { text-align: center; }
+.sg-entry p { max-width: 620px; margin: .4rem auto 1.2rem; }
+.sg-entry-btn {
+    display: inline-block; padding: .8rem 1.9rem; border-radius: 999px;
+    font-weight: 700; letter-spacing: .4px; text-decoration: none;
+    background: linear-gradient(160deg, #7c2413, #5a1510);
+    color: #ffd700; border: 1px solid rgba(212, 175, 55, 0.6);
+    box-shadow: 0 10px 24px rgba(90, 21, 16, 0.25);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.sg-entry-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(90, 21, 16, 0.32); }

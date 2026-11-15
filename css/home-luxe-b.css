@@ -1,0 +1,261 @@
+/* ============================================================
+   BrahmTatva – Digital Mandir | HOME LUXE LAYER B (preview)
+   Variant B: "Sandstone Prabhat" - light editorial direction.
+   Replaces home-luxe.css wholesale (theme switcher, preview only).
+   Distinct structure: light canvas, asymmetric left-aligned hero,
+   left-aligned section titles with side rules, paper-warm surfaces.
+   ============================================================ */
+
+html, body { overflow-x: clip; }
+
+/* ---------- Canvas: warm morning paper ---------- */
+body {
+    background:
+        radial-gradient(1200px 600px at 88% -8%, rgba(255, 153, 51, 0.10), transparent 55%),
+        radial-gradient(900px 500px at 6% 112%, rgba(146, 64, 14, 0.07), transparent 60%),
+        linear-gradient(180deg, #fdf8ec 0%, #fbf3e2 45%, #f7edd9 100%);
+}
+
+/* ---------- Navbar: light editorial bar ---------- */
+.navbar {
+    background: linear-gradient(180deg, rgba(253, 248, 236, 0.96), rgba(250, 241, 222, 0.96));
+    backdrop-filter: blur(10px) saturate(1.1);
+    -webkit-backdrop-filter: blur(10px) saturate(1.1);
+    border-bottom: 2px solid rgba(190, 90, 30, 0.35);
+    box-shadow: 0 8px 26px rgba(122, 60, 10, 0.12);
+}
+.nav-logo { letter-spacing: 1.5px; color: #5a1510; }
+.logo-text { color: #5a1510; }
+.om-symbol {
+    display: inline-grid; place-items: center;
+    width: 40px; height: 40px; border-radius: 50%;
+    color: #b8581e;
+    border: 1.5px solid rgba(184, 88, 30, 0.6);
+    background: radial-gradient(circle at 50% 35%, #fffdf6, #f9ead0);
+    box-shadow: 0 4px 12px rgba(184, 88, 30, 0.25);
+    font-size: 1.35rem;
+}
+.nav-link { letter-spacing: .5px; white-space: nowrap; padding: .42rem .72rem; font-size: .93rem; color: #6b2415; }
+.nav-menu { gap: .15rem; flex-wrap: nowrap; }
+.nav-link:hover { color: #b8581e; background: rgba(184, 88, 30, 0.10); }
+.nav-link.active { color: #fff8ea; background: linear-gradient(160deg, #b8581e, #93400f); border-radius: 999px; }
+.hamburger span { background: #6b2415; }
+
+/* ---------- Hero: bright sandstone gateway, left-aligned ---------- */
+.hero {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-top: 0;
+    margin-bottom: 0;
+    max-width: none;
+    border-radius: 0;
+    min-height: min(72vh, 700px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: clamp(4rem, 9vh, 6rem) clamp(1.5rem, 8vw, 8rem) clamp(4.5rem, 10vh, 6.5rem);
+    text-align: left;
+    background:
+        radial-gradient(900px 480px at 82% 18%, rgba(255, 153, 51, 0.22), transparent 60%),
+        radial-gradient(700px 500px at 12% 108%, rgba(212, 175, 55, 0.20), transparent 62%),
+        linear-gradient(160deg, #fff8e9 0%, #fdeed3 48%, #f8dfb6 100%);
+    border-bottom: 0;
+    box-shadow: inset 0 -34px 60px rgba(146, 64, 14, 0.10);
+}
+/* rising sun discs + step arches on the right side */
+.hero::before {
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='380' height='380' viewBox='0 0 380 380'%3E%3Cg fill='none' stroke='%23b8581e' stroke-opacity='0.16'%3E%3Ccircle cx='190' cy='190' r='160'/%3E%3Ccircle cx='190' cy='190' r='126'/%3E%3Ccircle cx='190' cy='190' r='92'/%3E%3Ccircle cx='190' cy='190' r='58'/%3E%3Cpath d='M190 30 L206 160 L340 190 L206 220 L190 350 L174 220 L40 190 L174 160 Z'/%3E%3C/g%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='240' viewBox='0 0 480 240'%3E%3Cg fill='none' stroke='%2393400f' stroke-opacity='0.12'%3E%3Cpath d='M40 232 L40 120 Q120 40 200 120 L200 232'/%3E%3Cpath d='M240 232 L240 120 Q320 40 400 120 L400 232'/%3E%3C/g%3E%3C/svg%3E");
+    background-position: right 6% center, right 2% bottom;
+    background-repeat: no-repeat;
+    background-size: min(380px, 60vw) auto, min(480px, 80vw) auto;
+}
+/* stepped base border: temple plinth */
+.hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 26px;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='26' viewBox='0 0 60 26'%3E%3Cpath d='M0 26 L0 12 L15 12 L15 4 L45 4 L45 12 L60 12 L60 26 Z' fill='%23b8581e' fill-opacity='0.22'/%3E%3C/svg%3E") repeat-x center bottom / 60px 26px;
+    pointer-events: none;
+}
+.hero-content { max-width: 680px; text-align: left; margin: 0; }
+.hero-title {
+    font-size: clamp(2.5rem, 6.6vw, 4.2rem);
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    color: #5a1510;
+    text-shadow: 0 2px 0 rgba(255, 255, 255, 0.5);
+}
+.hero-title::before {
+    content: "";
+    display: block;
+    width: 74px; height: 6px;
+    margin-bottom: 1.1rem;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #b8581e, #d4af37);
+    box-shadow: 0 2px 8px rgba(184, 88, 30, 0.35);
+}
+.hero-subtitle { letter-spacing: 3px; color: #93400f; }
+.hero-description { max-width: 560px; margin-left: 0; color: #5c4326; }
+.hero-description::after {
+    content: "";
+    display: block;
+    width: 200px; height: 14px;
+    margin: 1.4rem 0 0;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='14' viewBox='0 0 200 14'%3E%3Cg stroke='%23b8581e' stroke-opacity='0.8'%3E%3Cline x1='0' y1='7' x2='80' y2='7'/%3E%3Cline x1='120' y1='7' x2='200' y2='7'/%3E%3C/g%3E%3Cpath d='M100 1 L107 7 L100 13 L93 7 Z' fill='%23d4af37' fill-opacity='0.9'/%3E%3C/svg%3E") left center / contain no-repeat;
+}
+.hero .hero-content::after {
+    content: "";
+    display: block;
+    width: 22px; height: 22px;
+    margin: 2.2rem 0 0;
+    border-right: 2px solid rgba(184, 88, 30, 0.8);
+    border-bottom: 2px solid rgba(184, 88, 30, 0.8);
+    transform: rotate(45deg);
+    animation: luxeCueB 2.4s ease-in-out infinite;
+    opacity: .8;
+}
+@keyframes luxeCueB {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: .4; }
+    50% { transform: rotate(45deg) translate(5px, 5px); opacity: .9; }
+}
+.diya { bottom: 46px; }
+
+/* ---------- Section titles: left-aligned with side bar ---------- */
+.about-intro h2,
+.structure-section h2,
+.jyotish-sub h2,
+.gau-section h2,
+.about-content h2 {
+    letter-spacing: .6px;
+    text-align: left;
+    color: #5a1510;
+    padding-left: 1rem;
+    border-left: 6px solid #b8581e;
+    border-radius: 2px;
+}
+.about-intro p, .structure-section > p { text-align: left; }
+.sg-head h2, .ai-ask-section h2 { text-align: center; padding-left: 0; border-left: 0; }
+
+/* ---------- Cards: paper white, terracotta crown ---------- */
+.cards-grid { gap: 2rem; }
+.card {
+    border-radius: 18px;
+    padding: 2rem 1.6rem 1.8rem;
+    position: relative;
+    overflow: hidden;
+    background: #fffdf6;
+    border-top: 5px solid #b8581e;
+    box-shadow: 0 14px 34px rgba(122, 60, 10, 0.12);
+}
+.card::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: -80%;
+    width: 55%;
+    background: linear-gradient(105deg, transparent 0%, rgba(255, 214, 140, 0.35) 50%, transparent 100%);
+    transform: skewX(-14deg);
+    transition: left .7s ease;
+    pointer-events: none;
+}
+.card:hover::after { left: 130%; }
+.card h3 { font-size: 1.3rem; margin: 1rem 0 .5rem; color: #6b2415; }
+.card p { line-height: 1.72; }
+.card-icon {
+    position: relative;
+    width: 136px; height: 136px;
+    margin: 0 auto;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 34%, #fffdf6 0%, #fbefd8 62%, #f3ddb4 100%);
+    border: 1.5px solid rgba(184, 88, 30, 0.45);
+    box-shadow: 0 0 0 7px rgba(184, 88, 30, 0.10), 0 12px 26px rgba(122, 60, 10, 0.14);
+}
+.card-icon img {
+    box-shadow: 0 0 0 2px rgba(184, 88, 30, 0.5), 0 8px 18px rgba(122, 60, 10, 0.2) !important;
+}
+.card:hover .card-icon {
+    box-shadow: 0 0 0 9px rgba(212, 175, 55, 0.22), 0 16px 32px rgba(122, 60, 10, 0.2);
+}
+
+/* ---------- Content panels ---------- */
+.structure-section {
+    border-radius: 18px;
+    padding: 2.4rem 2.2rem;
+    background: #fffdf6;
+    box-shadow: 0 14px 34px rgba(122, 60, 10, 0.10), inset 0 0 0 1px rgba(184, 88, 30, 0.12);
+}
+.jyotish-sub { padding: 1.4rem 0; }
+
+/* ---------- Siddhant-gyan band ---------- */
+.sg-section {
+    border-top: 2px solid rgba(184, 88, 30, 0.28);
+    border-bottom: 2px solid rgba(184, 88, 30, 0.28);
+}
+
+/* ---------- Consolidated AI ask section ---------- */
+.ai-ask-section { text-align: center; }
+.ai-ask-grid {
+    display: flex; flex-wrap: wrap; gap: .8rem;
+    justify-content: center; margin-top: 1.3rem;
+}
+.sg-ask.ai-ask-btn {
+    margin-top: 0; align-self: auto;
+    padding: .65rem 1.2rem; border-radius: 999px;
+    font-weight: 600; letter-spacing: .3px;
+    min-height: 44px;
+    color: #6b2415;
+    border: 1.5px solid rgba(184, 88, 30, 0.55);
+    background: linear-gradient(160deg, #fffdf6, #fdeed3);
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+}
+.sg-ask.ai-ask-btn:hover {
+    background: linear-gradient(160deg, #b8581e, #93400f);
+    color: #fff8ea;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(147, 64, 15, 0.28);
+}
+.sg-ask.ai-ask-btn:focus-visible { outline: 3px solid #b8581e; outline-offset: 2px; }
+
+/* ---------- Homepage entry to the Siddhant-gyan page ---------- */
+.sg-entry { text-align: center; }
+.sg-entry p { max-width: 620px; margin: .4rem auto 1.2rem; }
+.sg-entry-btn {
+    display: inline-block; padding: .8rem 1.9rem; border-radius: 999px;
+    font-weight: 700; letter-spacing: .4px; text-decoration: none;
+    background: linear-gradient(160deg, #b8581e, #93400f);
+    color: #fff8ea; border: 1px solid rgba(212, 175, 55, 0.7);
+    box-shadow: 0 10px 24px rgba(147, 64, 15, 0.25);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.sg-entry-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(147, 64, 15, 0.32); }
+
+/* ---------- Footer: ornament hairline ---------- */
+.footer::before {
+    content: "";
+    display: block;
+    width: 200px; height: 14px;
+    margin: 0 auto 1.1rem;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='14' viewBox='0 0 200 14'%3E%3Cg stroke='%23b8581e' stroke-opacity='0.7'%3E%3Cline x1='0' y1='7' x2='82' y2='7'/%3E%3Cline x1='118' y1='7' x2='200' y2='7'/%3E%3C/g%3E%3Cpath d='M100 1 L107 7 L100 13 L93 7 Z' fill='%23d4af37' fill-opacity='0.85'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 768px) {
+    .hero { min-height: 62vh; padding: 3.2rem 1.2rem 4.4rem; text-align: left; }
+    .hero::before { background-position: right -30% center, right -20% bottom; opacity: .7; }
+    .structure-section { padding: 1.7rem 1.2rem; }
+    .card { padding: 1.7rem 1.2rem 1.5rem; }
+    .card-icon { width: 118px; height: 118px; }
+    .om-symbol { width: 34px; height: 34px; font-size: 1.15rem; }
+    .nav-link { white-space: normal; font-size: inherit; padding: .45rem 1.05rem; }
+    .nav-menu .nav-link { color: inherit; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero .hero-content::after { animation: none !important; }
+    .card::after { transition: none !important; }
+}

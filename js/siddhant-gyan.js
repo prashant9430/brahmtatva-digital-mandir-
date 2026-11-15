@@ -124,8 +124,29 @@
 
   function render() {
     if (document.getElementById('siddhant-gyan')) { return; }
-    var anchor = document.getElementById('sections');
-    if (!anchor || !anchor.parentNode) { return; }
+    var mount = document.getElementById('sg-mount');
+    var menu0 = document.getElementById('navMenu');
+
+    if (!mount) {
+      /* Homepage: the section now lives on its own page - only point nav there */
+      if (document.getElementById('sections') && menu0) {
+        if (!menu0.querySelector('a[href="siddhant-gyan.html"]')) {
+          var hlink = el('a', 'nav-link', '\u0938\u093f\u0926\u094d\u0927\u093e\u0902\u0924-\u091c\u094d\u091e\u093e\u0928');
+          hlink.href = 'siddhant-gyan.html';
+          var hfirst = menu0.querySelector('a');
+          if (hfirst && hfirst.nextSibling) { menu0.insertBefore(hlink, hfirst.nextSibling); }
+          else { menu0.appendChild(hlink); }
+        }
+        if (!menu0.querySelector('a[href="siddhant-gyan.html#vaidik-ai-ask"]')) {
+          var halink = el('a', 'nav-link', '\u0935\u0948\u0926\u093f\u0915 AI');
+          halink.href = 'siddhant-gyan.html#vaidik-ai-ask';
+          var hsg = menu0.querySelector('a[href="siddhant-gyan.html"]');
+          if (hsg && hsg.nextSibling) { menu0.insertBefore(halink, hsg.nextSibling); }
+          else { menu0.appendChild(halink); }
+        }
+      }
+      return;
+    }
 
     var style = document.createElement('style');
     style.textContent = CSS;
@@ -144,7 +165,7 @@
     CONCEPTS.forEach(function (c) { grid.appendChild(el('article', 'sg-card', cardHtml(c))); });
     sec.appendChild(grid);
 
-    anchor.parentNode.insertBefore(sec, anchor);
+    mount.appendChild(sec);
 
     var menu = document.getElementById('navMenu');
     if (menu && !menu.querySelector('a[href="#siddhant-gyan"]')) {
@@ -185,7 +206,11 @@
     });
     aiSec.appendChild(aiGrid);
     aiSec.addEventListener('click', askHandler);
-    anchor.parentNode.insertBefore(aiSec, anchor.nextSibling);
+    mount.appendChild(aiSec);
+
+    if (location.hash === '#vaidik-ai-ask') {
+      setTimeout(function () { aiSec.scrollIntoView(); }, 60);
+    }
 
     if (menu && !menu.querySelector('a[href="#vaidik-ai-ask"]')) {
       var aiLink = el('a', 'nav-link', 'वैदिक AI');
