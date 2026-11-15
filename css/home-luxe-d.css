@@ -1,0 +1,248 @@
+/* ============================================================
+   BrahmTatva – Digital Mandir | HOME LUXE LAYER D (preview)
+   Variant D: "Dwar" - compact portal banner, emerald + gold.
+   Replaces home-luxe.css wholesale (theme switcher, preview only).
+   Distinct COMPOSITION: no full-height hero - a slim banner leads
+   straight into the content sections, portal style.
+   ============================================================ */
+
+html, body { overflow-x: clip; }
+
+/* ---------- Canvas: deep emerald mist ---------- */
+body {
+    background:
+        radial-gradient(1200px 620px at 12% -10%, rgba(212, 175, 55, 0.10), transparent 55%),
+        radial-gradient(900px 520px at 95% 112%, rgba(18, 77, 58, 0.18), transparent 60%),
+        linear-gradient(180deg, #f5f2e4 0%, #f1efe0 45%, #ece9d6 100%);
+}
+
+/* ---------- Navbar: deep emerald bar ---------- */
+.navbar {
+    background: linear-gradient(180deg, rgba(11, 46, 35, 0.97) 0%, rgba(16, 61, 46, 0.97) 100%);
+    backdrop-filter: blur(10px) saturate(1.15);
+    -webkit-backdrop-filter: blur(10px) saturate(1.15);
+    border-bottom: 2px solid rgba(212, 175, 55, 0.7);
+    box-shadow: 0 10px 28px rgba(7, 32, 24, 0.4);
+}
+.nav-logo { letter-spacing: 1.5px; }
+.om-symbol {
+    display: inline-grid; place-items: center;
+    width: 40px; height: 40px; border-radius: 50%;
+    color: #ffd977;
+    border: 1.5px solid rgba(255, 217, 119, 0.55);
+    box-shadow: 0 0 12px rgba(255, 217, 119, 0.3), inset 0 0 8px rgba(255, 217, 119, 0.16);
+    font-size: 1.35rem;
+}
+.nav-link { letter-spacing: .6px; white-space: nowrap; padding: .42rem .72rem; font-size: .93rem; }
+.nav-menu { gap: .15rem; flex-wrap: nowrap; }
+.nav-link:hover { background: rgba(255, 217, 119, 0.12); }
+.nav-link.active { background: linear-gradient(160deg, #d4af37, #a8842a); color: #123125; border-radius: 999px; }
+
+/* ---------- Hero as COMPACT BANNER (portal style) ---------- */
+.hero {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-top: 0;
+    margin-bottom: 0;
+    max-width: none;
+    border-radius: 0;
+    min-height: 0;
+    display: block;
+    padding: clamp(2.6rem, 6vh, 4rem) clamp(1.5rem, 7vw, 7rem) clamp(3rem, 6vh, 4rem);
+    text-align: left;
+    background:
+        radial-gradient(700px 300px at 88% 0%, rgba(212, 175, 55, 0.22), transparent 60%),
+        linear-gradient(150deg, #0f3d2e 0%, #12473695 55%, #0b2e23 100%),
+        linear-gradient(180deg, #0f3d2e, #0b2e23);
+    border-bottom: 0;
+    box-shadow: inset 0 -30px 60px rgba(0, 0, 0, 0.35);
+}
+/* mehrab frieze along the banner base */
+.hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 20px;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='20' viewBox='0 0 44 20'%3E%3Cpath d='M2 20 L2 10 Q22 -6 42 10 L42 20 Z' fill='none' stroke='%23d4af37' stroke-opacity='0.45'/%3E%3C/svg%3E") repeat-x center bottom / 44px 20px;
+    pointer-events: none;
+}
+/* watermark mandala column on the right */
+.hero::before {
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cg fill='none' stroke='%23ffd977' stroke-opacity='0.12'%3E%3Ccircle cx='150' cy='150' r='132'/%3E%3Ccircle cx='150' cy='150' r='104'/%3E%3Ccircle cx='150' cy='150' r='76'/%3E%3Cpath d='M150 18 L166 132 L282 150 L166 168 L150 282 L134 168 L18 150 L134 132 Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-position: right 4% center;
+    background-repeat: no-repeat;
+    background-size: min(300px, 52vw) auto;
+}
+/* rotating lotus is too tall for the compact banner */
+.lotus-decoration { display: none; }
+.hero-content { max-width: 1180px; margin: 0; text-align: left; }
+.hero-title {
+    display: inline-block;
+    font-size: clamp(2rem, 4.6vw, 3.2rem);
+    letter-spacing: 1px;
+    margin: 0 1.4rem .4rem 0;
+    color: #ffe9ad;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+    vertical-align: baseline;
+}
+.hero-subtitle {
+    display: inline-block;
+    letter-spacing: 2.5px;
+    color: #d4af37;
+    margin: 0;
+    vertical-align: baseline;
+}
+.hero-description {
+    max-width: 640px;
+    margin: .9rem 0 0;
+    color: #d9e2d2;
+    font-size: 1.02rem;
+}
+.hero-description::after {
+    content: "";
+    display: block;
+    width: 180px; height: 12px;
+    margin: 1.1rem 0 0;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='12' viewBox='0 0 180 12'%3E%3Cg stroke='%23d4af37' stroke-opacity='0.85'%3E%3Cline x1='0' y1='6' x2='70' y2='6'/%3E%3Cline x1='110' y1='6' x2='180' y2='6'/%3E%3C/g%3E%3Cpath d='M90 1 L96 6 L90 11 L84 6 Z' fill='%23ffd977' fill-opacity='0.9'/%3E%3C/svg%3E") left center / contain no-repeat;
+}
+/* no scroll cue in banner composition */
+.hero .hero-content::after { display: none; }
+.diya { bottom: 30px; transform: scale(.85); }
+
+/* ---------- Section titles: emerald bar + gold dot ---------- */
+.about-intro h2,
+.structure-section h2,
+.jyotish-sub h2,
+.gau-section h2,
+.about-content h2 {
+    letter-spacing: .8px;
+    color: #0f3d2e;
+    text-align: left;
+    padding-left: .95rem;
+    border-left: 5px solid #d4af37;
+    border-radius: 2px;
+}
+.about-intro p, .structure-section > p { text-align: left; }
+.sg-head h2, .ai-ask-section h2 { text-align: center; padding-left: 0; border-left: 0; color: #0f3d2e; }
+
+/* ---------- Cards: ivory with emerald crown ---------- */
+.cards-grid { gap: 2rem; }
+.card {
+    border-radius: 18px;
+    padding: 2rem 1.6rem 1.8rem;
+    position: relative;
+    overflow: hidden;
+    background: #fffef7;
+    border-top: 5px solid #0f3d2e;
+    box-shadow: 0 14px 32px rgba(15, 61, 46, 0.14);
+}
+.card::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: -80%;
+    width: 55%;
+    background: linear-gradient(105deg, transparent 0%, rgba(255, 236, 170, 0.32) 50%, transparent 100%);
+    transform: skewX(-14deg);
+    transition: left .7s ease;
+    pointer-events: none;
+}
+.card:hover::after { left: 130%; }
+.card h3 { font-size: 1.3rem; margin: 1rem 0 .5rem; color: #0f3d2e; }
+.card p { line-height: 1.72; }
+.card-icon {
+    position: relative;
+    width: 140px; height: 140px;
+    margin: 0 auto;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 34%, #fffef7 0%, #f4f1dd 62%, #e8e3c6 100%);
+    border: 1.5px solid rgba(15, 61, 46, 0.4);
+    box-shadow: 0 0 0 7px rgba(212, 175, 55, 0.16), 0 12px 26px rgba(15, 61, 46, 0.16);
+}
+.card-icon img {
+    box-shadow: 0 0 0 2px rgba(15, 61, 46, 0.45), 0 8px 18px rgba(15, 61, 46, 0.2) !important;
+}
+.card:hover .card-icon {
+    box-shadow: 0 0 0 9px rgba(212, 175, 55, 0.24), 0 16px 32px rgba(15, 61, 46, 0.22);
+}
+
+/* ---------- Content panels ---------- */
+.structure-section {
+    border-radius: 18px;
+    padding: 2.4rem 2.2rem;
+    background: #fffef7;
+    box-shadow: 0 14px 32px rgba(15, 61, 46, 0.10), inset 0 0 0 1px rgba(15, 61, 46, 0.10);
+}
+.jyotish-sub { padding: 1.4rem 0; }
+
+/* ---------- Siddhant-gyan band ---------- */
+.sg-section {
+    border-top: 2px solid rgba(15, 61, 46, 0.25);
+    border-bottom: 2px solid rgba(15, 61, 46, 0.25);
+}
+
+/* ---------- Consolidated AI ask section ---------- */
+.ai-ask-section { text-align: center; }
+.ai-ask-grid {
+    display: flex; flex-wrap: wrap; gap: .8rem;
+    justify-content: center; margin-top: 1.3rem;
+}
+.sg-ask.ai-ask-btn {
+    margin-top: 0; align-self: auto;
+    padding: .65rem 1.2rem; border-radius: 999px;
+    font-weight: 600; letter-spacing: .3px;
+    min-height: 44px;
+    color: #0f3d2e;
+    border: 1.5px solid rgba(15, 61, 46, 0.5);
+    background: linear-gradient(160deg, #fffef7, #f0eed9);
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+}
+.sg-ask.ai-ask-btn:hover {
+    background: linear-gradient(160deg, #124736, #0b2e23);
+    color: #ffd977;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(11, 46, 35, 0.3);
+}
+.sg-ask.ai-ask-btn:focus-visible { outline: 3px solid #0f3d2e; outline-offset: 2px; }
+
+/* ---------- Homepage entry to the Siddhant-gyan page ---------- */
+.sg-entry { text-align: center; }
+.sg-entry p { max-width: 620px; margin: .4rem auto 1.2rem; }
+.sg-entry-btn {
+    display: inline-block; padding: .8rem 1.9rem; border-radius: 999px;
+    font-weight: 700; letter-spacing: .4px; text-decoration: none;
+    background: linear-gradient(160deg, #124736, #0b2e23);
+    color: #ffd977; border: 1px solid rgba(212, 175, 55, 0.65);
+    box-shadow: 0 10px 24px rgba(11, 46, 35, 0.28);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.sg-entry-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(11, 46, 35, 0.34); }
+
+/* ---------- Footer: ornament hairline ---------- */
+.footer::before {
+    content: "";
+    display: block;
+    width: 200px; height: 14px;
+    margin: 0 auto 1.1rem;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='14' viewBox='0 0 200 14'%3E%3Cg stroke='%230f3d2e' stroke-opacity='0.6'%3E%3Cline x1='0' y1='7' x2='82' y2='7'/%3E%3Cline x1='118' y1='7' x2='200' y2='7'/%3E%3C/g%3E%3Cpath d='M100 1 L107 7 L100 13 L93 7 Z' fill='%23d4af37' fill-opacity='0.85'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 768px) {
+    .hero { padding: 2.4rem 1.2rem 3.2rem; }
+    .hero-title { display: block; margin: 0 0 .5rem; }
+    .hero-subtitle { display: block; }
+    .structure-section { padding: 1.7rem 1.2rem; }
+    .card { padding: 1.7rem 1.2rem 1.5rem; }
+    .card-icon { width: 120px; height: 120px; }
+    .om-symbol { width: 34px; height: 34px; font-size: 1.15rem; }
+    .nav-link { white-space: normal; font-size: inherit; padding: .45rem 1.05rem; }
+    .diya { transform: scale(.7); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .card::after { transition: none !important; }
+}
