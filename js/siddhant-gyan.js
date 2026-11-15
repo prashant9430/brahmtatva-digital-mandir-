@@ -119,7 +119,6 @@
     }
     h += '<p class="sg-src"><b>स्रोत:</b> ' + c.source + '</p>';
     h += '<details class="sg-detail"><summary>स्रोत-विवरण और जाँच</summary><p>' + c.detail + '</p></details>';
-    h += '<button type="button" class="sg-ask" data-q="' + c.ask + '">वैदिक AI से इसी पर पूछें</button>';
     return h;
   }
 
@@ -156,7 +155,7 @@
       else { menu.appendChild(link); }
     }
 
-    sec.addEventListener('click', function (ev) {
+    function askHandler(ev) {
       var btn = ev.target && ev.target.closest ? ev.target.closest('.sg-ask') : null;
       if (!btn) { return; }
       var q = btn.getAttribute('data-q') || '';
@@ -167,7 +166,34 @@
         var input = document.querySelector('.vaidik-form input');
         if (input) { input.value = q; input.focus(); }
       } catch (e) { /* widget unavailable; card content stands alone */ }
+    }
+    sec.addEventListener('click', askHandler);
+
+    /* Consolidated AI section: every ask-topic in one place */
+    var aiSec = el('section', 'structure-section ai-ask-section');
+    aiSec.id = 'vaidik-ai-ask';
+    var aiHead = el('div', 'sg-head');
+    aiHead.appendChild(el('h2', null, 'वैदिक AI से पूछें'));
+    aiHead.appendChild(el('p', 'sg-sub', 'सभी विषयों के प्रश्न अब इसी एक खंड से - विषय चुनें, प्रश्न वैदिक AI में अपने आप भर जाएगा; वहीं उत्तर स्रोत-सूचना सहित मिलेगा।'));
+    aiSec.appendChild(aiHead);
+    var aiGrid = el('div', 'ai-ask-grid');
+    CONCEPTS.forEach(function (c) {
+      var b = el('button', 'sg-ask ai-ask-btn', c.title);
+      b.type = 'button';
+      b.setAttribute('data-q', c.ask);
+      aiGrid.appendChild(b);
     });
+    aiSec.appendChild(aiGrid);
+    aiSec.addEventListener('click', askHandler);
+    anchor.parentNode.insertBefore(aiSec, anchor.nextSibling);
+
+    if (menu && !menu.querySelector('a[href="#vaidik-ai-ask"]')) {
+      var aiLink = el('a', 'nav-link', 'वैदिक AI');
+      aiLink.href = '#vaidik-ai-ask';
+      var sgLink = menu.querySelector('a[href="#siddhant-gyan"]');
+      if (sgLink && sgLink.nextSibling) { menu.insertBefore(aiLink, sgLink.nextSibling); }
+      else { menu.appendChild(aiLink); }
+    }
   }
 
   if (document.readyState === 'loading') {
