@@ -34,6 +34,10 @@ body {
 .nav-menu { gap: .15rem; flex-wrap: nowrap; }
 .nav-link { white-space: nowrap; padding: .42rem .72rem; font-size: .93rem; }
 
+/* Clip the 100vw full-bleed bleed past the vertical scrollbar
+   so no horizontal scrollbar appears at the page bottom. */
+html, body { overflow-x: clip; }
+
 /* ---------- Hero: full-bleed cinematic mandir ---------- */
 .hero {
     width: 100vw;
