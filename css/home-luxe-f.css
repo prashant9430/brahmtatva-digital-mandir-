@@ -136,24 +136,26 @@ body {
     opacity: 1;
     z-index: 1;
     pointer-events: none;
-    line-height: 0;
     animation: none;
     filter: drop-shadow(0 0 34px rgba(255, 215, 0, 0.35));
 }
 .lotus-decoration svg {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%; height: 100%;
-    animation: rotate 60s linear infinite;
+    animation: lotusSpin 60s linear infinite;
     filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.5));
 }
+@keyframes lotusSpin { to { transform: rotate(360deg); } }
 .lotus-decoration circle { stroke-width: 0.8; }
 /* static ॐ at the mandala heart (rings rotate, the syllable stays) */
 .lotus-decoration::after {
     content: "ॐ";
     position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1;
     font-size: clamp(1.6rem, 3.4vw, 2.6rem);
     color: #3a185e;
     text-shadow: 0 0 8px rgba(255, 233, 173, 0.8);
