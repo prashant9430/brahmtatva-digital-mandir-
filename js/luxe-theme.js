@@ -1,8 +1,8 @@
 /* PREVIEW ONLY - design variant switcher for owner review.
-   Selects the home-luxe layer via ?theme=a|b|c|d|e|f|g (default a).
+   Selects the home-luxe layer via ?theme=a|b|c|d|e|f|g|h (default a).
    Remove this file and its script tags before production release. */
 (function () {
-  var m = location.search.match(/[?&]theme=([a-g])(?:&|$)/);
+  var m = location.search.match(/[?&]theme=([a-h])(?:&|$)/);
   if (!m) { return; }
   var t = m[1];
   var link = document.getElementById('luxe-theme');
