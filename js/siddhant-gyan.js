@@ -137,9 +137,9 @@
           if (hfirst && hfirst.nextSibling) { menu0.insertBefore(hlink, hfirst.nextSibling); }
           else { menu0.appendChild(hlink); }
         }
-        if (!menu0.querySelector('a[href="siddhant-gyan.html#vaidik-ai-ask"]')) {
+        if (!menu0.querySelector('a[href="#sanatan-dharmik-ai"]')) {
           var halink = el('a', 'nav-link', '\u0935\u0948\u0926\u093f\u0915 AI');
-          halink.href = 'siddhant-gyan.html#vaidik-ai-ask';
+          halink.href = '#sanatan-dharmik-ai';
           var hsg = menu0.querySelector('a[href="siddhant-gyan.html"]');
           if (hsg && hsg.nextSibling) { menu0.insertBefore(halink, hsg.nextSibling); }
           else { menu0.appendChild(halink); }
