@@ -315,3 +315,31 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.appendChild(sg);
   }
 });
+
+
+/* सनातन धार्मिक AI section (homepage): route chips and form into the Vaidik AI widget */
+document.addEventListener('DOMContentLoaded', function () {
+  var sdai = document.getElementById('sanatan-dharmik-ai');
+  if (!sdai) { return; }
+  function sdaiAsk(q) {
+    try {
+      var panel = document.querySelector('.vaidik-bot .vaidik-panel, .vaidik-panel');
+      var fab = document.querySelector('.vaidik-fab');
+      if (panel && panel.hasAttribute('hidden') && fab) { fab.click(); }
+      var input = document.querySelector('.vaidik-form input');
+      if (input) { input.value = q; input.focus(); }
+    } catch (e) { /* widget unavailable; section content stands alone */ }
+  }
+  sdai.addEventListener('click', function (ev) {
+    var btn = ev.target && ev.target.closest ? ev.target.closest('.sdai-chip') : null;
+    if (btn) { sdaiAsk(btn.getAttribute('data-q') || ''); }
+  });
+  var form = document.getElementById('sdaiForm');
+  if (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var inp = form.querySelector('input');
+      if (inp && inp.value.trim()) { sdaiAsk(inp.value.trim()); }
+    });
+  }
+});
